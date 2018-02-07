@@ -10,7 +10,7 @@ import UIKit
 
 import UIKit
 
-open class SFCellView: UITableViewCell, SFViewColorStyle {
+open class SFTableCellView: UITableViewCell, SFViewColorStyle {
     
     // MARK: - Instance Properties
     

@@ -58,7 +58,9 @@ open class SFPopPresentation: UIPresentationController {
             }
             
             if (self.presentedView?.useCompactInterface)! {
-                self.presentedView?.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+                if #available(iOS 11.0, *) {
+                    self.presentedView?.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+                }
                 self.presentingViewController.view.transform = CGAffineTransform(scaleX: 0.9, y: 1)
                 self.presentingViewController.view.frame.size.height -= UIApplication.shared.statusBarFrame.height * 2
                 self.presentingViewController.view.frame.origin.y += UIApplication.shared.statusBarFrame.height

@@ -10,26 +10,20 @@ import UIKit
 
 class ViewController: SFViewController {
     
-    var myView: View {
-        return view as! View
-    }
-
     override func loadView() {
-        self.view = View()
+        self.view = SFTableView()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        myView.redView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(showPopView)))
-    }
-    
-    @objc func showPopView() {
-        let viewController = SFPopViewController()
-        viewController.view.backgroundColor = UIColor.white
-        let manager = SFPresentationManager(animation: .pop)
-        viewController.transitioningDelegate = manager
-        viewController.modalPresentationStyle = .custom
-        present(viewController, animated: true, completion: nil)
+        
+        self.navigationItem.title = "To Do List"
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        
+        if #available(iOS 11.0, *) {
+            self.navigationItem.searchController = UISearchController(searchResultsController: nil)
+            self.navigationItem.hidesSearchBarWhenScrolling = false
+        }
     }
     
 }

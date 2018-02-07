@@ -111,6 +111,7 @@ open class SFViewController: UIViewController, SFControllerColorStyle {
                 self.setNeedsStatusBarAppearanceUpdate()
                 
                 self.currentColorStyle = self.colorStyle
+                
             })
         }
     }

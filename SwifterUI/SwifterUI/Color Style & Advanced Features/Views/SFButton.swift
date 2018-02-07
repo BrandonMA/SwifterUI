@@ -1,5 +1,5 @@
 //
-//  SFTableView.swift
+//  SFButton.swift
 //  SwifterUI
 //
 //  Created by brandon maldonado alonso on 06/02/18.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-@IBDesignable open class SFTableView: UITableView, SFViewColorStyle {
+open class SFButton: UIButton, SFViewColorStyle {
     
     // MARK: - Instance Properties
     
@@ -18,14 +18,9 @@ import UIKit
     
     // MARK: - Initializers
     
-    public init(automaticallyAdjustsColorStyle: Bool = true, style: UITableViewStyle) {
+    public required init(automaticallyAdjustsColorStyle: Bool = true) {
         self.automaticallyAdjustsColorStyle = automaticallyAdjustsColorStyle
-        super.init(frame: .zero, style: style)
-        translatesAutoresizingMaskIntoConstraints = false
-    }
-    
-    public required convenience init(automaticallyAdjustsColorStyle: Bool = true) {
-        self.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, style: .plain)
+        super.init(frame: .zero)
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -35,8 +30,8 @@ import UIKit
     // MARK: - Instance Methods
     
     open func updateColors() {
-        backgroundColor = shouldHaveAlternativeColors == true ? colorStyle.getAlternativeColors() : colorStyle.getMainColor()
-        separatorColor = colorStyle.getSeparatorColor()
+        backgroundColor = colorStyle.getMainColor()
+        tintColor = colorStyle.getInteractiveColor()
         updateSubviewsColors()
     }
     

@@ -81,6 +81,13 @@ public enum SFColorStyle: Int {
         }
     }
     
+    public func getTextEntryColor() -> UIColor {
+        switch self {
+        case .light: return SFAssets.contrastWhite
+        case .dark: return SFAssets.contrastBlack
+        }
+    }
+    
     public func getPlaceholderColor() -> UIColor {
         switch self {
         case .light: return SFAssets.darkGray

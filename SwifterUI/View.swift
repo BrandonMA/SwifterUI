@@ -39,16 +39,18 @@ class View: SFView, UITextViewDelegate {
         
         if traitCollection.horizontalSizeClass == .regular {
             redView.removeAllConstraints()
-            redView.size(width: SFDimension(type: .fraction, value: 1/2), height: SFDimension(type: .fraction, value: 1/2))
+            redView.height(SFDimension(type: .fraction, value: 1/2))
+            redView.width(SFDimension(type: .fraction, value: 1/2))
             redView.center()
             textView.removeAllConstraints()
             textView.clipRight(to: .right)
             textView.clipBottom(to: .top, of: redView)
             textView.clipLeft(to: .left)
-            textView.size(height: SFDimension(value: 64))
+            textView.height(SFDimension(value: 64))
         } else if traitCollection.horizontalSizeClass == .compact {
             redView.removeAllConstraints()
-            redView.size(width: SFDimension(type: .fraction, value: 1), height: SFDimension(type: .fraction, value: 1/2))
+            redView.height(SFDimension(type: .fraction, value: 1/2))
+            redView.width(SFDimension(type: .fraction, value: 1))
             redView.center()
             textView.removeAllConstraints()
             textView.clipTop(to: .top)

@@ -71,7 +71,22 @@ public extension UIView {
         }
     }
     
-    public func size(width: SFDimension? = nil, height: SFDimension? = nil, comparedTo view: UIView? = nil) {
+    public func height(_ height: SFDimension? = nil, comparedTo view: UIView? = nil) {
+        
+        guard let anchorView = getAnchorView(view: view) else { fatalError("You didn't set a relative view or superview isn't available") }
+        
+        let heightConstraint: Constraint
+        
+        if let height = height {
+            heightConstraint = size(childAnchor: heightAnchor, parentAnchor: anchorView.heightAnchor, dimension: height)
+        } else {
+            heightConstraint = heightAnchor.constraint(equalTo: anchorView.heightAnchor, multiplier: 1)
+        }
+        
+        heightConstraint.set(active: true).set(identifier: ConstraintType.height.rawValue)
+    }
+    
+    public func width(_ width: SFDimension? = nil, comparedTo view: UIView? = nil) {
         
         guard let anchorView = getAnchorView(view: view) else { fatalError("You didn't set a relative view or superview isn't available") }
         
@@ -85,15 +100,6 @@ public extension UIView {
         
         widthConstraint.set(active: true).set(identifier: ConstraintType.width.rawValue)
         
-        let heightConstraint: Constraint
-        
-        if let height = height {
-            heightConstraint = size(childAnchor: heightAnchor, parentAnchor: anchorView.heightAnchor, dimension: height)
-        } else {
-            heightConstraint = heightAnchor.constraint(equalTo: anchorView.heightAnchor, multiplier: 1)
-        }
-        
-        heightConstraint.set(active: true).set(identifier: ConstraintType.height.rawValue)
     }
     
     // MARK: - Center

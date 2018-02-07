@@ -21,6 +21,7 @@ import UIKit
     public required init(automaticallyAdjustsColorStyle: Bool = true) {
         self.automaticallyAdjustsColorStyle = automaticallyAdjustsColorStyle
         super.init(frame: .zero)
+        translatesAutoresizingMaskIntoConstraints = false
     }
     
     required public init?(coder aDecoder: NSCoder) {

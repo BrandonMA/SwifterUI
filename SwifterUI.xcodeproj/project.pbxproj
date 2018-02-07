@@ -23,6 +23,10 @@
 		423AAC2C1FE770E6009D6C39 /* Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423AAC2B1FE770E6009D6C39 /* Constraints.swift */; };
 		423F0B691FE9BD8300BF746C /* SFAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423F0B681FE9BD8300BF746C /* SFAnimation.swift */; };
 		4244674F202A9FE900F59892 /* SFTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4244674E202A9FE900F59892 /* SFTableView.swift */; };
+		42446773202AC27F00F59892 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42446772202AC27F00F59892 /* UIView.swift */; };
+		42446775202AC2BB00F59892 /* SFTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42446774202AC2BB00F59892 /* SFTextField.swift */; };
+		42446777202AC57700F59892 /* SFTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42446776202AC57700F59892 /* SFTextView.swift */; };
+		42446779202AC83000F59892 /* SFButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42446778202AC83000F59892 /* SFButton.swift */; };
 		424BE0BB1FF45AD7005DE2AD /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424BE0BA1FF45AD7005DE2AD /* UIFont.swift */; };
 		424BE0BD1FF45AEA005DE2AD /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424BE0BC1FF45AEA005DE2AD /* UIImage.swift */; };
 		424BE0BF1FF45B18005DE2AD /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424BE0BE1FF45B17005DE2AD /* UIColor.swift */; };
@@ -102,6 +106,10 @@
 		423AAC2B1FE770E6009D6C39 /* Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constraints.swift; sourceTree = "<group>"; };
 		423F0B681FE9BD8300BF746C /* SFAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFAnimation.swift; sourceTree = "<group>"; };
 		4244674E202A9FE900F59892 /* SFTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFTableView.swift; sourceTree = "<group>"; };
+		42446772202AC27F00F59892 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
+		42446774202AC2BB00F59892 /* SFTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFTextField.swift; sourceTree = "<group>"; };
+		42446776202AC57700F59892 /* SFTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFTextView.swift; sourceTree = "<group>"; };
+		42446778202AC83000F59892 /* SFButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFButton.swift; sourceTree = "<group>"; };
 		424BE0BA1FF45AD7005DE2AD /* UIFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
 		424BE0BC1FF45AEA005DE2AD /* UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		424BE0BE1FF45B17005DE2AD /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
@@ -236,6 +244,7 @@
 			isa = PBXGroup;
 			children = (
 				424BE0C01FF45B2D005DE2AD /* Date.swift */,
+				42446772202AC27F00F59892 /* UIView.swift */,
 				424BE0C21FF45B42005DE2AD /* CGFloat.swift */,
 				424BE0BC1FF45AEA005DE2AD /* UIImage.swift */,
 				424BE0BE1FF45B17005DE2AD /* UIColor.swift */,
@@ -295,6 +304,9 @@
 			children = (
 				42A42EB41FF1B295002FE4A7 /* SFView.swift */,
 				4244674E202A9FE900F59892 /* SFTableView.swift */,
+				42446774202AC2BB00F59892 /* SFTextField.swift */,
+				42446776202AC57700F59892 /* SFTextView.swift */,
+				42446778202AC83000F59892 /* SFButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -484,6 +496,7 @@
 				423AAC221FE76750009D6C39 /* ConstraintMargin.swift in Sources */,
 				42A42EB51FF1B296002FE4A7 /* SFView.swift in Sources */,
 				429FD4951FED89F300FD7F10 /* SFShakeAnimation.swift in Sources */,
+				42446777202AC57700F59892 /* SFTextView.swift in Sources */,
 				429FD49B1FED8E8900FD7F10 /* SFMorphAnimation.swift in Sources */,
 				42A42EAF1FF1AC2A002FE4A7 /* SFControllerColorStyle.swift in Sources */,
 				424BE0BD1FF45AEA005DE2AD /* UIImage.swift in Sources */,
@@ -493,9 +506,11 @@
 				423AAC281FE76B57009D6C39 /* SFDimension.swift in Sources */,
 				424BE0BF1FF45B18005DE2AD /* UIColor.swift in Sources */,
 				42A42EC11FF1C118002FE4A7 /* SFVideoPlayerDelegate.swift in Sources */,
+				42446779202AC83000F59892 /* SFButton.swift in Sources */,
 				42A42EBA1FF1BA36002FE4A7 /* SFGradient.swift in Sources */,
 				429FD4971FED8D5200FD7F10 /* SFPopAnimation.swift in Sources */,
 				4223C5171FE7A0C300A2E2F2 /* ConstraintRelation.swift in Sources */,
+				42446773202AC27F00F59892 /* UIView.swift in Sources */,
 				429FD4A31FED91FC00FD7F10 /* SFSlideAnimation.swift in Sources */,
 				42C701B12016834E00EBFBE2 /* SFPopViewController.swift in Sources */,
 				424BE0C61FF45C20005DE2AD /* SFPopPresentation.swift in Sources */,
@@ -510,6 +525,7 @@
 				42A42EAB1FF1A9AB002FE4A7 /* SFColorStyle.swift in Sources */,
 				424E6C1E2028F06D00568F85 /* View.swift in Sources */,
 				424BE0C11FF45B2D005DE2AD /* Date.swift in Sources */,
+				42446775202AC2BB00F59892 /* SFTextField.swift in Sources */,
 				429FD4A11FED919A00FD7F10 /* SFFlipAnimation.swift in Sources */,
 				423AAC261FE7678C009D6C39 /* ConstraintAxis.swift in Sources */,
 				42A42EC31FF1C13E002FE4A7 /* SFVideoView.swift in Sources */,

@@ -16,10 +16,9 @@ class View: SFView, UITextViewDelegate {
         return view
     }()
     
-    lazy var textView: UITextView = {
-        var field = UITextView()
+    lazy var textView: SFTextView = {
+        var field = SFTextView(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         field.translatesAutoresizingMaskIntoConstraints = false
-        field.backgroundColor = SFAssets.blue
         field.delegate = self
         field.isScrollEnabled = false
         return field
@@ -29,6 +28,7 @@ class View: SFView, UITextViewDelegate {
         super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle)
         addSubview(redView)
         addSubview(textView)
+        shouldHaveAlternativeColors = true
     }
     
     required init?(coder aDecoder: NSCoder) {

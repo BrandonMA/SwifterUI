@@ -21,7 +21,6 @@ import UIKit
     public init(automaticallyAdjustsColorStyle: Bool = true, style: UITableViewStyle) {
         self.automaticallyAdjustsColorStyle = automaticallyAdjustsColorStyle
         super.init(frame: .zero, style: style)
-        translatesAutoresizingMaskIntoConstraints = false
     }
     
     public required convenience init(automaticallyAdjustsColorStyle: Bool = true) {

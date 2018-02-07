@@ -24,10 +24,6 @@ public protocol SFColorStyleProtocol {
     // colorStyle: Indicates the current color style of your view controller
     var colorStyle: SFColorStyle { get }
     
-    // MARK: - Initializers
-    
-    init(automaticallyAdjustsColorStyle: Bool)
-    
     // MARK: - Instance Methods
     
     // updateColors: This method should update the UI based on the current colorStyle, every FluidNode and FluidNodeController that needs darkmode should implement this method to set the different colors.

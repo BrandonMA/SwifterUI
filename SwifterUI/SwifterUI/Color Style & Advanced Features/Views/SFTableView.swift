@@ -18,13 +18,9 @@ import UIKit
     
     // MARK: - Initializers
     
-    public init(automaticallyAdjustsColorStyle: Bool = true, style: UITableViewStyle) {
+    public init(automaticallyAdjustsColorStyle: Bool = true, style: UITableViewStyle = .plain) {
         self.automaticallyAdjustsColorStyle = automaticallyAdjustsColorStyle
         super.init(frame: .zero, style: style)
-    }
-    
-    public required convenience init(automaticallyAdjustsColorStyle: Bool = true) {
-        self.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, style: .plain)
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -37,6 +33,17 @@ import UIKit
         backgroundColor = shouldHaveAlternativeColors == true ? colorStyle.getAlternativeColors() : colorStyle.getMainColor()
         separatorColor = colorStyle.getSeparatorColor()
         updateSubviewsColors()
+        
+        // This is going to loop through every section inside the table node and reload it with the correct color style on the main thread
+        if self.numberOfSections > 0 {
+            for i in 0...self.numberOfSections - 1 {
+                for j in 0...self.numberOfRows(inSection: i) {
+                    
+                    guard let cell = cellForRow(at: IndexPath(row: j, section: i)) as? SFTableViewCell else { return }
+                    cell.updateColors()
+                }
+            }
+        }
     }
     
 }

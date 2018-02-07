@@ -10,28 +10,13 @@ import UIKit
 
 import UIKit
 
-open class SFTableCellView: UITableViewCell, SFViewColorStyle {
+open class SFTableViewCell: UITableViewCell, SFViewColorStyle {
     
     // MARK: - Instance Properties
     
     open var automaticallyAdjustsColorStyle: Bool = false
     
     open var shouldHaveAlternativeColors: Bool = false
-    
-    // MARK: - Initializers
-    
-    public init(automaticallyAdjustsColorStyle: Bool = true, style: UITableViewCellStyle, reuseIdentifier: String?) {
-        self.automaticallyAdjustsColorStyle = automaticallyAdjustsColorStyle
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-    }
-    
-    public required convenience init(automaticallyAdjustsColorStyle: Bool = true) {
-        self.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, style: .subtitle, reuseIdentifier: nil)
-    }
-    
-    required public init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
     // MARK: - Instance Methods
     

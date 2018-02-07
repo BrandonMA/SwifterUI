@@ -64,7 +64,7 @@
 		42B253E51FEA0E700002C297 /* ConstraintType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B253E41FEA0E700002C297 /* ConstraintType.swift */; };
 		42C701B12016834E00EBFBE2 /* SFPopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C701B02016834E00EBFBE2 /* SFPopViewController.swift */; };
 		42C701B42016839500EBFBE2 /* SFPresentationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C701B32016839500EBFBE2 /* SFPresentationManager.swift */; };
-		42E83BBD202B98F800A341C5 /* SFTableCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E83BBC202B98F800A341C5 /* SFTableCellView.swift */; };
+		42E83BBD202B98F800A341C5 /* SFTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E83BBC202B98F800A341C5 /* SFTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -148,7 +148,7 @@
 		42B253E41FEA0E700002C297 /* ConstraintType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstraintType.swift; sourceTree = "<group>"; };
 		42C701B02016834E00EBFBE2 /* SFPopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFPopViewController.swift; sourceTree = "<group>"; };
 		42C701B32016839500EBFBE2 /* SFPresentationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFPresentationManager.swift; sourceTree = "<group>"; };
-		42E83BBC202B98F800A341C5 /* SFTableCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFTableCellView.swift; sourceTree = "<group>"; };
+		42E83BBC202B98F800A341C5 /* SFTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -309,7 +309,7 @@
 				42446774202AC2BB00F59892 /* SFTextField.swift */,
 				42446776202AC57700F59892 /* SFTextView.swift */,
 				42446778202AC83000F59892 /* SFButton.swift */,
-				42E83BBC202B98F800A341C5 /* SFTableCellView.swift */,
+				42E83BBC202B98F800A341C5 /* SFTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -500,7 +500,7 @@
 				42A42EB51FF1B296002FE4A7 /* SFView.swift in Sources */,
 				429FD4951FED89F300FD7F10 /* SFShakeAnimation.swift in Sources */,
 				42446777202AC57700F59892 /* SFTextView.swift in Sources */,
-				42E83BBD202B98F800A341C5 /* SFTableCellView.swift in Sources */,
+				42E83BBD202B98F800A341C5 /* SFTableViewCell.swift in Sources */,
 				429FD49B1FED8E8900FD7F10 /* SFMorphAnimation.swift in Sources */,
 				42A42EAF1FF1AC2A002FE4A7 /* SFControllerColorStyle.swift in Sources */,
 				424BE0BD1FF45AEA005DE2AD /* UIImage.swift in Sources */,

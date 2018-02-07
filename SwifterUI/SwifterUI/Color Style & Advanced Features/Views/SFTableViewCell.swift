@@ -24,6 +24,9 @@ open class SFTableViewCell: UITableViewCell, SFViewColorStyle {
         backgroundColor = shouldHaveAlternativeColors == true ? colorStyle.getAlternativeColors() : colorStyle.getMainColor()
         textLabel?.textColor = colorStyle.getTextColor()
         detailTextLabel?.textColor = shouldHaveAlternativeColors == true ? colorStyle.getInteractiveColor() : colorStyle.getPlaceholderColor()
+        let selectedBackgroundView = UIView()
+        selectedBackgroundView.backgroundColor = shouldHaveAlternativeColors == true ? colorStyle.getMainColor() : colorStyle.getAlternativeColors()
+        self.selectedBackgroundView = selectedBackgroundView
         updateSubviewsColors()
     }
     

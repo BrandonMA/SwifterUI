@@ -306,10 +306,10 @@
 			children = (
 				42A42EB41FF1B295002FE4A7 /* SFView.swift */,
 				4244674E202A9FE900F59892 /* SFTableView.swift */,
+				42E83BBC202B98F800A341C5 /* SFTableViewCell.swift */,
 				42446774202AC2BB00F59892 /* SFTextField.swift */,
 				42446776202AC57700F59892 /* SFTextView.swift */,
 				42446778202AC83000F59892 /* SFButton.swift */,
-				42E83BBC202B98F800A341C5 /* SFTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";

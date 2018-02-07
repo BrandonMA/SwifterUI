@@ -36,6 +36,7 @@ open class SFTextField: UITextField, SFViewColorStyle {
             attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [NSAttributedStringKey.foregroundColor:colorStyle.getPlaceholderColor()])
         }
         textColor = colorStyle.getTextColor()
+        keyboardAppearance = colorStyle.getKeyboardStyle()
         updateSubviewsColors()
     }
     

@@ -21,6 +21,7 @@ open class SFTextField: UITextField, SFViewColorStyle {
     public required init(automaticallyAdjustsColorStyle: Bool = true) {
         self.automaticallyAdjustsColorStyle = automaticallyAdjustsColorStyle
         super.init(frame: .zero)
+        backgroundColor = .clear
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -34,6 +35,7 @@ open class SFTextField: UITextField, SFViewColorStyle {
         if let placeholder = placeholder {
             attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [NSAttributedStringKey.foregroundColor:colorStyle.getPlaceholderColor()])
         }
+        textColor = colorStyle.getTextColor()
         updateSubviewsColors()
     }
     

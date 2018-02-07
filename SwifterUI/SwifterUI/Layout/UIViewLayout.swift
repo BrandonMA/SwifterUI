@@ -62,23 +62,31 @@ public extension UIView {
     // MARK: - Sizing
     
     @discardableResult
-    private func size(childAnchor: NSLayoutDimension, parentAnchor: NSLayoutDimension, dimension: SFDimension) -> Constraint {
+    private func size(childAnchor: NSLayoutDimension, parentAnchor: NSLayoutDimension, dimension: SFDimension, relation: ConstraintRelation) -> Constraint {
         switch dimension.type {
         case .fraction:
-            return childAnchor.constraint(equalTo: parentAnchor, multiplier: dimension.value)
+            switch relation {
+            case .equal: return childAnchor.constraint(equalTo: parentAnchor, multiplier: dimension.value)
+            case .greater: return childAnchor.constraint(greaterThanOrEqualTo: parentAnchor, multiplier: dimension.value)
+            case .less: return childAnchor.constraint(lessThanOrEqualTo: parentAnchor, multiplier: dimension.value)
+            }
         case .point:
-            return childAnchor.constraint(equalToConstant: dimension.value)
+            switch relation {
+            case .equal: return childAnchor.constraint(equalToConstant: dimension.value)
+            case .greater: return childAnchor.constraint(greaterThanOrEqualToConstant: dimension.value)
+            case .less: return childAnchor.constraint(lessThanOrEqualToConstant: dimension.value)
+            }
         }
     }
     
-    public func height(_ height: SFDimension? = nil, comparedTo view: UIView? = nil) {
+    public func height(_ height: SFDimension? = nil, comparedTo view: UIView? = nil, relation: ConstraintRelation = .equal) {
         
         guard let anchorView = getAnchorView(view: view) else { fatalError("You didn't set a relative view or superview isn't available") }
         
         let heightConstraint: Constraint
         
         if let height = height {
-            heightConstraint = size(childAnchor: heightAnchor, parentAnchor: anchorView.heightAnchor, dimension: height)
+            heightConstraint = size(childAnchor: heightAnchor, parentAnchor: anchorView.heightAnchor, dimension: height, relation: relation)
         } else {
             heightConstraint = heightAnchor.constraint(equalTo: anchorView.heightAnchor, multiplier: 1)
         }
@@ -86,14 +94,14 @@ public extension UIView {
         heightConstraint.set(active: true).set(identifier: ConstraintType.height.rawValue)
     }
     
-    public func width(_ width: SFDimension? = nil, comparedTo view: UIView? = nil) {
+    public func width(_ width: SFDimension? = nil, comparedTo view: UIView? = nil, relation: ConstraintRelation = .equal) {
         
         guard let anchorView = getAnchorView(view: view) else { fatalError("You didn't set a relative view or superview isn't available") }
         
         let widthConstraint: Constraint
         
         if let width = width {
-            widthConstraint = size(childAnchor: widthAnchor, parentAnchor: anchorView.widthAnchor, dimension: width)
+            widthConstraint = size(childAnchor: widthAnchor, parentAnchor: anchorView.widthAnchor, dimension: width, relation: relation)
         } else {
             widthConstraint = widthAnchor.constraint(equalTo: anchorView.widthAnchor, multiplier: 1)
         }

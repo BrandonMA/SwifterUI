@@ -30,7 +30,7 @@ public extension SFControllerColorStyle where Self: UIViewController {
     
     public func checkColorStyle() {
         if automaticallyAdjustsColorStyle == true {
-            self.updateColors()
+            updateColors()
             checkColorStyleListener()
         }
     }

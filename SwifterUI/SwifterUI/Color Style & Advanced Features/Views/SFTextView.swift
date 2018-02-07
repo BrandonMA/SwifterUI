@@ -21,6 +21,7 @@ open class SFTextView: UITextView, SFViewColorStyle {
     public required init(automaticallyAdjustsColorStyle: Bool = true) {
         self.automaticallyAdjustsColorStyle = automaticallyAdjustsColorStyle
         super.init(frame: .zero, textContainer: nil)
+        backgroundColor = .clear
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -31,6 +32,7 @@ open class SFTextView: UITextView, SFViewColorStyle {
     
     open func updateColors() {
         backgroundColor = shouldHaveAlternativeColors == true ? colorStyle.getAlternativeColors() : colorStyle.getTextEntryColor()
+        textColor = colorStyle.getTextColor()
         updateSubviewsColors()
     }
     

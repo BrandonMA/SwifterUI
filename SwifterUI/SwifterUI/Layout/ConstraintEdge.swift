@@ -6,7 +6,7 @@
 //  Copyright © 2017 Brandon Maldonado Alonso. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 public enum ConstraintEdge {
     case top

@@ -32,6 +32,7 @@ open class SFButton: UIButton, SFViewColorStyle {
     open func updateColors() {
         backgroundColor = colorStyle.getMainColor()
         tintColor = colorStyle.getInteractiveColor()
+        setTitleColor(colorStyle.getInteractiveColor(), for: .normal)
         updateSubviewsColors()
     }
     

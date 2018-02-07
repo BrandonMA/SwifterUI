@@ -74,6 +74,13 @@ public enum SFColorStyle: Int {
         }
     }
     
+    public func getTextColor() -> UIColor {
+        switch self {
+        case .light: return SFAssets.black
+        case .dark: return SFAssets.white
+        }
+    }
+    
     public func getAlternativeColors() -> UIColor {
         switch self {
         case .light: return SFAssets.alternativeWhite

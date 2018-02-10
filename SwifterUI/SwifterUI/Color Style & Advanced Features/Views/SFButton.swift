@@ -50,12 +50,8 @@ open class SFButton: UIButton, SFViewColorStyle {
     open func updateColors() {
         backgroundColor = shouldUseAlternativeColors == true ? colorStyle.getMainColor() : colorStyle.getAlternativeColors()
         if setTextColor == true {
-            tintColor = shouldUseAlternativeTextColor == true ? colorStyle.getPlaceholderColor() : colorStyle.getInteractiveColor()
-            if shouldUseAlternativeTextColor == true {
-                setTitleColor(colorStyle.getPlaceholderColor(), for: .normal)
-            } else {
-                setTitleColor(colorStyle.getInteractiveColor(), for: .normal)
-            }
+            tintColor = colorStyle.getInteractiveColor()
+            setTitleColor(colorStyle.getInteractiveColor(), for: .normal)
         }
         updateSubviewsColors()
     }

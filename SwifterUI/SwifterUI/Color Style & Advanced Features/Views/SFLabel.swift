@@ -1,14 +1,14 @@
 //
-//  SFTextView.swift
+//  SFLabel.swift
 //  SwifterUI
 //
-//  Created by brandon maldonado alonso on 06/02/18.
+//  Created by brandon maldonado alonso on 10/02/18.
 //  Copyright © 2018 Brandon Maldonado Alonso. All rights reserved.
 //
 
 import UIKit
 
-@IBDesignable open class SFTextView: UITextView, SFViewColorStyle {
+open class SFLabel: UILabel, SFViewColorStyle {
     
     // MARK: - Instance Properties
     
@@ -20,8 +20,7 @@ import UIKit
     
     public required init(automaticallyAdjustsColorStyle: Bool = true) {
         self.automaticallyAdjustsColorStyle = automaticallyAdjustsColorStyle
-        super.init(frame: .zero, textContainer: nil)
-        backgroundColor = .clear
+        super.init(frame: .zero)
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -31,9 +30,7 @@ import UIKit
     // MARK: - Instance Methods
     
     open func updateColors() {
-        backgroundColor = shouldHaveAlternativeColors == true ? colorStyle.getAlternativeColors() : colorStyle.getTextEntryColor()
-        textColor = colorStyle.getTextColor()
-        keyboardAppearance = colorStyle.getKeyboardStyle()
+        textColor = shouldHaveAlternativeColors == true ? colorStyle.getPlaceholderColor() : colorStyle.getTextColor()
         updateSubviewsColors()
     }
     

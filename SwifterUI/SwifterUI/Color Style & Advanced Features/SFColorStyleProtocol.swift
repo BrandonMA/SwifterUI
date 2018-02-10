@@ -18,9 +18,6 @@ public protocol SFColorStyleProtocol {
     // automaticallyAdjustsColorStyle: This property enables automatic change between light and dark mode
     var automaticallyAdjustsColorStyle: Bool { get set }
     
-    // shouldHaveAlternativeColors: Indicates whether it should use getAlternativeBackgroundColor or getBackgroundColor
-    var shouldHaveAlternativeColors: Bool { get set }
-    
     // colorStyle: Indicates the current color style of your view controller
     var colorStyle: SFColorStyle { get }
     

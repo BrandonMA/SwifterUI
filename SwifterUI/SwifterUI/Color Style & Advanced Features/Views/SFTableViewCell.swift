@@ -10,7 +10,7 @@ import UIKit
 
 import UIKit
 
-open class SFTableViewCell: UITableViewCell, SFViewColorStyle {
+@IBDesignable open class SFTableViewCell: UITableViewCell, SFViewColorStyle {
     
     // MARK: - Instance Properties
     

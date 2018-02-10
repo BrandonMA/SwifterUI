@@ -10,6 +10,9 @@ import UIKit
 
 public protocol SFViewColorStyle: SFColorStyleProtocol {
     
+    // shouldHaveAlternativeColors: Indicates whether it should use getAlternativeBackgroundColor or getBackgroundColor
+    var shouldHaveAlternativeColors: Bool { get set }
+    
 }
 
 public extension SFViewColorStyle where Self: UIView {

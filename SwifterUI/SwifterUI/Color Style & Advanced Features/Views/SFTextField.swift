@@ -8,7 +8,7 @@
 
 import UIKit
 
-open class SFTextField: UITextField, SFViewColorStyle {
+@IBDesignable open class SFTextField: UITextField, SFViewColorStyle {
     
     // MARK: - Instance Properties
     

@@ -8,7 +8,7 @@
 
 import UIKit
 
-open class SFButton: UIButton, SFViewColorStyle {
+@IBDesignable open class SFButton: UIButton, SFViewColorStyle {
     
     // MARK: - Instance Properties
     

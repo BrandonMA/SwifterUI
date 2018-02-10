@@ -53,9 +53,7 @@ open class SFViewController: UIViewController, SFControllerColorStyle {
     
     // autorotate: Dynamic way to set shouldAutorotate
     open var autorotate: Bool = true
-    
-    open var shouldHaveAlternativeColors: Bool = false
-    
+        
     // MARK: - Initializers
     
     public required init(automaticallyAdjustsColorStyle: Bool = true) {

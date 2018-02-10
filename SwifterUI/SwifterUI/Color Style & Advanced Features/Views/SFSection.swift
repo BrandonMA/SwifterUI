@@ -37,7 +37,6 @@ open class SFSection: SFView {
     // MARK: - Instance Methods
     
     open override func layoutSubviews() {
-        
         titleLabel.clipEdges(exclude: [.bottom])
         bottomView.height(SFDimension(value: 34))
         bottomView.clipEdges(exclude: [.top, .bottom])

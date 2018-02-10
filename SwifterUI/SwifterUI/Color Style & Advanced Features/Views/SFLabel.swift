@@ -14,7 +14,7 @@ open class SFLabel: UILabel, SFViewColorStyle {
     
     open var automaticallyAdjustsColorStyle: Bool = false
     
-    open var shouldUseAlternativeColors: Bool = false
+    open var useAlternativeColors: Bool = false
     
     // MARK: - Initializers
     
@@ -30,7 +30,7 @@ open class SFLabel: UILabel, SFViewColorStyle {
     // MARK: - Instance Methods
     
     open func updateColors() {
-        textColor = shouldUseAlternativeColors == true ? colorStyle.getPlaceholderColor() : colorStyle.getTextColor()
+        textColor = useAlternativeColors == true ? colorStyle.getPlaceholderColor() : colorStyle.getTextColor()
         updateSubviewsColors()
     }
     

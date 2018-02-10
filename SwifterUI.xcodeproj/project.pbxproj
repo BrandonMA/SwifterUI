@@ -35,6 +35,7 @@
 		424BE0C61FF45C20005DE2AD /* SFPopPresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424BE0C51FF45C20005DE2AD /* SFPopPresentation.swift */; };
 		424E2C75202378EA00F9A4E2 /* UITextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424E2C74202378EA00F9A4E2 /* UITextView.swift */; };
 		424E6C1E2028F06D00568F85 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424E6C1D2028F06C00568F85 /* View.swift */; };
+		42795F64202FB55300C3767F /* SFPopBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42795F63202FB55300C3767F /* SFPopBar.swift */; };
 		429FD4911FED7EDC00FD7F10 /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429FD4901FED7EDC00FD7F10 /* UIImageView.swift */; };
 		429FD4931FED89C200FD7F10 /* SFAnimationCurve.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429FD4921FED89C200FD7F10 /* SFAnimationCurve.swift */; };
 		429FD4951FED89F300FD7F10 /* SFShakeAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429FD4941FED89F300FD7F10 /* SFShakeAnimation.swift */; };
@@ -50,7 +51,7 @@
 		42A1A86E1FEA2918009B888C /* Bool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A1A86D1FEA2918009B888C /* Bool.swift */; };
 		42A42EA91FF1A95F002FE4A7 /* SFColorStyleProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A42EA81FF1A95F002FE4A7 /* SFColorStyleProtocol.swift */; };
 		42A42EAB1FF1A9AB002FE4A7 /* SFColorStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A42EAA1FF1A9AB002FE4A7 /* SFColorStyle.swift */; };
-		42A42EAD1FF1AB98002FE4A7 /* SFAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A42EAC1FF1AB98002FE4A7 /* SFAssets.swift */; };
+		42A42EAD1FF1AB98002FE4A7 /* SFColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A42EAC1FF1AB98002FE4A7 /* SFColors.swift */; };
 		42A42EAF1FF1AC2A002FE4A7 /* SFControllerColorStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A42EAE1FF1AC2A002FE4A7 /* SFControllerColorStyle.swift */; };
 		42A42EB11FF1AC37002FE4A7 /* SFViewColorStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A42EB01FF1AC36002FE4A7 /* SFViewColorStyle.swift */; };
 		42A42EB31FF1AD8C002FE4A7 /* SFViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A42EB21FF1AD8C002FE4A7 /* SFViewController.swift */; };
@@ -67,6 +68,9 @@
 		42D34C65202F5F84002B6FA6 /* SFLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D34C64202F5F84002B6FA6 /* SFLabel.swift */; };
 		42D34C67202F5FA3002B6FA6 /* SFTextSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D34C66202F5FA3002B6FA6 /* SFTextSection.swift */; };
 		42D34C6D202F6ECE002B6FA6 /* SFSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D34C6C202F6ECE002B6FA6 /* SFSection.swift */; };
+		42D34C71202F8F8C002B6FA6 /* SFTableViewChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D34C70202F8F8C002B6FA6 /* SFTableViewChatCell.swift */; };
+		42D34C73202FABB3002B6FA6 /* SFNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D34C72202FABB3002B6FA6 /* SFNavigationController.swift */; };
+		42D34C75202FAF10002B6FA6 /* SFPopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D34C74202FAF10002B6FA6 /* SFPopView.swift */; };
 		42E83BBD202B98F800A341C5 /* SFTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E83BBC202B98F800A341C5 /* SFTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -122,6 +126,7 @@
 		424BE0C51FF45C20005DE2AD /* SFPopPresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFPopPresentation.swift; sourceTree = "<group>"; };
 		424E2C74202378EA00F9A4E2 /* UITextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextView.swift; sourceTree = "<group>"; };
 		424E6C1D2028F06C00568F85 /* View.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
+		42795F63202FB55300C3767F /* SFPopBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFPopBar.swift; sourceTree = "<group>"; };
 		429FD4901FED7EDC00FD7F10 /* UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 		429FD4921FED89C200FD7F10 /* SFAnimationCurve.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFAnimationCurve.swift; sourceTree = "<group>"; };
 		429FD4941FED89F300FD7F10 /* SFShakeAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFShakeAnimation.swift; sourceTree = "<group>"; };
@@ -137,7 +142,7 @@
 		42A1A86D1FEA2918009B888C /* Bool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bool.swift; sourceTree = "<group>"; };
 		42A42EA81FF1A95F002FE4A7 /* SFColorStyleProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFColorStyleProtocol.swift; sourceTree = "<group>"; };
 		42A42EAA1FF1A9AB002FE4A7 /* SFColorStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFColorStyle.swift; sourceTree = "<group>"; };
-		42A42EAC1FF1AB98002FE4A7 /* SFAssets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFAssets.swift; sourceTree = "<group>"; };
+		42A42EAC1FF1AB98002FE4A7 /* SFColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFColors.swift; sourceTree = "<group>"; };
 		42A42EAE1FF1AC2A002FE4A7 /* SFControllerColorStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFControllerColorStyle.swift; sourceTree = "<group>"; };
 		42A42EB01FF1AC36002FE4A7 /* SFViewColorStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFViewColorStyle.swift; sourceTree = "<group>"; };
 		42A42EB21FF1AD8C002FE4A7 /* SFViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFViewController.swift; sourceTree = "<group>"; };
@@ -154,6 +159,9 @@
 		42D34C64202F5F84002B6FA6 /* SFLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFLabel.swift; sourceTree = "<group>"; };
 		42D34C66202F5FA3002B6FA6 /* SFTextSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFTextSection.swift; sourceTree = "<group>"; };
 		42D34C6C202F6ECE002B6FA6 /* SFSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFSection.swift; sourceTree = "<group>"; };
+		42D34C70202F8F8C002B6FA6 /* SFTableViewChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFTableViewChatCell.swift; sourceTree = "<group>"; };
+		42D34C72202FABB3002B6FA6 /* SFNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFNavigationController.swift; sourceTree = "<group>"; };
+		42D34C74202FAF10002B6FA6 /* SFPopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFPopView.swift; sourceTree = "<group>"; };
 		42E83BBC202B98F800A341C5 /* SFTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -238,7 +246,7 @@
 			isa = PBXGroup;
 			children = (
 				424BE0C41FF45B9C005DE2AD /* Extensions */,
-				42A42EAC1FF1AB98002FE4A7 /* SFAssets.swift */,
+				42A42EAC1FF1AB98002FE4A7 /* SFColors.swift */,
 				42A499F32022A64F00131324 /* SFVideo */,
 				42A42EBD1FF1BA3F002FE4A7 /* SFGradient */,
 				42A42EB61FF1B578002FE4A7 /* Color Style & Advanced Features */,
@@ -301,6 +309,7 @@
 		42A42EB71FF1B6BD002FE4A7 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				42D34C72202FABB3002B6FA6 /* SFNavigationController.swift */,
 				42A42EB21FF1AD8C002FE4A7 /* SFViewController.swift */,
 				42C701B02016834E00EBFBE2 /* SFPopViewController.swift */,
 			);
@@ -311,8 +320,11 @@
 			isa = PBXGroup;
 			children = (
 				42A42EB41FF1B295002FE4A7 /* SFView.swift */,
+				42D34C74202FAF10002B6FA6 /* SFPopView.swift */,
+				42795F63202FB55300C3767F /* SFPopBar.swift */,
 				4244674E202A9FE900F59892 /* SFTableView.swift */,
 				42E83BBC202B98F800A341C5 /* SFTableViewCell.swift */,
+				42D34C70202F8F8C002B6FA6 /* SFTableViewChatCell.swift */,
 				42446774202AC2BB00F59892 /* SFTextField.swift */,
 				42446776202AC57700F59892 /* SFTextView.swift */,
 				42446778202AC83000F59892 /* SFButton.swift */,
@@ -506,6 +518,7 @@
 				429FD4A71FED94C500FD7F10 /* SFScaleAnimation.swift in Sources */,
 				42A42EBC1FF1BA3A002FE4A7 /* SFGradientDirection.swift in Sources */,
 				423AAC221FE76750009D6C39 /* ConstraintMargin.swift in Sources */,
+				42795F64202FB55300C3767F /* SFPopBar.swift in Sources */,
 				42A42EB51FF1B296002FE4A7 /* SFView.swift in Sources */,
 				429FD4951FED89F300FD7F10 /* SFShakeAnimation.swift in Sources */,
 				42446777202AC57700F59892 /* SFTextView.swift in Sources */,
@@ -540,16 +553,19 @@
 				424E6C1E2028F06D00568F85 /* View.swift in Sources */,
 				424BE0C11FF45B2D005DE2AD /* Date.swift in Sources */,
 				42446775202AC2BB00F59892 /* SFTextField.swift in Sources */,
+				42D34C73202FABB3002B6FA6 /* SFNavigationController.swift in Sources */,
+				42D34C75202FAF10002B6FA6 /* SFPopView.swift in Sources */,
 				429FD4A11FED919A00FD7F10 /* SFFlipAnimation.swift in Sources */,
 				42D34C67202F5FA3002B6FA6 /* SFTextSection.swift in Sources */,
 				42D34C65202F5F84002B6FA6 /* SFLabel.swift in Sources */,
 				423AAC261FE7678C009D6C39 /* ConstraintAxis.swift in Sources */,
 				42A42EC31FF1C13E002FE4A7 /* SFVideoView.swift in Sources */,
-				42A42EAD1FF1AB98002FE4A7 /* SFAssets.swift in Sources */,
+				42A42EAD1FF1AB98002FE4A7 /* SFColors.swift in Sources */,
 				4244674F202A9FE900F59892 /* SFTableView.swift in Sources */,
 				423AAC201FE76727009D6C39 /* UIViewLayout.swift in Sources */,
 				423AABF01FE7548F009D6C39 /* AppDelegate.swift in Sources */,
 				42A42EB31FF1AD8C002FE4A7 /* SFViewController.swift in Sources */,
+				42D34C71202F8F8C002B6FA6 /* SFTableViewChatCell.swift in Sources */,
 				429FD4A91FED95A200FD7F10 /* SFFadeAnimation.swift in Sources */,
 				423F0B691FE9BD8300BF746C /* SFAnimation.swift in Sources */,
 				42C701B42016839500EBFBE2 /* SFPresentationManager.swift in Sources */,

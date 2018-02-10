@@ -17,4 +17,8 @@ public extension UIView {
         layer.shadowOpacity = opacity
     }
     
+    public var useCompactInterface: Bool {
+        return self.traitCollection.horizontalSizeClass == .compact || self.traitCollection.verticalSizeClass == .compact
+    }
+    
 }

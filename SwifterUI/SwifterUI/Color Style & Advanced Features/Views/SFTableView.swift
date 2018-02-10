@@ -14,7 +14,7 @@ open class SFTableView: UITableView, SFViewColorStyle {
     
     open var automaticallyAdjustsColorStyle: Bool = false
     
-    open var shouldUseAlternativeColors: Bool = false
+    open var useAlternativeColors: Bool = false
     
     // MARK: - Initializers
     
@@ -30,7 +30,7 @@ open class SFTableView: UITableView, SFViewColorStyle {
     // MARK: - Instance Methods
     
     open func updateColors() {
-        backgroundColor = shouldUseAlternativeColors == true ? colorStyle.getAlternativeColors() : colorStyle.getMainColor()
+        backgroundColor = useAlternativeColors == true ? colorStyle.getAlternativeColors() : colorStyle.getMainColor()
         separatorColor = colorStyle.getSeparatorColor()
         updateSubviewsColors()
         

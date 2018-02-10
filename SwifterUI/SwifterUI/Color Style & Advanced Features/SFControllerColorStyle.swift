@@ -37,12 +37,19 @@ public extension SFControllerColorStyle where Self: UIViewController {
     
     public func updateSubviewsColors() {
         if let view = self.view as? SFViewColorStyle {
-            view.updateColors()
+            if view.automaticallyAdjustsColorStyle == true {
+                view.updateColors()
+            }
         }
     }
     
+    public func updateNavItem() {
+        navigationItem.searchController?.searchBar.barStyle = self.colorStyle.getSearchBarStyle()
+        navigationItem.searchController?.searchBar.tintColor = self.colorStyle.getInteractiveColor()
+        navigationItem.searchController?.searchBar.keyboardAppearance = self.colorStyle.getKeyboardStyle()
+    }
+    
 }
-
 
 
 

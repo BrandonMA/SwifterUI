@@ -14,10 +14,8 @@ open class SFButton: UIButton, SFViewColorStyle {
     
     open var automaticallyAdjustsColorStyle: Bool = false
     
-    open var shouldUseAlternativeColors: Bool = false
-    
-    open var shouldUseAlternativeTextColor: Bool = false
-    
+    open var useAlternativeColors: Bool = false
+        
     open var setTextColor: Bool = true
     
     lazy var rightImageView: UIImageView = {
@@ -48,7 +46,7 @@ open class SFButton: UIButton, SFViewColorStyle {
     }
     
     open func updateColors() {
-        backgroundColor = shouldUseAlternativeColors == true ? colorStyle.getMainColor() : colorStyle.getAlternativeColors()
+        backgroundColor = useAlternativeColors == true ? colorStyle.getMainColor() : colorStyle.getAlternativeColors()
         if setTextColor == true {
             tintColor = colorStyle.getInteractiveColor()
             setTitleColor(colorStyle.getInteractiveColor(), for: .normal)

@@ -10,7 +10,7 @@
 
 import UIKit
 
-public struct SFAssets {
+public struct SFColors {
     static public let white: UIColor = UIColor(hex: "FFFFFF")
     static public let black: UIColor = UIColor(hex: "000000")
     static public let separatorWhite: UIColor = UIColor(hex: "E2E2E4")

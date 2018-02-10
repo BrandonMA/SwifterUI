@@ -37,25 +37,26 @@ open class SFPopPresentation: UIPresentationController {
             guard let window = UIApplication.shared.keyWindow else { fatalError() }
             UIView.animate(withDuration: 0.6, animations: {
                 self.blurView.effect = presentingController.colorStyle.getEffectStyle()
-                window.backgroundColor = presentingController.colorStyle == .dark ? UIColor(hex: "262626") : UIColor(hex: "000000")
+                window.backgroundColor = .black
             })
         }
     }
     
     override open func presentationTransitionWillBegin() {
         
-        presentingViewController.view.addSubview(blurView)
+        if let controller = presentingViewController as? UINavigationController {
+            if let view = controller.viewIfLoaded {
+                view.addSubview(blurView)
+            }
+        } else {
+            presentingViewController.view.addSubview(blurView)
+        }
+        
         presentingViewController.view.layer.masksToBounds = true
         blurView.clipEdges()
         updateColors()
         
         UIView.animate(withDuration: 0.6) {
-            
-            if var presentingController = self.presentingViewController as? SFControllerColorStyle {
-                self.blurView.effect = presentingController.colorStyle.getEffectStyle()
-                presentingController.automaticallyTintNavigationBar = false
-                presentingController.statusBarStyle = .lightContent
-            }
             
             if (self.presentedView?.useCompactInterface)! {
                 if #available(iOS 11.0, *) {
@@ -68,20 +69,33 @@ open class SFPopPresentation: UIPresentationController {
             }
             
             self.presentedView?.layer.cornerRadius = 20
+        
+            if var controller = self.presentingViewController as? SFControllerColorStyle {
+                controller.automaticallyTintNavigationBar = false
+                controller.statusBarStyle = .lightContent
+                self.blurView.effect = controller.colorStyle.getEffectStyle()
+            }
         }
     }
     
     open override func dismissalTransitionWillBegin() {
         
+        if let controller = self.presentingViewController as? UINavigationController {
+            guard let topViewController = controller.topViewController as? SFViewController else { return }
+            topViewController.updateColors()
+        }
+        
         updateColors()
         
         UIView.animate(withDuration: 0.6, animations: {
             
+            self.blurView.effect = nil
+            
             if var presentingController = self.presentingViewController as? SFControllerColorStyle {
-                self.blurView.effect = nil
                 presentingController.automaticallyTintNavigationBar = true
                 presentingController.updateColors()
             }
+            
             self.presentedView?.layer.cornerRadius = 0
             
             if (self.presentedView?.useCompactInterface)! {
@@ -121,14 +135,6 @@ open class SFPopPresentation: UIPresentationController {
         return frame
     }
 }
-
-public extension UIView {
-    public var useCompactInterface: Bool {
-        return self.traitCollection.horizontalSizeClass == .compact || self.traitCollection.verticalSizeClass == .compact
-    }
-}
-
-
 
 
 

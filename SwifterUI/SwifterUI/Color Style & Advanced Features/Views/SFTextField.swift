@@ -14,39 +14,39 @@ open class SFTextField: UITextField, SFViewColorStyle {
     
     open var automaticallyAdjustsColorStyle: Bool = false
     
-    open var shouldUseAlternativeColors: Bool = false
+    open var useAlternativeColors: Bool = false
     
-    open var leftPadding: CGFloat = 0 {
+    public var leftPadding: CGFloat = 0 {
         didSet {
             updateLeftView()
         }
     }
     
-    open var leftImageSize: CGSize = .zero {
+    public var leftImageSize: CGSize = .zero {
         didSet {
             updateLeftView()
         }
     }
     
-    open var leftImage: UIImage? = nil {
+    public var leftImage: UIImage? = nil {
         didSet {
             updateLeftView()
         }
     }
     
-    open var rightPadding: CGFloat = 0 {
+    public var rightPadding: CGFloat = 0 {
         didSet {
             updateRightView()
         }
     }
     
-    open var rightImageSize: CGSize = .zero {
+    public var rightImageSize: CGSize = .zero {
         didSet {
             updateRightView()
         }
     }
     
-    open var rightImage: UIImage? = nil {
+    public var rightImage: UIImage? = nil {
         didSet {
             updateRightView()
         }
@@ -87,7 +87,7 @@ open class SFTextField: UITextField, SFViewColorStyle {
     // MARK: - Instance Methods
     
     open func updateColors() {
-        backgroundColor = shouldUseAlternativeColors == true ? colorStyle.getTextEntryColor() : colorStyle.getAlternativeColors()
+        backgroundColor = useAlternativeColors == true ? colorStyle.getTextEntryColor() : colorStyle.getAlternativeColors()
         if let placeholder = placeholder {
             attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [NSAttributedStringKey.foregroundColor:colorStyle.getPlaceholderColor()])
         }

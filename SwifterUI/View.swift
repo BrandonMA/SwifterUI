@@ -15,6 +15,8 @@ class View: SFView {
         textSection.titleLabel.text = "Prueba"
         textSection.textField.placeholder = "Hola"
         textSection.translatesAutoresizingMaskIntoConstraints = false
+        print("view")
+        textSection.usePickerMode = true
         return textSection
     }()
     

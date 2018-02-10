@@ -10,12 +10,32 @@ import UIKit
 
 open class SFPopViewController: SFViewController {
     
+    // MARK: - Instance Properties
+    
     private var initialPoint: CGFloat = 0
+    
+    override var sfview: SFPopView {
+        return view as! SFPopView
+    }
+    
+    // MARK: - Instance Methods
+    
+    open override func loadView() {
+        self.view = SFPopView(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
+        sfview.bar.tintColor = .blue
+        sfview.bar.dismissButton.setImage(UIImage(named: "rightArrow")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        sfview.bar.dismissButton.addTarget(self, action: #selector(dismissPop), for: .touchUpInside)
+        sfview.bar.titleLabel.text = "Prueba"
+    }
     
     override open func viewDidLoad() {
         super.viewDidLoad()
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(dismiss(withPanGesture:)))
         self.view.addGestureRecognizer(panGesture)
+    }
+    
+    @objc private func dismissPop() {
+        dismiss(animated: true, completion: nil)
     }
     
     @objc private func dismiss(withPanGesture panGesture: UIPanGestureRecognizer) {

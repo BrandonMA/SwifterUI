@@ -22,37 +22,35 @@ open class SFViewController: UIViewController, SFControllerColorStyle {
     
     open var automaticallyTintNavigationBar: Bool = false
     
-    // preferredStatusBarStyle: Override the preferred status bar style with an colorStyle's getStatusBarStyle method that automatically return the correct statusbarstyle
     open override var preferredStatusBarStyle: UIStatusBarStyle {
         return self.statusBarStyle
     }
     
-    // prefersStatusBarHidden: Override the preferred status bar hidden with a dynamic way of set it
     open override var prefersStatusBarHidden: Bool {
         return self.statusBarIsHidden
     }
     
-    // shouldAutorotate: Override shouldAutorotate with a dynamic way to set it
     open override var shouldAutorotate: Bool {
         return self.autorotate
     }
     
-    // statusBarStyle: Dynamic way to change preferredStatusBarStyle, use this instead of override preferredStatusBarStyle
     open var statusBarStyle: UIStatusBarStyle = .default {
         didSet {
             self.setNeedsStatusBarAppearanceUpdate()
         }
     }
     
-    // statusBarIsHidden: Dynamic way to change prefersStatusBarHidden, use this instead of override prefersStatusBarHidden
     open var statusBarIsHidden: Bool = false {
         didSet {
             self.setNeedsStatusBarAppearanceUpdate()
         }
     }
     
-    // autorotate: Dynamic way to set shouldAutorotate
     open var autorotate: Bool = true
+    
+    var sfview: SFView {
+        return view as! SFView
+    }
         
     // MARK: - Initializers
     
@@ -98,11 +96,7 @@ open class SFViewController: UIViewController, SFControllerColorStyle {
                 self.updateSubviewsColors()
                 
                 if self.automaticallyTintNavigationBar == true {
-                    self.navigationController?.navigationBar.barStyle = self.colorStyle.getNavigationBarStyle()
-                    self.navigationController?.navigationBar.tintColor = self.colorStyle.getInteractiveColor()
-                    self.navigationItem.searchController?.searchBar.barStyle = self.colorStyle.getSearchBarStyle()
-                    self.navigationItem.searchController?.searchBar.tintColor = self.colorStyle.getInteractiveColor()
-                    self.navigationItem.searchController?.searchBar.keyboardAppearance = self.colorStyle.getKeyboardStyle()
+                    self.updateNavItem()
                     self.statusBarStyle = self.colorStyle.getStatusBarStyle()
                 }
                 

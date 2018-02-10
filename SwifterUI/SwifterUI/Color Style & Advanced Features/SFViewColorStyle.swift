@@ -11,7 +11,7 @@ import UIKit
 public protocol SFViewColorStyle: SFColorStyleProtocol {
     
     // shouldHaveAlternativeColors: Indicates whether it should use getAlternativeBackgroundColor or getBackgroundColor
-    var shouldUseAlternativeColors: Bool { get set }
+    var useAlternativeColors: Bool { get set }
     
 }
 

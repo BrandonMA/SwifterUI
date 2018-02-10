@@ -14,7 +14,7 @@ open class SFTextView: UITextView, SFViewColorStyle {
     
     open var automaticallyAdjustsColorStyle: Bool = false
     
-    open var shouldUseAlternativeColors: Bool = false
+    open var useAlternativeColors: Bool = false
     
     // MARK: - Initializers
     
@@ -31,7 +31,7 @@ open class SFTextView: UITextView, SFViewColorStyle {
     // MARK: - Instance Methods
     
     open func updateColors() {
-        backgroundColor = shouldUseAlternativeColors == true ? colorStyle.getTextEntryColor() : colorStyle.getAlternativeColors()
+        backgroundColor = useAlternativeColors == true ? colorStyle.getTextEntryColor() : colorStyle.getAlternativeColors()
         textColor = colorStyle.getTextColor()
         keyboardAppearance = colorStyle.getKeyboardStyle()
         updateSubviewsColors()

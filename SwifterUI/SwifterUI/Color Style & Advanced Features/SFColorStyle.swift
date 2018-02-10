@@ -69,50 +69,50 @@ public enum SFColorStyle: Int {
     
     public func getMainColor() -> UIColor {
         switch self {
-        case .light: return SFAssets.white
-        case .dark: return SFAssets.black
+        case .light: return SFColors.white
+        case .dark: return SFColors.black
         }
     }
     
     public func getTextColor() -> UIColor {
         switch self {
-        case .light: return SFAssets.black
-        case .dark: return SFAssets.white
+        case .light: return SFColors.black
+        case .dark: return SFColors.white
         }
     }
     
     public func getAlternativeColors() -> UIColor {
         switch self {
-        case .light: return SFAssets.alternativeWhite
-        case .dark: return SFAssets.alternativeBlack
+        case .light: return SFColors.alternativeWhite
+        case .dark: return SFColors.alternativeBlack
         }
     }
     
     public func getTextEntryColor() -> UIColor {
         switch self {
-        case .light: return SFAssets.contrastWhite
-        case .dark: return SFAssets.contrastBlack
+        case .light: return SFColors.contrastWhite
+        case .dark: return SFColors.contrastBlack
         }
     }
     
     public func getPlaceholderColor() -> UIColor {
         switch self {
-        case .light: return SFAssets.darkGray
-        case .dark: return SFAssets.lightGray
+        case .light: return SFColors.darkGray
+        case .dark: return SFColors.lightGray
         }
     }
     
     public func getSeparatorColor() -> UIColor {
         switch self {
-        case .light: return SFAssets.separatorWhite
-        case .dark: return SFAssets.separatorBlack
+        case .light: return SFColors.separatorWhite
+        case .dark: return SFColors.separatorBlack
         }
     }
     
     public func getInteractiveColor() -> UIColor {
         switch self {
-        case .light: return SFAssets.blue
-        case .dark: return SFAssets.orange
+        case .light: return SFColors.blue
+        case .dark: return SFColors.orange
         }
     }
     

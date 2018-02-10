@@ -18,6 +18,8 @@ open class SFButton: UIButton, SFViewColorStyle {
     
     open var shouldUseAlternativeTextColor: Bool = false
     
+    open var setTextColor: Bool = true
+    
     lazy var rightImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
@@ -46,12 +48,14 @@ open class SFButton: UIButton, SFViewColorStyle {
     }
     
     open func updateColors() {
-        backgroundColor = shouldUseAlternativeColors == true ? colorStyle.getTextEntryColor() : colorStyle.getAlternativeColors()
-        tintColor = shouldUseAlternativeTextColor == true ? colorStyle.getPlaceholderColor() : colorStyle.getInteractiveColor()
-        if shouldUseAlternativeTextColor == true {
-            setTitleColor(colorStyle.getPlaceholderColor(), for: .normal)
-        } else {
-            setTitleColor(colorStyle.getInteractiveColor(), for: .normal)
+        backgroundColor = shouldUseAlternativeColors == true ? colorStyle.getMainColor() : colorStyle.getAlternativeColors()
+        if setTextColor == true {
+            tintColor = shouldUseAlternativeTextColor == true ? colorStyle.getPlaceholderColor() : colorStyle.getInteractiveColor()
+            if shouldUseAlternativeTextColor == true {
+                setTitleColor(colorStyle.getPlaceholderColor(), for: .normal)
+            } else {
+                setTitleColor(colorStyle.getInteractiveColor(), for: .normal)
+            }
         }
         updateSubviewsColors()
     }

@@ -8,17 +8,17 @@
 
 import UIKit
 
-@IBDesignable open class SFView: UIView, SFViewColorStyle {
+open class SFView: UIView, SFViewColorStyle {
     
     // MARK: - Instance Properties
     
     open var automaticallyAdjustsColorStyle: Bool = false
     
-    open var shouldHaveAlternativeColors: Bool = false
+    open var shouldUseAlternativeColors: Bool = false
     
     // MARK: - Initializers
     
-    public required init(automaticallyAdjustsColorStyle: Bool = true) {
+    public init(automaticallyAdjustsColorStyle: Bool = true) {
         self.automaticallyAdjustsColorStyle = automaticallyAdjustsColorStyle
         super.init(frame: .zero)
     }
@@ -30,7 +30,7 @@ import UIKit
     // MARK: - Instance Methods
     
     open func updateColors() {
-        backgroundColor = shouldHaveAlternativeColors == true ? colorStyle.getAlternativeColors() : colorStyle.getMainColor()
+        backgroundColor = shouldUseAlternativeColors == true ? colorStyle.getAlternativeColors() : colorStyle.getMainColor()
         updateSubviewsColors()
     }
     

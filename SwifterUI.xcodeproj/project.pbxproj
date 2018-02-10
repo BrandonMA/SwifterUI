@@ -64,9 +64,9 @@
 		42B253E51FEA0E700002C297 /* ConstraintType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B253E41FEA0E700002C297 /* ConstraintType.swift */; };
 		42C701B12016834E00EBFBE2 /* SFPopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C701B02016834E00EBFBE2 /* SFPopViewController.swift */; };
 		42C701B42016839500EBFBE2 /* SFPresentationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C701B32016839500EBFBE2 /* SFPresentationManager.swift */; };
-		42D34C63202F5F62002B6FA6 /* UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D34C62202F5F62002B6FA6 /* UITextField.swift */; };
 		42D34C65202F5F84002B6FA6 /* SFLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D34C64202F5F84002B6FA6 /* SFLabel.swift */; };
 		42D34C67202F5FA3002B6FA6 /* SFTextSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D34C66202F5FA3002B6FA6 /* SFTextSection.swift */; };
+		42D34C6D202F6ECE002B6FA6 /* SFSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D34C6C202F6ECE002B6FA6 /* SFSection.swift */; };
 		42E83BBD202B98F800A341C5 /* SFTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E83BBC202B98F800A341C5 /* SFTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -151,9 +151,9 @@
 		42B253E41FEA0E700002C297 /* ConstraintType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstraintType.swift; sourceTree = "<group>"; };
 		42C701B02016834E00EBFBE2 /* SFPopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFPopViewController.swift; sourceTree = "<group>"; };
 		42C701B32016839500EBFBE2 /* SFPresentationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFPresentationManager.swift; sourceTree = "<group>"; };
-		42D34C62202F5F62002B6FA6 /* UITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextField.swift; sourceTree = "<group>"; };
 		42D34C64202F5F84002B6FA6 /* SFLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFLabel.swift; sourceTree = "<group>"; };
 		42D34C66202F5FA3002B6FA6 /* SFTextSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFTextSection.swift; sourceTree = "<group>"; };
+		42D34C6C202F6ECE002B6FA6 /* SFSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFSection.swift; sourceTree = "<group>"; };
 		42E83BBC202B98F800A341C5 /* SFTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -261,7 +261,6 @@
 				42A1A86D1FEA2918009B888C /* Bool.swift */,
 				429FD4901FED7EDC00FD7F10 /* UIImageView.swift */,
 				424E2C74202378EA00F9A4E2 /* UITextView.swift */,
-				42D34C62202F5F62002B6FA6 /* UITextField.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -318,6 +317,7 @@
 				42446776202AC57700F59892 /* SFTextView.swift */,
 				42446778202AC83000F59892 /* SFButton.swift */,
 				42D34C64202F5F84002B6FA6 /* SFLabel.swift */,
+				42D34C6C202F6ECE002B6FA6 /* SFSection.swift */,
 				42D34C66202F5FA3002B6FA6 /* SFTextSection.swift */,
 			);
 			path = Views;
@@ -522,6 +522,7 @@
 				42446779202AC83000F59892 /* SFButton.swift in Sources */,
 				42A42EBA1FF1BA36002FE4A7 /* SFGradient.swift in Sources */,
 				429FD4971FED8D5200FD7F10 /* SFPopAnimation.swift in Sources */,
+				42D34C6D202F6ECE002B6FA6 /* SFSection.swift in Sources */,
 				4223C5171FE7A0C300A2E2F2 /* ConstraintRelation.swift in Sources */,
 				42446773202AC27F00F59892 /* UIView.swift in Sources */,
 				429FD4A31FED91FC00FD7F10 /* SFSlideAnimation.swift in Sources */,
@@ -536,7 +537,6 @@
 				42A42EA91FF1A95F002FE4A7 /* SFColorStyleProtocol.swift in Sources */,
 				42A1A86E1FEA2918009B888C /* Bool.swift in Sources */,
 				42A42EAB1FF1A9AB002FE4A7 /* SFColorStyle.swift in Sources */,
-				42D34C63202F5F62002B6FA6 /* UITextField.swift in Sources */,
 				424E6C1E2028F06D00568F85 /* View.swift in Sources */,
 				424BE0C11FF45B2D005DE2AD /* Date.swift in Sources */,
 				42446775202AC2BB00F59892 /* SFTextField.swift in Sources */,

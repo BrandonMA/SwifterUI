@@ -8,17 +8,73 @@
 
 import UIKit
 
-@IBDesignable open class SFTextField: UITextField, SFViewColorStyle {
+open class SFTextField: UITextField, SFViewColorStyle {
     
     // MARK: - Instance Properties
     
     open var automaticallyAdjustsColorStyle: Bool = false
     
-    open var shouldHaveAlternativeColors: Bool = false
+    open var shouldUseAlternativeColors: Bool = false
+    
+    open var leftPadding: CGFloat = 0 {
+        didSet {
+            updateLeftView()
+        }
+    }
+    
+    open var leftImageSize: CGSize = .zero {
+        didSet {
+            updateLeftView()
+        }
+    }
+    
+    open var leftImage: UIImage? = nil {
+        didSet {
+            updateLeftView()
+        }
+    }
+    
+    open var rightPadding: CGFloat = 0 {
+        didSet {
+            updateRightView()
+        }
+    }
+    
+    open var rightImageSize: CGSize = .zero {
+        didSet {
+            updateRightView()
+        }
+    }
+    
+    open var rightImage: UIImage? = nil {
+        didSet {
+            updateRightView()
+        }
+    }
+    
+    private func updateLeftView() {
+        var size = leftImageSize == .zero && leftImage != nil ? CGSize(width: 16, height: 16) : leftImageSize
+        size.width = leftImage != nil ? size.width + leftPadding * 2 : size.width + leftPadding
+        let imageView = UIImageView(frame: CGRect(origin: .zero, size: size))
+        imageView.contentMode = .scaleAspectFit
+        imageView.image = leftImage
+        leftView = imageView
+        leftViewMode = .always
+    }
+    
+    private func updateRightView() {
+        var size = rightImageSize == .zero && rightImage != nil ? CGSize(width: 16, height: 16) : rightImageSize
+        size.width = rightImage != nil ? size.width + rightPadding * 2 : size.width + rightPadding
+        let imageView = UIImageView(frame: CGRect(origin: .zero, size: size))
+        imageView.contentMode = .scaleAspectFit
+        imageView.image = rightImage
+        rightView = imageView
+        rightViewMode = .always
+    }
     
     // MARK: - Initializers
     
-    public required init(automaticallyAdjustsColorStyle: Bool = true) {
+    public init(automaticallyAdjustsColorStyle: Bool = true) {
         self.automaticallyAdjustsColorStyle = automaticallyAdjustsColorStyle
         super.init(frame: .zero)
         backgroundColor = .clear
@@ -31,7 +87,7 @@ import UIKit
     // MARK: - Instance Methods
     
     open func updateColors() {
-        backgroundColor = shouldHaveAlternativeColors == true ? colorStyle.getAlternativeColors() : colorStyle.getTextEntryColor()
+        backgroundColor = shouldUseAlternativeColors == true ? colorStyle.getTextEntryColor() : colorStyle.getAlternativeColors()
         if let placeholder = placeholder {
             attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [NSAttributedStringKey.foregroundColor:colorStyle.getPlaceholderColor()])
         }

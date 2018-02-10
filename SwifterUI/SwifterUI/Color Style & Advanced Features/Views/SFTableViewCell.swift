@@ -10,22 +10,22 @@ import UIKit
 
 import UIKit
 
-@IBDesignable open class SFTableViewCell: UITableViewCell, SFViewColorStyle {
+open class SFTableViewCell: UITableViewCell, SFViewColorStyle {
     
     // MARK: - Instance Properties
     
     open var automaticallyAdjustsColorStyle: Bool = false
     
-    open var shouldHaveAlternativeColors: Bool = false
+    open var shouldUseAlternativeColors: Bool = false
     
     // MARK: - Instance Methods
     
     open func updateColors() {
-        backgroundColor = shouldHaveAlternativeColors == true ? colorStyle.getAlternativeColors() : colorStyle.getMainColor()
+        backgroundColor = shouldUseAlternativeColors == true ? colorStyle.getAlternativeColors() : colorStyle.getMainColor()
         textLabel?.textColor = colorStyle.getTextColor()
-        detailTextLabel?.textColor = shouldHaveAlternativeColors == true ? colorStyle.getInteractiveColor() : colorStyle.getPlaceholderColor()
+        detailTextLabel?.textColor = shouldUseAlternativeColors == true ? colorStyle.getInteractiveColor() : colorStyle.getPlaceholderColor()
         let selectedBackgroundView = UIView()
-        selectedBackgroundView.backgroundColor = shouldHaveAlternativeColors == true ? colorStyle.getMainColor() : colorStyle.getAlternativeColors()
+        selectedBackgroundView.backgroundColor = shouldUseAlternativeColors == true ? colorStyle.getMainColor() : colorStyle.getAlternativeColors()
         self.selectedBackgroundView = selectedBackgroundView
         updateSubviewsColors()
     }

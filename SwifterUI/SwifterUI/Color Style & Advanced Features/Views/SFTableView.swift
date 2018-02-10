@@ -8,13 +8,13 @@
 
 import UIKit
 
-@IBDesignable open class SFTableView: UITableView, SFViewColorStyle {
+open class SFTableView: UITableView, SFViewColorStyle {
     
     // MARK: - Instance Properties
     
     open var automaticallyAdjustsColorStyle: Bool = false
     
-    open var shouldHaveAlternativeColors: Bool = false
+    open var shouldUseAlternativeColors: Bool = false
     
     // MARK: - Initializers
     
@@ -30,7 +30,7 @@ import UIKit
     // MARK: - Instance Methods
     
     open func updateColors() {
-        backgroundColor = shouldHaveAlternativeColors == true ? colorStyle.getAlternativeColors() : colorStyle.getMainColor()
+        backgroundColor = shouldUseAlternativeColors == true ? colorStyle.getAlternativeColors() : colorStyle.getMainColor()
         separatorColor = colorStyle.getSeparatorColor()
         updateSubviewsColors()
         

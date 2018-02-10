@@ -8,59 +8,33 @@
 
 import UIKit
 
-open class SFTextSection: SFView {
+open class SFTextSection: SFSection {
     
-    // MARK: - Instance Properties
-    
-    open override var shouldHaveAlternativeColors: Bool {
-        didSet {
-            textField.shouldHaveAlternativeColors = self.shouldHaveAlternativeColors
-        }
+    public var textField: SFTextField {
+        return bottomView as! SFTextField
     }
     
-    open lazy var titleLabel: SFLabel = {
-        let label = SFLabel(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
-        label.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textAlignment = .left
-        return label
-    }()
+    open var usePickerMode: Bool = false
     
-    open lazy var textField: SFTextField = {
+    open override lazy var bottomView: UIView = {
         let textField = SFTextField(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         textField.font = UIFont.systemFont(ofSize: 15)
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.layer.cornerRadius = 10
-        textField.setMargin(left: 12, right: 12)
+        textField.leftPadding = 8
+        textField.rightPadding = 8
+        if usePickerMode == true {
+            textField.rightImage = UIImage(named: "rightArrow")
+        }
         return textField
     }()
     
-    // MARK: - Initializers
-    
-    public required init(automaticallyAdjustsColorStyle: Bool = true) {
-        super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle)
-        addSubview(titleLabel)
-        addSubview(textField)
-        shouldHaveAlternativeColors = false
-    }
-    
-    required public init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    // MARK: - Instance Methods
-    
-    open override func layoutSubviews() {
-        titleLabel.clipEdges(exclude: [.bottom])
-        textField.height(SFDimension(value: 34))
-        textField.clipEdges(exclude: [.top, .bottom])
-        textField.clipTop(to: .bottom, of: titleLabel, margin: 8)
-        super.layoutSubviews()
-    }
-    
-    open override func updateColors() {
-        backgroundColor = .clear
-        updateSubviewsColors()
-    }
-    
 }
+
+
+
+
+
+
+
+

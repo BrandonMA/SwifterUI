@@ -8,65 +8,30 @@
 
 import UIKit
 
-class View: SFView, UITextViewDelegate {
+class View: SFView {
     
-    lazy var redView: SFView = {
-        let view = SFView(automaticallyAdjustsColorStyle: false)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
+    lazy var textSection: SFTextSection = {
+        let textSection = SFTextSection()
+        textSection.titleLabel.text = "Prueba"
+        textSection.textField.placeholder = "Hola"
+        textSection.translatesAutoresizingMaskIntoConstraints = false
+        return textSection
     }()
     
-    lazy var textView: SFTextView = {
-        var field = SFTextView(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
-        field.translatesAutoresizingMaskIntoConstraints = false
-        field.delegate = self
-        field.isScrollEnabled = false
-        return field
-    }()
-    
-    required init(automaticallyAdjustsColorStyle: Bool = true) {
+    override init(automaticallyAdjustsColorStyle: Bool = true) {
         super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle)
-        addSubview(redView)
-        addSubview(textView)
-        shouldHaveAlternativeColors = true
+        addSubview(textSection)
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     override func layoutSubviews() {
-        
-        if traitCollection.horizontalSizeClass == .regular {
-            redView.removeAllConstraints()
-            redView.height(SFDimension(type: .fraction, value: 1/2))
-            redView.width(SFDimension(type: .fraction, value: 1/2))
-            redView.center()
-            textView.removeAllConstraints()
-            textView.clipRight(to: .right)
-            textView.clipBottom(to: .top, of: redView)
-            textView.clipLeft(to: .left)
-            textView.height(SFDimension(value: 64))
-        } else if traitCollection.horizontalSizeClass == .compact {
-            redView.removeAllConstraints()
-            redView.height(SFDimension(type: .fraction, value: 1/2))
-            redView.width(SFDimension(type: .fraction, value: 1))
-            redView.center()
-            textView.removeAllConstraints()
-            textView.clipTop(to: .top)
-            textView.clipRight(to: .right)
-            textView.clipBottom(to: .top, of: redView)
-            textView.clipLeft(to: .left)
-        }
-        
+        textSection.clipEdges(margin: ConstraintMargin(top: 12, right: 12, bottom: 0, left: 12), exclude: [.bottom], useSafeArea: true)
         super.layoutSubviews()
-        
-        redView.set(gradient: SFGradient(with: [UIColor(hex: "cb2d3e").cgColor, UIColor(hex: "ef473a").cgColor], direction: .horizontal))
     }
     
-    func textViewDidChange(_ textView: UITextView) {
-        textView.updateHeightConstraint()
-    }
 }
 
 

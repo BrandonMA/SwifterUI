@@ -8,17 +8,17 @@
 
 import UIKit
 
-@IBDesignable open class SFTextView: UITextView, SFViewColorStyle {
+open class SFTextView: UITextView, SFViewColorStyle {
     
     // MARK: - Instance Properties
     
     open var automaticallyAdjustsColorStyle: Bool = false
     
-    open var shouldHaveAlternativeColors: Bool = false
+    open var shouldUseAlternativeColors: Bool = false
     
     // MARK: - Initializers
     
-    public required init(automaticallyAdjustsColorStyle: Bool = true) {
+    public init(automaticallyAdjustsColorStyle: Bool = true) {
         self.automaticallyAdjustsColorStyle = automaticallyAdjustsColorStyle
         super.init(frame: .zero, textContainer: nil)
         backgroundColor = .clear
@@ -31,7 +31,7 @@ import UIKit
     // MARK: - Instance Methods
     
     open func updateColors() {
-        backgroundColor = shouldHaveAlternativeColors == true ? colorStyle.getAlternativeColors() : colorStyle.getTextEntryColor()
+        backgroundColor = shouldUseAlternativeColors == true ? colorStyle.getTextEntryColor() : colorStyle.getAlternativeColors()
         textColor = colorStyle.getTextColor()
         keyboardAppearance = colorStyle.getKeyboardStyle()
         updateSubviewsColors()

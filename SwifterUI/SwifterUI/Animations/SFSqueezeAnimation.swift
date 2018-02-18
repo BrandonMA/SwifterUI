@@ -15,7 +15,7 @@ open class SFSqueezeAnimation: SFAnimation {
     open override func start() {
         guard let view = self.view else { return }
         CATransaction.begin()
-        CATransaction.setCompletionBlock({ self.delegate?.didFinishAnimation() })
+        CATransaction.setCompletionBlock({ self.delegate?.finished(animation: self) })
         
         let squeezeX = CAKeyframeAnimation()
         squeezeX.keyPath = "transform.scale.x"

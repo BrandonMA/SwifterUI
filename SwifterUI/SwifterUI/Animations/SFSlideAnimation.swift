@@ -48,7 +48,7 @@ open class SFSlideAnimation: SFAnimation {
         UIView.animate(withDuration: duration, delay: delay, usingSpringWithDamping: damping, initialSpringVelocity: velocity, options: [animationCurve.getAnimationOptions(), .allowUserInteraction], animations: {
             view.frame = self.finalFrame
         }, completion: { finished in
-            self.delegate?.didFinishAnimation()
+            self.delegate?.finished(animation: self)
         })
     }
 }

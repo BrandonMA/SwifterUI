@@ -66,14 +66,16 @@ open class SFNavigationController: UINavigationController, SFControllerColorStyl
     
     open func updateColors() {
         
-        if self.automaticallyTintNavigationBar == true {
-            navigationBar.barStyle = colorStyle.getNavigationBarStyle()
-            navigationBar.tintColor = self.colorStyle.getInteractiveColor()
-            updateNavItem()
-            statusBarStyle = self.colorStyle.getStatusBarStyle()
-        }
-        
-        self.setNeedsStatusBarAppearanceUpdate()
-        self.currentColorStyle = self.colorStyle
+        UIView.animate(withDuration: 0.6) {
+            if self.automaticallyTintNavigationBar == true {
+                self.navigationBar.barStyle = self.colorStyle.getNavigationBarStyle()
+                self.navigationBar.tintColor = self.colorStyle.getInteractiveColor()
+                self.updateNavItem()
+                self.statusBarStyle = self.colorStyle.getStatusBarStyle()
+            }
+            
+            self.setNeedsStatusBarAppearanceUpdate()
+            self.currentColorStyle = self.colorStyle
+        }        
     }
 }

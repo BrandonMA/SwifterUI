@@ -15,7 +15,7 @@ open class SFMorphAnimation: SFAnimation {
     open override func start() {
         guard let view = self.view else { return }
         CATransaction.begin()
-        CATransaction.setCompletionBlock({ self.delegate?.didFinishAnimation() })
+        CATransaction.setCompletionBlock({ self.delegate?.finished(animation: self) })
         
         let morphX = CAKeyframeAnimation()
         morphX.keyPath = "transform.scale.x"

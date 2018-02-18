@@ -44,6 +44,8 @@ open class SFPopPresentation: UIPresentationController {
     
     override open func presentationTransitionWillBegin() {
         
+        guard var mainController = self.presentingViewController as? SFControllerColorStyle else { return }
+        
         if let controller = presentingViewController as? UINavigationController {
             if let view = controller.viewIfLoaded {
                 view.addSubview(blurView)
@@ -56,12 +58,15 @@ open class SFPopPresentation: UIPresentationController {
         blurView.clipEdges()
         updateColors()
         
+        if #available(iOS 11.0, *) {
+            self.presentedView?.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+        }
+        
         UIView.animate(withDuration: 0.6) {
             
+            self.blurView.effect = mainController.colorStyle.getEffectStyle()
+            
             if (self.presentedView?.useCompactInterface)! {
-                if #available(iOS 11.0, *) {
-                    self.presentedView?.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
-                }
                 self.presentingViewController.view.transform = CGAffineTransform(scaleX: 0.9, y: 1)
                 self.presentingViewController.view.frame.size.height -= UIApplication.shared.statusBarFrame.height * 2
                 self.presentingViewController.view.frame.origin.y += UIApplication.shared.statusBarFrame.height
@@ -69,17 +74,15 @@ open class SFPopPresentation: UIPresentationController {
             }
             
             self.presentedView?.layer.cornerRadius = 20
-        
-            if var controller = self.presentingViewController as? SFControllerColorStyle {
-                controller.automaticallyTintNavigationBar = false
-                controller.statusBarStyle = .lightContent
-                self.blurView.effect = controller.colorStyle.getEffectStyle()
-            }
+            
+            mainController.automaticallyTintNavigationBar = false
+            mainController.statusBarStyle = .lightContent
         }
     }
     
     open override func dismissalTransitionWillBegin() {
         
+        guard var mainController = self.presentingViewController as? SFControllerColorStyle else { return }
         if let controller = self.presentingViewController as? UINavigationController {
             guard let topViewController = controller.topViewController as? SFViewController else { return }
             topViewController.updateColors()
@@ -91,10 +94,8 @@ open class SFPopPresentation: UIPresentationController {
             
             self.blurView.effect = nil
             
-            if var presentingController = self.presentingViewController as? SFControllerColorStyle {
-                presentingController.automaticallyTintNavigationBar = true
-                presentingController.updateColors()
-            }
+            mainController.automaticallyTintNavigationBar = true
+            mainController.updateColors()
             
             self.presentedView?.layer.cornerRadius = 0
             

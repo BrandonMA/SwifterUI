@@ -20,7 +20,7 @@ open class SFPopAnimation: SFAnimation {
     open override func start() {
         guard let view = self.view else { return }
         CATransaction.begin()
-        CATransaction.setCompletionBlock({ self.delegate?.didFinishAnimation() })
+        CATransaction.setCompletionBlock({ self.delegate?.finished(animation: self) })
         let animation = CAKeyframeAnimation(keyPath: "transform.scale")
         animation.values = [1, initialScaleX, finalScaleX, initialScaleX, 1]
         animation.keyTimes = [0, 0.2, 0.4, 0.6, 0.8, 1]

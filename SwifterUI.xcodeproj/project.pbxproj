@@ -7,7 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		16208BB3E59F12DA0F39EDC2 /* Pods_SwifterUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B0230C9F419D0411D02E8AB /* Pods_SwifterUI.framework */; };
+		1FAA548F9B3DB61CF5B675FE /* Pods_SwifterUIUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C79BEACC89055D0892977B0E /* Pods_SwifterUIUITests.framework */; };
 		4223C5171FE7A0C300A2E2F2 /* ConstraintRelation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4223C5161FE7A0C300A2E2F2 /* ConstraintRelation.swift */; };
+		42289AE2203481A30095FF5C /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42289AE1203481A30095FF5C /* String.swift */; };
+		42289AE4203481C70095FF5C /* UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42289AE3203481C70095FF5C /* UITableView.swift */; };
 		423AABF01FE7548F009D6C39 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423AABEF1FE7548F009D6C39 /* AppDelegate.swift */; };
 		423AABF21FE7548F009D6C39 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423AABF11FE7548F009D6C39 /* ViewController.swift */; };
 		423AABF71FE7548F009D6C39 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 423AABF61FE7548F009D6C39 /* Assets.xcassets */; };
@@ -35,6 +39,8 @@
 		424BE0C61FF45C20005DE2AD /* SFPopPresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424BE0C51FF45C20005DE2AD /* SFPopPresentation.swift */; };
 		424E2C75202378EA00F9A4E2 /* UITextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424E2C74202378EA00F9A4E2 /* UITextView.swift */; };
 		424E6C1E2028F06D00568F85 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424E6C1D2028F06C00568F85 /* View.swift */; };
+		425AFDAC20300C580049B68B /* SFCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425AFDAB20300C580049B68B /* SFCollectionView.swift */; };
+		425AFDAE20300C700049B68B /* SFCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425AFDAD20300C700049B68B /* SFCollectionViewCell.swift */; };
 		42795F64202FB55300C3767F /* SFPopBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42795F63202FB55300C3767F /* SFPopBar.swift */; };
 		429FD4911FED7EDC00FD7F10 /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429FD4901FED7EDC00FD7F10 /* UIImageView.swift */; };
 		429FD4931FED89C200FD7F10 /* SFAnimationCurve.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429FD4921FED89C200FD7F10 /* SFAnimationCurve.swift */; };
@@ -61,17 +67,29 @@
 		42A42EBF1FF1BC81002FE4A7 /* SFGradientReady.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A42EBE1FF1BC81002FE4A7 /* SFGradientReady.swift */; };
 		42A42EC11FF1C118002FE4A7 /* SFVideoPlayerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A42EC01FF1C118002FE4A7 /* SFVideoPlayerDelegate.swift */; };
 		42A42EC31FF1C13E002FE4A7 /* SFVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A42EC21FF1C13E002FE4A7 /* SFVideoView.swift */; };
+		42AFAE39203A2246002CAB0F /* SFImageViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AFAE38203A2246002CAB0F /* SFImageViewer.swift */; };
+		42AFAE3B203A2271002CAB0F /* SFImageViewerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AFAE3A203A2271002CAB0F /* SFImageViewerController.swift */; };
 		42B253E31FEA04E90002C297 /* DispatchQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B253E21FEA04E90002C297 /* DispatchQueue.swift */; };
 		42B253E51FEA0E700002C297 /* ConstraintType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B253E41FEA0E700002C297 /* ConstraintType.swift */; };
 		42C701B12016834E00EBFBE2 /* SFPopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C701B02016834E00EBFBE2 /* SFPopViewController.swift */; };
 		42C701B42016839500EBFBE2 /* SFPresentationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C701B32016839500EBFBE2 /* SFPresentationManager.swift */; };
+		42C7D683202FEAAE006B62A1 /* SFAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C7D682202FEAAE006B62A1 /* SFAssets.swift */; };
+		42CB47AF20371962008C4AE6 /* SFChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CB47AE20371962008C4AE6 /* SFChatView.swift */; };
+		42CB6AFC203602870080EFB8 /* SFMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CB6AFB203602870080EFB8 /* SFMessage.swift */; };
+		42CB6AFE203603060080EFB8 /* SFTableViewChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CB6AFD203603060080EFB8 /* SFTableViewChatCell.swift */; };
+		42CB6B002036035C0080EFB8 /* SFTableViewConversationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CB6AFF2036035C0080EFB8 /* SFTableViewConversationCell.swift */; };
+		42CDA9BB20361BC50046791D /* SFChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CDA9BA20361BC50046791D /* SFChatViewController.swift */; };
+		42CDA9BD20361BDE0046791D /* SFChatBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CDA9BC20361BDE0046791D /* SFChatBar.swift */; };
 		42D34C65202F5F84002B6FA6 /* SFLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D34C64202F5F84002B6FA6 /* SFLabel.swift */; };
 		42D34C67202F5FA3002B6FA6 /* SFTextSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D34C66202F5FA3002B6FA6 /* SFTextSection.swift */; };
 		42D34C6D202F6ECE002B6FA6 /* SFSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D34C6C202F6ECE002B6FA6 /* SFSection.swift */; };
-		42D34C71202F8F8C002B6FA6 /* SFTableViewChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D34C70202F8F8C002B6FA6 /* SFTableViewChatCell.swift */; };
 		42D34C73202FABB3002B6FA6 /* SFNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D34C72202FABB3002B6FA6 /* SFNavigationController.swift */; };
 		42D34C75202FAF10002B6FA6 /* SFPopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D34C74202FAF10002B6FA6 /* SFPopView.swift */; };
+		42DBF1A4203754E900F4BB6F /* SFPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42DBF1A3203754E900F4BB6F /* SFPickerView.swift */; };
+		42DBF1A62037556F00F4BB6F /* SFPickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42DBF1A52037556F00F4BB6F /* SFPickerController.swift */; };
 		42E83BBD202B98F800A341C5 /* SFTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E83BBC202B98F800A341C5 /* SFTableViewCell.swift */; };
+		42FB9F9C202FC8AB006895F4 /* SFTableViewProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FB9F9B202FC8AB006895F4 /* SFTableViewProfileCell.swift */; };
+		49E574EE4AA5A1722212F0FA /* Pods_SwifterUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08B6A698CD50ED99BBE8D49B /* Pods_SwifterUITests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,7 +110,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		08B6A698CD50ED99BBE8D49B /* Pods_SwifterUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwifterUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		170AABA9ED1D1AF4C192523D /* Pods-SwifterUIUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwifterUIUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwifterUIUITests/Pods-SwifterUIUITests.release.xcconfig"; sourceTree = "<group>"; };
+		1A9CD7FA1F40C94061326184 /* Pods-SwifterUI.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwifterUI.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SwifterUI/Pods-SwifterUI.debug.xcconfig"; sourceTree = "<group>"; };
+		3B0230C9F419D0411D02E8AB /* Pods_SwifterUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwifterUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4223C5161FE7A0C300A2E2F2 /* ConstraintRelation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstraintRelation.swift; sourceTree = "<group>"; };
+		42289AE1203481A30095FF5C /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		42289AE3203481C70095FF5C /* UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableView.swift; sourceTree = "<group>"; };
 		423AABEC1FE7548E009D6C39 /* SwifterUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwifterUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		423AABEF1FE7548F009D6C39 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		423AABF11FE7548F009D6C39 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -126,6 +150,8 @@
 		424BE0C51FF45C20005DE2AD /* SFPopPresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFPopPresentation.swift; sourceTree = "<group>"; };
 		424E2C74202378EA00F9A4E2 /* UITextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextView.swift; sourceTree = "<group>"; };
 		424E6C1D2028F06C00568F85 /* View.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
+		425AFDAB20300C580049B68B /* SFCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFCollectionView.swift; sourceTree = "<group>"; };
+		425AFDAD20300C700049B68B /* SFCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFCollectionViewCell.swift; sourceTree = "<group>"; };
 		42795F63202FB55300C3767F /* SFPopBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFPopBar.swift; sourceTree = "<group>"; };
 		429FD4901FED7EDC00FD7F10 /* UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 		429FD4921FED89C200FD7F10 /* SFAnimationCurve.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFAnimationCurve.swift; sourceTree = "<group>"; };
@@ -152,17 +178,33 @@
 		42A42EBE1FF1BC81002FE4A7 /* SFGradientReady.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFGradientReady.swift; sourceTree = "<group>"; };
 		42A42EC01FF1C118002FE4A7 /* SFVideoPlayerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFVideoPlayerDelegate.swift; sourceTree = "<group>"; };
 		42A42EC21FF1C13E002FE4A7 /* SFVideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFVideoView.swift; sourceTree = "<group>"; };
+		42AFAE38203A2246002CAB0F /* SFImageViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFImageViewer.swift; sourceTree = "<group>"; };
+		42AFAE3A203A2271002CAB0F /* SFImageViewerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFImageViewerController.swift; sourceTree = "<group>"; };
 		42B253E21FEA04E90002C297 /* DispatchQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchQueue.swift; sourceTree = "<group>"; };
 		42B253E41FEA0E700002C297 /* ConstraintType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstraintType.swift; sourceTree = "<group>"; };
 		42C701B02016834E00EBFBE2 /* SFPopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFPopViewController.swift; sourceTree = "<group>"; };
 		42C701B32016839500EBFBE2 /* SFPresentationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFPresentationManager.swift; sourceTree = "<group>"; };
+		42C7D682202FEAAE006B62A1 /* SFAssets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFAssets.swift; sourceTree = "<group>"; };
+		42CB47AE20371962008C4AE6 /* SFChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFChatView.swift; sourceTree = "<group>"; };
+		42CB6AFB203602870080EFB8 /* SFMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFMessage.swift; sourceTree = "<group>"; };
+		42CB6AFD203603060080EFB8 /* SFTableViewChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFTableViewChatCell.swift; sourceTree = "<group>"; };
+		42CB6AFF2036035C0080EFB8 /* SFTableViewConversationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFTableViewConversationCell.swift; sourceTree = "<group>"; };
+		42CDA9BA20361BC50046791D /* SFChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFChatViewController.swift; sourceTree = "<group>"; };
+		42CDA9BC20361BDE0046791D /* SFChatBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFChatBar.swift; sourceTree = "<group>"; };
 		42D34C64202F5F84002B6FA6 /* SFLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFLabel.swift; sourceTree = "<group>"; };
 		42D34C66202F5FA3002B6FA6 /* SFTextSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFTextSection.swift; sourceTree = "<group>"; };
 		42D34C6C202F6ECE002B6FA6 /* SFSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFSection.swift; sourceTree = "<group>"; };
-		42D34C70202F8F8C002B6FA6 /* SFTableViewChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFTableViewChatCell.swift; sourceTree = "<group>"; };
 		42D34C72202FABB3002B6FA6 /* SFNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFNavigationController.swift; sourceTree = "<group>"; };
 		42D34C74202FAF10002B6FA6 /* SFPopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFPopView.swift; sourceTree = "<group>"; };
+		42DBF1A3203754E900F4BB6F /* SFPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFPickerView.swift; sourceTree = "<group>"; };
+		42DBF1A52037556F00F4BB6F /* SFPickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFPickerController.swift; sourceTree = "<group>"; };
 		42E83BBC202B98F800A341C5 /* SFTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFTableViewCell.swift; sourceTree = "<group>"; };
+		42FB9F9B202FC8AB006895F4 /* SFTableViewProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFTableViewProfileCell.swift; sourceTree = "<group>"; };
+		5EAB32061D4D2297A66CEEB7 /* Pods-SwifterUI.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwifterUI.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwifterUI/Pods-SwifterUI.release.xcconfig"; sourceTree = "<group>"; };
+		8114B41A59324EABB723590E /* Pods-SwifterUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwifterUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SwifterUITests/Pods-SwifterUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		88DF071D2D0B06A0A779E378 /* Pods-SwifterUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwifterUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwifterUITests/Pods-SwifterUITests.release.xcconfig"; sourceTree = "<group>"; };
+		C79BEACC89055D0892977B0E /* Pods_SwifterUIUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwifterUIUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D5C72905FB2DE9EB9D857BED /* Pods-SwifterUIUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwifterUIUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SwifterUIUITests/Pods-SwifterUIUITests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,6 +212,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				16208BB3E59F12DA0F39EDC2 /* Pods_SwifterUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -177,6 +220,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49E574EE4AA5A1722212F0FA /* Pods_SwifterUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -184,12 +228,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FAA548F9B3DB61CF5B675FE /* Pods_SwifterUIUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		057EE648A8E8C72DEF81F437 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				1A9CD7FA1F40C94061326184 /* Pods-SwifterUI.debug.xcconfig */,
+				5EAB32061D4D2297A66CEEB7 /* Pods-SwifterUI.release.xcconfig */,
+				8114B41A59324EABB723590E /* Pods-SwifterUITests.debug.xcconfig */,
+				88DF071D2D0B06A0A779E378 /* Pods-SwifterUITests.release.xcconfig */,
+				D5C72905FB2DE9EB9D857BED /* Pods-SwifterUIUITests.debug.xcconfig */,
+				170AABA9ED1D1AF4C192523D /* Pods-SwifterUIUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		423AABE31FE7548E009D6C39 = {
 			isa = PBXGroup;
 			children = (
@@ -197,6 +255,8 @@
 				423AAC031FE7548F009D6C39 /* SwifterUITests */,
 				423AAC0E1FE7548F009D6C39 /* SwifterUIUITests */,
 				423AABED1FE7548E009D6C39 /* Products */,
+				057EE648A8E8C72DEF81F437 /* Pods */,
+				B448E1DF1B7B136145C67B66 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -245,8 +305,10 @@
 		423AAC1E1FE76718009D6C39 /* SwifterUI */ = {
 			isa = PBXGroup;
 			children = (
+				42CB6AFA2036027C0080EFB8 /* Chat */,
 				424BE0C41FF45B9C005DE2AD /* Extensions */,
 				42A42EAC1FF1AB98002FE4A7 /* SFColors.swift */,
+				42C7D682202FEAAE006B62A1 /* SFAssets.swift */,
 				42A499F32022A64F00131324 /* SFVideo */,
 				42A42EBD1FF1BA3F002FE4A7 /* SFGradient */,
 				42A42EB61FF1B578002FE4A7 /* Color Style & Advanced Features */,
@@ -269,6 +331,8 @@
 				42A1A86D1FEA2918009B888C /* Bool.swift */,
 				429FD4901FED7EDC00FD7F10 /* UIImageView.swift */,
 				424E2C74202378EA00F9A4E2 /* UITextView.swift */,
+				42289AE1203481A30095FF5C /* String.swift */,
+				42289AE3203481C70095FF5C /* UITableView.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -312,6 +376,8 @@
 				42D34C72202FABB3002B6FA6 /* SFNavigationController.swift */,
 				42A42EB21FF1AD8C002FE4A7 /* SFViewController.swift */,
 				42C701B02016834E00EBFBE2 /* SFPopViewController.swift */,
+				42DBF1A52037556F00F4BB6F /* SFPickerController.swift */,
+				42AFAE3A203A2271002CAB0F /* SFImageViewerController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -324,13 +390,16 @@
 				42795F63202FB55300C3767F /* SFPopBar.swift */,
 				4244674E202A9FE900F59892 /* SFTableView.swift */,
 				42E83BBC202B98F800A341C5 /* SFTableViewCell.swift */,
-				42D34C70202F8F8C002B6FA6 /* SFTableViewChatCell.swift */,
+				425AFDAB20300C580049B68B /* SFCollectionView.swift */,
+				425AFDAD20300C700049B68B /* SFCollectionViewCell.swift */,
 				42446774202AC2BB00F59892 /* SFTextField.swift */,
 				42446776202AC57700F59892 /* SFTextView.swift */,
 				42446778202AC83000F59892 /* SFButton.swift */,
 				42D34C64202F5F84002B6FA6 /* SFLabel.swift */,
 				42D34C6C202F6ECE002B6FA6 /* SFSection.swift */,
 				42D34C66202F5FA3002B6FA6 /* SFTextSection.swift */,
+				42DBF1A3203754E900F4BB6F /* SFPickerView.swift */,
+				42AFAE38203A2246002CAB0F /* SFImageViewer.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -379,6 +448,30 @@
 			path = Presentation;
 			sourceTree = "<group>";
 		};
+		42CB6AFA2036027C0080EFB8 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				42CB6AFB203602870080EFB8 /* SFMessage.swift */,
+				42CB6AFF2036035C0080EFB8 /* SFTableViewConversationCell.swift */,
+				42FB9F9B202FC8AB006895F4 /* SFTableViewProfileCell.swift */,
+				42CB6AFD203603060080EFB8 /* SFTableViewChatCell.swift */,
+				42CDA9BC20361BDE0046791D /* SFChatBar.swift */,
+				42CB47AE20371962008C4AE6 /* SFChatView.swift */,
+				42CDA9BA20361BC50046791D /* SFChatViewController.swift */,
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
+		B448E1DF1B7B136145C67B66 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3B0230C9F419D0411D02E8AB /* Pods_SwifterUI.framework */,
+				08B6A698CD50ED99BBE8D49B /* Pods_SwifterUITests.framework */,
+				C79BEACC89055D0892977B0E /* Pods_SwifterUIUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -386,9 +479,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 423AAC141FE7548F009D6C39 /* Build configuration list for PBXNativeTarget "SwifterUI" */;
 			buildPhases = (
+				3EC29902490D49E8D8A1C5CC /* [CP] Check Pods Manifest.lock */,
 				423AABE81FE7548E009D6C39 /* Sources */,
 				423AABE91FE7548E009D6C39 /* Frameworks */,
 				423AABEA1FE7548E009D6C39 /* Resources */,
+				0A33558E8965FD7E47B63AA8 /* [CP] Embed Pods Frameworks */,
+				FCB64A14DCAED48581C85B42 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -403,9 +499,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 423AAC171FE7548F009D6C39 /* Build configuration list for PBXNativeTarget "SwifterUITests" */;
 			buildPhases = (
+				769D76B67EEEF89CCC8E28C8 /* [CP] Check Pods Manifest.lock */,
 				423AABFC1FE7548F009D6C39 /* Sources */,
 				423AABFD1FE7548F009D6C39 /* Frameworks */,
 				423AABFE1FE7548F009D6C39 /* Resources */,
+				D548229038B9EF4E0C7141BE /* [CP] Embed Pods Frameworks */,
+				EC8E26D80E2B72F8D3C1ED86 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -421,9 +520,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 423AAC1A1FE7548F009D6C39 /* Build configuration list for PBXNativeTarget "SwifterUIUITests" */;
 			buildPhases = (
+				0F178B2E644C00A03187FB2F /* [CP] Check Pods Manifest.lock */,
 				423AAC071FE7548F009D6C39 /* Sources */,
 				423AAC081FE7548F009D6C39 /* Frameworks */,
 				423AAC091FE7548F009D6C39 /* Resources */,
+				A16B138869D29A6E734DFF7C /* [CP] Embed Pods Frameworks */,
+				7C2F6AD265EAECA73E260067 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -507,6 +609,156 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		0A33558E8965FD7E47B63AA8 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-SwifterUI/Pods-SwifterUI-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/YouTubePlayer/YouTubePlayer.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YouTubePlayer.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SwifterUI/Pods-SwifterUI-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		0F178B2E644C00A03187FB2F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SwifterUIUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3EC29902490D49E8D8A1C5CC /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SwifterUI-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		769D76B67EEEF89CCC8E28C8 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SwifterUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7C2F6AD265EAECA73E260067 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SwifterUIUITests/Pods-SwifterUIUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A16B138869D29A6E734DFF7C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SwifterUIUITests/Pods-SwifterUIUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D548229038B9EF4E0C7141BE /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SwifterUITests/Pods-SwifterUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EC8E26D80E2B72F8D3C1ED86 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SwifterUITests/Pods-SwifterUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FCB64A14DCAED48581C85B42 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SwifterUI/Pods-SwifterUI-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		423AABE81FE7548E009D6C39 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -515,15 +767,19 @@
 				42A42EB11FF1AC37002FE4A7 /* SFViewColorStyle.swift in Sources */,
 				423AAC2A1FE770D5009D6C39 /* Constraint.swift in Sources */,
 				423AAC241FE76763009D6C39 /* ConstraintEdge.swift in Sources */,
+				425AFDAE20300C700049B68B /* SFCollectionViewCell.swift in Sources */,
 				429FD4A71FED94C500FD7F10 /* SFScaleAnimation.swift in Sources */,
 				42A42EBC1FF1BA3A002FE4A7 /* SFGradientDirection.swift in Sources */,
 				423AAC221FE76750009D6C39 /* ConstraintMargin.swift in Sources */,
+				42C7D683202FEAAE006B62A1 /* SFAssets.swift in Sources */,
 				42795F64202FB55300C3767F /* SFPopBar.swift in Sources */,
 				42A42EB51FF1B296002FE4A7 /* SFView.swift in Sources */,
 				429FD4951FED89F300FD7F10 /* SFShakeAnimation.swift in Sources */,
 				42446777202AC57700F59892 /* SFTextView.swift in Sources */,
+				42289AE2203481A30095FF5C /* String.swift in Sources */,
 				42E83BBD202B98F800A341C5 /* SFTableViewCell.swift in Sources */,
 				429FD49B1FED8E8900FD7F10 /* SFMorphAnimation.swift in Sources */,
+				42DBF1A4203754E900F4BB6F /* SFPickerView.swift in Sources */,
 				42A42EAF1FF1AC2A002FE4A7 /* SFControllerColorStyle.swift in Sources */,
 				424BE0BD1FF45AEA005DE2AD /* UIImage.swift in Sources */,
 				423AABF21FE7548F009D6C39 /* ViewController.swift in Sources */,
@@ -532,12 +788,14 @@
 				423AAC281FE76B57009D6C39 /* SFDimension.swift in Sources */,
 				424BE0BF1FF45B18005DE2AD /* UIColor.swift in Sources */,
 				42A42EC11FF1C118002FE4A7 /* SFVideoPlayerDelegate.swift in Sources */,
+				42CB6AFE203603060080EFB8 /* SFTableViewChatCell.swift in Sources */,
 				42446779202AC83000F59892 /* SFButton.swift in Sources */,
 				42A42EBA1FF1BA36002FE4A7 /* SFGradient.swift in Sources */,
 				429FD4971FED8D5200FD7F10 /* SFPopAnimation.swift in Sources */,
 				42D34C6D202F6ECE002B6FA6 /* SFSection.swift in Sources */,
 				4223C5171FE7A0C300A2E2F2 /* ConstraintRelation.swift in Sources */,
 				42446773202AC27F00F59892 /* UIView.swift in Sources */,
+				42CB6B002036035C0080EFB8 /* SFTableViewConversationCell.swift in Sources */,
 				429FD4A31FED91FC00FD7F10 /* SFSlideAnimation.swift in Sources */,
 				42C701B12016834E00EBFBE2 /* SFPopViewController.swift in Sources */,
 				424BE0C61FF45C20005DE2AD /* SFPopPresentation.swift in Sources */,
@@ -551,27 +809,36 @@
 				42A1A86E1FEA2918009B888C /* Bool.swift in Sources */,
 				42A42EAB1FF1A9AB002FE4A7 /* SFColorStyle.swift in Sources */,
 				424E6C1E2028F06D00568F85 /* View.swift in Sources */,
+				42CDA9BD20361BDE0046791D /* SFChatBar.swift in Sources */,
+				42AFAE3B203A2271002CAB0F /* SFImageViewerController.swift in Sources */,
 				424BE0C11FF45B2D005DE2AD /* Date.swift in Sources */,
 				42446775202AC2BB00F59892 /* SFTextField.swift in Sources */,
 				42D34C73202FABB3002B6FA6 /* SFNavigationController.swift in Sources */,
 				42D34C75202FAF10002B6FA6 /* SFPopView.swift in Sources */,
 				429FD4A11FED919A00FD7F10 /* SFFlipAnimation.swift in Sources */,
+				42FB9F9C202FC8AB006895F4 /* SFTableViewProfileCell.swift in Sources */,
+				42DBF1A62037556F00F4BB6F /* SFPickerController.swift in Sources */,
+				42CB6AFC203602870080EFB8 /* SFMessage.swift in Sources */,
 				42D34C67202F5FA3002B6FA6 /* SFTextSection.swift in Sources */,
 				42D34C65202F5F84002B6FA6 /* SFLabel.swift in Sources */,
 				423AAC261FE7678C009D6C39 /* ConstraintAxis.swift in Sources */,
+				42CB47AF20371962008C4AE6 /* SFChatView.swift in Sources */,
+				42289AE4203481C70095FF5C /* UITableView.swift in Sources */,
+				425AFDAC20300C580049B68B /* SFCollectionView.swift in Sources */,
 				42A42EC31FF1C13E002FE4A7 /* SFVideoView.swift in Sources */,
 				42A42EAD1FF1AB98002FE4A7 /* SFColors.swift in Sources */,
 				4244674F202A9FE900F59892 /* SFTableView.swift in Sources */,
+				42CDA9BB20361BC50046791D /* SFChatViewController.swift in Sources */,
 				423AAC201FE76727009D6C39 /* UIViewLayout.swift in Sources */,
 				423AABF01FE7548F009D6C39 /* AppDelegate.swift in Sources */,
 				42A42EB31FF1AD8C002FE4A7 /* SFViewController.swift in Sources */,
-				42D34C71202F8F8C002B6FA6 /* SFTableViewChatCell.swift in Sources */,
 				429FD4A91FED95A200FD7F10 /* SFFadeAnimation.swift in Sources */,
 				423F0B691FE9BD8300BF746C /* SFAnimation.swift in Sources */,
 				42C701B42016839500EBFBE2 /* SFPresentationManager.swift in Sources */,
 				429FD49D1FED8F0D00FD7F10 /* SFSqueezeAnimation.swift in Sources */,
 				42B253E31FEA04E90002C297 /* DispatchQueue.swift in Sources */,
 				424BE0C31FF45B42005DE2AD /* CGFloat.swift in Sources */,
+				42AFAE39203A2246002CAB0F /* SFImageViewer.swift in Sources */,
 				429FD4A51FED938400FD7F10 /* SFZoomAnimation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -728,6 +995,7 @@
 		};
 		423AAC151FE7548F009D6C39 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1A9CD7FA1F40C94061326184 /* Pods-SwifterUI.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -744,6 +1012,7 @@
 		};
 		423AAC161FE7548F009D6C39 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5EAB32061D4D2297A66CEEB7 /* Pods-SwifterUI.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -760,6 +1029,7 @@
 		};
 		423AAC181FE7548F009D6C39 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8114B41A59324EABB723590E /* Pods-SwifterUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -777,6 +1047,7 @@
 		};
 		423AAC191FE7548F009D6C39 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 88DF071D2D0B06A0A779E378 /* Pods-SwifterUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -794,6 +1065,7 @@
 		};
 		423AAC1B1FE7548F009D6C39 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D5C72905FB2DE9EB9D857BED /* Pods-SwifterUIUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -810,6 +1082,7 @@
 		};
 		423AAC1C1FE7548F009D6C39 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 170AABA9ED1D1AF4C192523D /* Pods-SwifterUIUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;

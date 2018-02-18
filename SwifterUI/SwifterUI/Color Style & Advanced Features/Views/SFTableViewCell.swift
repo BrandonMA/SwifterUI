@@ -9,7 +9,7 @@
 import UIKit
 
 open class SFTableViewCell: UITableViewCell, SFViewColorStyle {
-    
+        
     // MARK: - Instance Properties
     
     open var automaticallyAdjustsColorStyle: Bool = true
@@ -38,20 +38,20 @@ open class SFTableViewCell: UITableViewCell, SFViewColorStyle {
     // MARK: - Instance Methods
     
     open override func layoutSubviews() {
-        rightImageView.center(axis: [.y])
-        rightImageView.width(SFDimension(value: 14))
-        rightImageView.height(SFDimension(value: 14))
-        rightImageView.clipRight(to: .right, margin: 8)
         super.layoutSubviews()
+        rightImageView.center(axis: [.y])
+        rightImageView.width(SFDimension(value: 16))
+        rightImageView.height(SFDimension(value: 16))
+        rightImageView.clipRight(to: .right, margin: 8)
     }
     
     open func updateColors() {
-        backgroundColor = useAlternativeColors == true ? colorStyle.getAlternativeColors() : colorStyle.getMainColor()
+        backgroundColor = useAlternativeColors ? colorStyle.getAlternativeColors() : colorStyle.getMainColor()
         rightImageView.tintColor = colorStyle.getTextColor()
         textLabel?.textColor = colorStyle.getTextColor()
-        detailTextLabel?.textColor = useAlternativeColors == true ? colorStyle.getInteractiveColor() : colorStyle.getPlaceholderColor()
+        detailTextLabel?.textColor = useAlternativeColors ? colorStyle.getInteractiveColor() : colorStyle.getPlaceholderColor()
         let selectedBackgroundView = UIView()
-        selectedBackgroundView.backgroundColor = useAlternativeColors == true ? colorStyle.getMainColor() : colorStyle.getAlternativeColors()
+        selectedBackgroundView.backgroundColor = useAlternativeColors ? colorStyle.getMainColor() : colorStyle.getAlternativeColors()
         self.selectedBackgroundView = selectedBackgroundView
         updateSubviewsColors()
     }

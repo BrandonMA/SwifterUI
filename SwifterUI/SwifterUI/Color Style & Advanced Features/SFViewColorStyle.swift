@@ -24,9 +24,7 @@ public extension SFViewColorStyle where Self: UIView {
         for view in self.subviews {
             if let subview = view as? SFViewColorStyle {
                 if subview.automaticallyAdjustsColorStyle == true {
-                    UIView.animate(withDuration: 0.5, animations: {
-                        subview.updateColors()
-                    })
+                    subview.updateColors()
                 }
             }
         }

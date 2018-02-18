@@ -20,8 +20,8 @@ open class SFPopView: SFView {
     
     // MARK: - Initializers
     
-    public override init(automaticallyAdjustsColorStyle: Bool) {
-        super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle)
+    public override init(automaticallyAdjustsColorStyle: Bool, frame: CGRect = .zero) {
+        super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, frame: frame)
         useAlternativeColors = true
         clipsToBounds = true
         addSubview(bar)
@@ -34,8 +34,8 @@ open class SFPopView: SFView {
     // MARK: - Instance Methods
     
     open override func layoutSubviews() {
-        bar.clipEdges(exclude: [.bottom])
         super.layoutSubviews()
+        bar.clipEdges(exclude: [.bottom])
     }
     
 }

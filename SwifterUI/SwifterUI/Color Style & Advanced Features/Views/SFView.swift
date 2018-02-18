@@ -18,9 +18,9 @@ open class SFView: UIView, SFViewColorStyle {
     
     // MARK: - Initializers
     
-    public init(automaticallyAdjustsColorStyle: Bool = true) {
+    public init(automaticallyAdjustsColorStyle: Bool = true, frame: CGRect = .zero) {
         self.automaticallyAdjustsColorStyle = automaticallyAdjustsColorStyle
-        super.init(frame: .zero)
+        super.init(frame: frame)
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -30,7 +30,7 @@ open class SFView: UIView, SFViewColorStyle {
     // MARK: - Instance Methods
     
     open func updateColors() {
-        backgroundColor = useAlternativeColors == true ? colorStyle.getAlternativeColors() : colorStyle.getMainColor()
+        backgroundColor = useAlternativeColors ? colorStyle.getAlternativeColors() : colorStyle.getMainColor()
         updateSubviewsColors()
     }
     

@@ -23,6 +23,7 @@ open class SFPopBar: SFView {
         let button = SFButton(automaticallyAdjustsColorStyle: false)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.useAlternativeColors = true
+        button.setImage(SFAssets.imageOfArrowDown.withRenderingMode(.alwaysTemplate), for: .normal)
         return button
     }()
     
@@ -35,8 +36,8 @@ open class SFPopBar: SFView {
     
     // MARK: - Initializers
     
-    public override init(automaticallyAdjustsColorStyle: Bool) {
-        super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle)
+    public override init(automaticallyAdjustsColorStyle: Bool, frame: CGRect = .zero) {
+        super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, frame: frame)
         addSubview(dismissButton)
         addSubview(titleLabel)
     }
@@ -48,13 +49,13 @@ open class SFPopBar: SFView {
     // MARK: - Instance Methods
     
     open override func layoutSubviews() {
+        super.layoutSubviews()
         dismissButton.center(axis: [.y])
         dismissButton.clipLeft(to: .left, margin: 12)
         dismissButton.width(SFDimension(value: 28))
         dismissButton.height(SFDimension(value: 28))
         titleLabel.center()
         height(SFDimension(value: 44))
-        super.layoutSubviews()
     }
     
     open override func updateColors() {

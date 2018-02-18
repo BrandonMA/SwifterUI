@@ -38,8 +38,14 @@ public extension UIView {
     }
     
     public func remove(constraintType: ConstraintType) {
-        guard let oldConstraint = get(constraintType: constraintType) else { return }
-        guard let superview = superview else { return }
+        guard let oldConstraint = get(constraintType: constraintType) else {
+            print("\(constraintType.rawValue) constraint not found")
+            return
+        }
+        guard let superview = superview else {
+            print("Superview not available")
+            return
+        }
         removeConstraint(oldConstraint)
         superview.removeConstraint(oldConstraint)
     }
@@ -160,7 +166,10 @@ public extension UIView {
     
     @discardableResult
     private func clipXAxisAnchor(childAnchor: NSLayoutXAxisAnchor, to edge: ConstraintEdge, of view: UIView? = nil, margin: CGFloat = 0, relation: ConstraintRelation = .equal, useSafeArea: Bool) -> Constraint? {
-        guard let anchorView = getAnchorView(view: view) else { fatalError("You didn't set a relative view or superview isn't available") }
+        guard let anchorView = getAnchorView(view: view) else {
+            print("\(self) You didn't set a relative view or superview isn't available")
+            fatalError()
+        }
         switch edge {
         case .right:
             return clipEdge(childAnchor: childAnchor, parentAnchor: useSafeArea == true ? anchorView.safeAreaLayoutGuide.rightAnchor :
@@ -176,44 +185,52 @@ public extension UIView {
         }
     }
     
-    public func clipTop(to edge: ConstraintEdge, of view: UIView? = nil, margin: CGFloat = 0, relation: ConstraintRelation = .equal, useSafeArea: Bool = false) {
-        clipYAxisAnchor(childAnchor: topAnchor, to: edge, of: view, margin: margin, relation: relation, useSafeArea: useSafeArea)?.set(identifier: ConstraintType.top.rawValue)
+    @discardableResult
+    public func clipTop(to edge: ConstraintEdge, of view: UIView? = nil, margin: CGFloat = 0, relation: ConstraintRelation = .equal, useSafeArea: Bool = false) -> Constraint? {
+        return clipYAxisAnchor(childAnchor: topAnchor, to: edge, of: view, margin: margin, relation: relation, useSafeArea: useSafeArea)?.set(identifier: ConstraintType.top.rawValue)
     }
     
-    public func clipRight(to edge: ConstraintEdge, of view: UIView? = nil, margin: CGFloat = 0, relation: ConstraintRelation = .equal, useSafeArea: Bool = false) {
+    @discardableResult
+    public func clipRight(to edge: ConstraintEdge, of view: UIView? = nil, margin: CGFloat = 0, relation: ConstraintRelation = .equal, useSafeArea: Bool = false) -> Constraint? {
         let margin = margin * -1
-        clipXAxisAnchor(childAnchor: rightAnchor, to: edge, of: view, margin: margin, relation: relation, useSafeArea: useSafeArea)?.set(identifier: ConstraintType.right.rawValue)
+        return clipXAxisAnchor(childAnchor: rightAnchor, to: edge, of: view, margin: margin, relation: relation, useSafeArea: useSafeArea)?.set(identifier: ConstraintType.right.rawValue)
     }
     
-    public func clipBottom(to edge: ConstraintEdge, of view: UIView? = nil, margin: CGFloat = 0, relation: ConstraintRelation = .equal, useSafeArea: Bool = false) {
+    @discardableResult
+    public func clipBottom(to edge: ConstraintEdge, of view: UIView? = nil, margin: CGFloat = 0, relation: ConstraintRelation = .equal, useSafeArea: Bool = false) -> Constraint? {
         let margin = margin * -1
-        clipYAxisAnchor(childAnchor: bottomAnchor, to: edge, of: view, margin: margin, relation: relation, useSafeArea: useSafeArea)?.set(identifier: ConstraintType.bottom.rawValue)
+        return clipYAxisAnchor(childAnchor: bottomAnchor, to: edge, of: view, margin: margin, relation: relation, useSafeArea: useSafeArea)?.set(identifier: ConstraintType.bottom.rawValue)
     }
     
-    public func clipLeft(to edge: ConstraintEdge, of view: UIView? = nil, margin: CGFloat = 0, relation: ConstraintRelation = .equal, useSafeArea: Bool = false) {
-        clipXAxisAnchor(childAnchor: leftAnchor, to: edge, of: view, margin: margin, relation: relation, useSafeArea: useSafeArea)?.set(identifier: ConstraintType.left.rawValue)
+    @discardableResult
+    public func clipLeft(to edge: ConstraintEdge, of view: UIView? = nil, margin: CGFloat = 0, relation: ConstraintRelation = .equal, useSafeArea: Bool = false) -> Constraint? {
+        return clipXAxisAnchor(childAnchor: leftAnchor, to: edge, of: view, margin: margin, relation: relation, useSafeArea: useSafeArea)?.set(identifier: ConstraintType.left.rawValue)
     }
     
     // MARK: - Clip multiple edges
     
-    public func clipEdges(to view: UIView? = nil, margin: ConstraintMargin = .zero, exclude: [ConstraintEdge] = [], useSafeArea: Bool = false) {
+    @discardableResult
+    public func clipEdges(to view: UIView? = nil, margin: ConstraintMargin = .zero, exclude: [ConstraintEdge] = [], relation: ConstraintRelation = .equal, useSafeArea: Bool = false) -> [Constraint?] {
+        
+        var constraints: [Constraint?] = []
         
         if exclude.contains(.top) == false {
-            clipTop(to: .top, of: view, margin: margin.top, useSafeArea: useSafeArea)
+            constraints.append(clipTop(to: .top, of: view, margin: margin.top, relation: relation, useSafeArea: useSafeArea))
         }
         
         if exclude.contains(.right) == false {
-            clipRight(to: .right, of: view, margin: margin.right, useSafeArea: useSafeArea)
+            constraints.append(clipRight(to: .right, of: view, margin: margin.right, relation: relation, useSafeArea: useSafeArea))
         }
         
         if exclude.contains(.bottom) == false {
-            clipBottom(to: .bottom, of: view, margin: margin.bottom, useSafeArea: useSafeArea)
+            constraints.append(clipBottom(to: .bottom, of: view, margin: margin.bottom, relation: relation, useSafeArea: useSafeArea))
         }
         
         if exclude.contains(.left) == false {
-            clipLeft(to: .left, of: view, margin: margin.left, useSafeArea: useSafeArea)
+            constraints.append(clipLeft(to: .left, of: view, margin: margin.left, relation: relation, useSafeArea: useSafeArea))
         }
         
+        return constraints
     }
 }
 

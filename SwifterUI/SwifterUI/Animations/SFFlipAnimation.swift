@@ -35,7 +35,7 @@ open class SFFlipAnimation: SFAnimation {
         perspective.m34 = -1.0 / view.layer.frame.size.width/2
         
         CATransaction.begin()
-        CATransaction.setCompletionBlock({ self.delegate?.didFinishAnimation() })
+        CATransaction.setCompletionBlock({ self.delegate?.finished(animation: self) })
         
         let animation = CABasicAnimation(keyPath: "transform")
         animation.fromValue = NSValue(caTransform3D: CATransform3DMakeRotation(0, 0, 0, 0))

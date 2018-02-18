@@ -74,9 +74,9 @@ open class SFTextField: UITextField, SFViewColorStyle {
     
     // MARK: - Initializers
     
-    public init(automaticallyAdjustsColorStyle: Bool = true) {
+    public init(automaticallyAdjustsColorStyle: Bool = true, frame: CGRect = .zero) {
         self.automaticallyAdjustsColorStyle = automaticallyAdjustsColorStyle
-        super.init(frame: .zero)
+        super.init(frame: frame)
         backgroundColor = .clear
     }
     
@@ -87,7 +87,7 @@ open class SFTextField: UITextField, SFViewColorStyle {
     // MARK: - Instance Methods
     
     open func updateColors() {
-        backgroundColor = useAlternativeColors == true ? colorStyle.getTextEntryColor() : colorStyle.getAlternativeColors()
+        backgroundColor = useAlternativeColors ? colorStyle.getTextEntryColor() : colorStyle.getAlternativeColors()
         if let placeholder = placeholder {
             attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [NSAttributedStringKey.foregroundColor:colorStyle.getPlaceholderColor()])
         }

@@ -29,7 +29,7 @@ open class SFZoomAnimation: SFAnimation {
             self.view?.transform = CGAffineTransform(scaleX: self.finalScaleX, y: self.finalScaleY)
             self.view?.alpha = self.finalAlpha
         }, completion: { finished in
-            self.delegate?.didFinishAnimation()
+            self.delegate?.finished(animation: self)
         })
     }
 }

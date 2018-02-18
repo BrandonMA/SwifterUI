@@ -18,6 +18,10 @@ open class SFButton: UIButton, SFViewColorStyle {
         
     open var setTextColor: Bool = true
     
+    open var useAlternativeTextColor: Bool = false
+    
+    open var useClearColor: Bool = false
+    
     lazy var rightImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
@@ -27,9 +31,9 @@ open class SFButton: UIButton, SFViewColorStyle {
     
     // MARK: - Initializers
     
-    public init(automaticallyAdjustsColorStyle: Bool = true) {
+    public init(automaticallyAdjustsColorStyle: Bool = true, frame: CGRect = .zero) {
         self.automaticallyAdjustsColorStyle = automaticallyAdjustsColorStyle
-        super.init(frame: .zero)
+        super.init(frame: frame)
         addSubview(rightImageView)
     }
     
@@ -40,16 +44,21 @@ open class SFButton: UIButton, SFViewColorStyle {
     // MARK: - Instance Methods
     
     open override func layoutSubviews() {
+        super.layoutSubviews()
         rightImageView.clipEdges(margin: ConstraintMargin(top: 8, right: 8, bottom: 8, left: 0), exclude: [.left])
         rightImageView.width(SFDimension(value: 14))
-        super.layoutSubviews()
     }
     
     open func updateColors() {
-        backgroundColor = useAlternativeColors == true ? colorStyle.getMainColor() : colorStyle.getAlternativeColors()
-        if setTextColor == true {
-            tintColor = colorStyle.getInteractiveColor()
-            setTitleColor(colorStyle.getInteractiveColor(), for: .normal)
+        backgroundColor = useClearColor ? .clear : useAlternativeColors ? colorStyle.getMainColor() : colorStyle.getAlternativeColors()
+        if setTextColor {
+            if useAlternativeTextColor {
+                tintColor = colorStyle.getPlaceholderColor()
+                setTitleColor(colorStyle.getPlaceholderColor(), for: .normal)
+            } else {
+                tintColor = colorStyle.getInteractiveColor()
+                setTitleColor(colorStyle.getInteractiveColor(), for: .normal)
+            }
         }
         updateSubviewsColors()
     }

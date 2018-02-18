@@ -9,10 +9,10 @@
 import UIKit
 
 public protocol SFAnimationDelegate: class {
-    func didFinishAnimation()
+    func finished(animation: SFAnimation)
 }
 
-open class SFAnimation {
+open class SFAnimation: NSObject {
     
     public enum SFAnimationDirection {
         case top
@@ -56,7 +56,8 @@ open class SFAnimation {
         self.type = type
         self.view = view
         self.direction = direction
-        self.load()
+        super.init()
+        load()
     }
     
     // MARK: - Instance Methods

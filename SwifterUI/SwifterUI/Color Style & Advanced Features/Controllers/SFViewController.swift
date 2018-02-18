@@ -91,7 +91,7 @@ open class SFViewController: UIViewController, SFControllerColorStyle {
     
     open func updateColors() {
         DispatchQueue.addAsyncTask(to: .main) {
-            UIView.animate(withDuration: 0.2, animations: {
+            UIView.animate(withDuration: 0.6, animations: {
                 
                 self.updateSubviewsColors()
                 

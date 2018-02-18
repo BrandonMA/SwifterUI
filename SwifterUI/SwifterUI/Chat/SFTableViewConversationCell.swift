@@ -8,11 +8,15 @@
 
 import UIKit
 
-open class SFTableViewChatCell: SFTableViewCell {
+open class SFTableViewConversationCell: SFTableViewCell {
+    
+    // MARK: - Static Properties
+    
+    open static let height: CGFloat = 64
     
     // MARK: - Instance Properties
     
-    lazy var profileImageView: UIImageView = {
+    open lazy var profileImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -20,14 +24,14 @@ open class SFTableViewChatCell: SFTableViewCell {
         return imageView
     }()
     
-    lazy var nameLabel: SFLabel = {
+    open lazy var nameLabel: SFLabel = {
         let label = SFLabel(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         label.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    lazy var messageLabel: SFLabel = {
+    open lazy var messageLabel: SFLabel = {
         let label = SFLabel(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         label.useAlternativeColors = true
         label.font = UIFont.systemFont(ofSize: 13)
@@ -35,7 +39,7 @@ open class SFTableViewChatCell: SFTableViewCell {
         return label
     }()
     
-    lazy var hourLabel: SFLabel = {
+    open lazy var hourLabel: SFLabel = {
         let label = SFLabel(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         label.useAlternativeColors = true
         label.font = UIFont.systemFont(ofSize: 13)
@@ -61,6 +65,8 @@ open class SFTableViewChatCell: SFTableViewCell {
     
     open override func layoutSubviews() {
         
+        super.layoutSubviews()
+        
         profileImageView.height(SFDimension(value: 40))
         profileImageView.width(SFDimension(value: 40))
         profileImageView.clipLeft(to: .left, margin: 12)
@@ -77,7 +83,6 @@ open class SFTableViewChatCell: SFTableViewCell {
         hourLabel.clipTop(to: .top, of: profileImageView)
         hourLabel.clipRight(to: .right, margin: 12)
         
-        super.layoutSubviews()
     }
 }
 

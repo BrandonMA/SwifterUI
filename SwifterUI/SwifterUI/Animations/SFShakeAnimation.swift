@@ -20,7 +20,7 @@ open class SFShakeAnimation: SFAnimation {
     open override func start() {
         guard let view = view else { return }
         CATransaction.begin()
-        CATransaction.setCompletionBlock({ self.delegate?.didFinishAnimation() })
+        CATransaction.setCompletionBlock({ self.delegate?.finished(animation: self) })
         let animation = CAKeyframeAnimation(keyPath: "position.x")
         let modifier = 30 * force
         animation.values = [initialFrame.midX, initialFrame.midX + modifier, initialFrame.midX, initialFrame.midX - modifier, initialFrame.midX + modifier, initialFrame.midX]

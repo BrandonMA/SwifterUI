@@ -15,13 +15,12 @@ class View: SFView {
         textSection.titleLabel.text = "Prueba"
         textSection.textField.placeholder = "Hola"
         textSection.translatesAutoresizingMaskIntoConstraints = false
-        print("view")
         textSection.usePickerMode = true
         return textSection
     }()
     
-    override init(automaticallyAdjustsColorStyle: Bool = true) {
-        super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle)
+    override init(automaticallyAdjustsColorStyle: Bool = true, frame: CGRect = .zero) {
+        super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, frame: frame)
         addSubview(textSection)
     }
     

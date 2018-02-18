@@ -24,8 +24,8 @@ open class SFSection: SFView {
     
     // MARK: - Initializers
     
-    public override init(automaticallyAdjustsColorStyle: Bool = true) {
-        super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle)
+    public override init(automaticallyAdjustsColorStyle: Bool = true, frame: CGRect = .zero) {
+        super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, frame: frame)
         addSubview(titleLabel)
         addSubview(bottomView)
     }

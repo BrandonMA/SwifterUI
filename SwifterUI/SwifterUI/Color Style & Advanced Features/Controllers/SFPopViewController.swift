@@ -23,7 +23,6 @@ open class SFPopViewController: SFViewController {
     open override func loadView() {
         self.view = SFPopView(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         sfview.bar.tintColor = .blue
-        sfview.bar.dismissButton.setImage(UIImage(named: "rightArrow")?.withRenderingMode(.alwaysTemplate), for: .normal)
         sfview.bar.dismissButton.addTarget(self, action: #selector(dismissPop), for: .touchUpInside)
         sfview.bar.titleLabel.text = "Prueba"
     }

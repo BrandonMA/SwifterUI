@@ -186,31 +186,31 @@ public extension UIView {
     }
     
     @discardableResult
-    public func clipTop(to edge: ConstraintEdge, of view: UIView? = nil, margin: CGFloat = 0, relation: ConstraintRelation = .equal, useSafeArea: Bool = false) -> Constraint? {
+    public func clipTop(to edge: ConstraintEdge, of view: UIView? = nil, margin: CGFloat = 0, relation: ConstraintRelation = .equal, useSafeArea: Bool = true) -> Constraint? {
         return clipYAxisAnchor(childAnchor: topAnchor, to: edge, of: view, margin: margin, relation: relation, useSafeArea: useSafeArea)?.set(identifier: ConstraintType.top.rawValue)
     }
     
     @discardableResult
-    public func clipRight(to edge: ConstraintEdge, of view: UIView? = nil, margin: CGFloat = 0, relation: ConstraintRelation = .equal, useSafeArea: Bool = false) -> Constraint? {
+    public func clipRight(to edge: ConstraintEdge, of view: UIView? = nil, margin: CGFloat = 0, relation: ConstraintRelation = .equal, useSafeArea: Bool = true) -> Constraint? {
         let margin = margin * -1
         return clipXAxisAnchor(childAnchor: rightAnchor, to: edge, of: view, margin: margin, relation: relation, useSafeArea: useSafeArea)?.set(identifier: ConstraintType.right.rawValue)
     }
     
     @discardableResult
-    public func clipBottom(to edge: ConstraintEdge, of view: UIView? = nil, margin: CGFloat = 0, relation: ConstraintRelation = .equal, useSafeArea: Bool = false) -> Constraint? {
+    public func clipBottom(to edge: ConstraintEdge, of view: UIView? = nil, margin: CGFloat = 0, relation: ConstraintRelation = .equal, useSafeArea: Bool = true) -> Constraint? {
         let margin = margin * -1
         return clipYAxisAnchor(childAnchor: bottomAnchor, to: edge, of: view, margin: margin, relation: relation, useSafeArea: useSafeArea)?.set(identifier: ConstraintType.bottom.rawValue)
     }
     
     @discardableResult
-    public func clipLeft(to edge: ConstraintEdge, of view: UIView? = nil, margin: CGFloat = 0, relation: ConstraintRelation = .equal, useSafeArea: Bool = false) -> Constraint? {
+    public func clipLeft(to edge: ConstraintEdge, of view: UIView? = nil, margin: CGFloat = 0, relation: ConstraintRelation = .equal, useSafeArea: Bool = true) -> Constraint? {
         return clipXAxisAnchor(childAnchor: leftAnchor, to: edge, of: view, margin: margin, relation: relation, useSafeArea: useSafeArea)?.set(identifier: ConstraintType.left.rawValue)
     }
     
     // MARK: - Clip multiple edges
     
     @discardableResult
-    public func clipEdges(to view: UIView? = nil, margin: ConstraintMargin = .zero, exclude: [ConstraintEdge] = [], relation: ConstraintRelation = .equal, useSafeArea: Bool = false) -> [Constraint?] {
+    public func clipEdges(to view: UIView? = nil, margin: ConstraintMargin = .zero, exclude: [ConstraintEdge] = [], relation: ConstraintRelation = .equal, useSafeArea: Bool = true) -> [Constraint?] {
         
         var constraints: [Constraint?] = []
         

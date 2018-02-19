@@ -14,9 +14,25 @@ open class SFNavigationController: UINavigationController, SFControllerColorStyl
     
     open var currentColorStyle: SFColorStyle? = nil
     
-    open var automaticallyAdjustsColorStyle: Bool = true
+    open var automaticallyAdjustsColorStyle: Bool = false {
+        didSet {
+            checkColorStyleListener()
+        }
+    }
     
-    open var automaticallyTintNavigationBar: Bool = true
+    open var automaticallyTintNavigationBar: Bool = false
+    
+    open override var preferredStatusBarStyle: UIStatusBarStyle {
+        return self.statusBarStyle
+    }
+    
+    open override var prefersStatusBarHidden: Bool {
+        return self.statusBarIsHidden
+    }
+    
+    open override var shouldAutorotate: Bool {
+        return self.autorotate
+    }
     
     open var statusBarStyle: UIStatusBarStyle = .default {
         didSet {
@@ -24,9 +40,13 @@ open class SFNavigationController: UINavigationController, SFControllerColorStyl
         }
     }
     
-    open override var preferredStatusBarStyle: UIStatusBarStyle {
-        return self.statusBarStyle
+    open var statusBarIsHidden: Bool = false {
+        didSet {
+            self.setNeedsStatusBarAppearanceUpdate()
+        }
     }
+    
+    open var autorotate: Bool = true
     
     // MARK: - Initializers
     

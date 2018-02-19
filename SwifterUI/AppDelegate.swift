@@ -17,7 +17,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window = UIWindow(frame: UIScreen.main.bounds)
         
-        window?.rootViewController = SFNavigationController(rootViewController: SFChatViewController<Message>())
+        let controller = SFNavigationController(rootViewController: SFChatViewController<Message>())
+        controller.autorotate = false
+        window?.rootViewController = controller
         
         window?.makeKeyAndVisible()
         

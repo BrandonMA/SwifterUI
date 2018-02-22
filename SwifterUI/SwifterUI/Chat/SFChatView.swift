@@ -40,4 +40,5 @@ open class SFChatView: SFView {
         super.layoutSubviews()
         tableView.clipEdges(margin: ConstraintMargin(top: 0, right: 0, bottom: 0, left: 0))
     }
+    
 }

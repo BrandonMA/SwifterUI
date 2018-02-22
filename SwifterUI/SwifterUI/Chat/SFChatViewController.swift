@@ -136,9 +136,7 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
             let numberOfSection = chatView.tableView.numberOfSections - 1 > 0 ? chatView.tableView.numberOfSections - 1 : 0
             let rowNumber = chatView.tableView.numberOfRows(inSection: numberOfSection)
             didSend(message: message)
-            chatView.tableView.beginUpdates()
             chatView.tableView.insertRows(at: [IndexPath(row: rowNumber, section: numberOfSection)], with: .fade)
-            chatView.tableView.endUpdates()
             chatView.tableView.scrollToBottom(animated: true)
         }
     }
@@ -190,12 +188,17 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
         cell.messageVideoView.url = message.videoURL
         cell.isUserInteractionEnabled = true
         cell.messageVideoView.delegate = self
-        cell.delegate = self
+//        cell.delegate = self
+        cell.updateColors()
         
-        if message.image != nil || message.videoURL != nil {
-            cell.width = (tableView.bounds.width * 2/3)
+        if let width = cachedBubbleWidths[indexPath] {
+            cell.width = width
         } else {
-            cell.width = cachedBubbleWidths[indexPath] ?? message.text?.estimatedFrame(with: cell.messageLabel.font, maxWidth: (tableView.bounds.width * 2/3) - 16).size.width ?? 0
+            if message.image != nil || message.videoURL != nil {
+                cell.width = (tableView.bounds.width * 2/3)
+            } else {
+                cell.width = message.text?.estimatedFrame(with: cell.messageLabel.font, maxWidth: (tableView.bounds.width * 2/3) - 16).size.width ?? 0
+            }
         }
         
         cachedBubbleWidths[indexPath] = cell.width

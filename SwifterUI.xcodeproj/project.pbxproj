@@ -39,6 +39,7 @@
 		424BE0C61FF45C20005DE2AD /* SFPopPresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424BE0C51FF45C20005DE2AD /* SFPopPresentation.swift */; };
 		424E2C75202378EA00F9A4E2 /* UITextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424E2C74202378EA00F9A4E2 /* UITextView.swift */; };
 		424E6C1E2028F06D00568F85 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424E6C1D2028F06C00568F85 /* View.swift */; };
+		4253D3C2203CDEE500507F88 /* SFTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4253D3C1203CDEE500507F88 /* SFTabBarController.swift */; };
 		425AFDAC20300C580049B68B /* SFCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425AFDAB20300C580049B68B /* SFCollectionView.swift */; };
 		425AFDAE20300C700049B68B /* SFCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425AFDAD20300C700049B68B /* SFCollectionViewCell.swift */; };
 		42795F64202FB55300C3767F /* SFPopBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42795F63202FB55300C3767F /* SFPopBar.swift */; };
@@ -151,6 +152,7 @@
 		424BE0C51FF45C20005DE2AD /* SFPopPresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFPopPresentation.swift; sourceTree = "<group>"; };
 		424E2C74202378EA00F9A4E2 /* UITextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextView.swift; sourceTree = "<group>"; };
 		424E6C1D2028F06C00568F85 /* View.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
+		4253D3C1203CDEE500507F88 /* SFTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFTabBarController.swift; sourceTree = "<group>"; };
 		425AFDAB20300C580049B68B /* SFCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFCollectionView.swift; sourceTree = "<group>"; };
 		425AFDAD20300C700049B68B /* SFCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFCollectionViewCell.swift; sourceTree = "<group>"; };
 		42795F63202FB55300C3767F /* SFPopBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFPopBar.swift; sourceTree = "<group>"; };
@@ -376,6 +378,7 @@
 			isa = PBXGroup;
 			children = (
 				42D34C72202FABB3002B6FA6 /* SFNavigationController.swift */,
+				4253D3C1203CDEE500507F88 /* SFTabBarController.swift */,
 				42A42EB21FF1AD8C002FE4A7 /* SFViewController.swift */,
 				42C701B02016834E00EBFBE2 /* SFPopViewController.swift */,
 				42DBF1A52037556F00F4BB6F /* SFPickerController.swift */,
@@ -780,6 +783,7 @@
 				429FD4951FED89F300FD7F10 /* SFShakeAnimation.swift in Sources */,
 				42446777202AC57700F59892 /* SFTextView.swift in Sources */,
 				42289AE2203481A30095FF5C /* String.swift in Sources */,
+				4253D3C2203CDEE500507F88 /* SFTabBarController.swift in Sources */,
 				42E83BBD202B98F800A341C5 /* SFTableViewCell.swift in Sources */,
 				429FD49B1FED8E8900FD7F10 /* SFMorphAnimation.swift in Sources */,
 				42DBF1A4203754E900F4BB6F /* SFPickerView.swift in Sources */,

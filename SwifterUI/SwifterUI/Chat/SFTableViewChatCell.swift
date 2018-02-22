@@ -49,7 +49,7 @@ open class SFTableViewChatCell: SFTableViewCell {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTouchImageView)))
+//        imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTouchImageView)))
         imageView.isUserInteractionEnabled = true
         return imageView
     }()
@@ -67,6 +67,7 @@ open class SFTableViewChatCell: SFTableViewCell {
     public override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         addSubview(bubbleView)
+        bubbleView.addSubview(messageLabel)
         useAlternativeColors = true
     }
     
@@ -77,7 +78,6 @@ open class SFTableViewChatCell: SFTableViewCell {
     // MARK: - Instance Methods
     
     @objc open func didTouchImageView() {
-        
         if messageImageView.superview == window {
             zoomOut()
         } else {
@@ -113,17 +113,21 @@ open class SFTableViewChatCell: SFTableViewCell {
         
         super.layoutSubviews()
         
-        bubbleView.removeAllConstraints()
+        bubbleView.remove(constraintType: .width)
         
         bubbleView.clipTop(to: .top, margin: 8)
         bubbleView.clipBottom(to: .bottom, margin: 8)
         bubbleView.width(SFDimension(value: width + 17))
         
         if isBlue {
+            bubbleView.remove(constraintType: .right)
             bubbleView.clipLeft(to: .left, margin: 8)
         } else {
+            bubbleView.remove(constraintType: .left)
             bubbleView.clipRight(to: .right, margin: 8)
         }
+        
+        messageLabel.clipEdges(margin: ConstraintMargin(top: 8, right: 8, bottom: 8, left: 8))
         
         if messageImageView.image != nil {
             bubbleView.addSubview(messageImageView)
@@ -132,12 +136,7 @@ open class SFTableViewChatCell: SFTableViewCell {
             bubbleView.addSubview(messageVideoView)
             messageVideoView.prepareVideoView()
             messageVideoView.clipEdges(margin: ConstraintMargin(top: 8, right: 8, bottom: 8, left: 8))
-        } else {
-            bubbleView.addSubview(messageLabel)
-            messageLabel.clipEdges(margin: ConstraintMargin(top: 8, right: 8, bottom: 8, left: 8))
         }
         
-        
     }
-    
 }

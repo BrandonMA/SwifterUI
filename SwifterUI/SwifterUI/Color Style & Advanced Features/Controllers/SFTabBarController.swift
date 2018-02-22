@@ -1,14 +1,14 @@
 //
-//  SFNavigationController.swift
+//  SFTabViewController.swift
 //  SwifterUI
 //
-//  Created by brandon maldonado alonso on 10/02/18.
+//  Created by brandon maldonado alonso on 20/02/18.
 //  Copyright © 2018 Brandon Maldonado Alonso. All rights reserved.
 //
 
 import UIKit
 
-open class SFNavigationController: UINavigationController, SFControllerColorStyle {
+open class SFTabBarController: UITabBarController, SFControllerColorStyle {
     
     // MARK: - Instance Properties
     
@@ -54,12 +54,7 @@ open class SFNavigationController: UINavigationController, SFControllerColorStyl
         NotificationCenter.default.removeObserver(self)
     }
     
-    public override init(rootViewController: UIViewController) {
-        super.init(rootViewController: rootViewController)
-        checkColorStyle()
-    }
-    
-    public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+    public override init(nibName nibNameOrNil: String? = nil, bundle nibBundleOrNil: Bundle? = nil) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         checkColorStyle()
     }
@@ -85,18 +80,10 @@ open class SFNavigationController: UINavigationController, SFControllerColorStyl
     }
     
     open func updateColors() {
-        
         UIView.animate(withDuration: 0.6) {
-            if self.automaticallyTintNavigationBar == true {
-                self.navigationBar.barStyle = self.colorStyle.getBarStyle()
-                self.navigationBar.tintColor = self.colorStyle.getInteractiveColor()
-                self.updateNavItem()
-                self.statusBarStyle = self.colorStyle.getStatusBarStyle()
-            }
-            
-            self.setNeedsStatusBarAppearanceUpdate()
-            self.currentColorStyle = self.colorStyle
+            self.tabBar.tintColor = self.colorStyle.getInteractiveColor()
+            self.tabBar.barStyle = self.colorStyle.getBarStyle()
         }
     }
+    
 }
-

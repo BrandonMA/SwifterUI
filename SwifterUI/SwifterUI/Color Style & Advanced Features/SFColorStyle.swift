@@ -16,7 +16,7 @@ public enum SFColorStyle: Int {
     
     // MARK: - Styles
     
-    public func getNavigationBarStyle() -> UIBarStyle {
+    public func getBarStyle() -> UIBarStyle {
         switch self {
         case .light: return .default
         case .dark: return .black

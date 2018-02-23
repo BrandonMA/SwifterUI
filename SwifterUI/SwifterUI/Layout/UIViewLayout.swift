@@ -27,29 +27,6 @@ public extension UIView {
         return constraints
     }
     
-    public func get(constraintType: ConstraintType) -> Constraint? {
-        let constraints = getAllConstraints()
-        for constraint in constraints {
-            if constraint.identifier == constraintType.rawValue {
-                return constraint
-            }
-        }
-        return nil
-    }
-    
-    public func remove(constraintType: ConstraintType) {
-        guard let oldConstraint = get(constraintType: constraintType) else {
-            print("\(constraintType.rawValue) constraint not found")
-            return
-        }
-        guard let superview = superview else {
-            print("Superview not available")
-            return
-        }
-        removeConstraint(oldConstraint)
-        superview.removeConstraint(oldConstraint)
-    }
-    
     public func removeAllConstraints() {
         let constraints = getAllConstraints()
         guard let superview = superview else { return }
@@ -57,6 +34,35 @@ public extension UIView {
             self.removeConstraint(constraint)
             superview.removeConstraint(constraint)
         }
+    }
+    
+    public func get(constraintType: ConstraintType) -> Constraint? {
+        
+        for constraint in self.constraints {
+            if constraint.identifier == constraintType.rawValue {
+                return constraint
+            }
+        }
+        
+        guard let superview = superview else { return nil }
+        
+        for constraint in superview.constraints {
+            guard let view = constraint.firstItem as? UIView else { return nil }
+            if view === self {
+                if constraint.identifier == constraintType.rawValue {
+                    return constraint
+                }
+            }
+        }
+        
+        return nil
+    }
+    
+    public func remove(constraintType: ConstraintType) {
+        guard let oldConstraint = get(constraintType: constraintType) else { return }
+        guard let superview = superview else { return }
+        removeConstraint(oldConstraint)
+        superview.removeConstraint(oldConstraint)
     }
     
     private func getAnchorView(view: UIView?) -> UIView? {

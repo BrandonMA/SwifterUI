@@ -12,6 +12,26 @@ open class SFScrollView: UIScrollView, SFViewColorStyle {
     
     // MARK: - Instance Properties
     
+    private var needsLayoutUpdate: Bool = true
+    
+    private var oldSize: CGSize = .zero
+    
+    open override var bounds: CGRect {
+        didSet {
+            if oldSize == .zero {
+                oldSize = bounds.size
+                needsLayoutUpdate = true
+            } else {
+                if oldSize != bounds.size {
+                    oldSize = bounds.size
+                    needsLayoutUpdate = true
+                } else {
+                    needsLayoutUpdate = false
+                }
+            }
+        }
+    }
+    
     open var automaticallyAdjustsColorStyle: Bool = false
     
     open var useAlternativeColors: Bool = false {
@@ -45,22 +65,23 @@ open class SFScrollView: UIScrollView, SFViewColorStyle {
     
     // MARK: - Instance Methods
     
-    open override func layoutSubviews() {
-        super.layoutSubviews()
+    open func layoutIfBoundsChanged() {
         clipEdges(useSafeArea: false)
         
         if scrollsHorizontally == false {
             contentView.width(SFDimension(type: .fraction, value: 1), comparedTo: superview)
-        } else {
-            contentView.remove(constraintType: .width)
         }
         
         if scrollVertically == false {
             contentView.height(SFDimension(type: .fraction, value: 1), comparedTo: superview)
-        } else {
-            contentView.remove(constraintType: .height)
         }
-        
+    }
+    
+    open override func layoutSubviews() {
+        super.layoutSubviews()
+        if needsLayoutUpdate {
+            layoutIfBoundsChanged()
+        }
     }
     
     open func updateColors() {

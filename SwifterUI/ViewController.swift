@@ -58,8 +58,8 @@ class LoginView: SFScrollView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
+    override func layoutIfBoundsChanged() {
+        super.layoutIfBoundsChanged()
         
         imageView.clipEdges(margin: ConstraintMargin(top: 16, right: 16, bottom: 0, left: 16), exclude: [.bottom])
         imageView.height(SFDimension(value: 200))

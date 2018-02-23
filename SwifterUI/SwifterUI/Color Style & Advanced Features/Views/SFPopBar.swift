@@ -60,6 +60,7 @@ open class SFPopBar: SFView {
     
     open override func updateColors() {
         super.updateColors()
+        self.tintColor = colorStyle.getInteractiveColor()
         addShadow(color: colorStyle.getSeparatorColor(), offSet: CGSize(width: 0, height: 1), radius: 0, opacity: 1)
     }
     

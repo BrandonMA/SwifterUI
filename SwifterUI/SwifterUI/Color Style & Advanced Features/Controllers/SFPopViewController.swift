@@ -14,7 +14,7 @@ open class SFPopViewController: SFViewController {
     
     private var initialPoint: CGFloat = 0
     
-    override var sfview: SFPopView {
+    open override var sfview: SFPopView {
         return view as! SFPopView
     }
     
@@ -22,9 +22,7 @@ open class SFPopViewController: SFViewController {
     
     open override func loadView() {
         self.view = SFPopView(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
-        sfview.bar.tintColor = .blue
         sfview.bar.dismissButton.addTarget(self, action: #selector(dismissPop), for: .touchUpInside)
-        sfview.bar.titleLabel.text = "Prueba"
     }
     
     override open func viewDidLoad() {

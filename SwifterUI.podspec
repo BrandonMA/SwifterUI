@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'SwifterUI'
-  s.version          = '0.4.6'
+  s.version          = '0.4.7'
   s.summary          = 'UI Library'
  
   s.description      = 'This is a UI Library to improve development process'
@@ -20,9 +20,7 @@ Pod::Spec.new do |s|
 
   s.subspec 'LoginManager' do |loginManager|
     loginManager.source_files  = 'SwifterUI/SwifterUI/LoginManager/*'
-    loginManager.dependency    = 'FBSDKLoginKit'
-    loginManager.dependency    = 'Firebase/Core'
-    loginManager.dependency    = 'Firebase/Auth'
+    loginManager.dependency    = 'FBSDKLoginKit', 'Firebase/Core', 'Firebase/Auth'
   end
 
 end

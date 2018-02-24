@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'SwifterUI'
-  s.version          = '0.4.2'
+  s.version          = '0.4.3'
   s.summary          = 'UI Library'
  
   s.description      = 'This is a UI Library to improve development process'
@@ -18,8 +18,8 @@ Pod::Spec.new do |s|
   s.source_files = 'SwifterUI/SwifterUI/*', 'SwifterUI/SwifterUI/Extensions/*', 'SwifterUI/SwifterUI/Layout/*', 'SwifterUI/SwifterUI/SFGradient/*', 'SwifterUI/SwifterUI/Animations/*'
   s.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.0' }
 
-  s.subspec 'UILibrary' do |library|
-    library.source_files = 'SwifterUI/SwifterUI/UILibrary/*', 'SwifterUI/SwifterUI/UILibrary/**/*'
-  end
+#s.subspec 'UILibrary' do |library|
+#  library.source_files = 'SwifterUI/SwifterUI/UILibrary/*', 'SwifterUI/SwifterUI/UILibrary/**/*'
+# end
  
 end

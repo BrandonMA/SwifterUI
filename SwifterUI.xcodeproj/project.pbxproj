@@ -319,16 +319,15 @@
 		423AAC1E1FE76718009D6C39 /* SwifterUI */ = {
 			isa = PBXGroup;
 			children = (
-				42B8DEF620409F1500B5770A /* LoginKit */,
-				42CB6AFA2036027C0080EFB8 /* ChatKit */,
-				424BE0C41FF45B9C005DE2AD /* Extensions */,
-				42A42EAC1FF1AB98002FE4A7 /* SFColors.swift */,
+				42A67AC92041B13100F2FF3E /* FacebookLogin */,
+				42A67AC72041B11A00F2FF3E /* Firebase */,
 				42C7D682202FEAAE006B62A1 /* SFAssets.swift */,
-				42A499F32022A64F00131324 /* SFVideo */,
-				42A42EBD1FF1BA3F002FE4A7 /* SFGradient */,
-				42A42EB61FF1B578002FE4A7 /* Color Style & Advanced Features */,
+				42A42EAC1FF1AB98002FE4A7 /* SFColors.swift */,
+				424BE0C41FF45B9C005DE2AD /* Extensions */,
 				429FD4AA1FED960800FD7F10 /* Animations */,
 				42B253E61FEA0E820002C297 /* Layout */,
+				42A42EBD1FF1BA3F002FE4A7 /* SFGradient */,
+				42A42EB61FF1B578002FE4A7 /* UILibrary */,
 			);
 			path = SwifterUI;
 			sourceTree = "<group>";
@@ -372,9 +371,12 @@
 			path = Animations;
 			sourceTree = "<group>";
 		};
-		42A42EB61FF1B578002FE4A7 /* Color Style & Advanced Features */ = {
+		42A42EB61FF1B578002FE4A7 /* UILibrary */ = {
 			isa = PBXGroup;
 			children = (
+				42A499F32022A64F00131324 /* SFVideo */,
+				42CB6AFA2036027C0080EFB8 /* ChatKit */,
+				42B8DEF620409F1500B5770A /* LoginKit */,
 				42A42EAA1FF1A9AB002FE4A7 /* SFColorStyle.swift */,
 				42A42EA81FF1A95F002FE4A7 /* SFColorStyleProtocol.swift */,
 				42A42EAE1FF1AC2A002FE4A7 /* SFControllerColorStyle.swift */,
@@ -383,7 +385,7 @@
 				42A42EB71FF1B6BD002FE4A7 /* Controllers */,
 				42A42EB81FF1B6C3002FE4A7 /* Views */,
 			);
-			path = "Color Style & Advanced Features";
+			path = UILibrary;
 			sourceTree = "<group>";
 		};
 		42A42EB71FF1B6BD002FE4A7 /* Controllers */ = {
@@ -439,6 +441,20 @@
 				42A42EC21FF1C13E002FE4A7 /* SFVideoView.swift */,
 			);
 			path = SFVideo;
+			sourceTree = "<group>";
+		};
+		42A67AC72041B11A00F2FF3E /* Firebase */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Firebase;
+			sourceTree = "<group>";
+		};
+		42A67AC92041B13100F2FF3E /* FacebookLogin */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = FacebookLogin;
 			sourceTree = "<group>";
 		};
 		42B253E61FEA0E820002C297 /* Layout */ = {

@@ -7,8 +7,6 @@ target 'SwifterUI' do
 
   # Pods for SwifterUI
   
-  pod 'YouTubePlayer'
-
   target 'SwifterUITests' do
     inherit! :search_paths
     # Pods for testing

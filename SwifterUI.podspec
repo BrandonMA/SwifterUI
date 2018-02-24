@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'SwifterUI'
-  s.version          = '0.4.0'
+  s.version          = '0.4.1'
   s.summary          = 'UI Library'
  
   s.description      = 'This is a UI Library to improve development process'
@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
   s.homepage         = 'https://github.com/BrandonMA/SwifterUI'
   s.license          = { :type => 'Apache-2.0', :file => 'LICENSE' }
   s.author           = { '<Brandon>' => '<maldonado.brandon177@gmail.com>' }
-  s.source           = { :git => 'https://github.com/BrandonMA/SwifterUI.git', :tag => s.version.to_s }
+  s.source           = { :git => 'https://github.com/BrandonMA/SwifterUI.git', :tag => s.version.to_s, :submodules => true  }
  
   s.ios.deployment_target = '11.0'
   s.source_files = 'SwifterUI/SwifterUI/*', 'SwifterUI/SwifterUI/Extensions/*', 'SwifterUI/SwifterUI/Layout/*', 'SwifterUI/SwifterUI/SFGradient/*'

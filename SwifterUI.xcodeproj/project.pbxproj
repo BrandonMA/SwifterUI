@@ -69,6 +69,7 @@
 		42A42EC11FF1C118002FE4A7 /* SFVideoPlayerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A42EC01FF1C118002FE4A7 /* SFVideoPlayerDelegate.swift */; };
 		42A42EC31FF1C13E002FE4A7 /* SFVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A42EC21FF1C13E002FE4A7 /* SFVideoView.swift */; };
 		42A67AC620411B3B00F2FF3E /* UIWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A67AC520411B3B00F2FF3E /* UIWindow.swift */; };
+		42A67AD02041CA6500F2FF3E /* LoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A67ACF2041CA6500F2FF3E /* LoginManager.swift */; };
 		42AFAE39203A2246002CAB0F /* SFImageViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AFAE38203A2246002CAB0F /* SFImageViewer.swift */; };
 		42AFAE3B203A2271002CAB0F /* SFImageViewerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AFAE3A203A2271002CAB0F /* SFImageViewerController.swift */; };
 		42B253E31FEA04E90002C297 /* DispatchQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B253E21FEA04E90002C297 /* DispatchQueue.swift */; };
@@ -187,6 +188,7 @@
 		42A42EC01FF1C118002FE4A7 /* SFVideoPlayerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFVideoPlayerDelegate.swift; sourceTree = "<group>"; };
 		42A42EC21FF1C13E002FE4A7 /* SFVideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFVideoView.swift; sourceTree = "<group>"; };
 		42A67AC520411B3B00F2FF3E /* UIWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIWindow.swift; sourceTree = "<group>"; };
+		42A67ACF2041CA6500F2FF3E /* LoginManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginManager.swift; sourceTree = "<group>"; };
 		42AFAE38203A2246002CAB0F /* SFImageViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFImageViewer.swift; sourceTree = "<group>"; };
 		42AFAE3A203A2271002CAB0F /* SFImageViewerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFImageViewerController.swift; sourceTree = "<group>"; };
 		42B253E21FEA04E90002C297 /* DispatchQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchQueue.swift; sourceTree = "<group>"; };
@@ -319,8 +321,7 @@
 		423AAC1E1FE76718009D6C39 /* SwifterUI */ = {
 			isa = PBXGroup;
 			children = (
-				42A67AC92041B13100F2FF3E /* FacebookLogin */,
-				42A67AC72041B11A00F2FF3E /* Firebase */,
+				42A67AC92041B13100F2FF3E /* LoginManager */,
 				42C7D682202FEAAE006B62A1 /* SFAssets.swift */,
 				42A42EAC1FF1AB98002FE4A7 /* SFColors.swift */,
 				424BE0C41FF45B9C005DE2AD /* Extensions */,
@@ -443,18 +444,12 @@
 			path = SFVideo;
 			sourceTree = "<group>";
 		};
-		42A67AC72041B11A00F2FF3E /* Firebase */ = {
+		42A67AC92041B13100F2FF3E /* LoginManager */ = {
 			isa = PBXGroup;
 			children = (
+				42A67ACF2041CA6500F2FF3E /* LoginManager.swift */,
 			);
-			path = Firebase;
-			sourceTree = "<group>";
-		};
-		42A67AC92041B13100F2FF3E /* FacebookLogin */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = FacebookLogin;
+			path = LoginManager;
 			sourceTree = "<group>";
 		};
 		42B253E61FEA0E820002C297 /* Layout */ = {
@@ -678,11 +673,21 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-SwifterUI/Pods-SwifterUI-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/YouTubePlayer/YouTubePlayer.framework",
+				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YouTubePlayer.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -890,6 +895,7 @@
 				42B7B27D203A611E004B5C6E /* SFScrollView.swift in Sources */,
 				423AAC261FE7678C009D6C39 /* ConstraintAxis.swift in Sources */,
 				42CB47AF20371962008C4AE6 /* SFChatView.swift in Sources */,
+				42A67AD02041CA6500F2FF3E /* LoginManager.swift in Sources */,
 				42289AE4203481C70095FF5C /* UITableView.swift in Sources */,
 				425AFDAC20300C580049B68B /* SFCollectionView.swift in Sources */,
 				42A42EC31FF1C13E002FE4A7 /* SFVideoView.swift in Sources */,

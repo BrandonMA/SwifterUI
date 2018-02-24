@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'SwifterUI'
-  s.version          = '0.4.5'
+  s.version          = '0.4.6'
   s.summary          = 'UI Library'
  
   s.description      = 'This is a UI Library to improve development process'
@@ -12,10 +12,17 @@ Pod::Spec.new do |s|
                             :git => 'https://github.com/BrandonMA/SwifterUI.git',
                             :tag => s.version.to_s,
                             :submodules => true
-}
- 
+  }
+
   s.ios.deployment_target = '11.0'
   s.source_files = 'SwifterUI/SwifterUI/*', 'SwifterUI/SwifterUI/**/*'
   s.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.0' }
+
+  s.subspec 'LoginManager' do |loginManager|
+    loginManager.source_files  = 'SwifterUI/SwifterUI/LoginManager/*'
+    loginManager.dependency    = 'FBSDKLoginKit'
+    loginManager.dependency    = 'Firebase/Core'
+    loginManager.dependency    = 'Firebase/Auth'
+  end
 
 end

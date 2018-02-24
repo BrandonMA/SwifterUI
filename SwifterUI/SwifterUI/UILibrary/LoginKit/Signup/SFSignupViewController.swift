@@ -33,32 +33,32 @@ open class SFSignupViewController: SFViewController {
     
     @objc private func signUpButtonDidTouch() {
         guard let name = signupView.nameSection.textField.text else {
-            SFMorphAnimation(with: signupView.nameSection).start()
+            SFWobbleAnimation(with: signupView.nameSection).start()
             return
         }
         
         if name != "" {
             guard let email = signupView.mailSection.textField.text else {
-                SFMorphAnimation(with: signupView.mailSection).start()
+                SFWobbleAnimation(with: signupView.mailSection).start()
                 return
             }
             
             if email != "" {
                 guard let password = signupView.passwordSection.textField.text else {
-                    SFMorphAnimation(with: signupView.passwordSection).start()
+                    SFWobbleAnimation(with: signupView.passwordSection).start()
                     return
                 }
                 
                 if password != "" {
                     signup(with: name, email: email, password: password)
                 } else {
-                    SFMorphAnimation(with: signupView.passwordSection).start()
+                    SFWobbleAnimation(with: signupView.passwordSection).start()
                 }
             } else {
-                SFMorphAnimation(with: signupView.mailSection).start()
+                SFWobbleAnimation(with: signupView.mailSection).start()
             }
         } else {
-            SFMorphAnimation(with: signupView.nameSection).start()
+            SFWobbleAnimation(with: signupView.nameSection).start()
         }
     }
     

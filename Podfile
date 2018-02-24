@@ -6,6 +6,10 @@ target 'SwifterUI' do
   use_frameworks!
 
   # Pods for SwifterUI
+
+  pod 'Firebase/Core'
+  pod 'Firebase/Auth'
+  pod 'FBSDKLoginKit'
   
   target 'SwifterUITests' do
     inherit! :search_paths

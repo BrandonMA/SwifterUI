@@ -22,6 +22,16 @@ open class SFSignupView: SFScrollView {
         return section
     }()
     
+    open lazy var lastNameSection: SFTextSection = {
+        let section = SFTextSection(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
+        section.titleLabel.text = "Apellidos"
+        section.textField.placeholder = "Escribe..."
+        section.translatesAutoresizingMaskIntoConstraints = false
+        section.textField.useAlternativeColors = true
+        section.textField.autocorrectionType = .no
+        return section
+    }()
+    
     open lazy var mailSection: SFTextSection = {
         let section = SFTextSection(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         section.titleLabel.text = "Correo Electronico"
@@ -77,8 +87,11 @@ open class SFSignupView: SFScrollView {
         mailSection.clipEdges(margin: ConstraintMargin(top: 0, right: 16, bottom: 0, left: 16), exclude: [.top, .bottom])
         mailSection.clipTop(to: .bottom, of: nameSection, margin: 16)
         
+        lastNameSection.clipEdges(margin: ConstraintMargin(top: 0, right: 16, bottom: 0, left: 16), exclude: [.top, .bottom])
+        lastNameSection.clipTop(to: .bottom, of: mailSection, margin: 16)
+        
         passwordSection.clipEdges(margin: ConstraintMargin(top: 0, right: 16, bottom: 0, left: 16), exclude: [.top, .bottom])
-        passwordSection.clipTop(to: .bottom, of: mailSection, margin: 16)
+        passwordSection.clipTop(to: .bottom, of: lastNameSection, margin: 16)
         
         signUpButton.clipEdges(margin: ConstraintMargin(top: 16, right: 16, bottom: 0, left: 16), exclude: [.top, .bottom])
         signUpButton.clipTop(to: .bottom, of: passwordSection, margin: 16)

@@ -37,24 +37,33 @@ open class SFSignupViewController: SFViewController {
         }
         
         if name != "" {
-            guard let email = signupView.mailSection.textField.text else {
-                SFWobbleAnimation(with: signupView.mailSection).start()
+            guard let lastName = signupView.lastNameSection.textField.text else {
+                SFWobbleAnimation(with: signupView.lastNameSection).start()
                 return
             }
             
-            if email != "" {
-                guard let password = signupView.passwordSection.textField.text else {
-                    SFWobbleAnimation(with: signupView.passwordSection).start()
+            if lastName != "" {
+                guard let email = signupView.mailSection.textField.text else {
+                    SFWobbleAnimation(with: signupView.mailSection).start()
                     return
                 }
                 
-                if password != "" {
-                    signup(with: name, email: email, password: password)
+                if email != "" {
+                    guard let password = signupView.passwordSection.textField.text else {
+                        SFWobbleAnimation(with: signupView.passwordSection).start()
+                        return
+                    }
+                    
+                    if password != "" {
+                        signup(with: name, email: email, password: password)
+                    } else {
+                        SFWobbleAnimation(with: signupView.passwordSection).start()
+                    }
                 } else {
-                    SFWobbleAnimation(with: signupView.passwordSection).start()
+                    SFWobbleAnimation(with: signupView.mailSection).start()
                 }
             } else {
-                SFWobbleAnimation(with: signupView.mailSection).start()
+                SFWobbleAnimation(with: signupView.lastNameSection).start()
             }
         } else {
             SFWobbleAnimation(with: signupView.nameSection).start()

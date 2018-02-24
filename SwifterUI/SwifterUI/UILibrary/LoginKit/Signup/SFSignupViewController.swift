@@ -28,7 +28,6 @@ open class SFSignupViewController: SFViewController {
         navigationItem.title = "Crear Cuenta"
         autorotate = UIDevice.current.userInterfaceIdiom == .pad ? true : false
         signupView.signUpButton.addTarget(self, action: #selector(signUpButtonDidTouch), for: .touchUpInside)
-        signupView.facebookButton.addTarget(self, action: #selector(facebookButtonDidTouch), for: .touchUpInside)
     }
     
     @objc private func signUpButtonDidTouch() {
@@ -63,10 +62,6 @@ open class SFSignupViewController: SFViewController {
     }
     
     open func signup(with name: String, email: String, password: String) {
-        
-    }
-    
-    @objc open func facebookButtonDidTouch() {
         
     }
     

@@ -52,15 +52,6 @@ open class SFSignupView: SFScrollView {
         return button
     }()
     
-    open lazy var facebookButton: SFButton = {
-        let button = SFButton(automaticallyAdjustsColorStyle: false)
-        button.setTitle("Facebook", for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = UIColor(hex: "3B5998")
-        button.layer.cornerRadius = 10
-        return button
-    }()
-    
     // MARK: - Initializers
     
     public override init(automaticallyAdjustsColorStyle: Bool = true, frame: CGRect = .zero) {
@@ -69,7 +60,6 @@ open class SFSignupView: SFScrollView {
         contentView.addSubview(mailSection)
         contentView.addSubview(passwordSection)
         contentView.addSubview(signUpButton)
-        contentView.addSubview(facebookButton)
         useAlternativeColors = true
     }
     
@@ -94,10 +84,6 @@ open class SFSignupView: SFScrollView {
         signUpButton.clipTop(to: .bottom, of: passwordSection, margin: 16)
         signUpButton.height(SFDimension(value: 44))
         
-        facebookButton.clipEdges(margin: ConstraintMargin(top: 16, right: 16, bottom: 0, left: 16), exclude: [.top, .bottom])
-        facebookButton.clipTop(to: .bottom, of: signUpButton, margin: 16)
-        facebookButton.height(SFDimension(value: 44))
-        
-        contentView.clipBottom(to: .bottom, of: facebookButton, margin: -16)
+        contentView.clipBottom(to: .bottom, of: signUpButton, margin: -16)
     }
 }

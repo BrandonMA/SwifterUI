@@ -68,6 +68,7 @@
 		42A42EBF1FF1BC81002FE4A7 /* SFGradientReady.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A42EBE1FF1BC81002FE4A7 /* SFGradientReady.swift */; };
 		42A42EC11FF1C118002FE4A7 /* SFVideoPlayerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A42EC01FF1C118002FE4A7 /* SFVideoPlayerDelegate.swift */; };
 		42A42EC31FF1C13E002FE4A7 /* SFVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A42EC21FF1C13E002FE4A7 /* SFVideoView.swift */; };
+		42A67AC620411B3B00F2FF3E /* UIWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A67AC520411B3B00F2FF3E /* UIWindow.swift */; };
 		42AFAE39203A2246002CAB0F /* SFImageViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AFAE38203A2246002CAB0F /* SFImageViewer.swift */; };
 		42AFAE3B203A2271002CAB0F /* SFImageViewerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AFAE3A203A2271002CAB0F /* SFImageViewerController.swift */; };
 		42B253E31FEA04E90002C297 /* DispatchQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B253E21FEA04E90002C297 /* DispatchQueue.swift */; };
@@ -185,6 +186,7 @@
 		42A42EBE1FF1BC81002FE4A7 /* SFGradientReady.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFGradientReady.swift; sourceTree = "<group>"; };
 		42A42EC01FF1C118002FE4A7 /* SFVideoPlayerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFVideoPlayerDelegate.swift; sourceTree = "<group>"; };
 		42A42EC21FF1C13E002FE4A7 /* SFVideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFVideoView.swift; sourceTree = "<group>"; };
+		42A67AC520411B3B00F2FF3E /* UIWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIWindow.swift; sourceTree = "<group>"; };
 		42AFAE38203A2246002CAB0F /* SFImageViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFImageViewer.swift; sourceTree = "<group>"; };
 		42AFAE3A203A2271002CAB0F /* SFImageViewerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFImageViewerController.swift; sourceTree = "<group>"; };
 		42B253E21FEA04E90002C297 /* DispatchQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchQueue.swift; sourceTree = "<group>"; };
@@ -335,6 +337,7 @@
 			isa = PBXGroup;
 			children = (
 				424BE0C01FF45B2D005DE2AD /* Date.swift */,
+				42A67AC520411B3B00F2FF3E /* UIWindow.swift */,
 				42446772202AC27F00F59892 /* UIView.swift */,
 				424BE0C21FF45B42005DE2AD /* CGFloat.swift */,
 				424BE0BC1FF45AEA005DE2AD /* UIImage.swift */,
@@ -828,6 +831,7 @@
 				423AABF21FE7548F009D6C39 /* ViewController.swift in Sources */,
 				429FD49F1FED900100FD7F10 /* SFWobbleAnimation.swift in Sources */,
 				423AAC2C1FE770E6009D6C39 /* Constraints.swift in Sources */,
+				42A67AC620411B3B00F2FF3E /* UIWindow.swift in Sources */,
 				423AAC281FE76B57009D6C39 /* SFDimension.swift in Sources */,
 				424BE0BF1FF45B18005DE2AD /* UIColor.swift in Sources */,
 				42A42EC11FF1C118002FE4A7 /* SFVideoPlayerDelegate.swift in Sources */,

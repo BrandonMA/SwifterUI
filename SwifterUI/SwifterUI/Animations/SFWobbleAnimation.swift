@@ -12,9 +12,14 @@ open class SFWobbleAnimation: SFAnimation {
     
     // MARK: - Instance Properties
     
-    open var rotation: CGFloat = 0.3
+    open var rotation: CGFloat = 0.1
     
     // MARK: - Instance Methods
+    
+    open override func load() {
+        super.load()
+        animationCurve = .easeOut
+    }
     
     open override func start() {
         guard let view = self.view else { return }

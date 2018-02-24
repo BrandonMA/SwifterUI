@@ -25,6 +25,7 @@ open class SFSignupViewController: SFViewController {
     open override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(signupView)
+        navigationItem.title = "Crear Cuenta"
         autorotate = UIDevice.current.userInterfaceIdiom == .pad ? true : false
         signupView.signUpButton.addTarget(self, action: #selector(signUpButtonDidTouch), for: .touchUpInside)
         signupView.facebookButton.addTarget(self, action: #selector(facebookButtonDidTouch), for: .touchUpInside)

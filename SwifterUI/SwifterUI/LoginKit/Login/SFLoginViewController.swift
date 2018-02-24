@@ -25,6 +25,7 @@ open class SFLoginViewController: SFViewController {
     open override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(loginView)
+        navigationItem.title = "Iniciar Sesión"
         autorotate = UIDevice.current.userInterfaceIdiom == .pad ? true : false
         loginView.logInButton.addTarget(self, action: #selector(logInButtonDidTouch), for: .touchUpInside)
         loginView.signUpButton.addTarget(self, action: #selector(signUpButtonDidTouch), for: .touchUpInside)
@@ -33,23 +34,23 @@ open class SFLoginViewController: SFViewController {
     
     @objc private func logInButtonDidTouch() {
         guard let email = loginView.mailSection.textField.text else {
-            SFMorphAnimation(with: loginView.mailSection).start()
+            SFWobbleAnimation(with: loginView.mailSection).start()
             return
         }
         
         if email != "" {
             guard let password = loginView.passwordSection.textField.text else {
-                SFMorphAnimation(with: loginView.passwordSection).start()
+                SFWobbleAnimation(with: loginView.passwordSection).start()
                 return
             }
             
             if password != "" {
                 login(with: email, password: password)
             } else {
-                SFMorphAnimation(with: loginView.passwordSection).start()
+                SFWobbleAnimation(with: loginView.passwordSection).start()
             }
         } else {
-            SFMorphAnimation(with: loginView.mailSection).start()
+            SFWobbleAnimation(with: loginView.mailSection).start()
         }
     }
     

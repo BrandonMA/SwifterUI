@@ -55,7 +55,7 @@ open class SFSignupViewController: SFViewController {
                     }
                     
                     if password != "" {
-                        signup(with: name, email: email, password: password)
+                        signup(with: name, lastname: lastName, email: email, password: password)
                     } else {
                         SFWobbleAnimation(with: signupView.passwordSection).start()
                     }
@@ -70,7 +70,7 @@ open class SFSignupViewController: SFViewController {
         }
     }
     
-    open func signup(with name: String, email: String, password: String) {
+    open func signup(with name: String, lastname: String, email: String, password: String) {
         
     }
     

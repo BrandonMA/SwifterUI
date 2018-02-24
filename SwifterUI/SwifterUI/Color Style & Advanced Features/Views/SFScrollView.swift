@@ -12,7 +12,7 @@ open class SFScrollView: UIScrollView, SFViewColorStyle {
     
     // MARK: - Instance Properties
     
-    private var needsLayoutUpdate: Bool = true
+    open var needsLayoutUpdate: Bool = true
     
     private var oldSize: CGSize = .zero
     

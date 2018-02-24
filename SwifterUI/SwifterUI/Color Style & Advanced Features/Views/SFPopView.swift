@@ -12,10 +12,16 @@ open class SFPopView: SFView {
     
     // MARK: - Instance Properties
     
-    lazy var bar: SFPopBar = {
+    open lazy var bar: SFPopBar = {
         let bar = SFPopBar(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         bar.translatesAutoresizingMaskIntoConstraints = false
         return bar
+    }()
+    
+    open lazy var contentView: SFView = {
+        let view = SFView(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
     
     // MARK: - Initializers
@@ -25,6 +31,7 @@ open class SFPopView: SFView {
         useAlternativeColors = true
         clipsToBounds = true
         addSubview(bar)
+        addSubview(contentView)
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -36,6 +43,9 @@ open class SFPopView: SFView {
     open override func layoutSubviews() {
         super.layoutSubviews()
         bar.clipEdges(exclude: [.bottom])
+        contentView.clipEdges(exclude: [.top])
+        contentView.clipTop(to: .bottom, of: bar)
     }
     
 }
+

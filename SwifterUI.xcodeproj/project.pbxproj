@@ -69,7 +69,7 @@
 		42A42EC11FF1C118002FE4A7 /* SFVideoPlayerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A42EC01FF1C118002FE4A7 /* SFVideoPlayerDelegate.swift */; };
 		42A42EC31FF1C13E002FE4A7 /* SFVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A42EC21FF1C13E002FE4A7 /* SFVideoView.swift */; };
 		42A67AC620411B3B00F2FF3E /* UIWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A67AC520411B3B00F2FF3E /* UIWindow.swift */; };
-		42A67AD02041CA6500F2FF3E /* LoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A67ACF2041CA6500F2FF3E /* LoginManager.swift */; };
+		42A67AD02041CA6500F2FF3E /* FirebaseLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A67ACF2041CA6500F2FF3E /* FirebaseLogin.swift */; };
 		42AFAE39203A2246002CAB0F /* SFImageViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AFAE38203A2246002CAB0F /* SFImageViewer.swift */; };
 		42AFAE3B203A2271002CAB0F /* SFImageViewerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AFAE3A203A2271002CAB0F /* SFImageViewerController.swift */; };
 		42B253E31FEA04E90002C297 /* DispatchQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B253E21FEA04E90002C297 /* DispatchQueue.swift */; };
@@ -79,6 +79,7 @@
 		42B8DEFA20409FA000B5770A /* SFLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B8DEF920409FA000B5770A /* SFLoginView.swift */; };
 		42B8DEFE2040A00800B5770A /* SFSignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B8DEFD2040A00800B5770A /* SFSignupViewController.swift */; };
 		42B8DF002040A02F00B5770A /* SFSignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B8DEFF2040A02F00B5770A /* SFSignupView.swift */; };
+		42C2E17A20422AB800087B3C /* FacebookLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C2E17920422AB800087B3C /* FacebookLogin.swift */; };
 		42C701B12016834E00EBFBE2 /* SFPopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C701B02016834E00EBFBE2 /* SFPopViewController.swift */; };
 		42C701B42016839500EBFBE2 /* SFPresentationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C701B32016839500EBFBE2 /* SFPresentationManager.swift */; };
 		42C7D683202FEAAE006B62A1 /* SFAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C7D682202FEAAE006B62A1 /* SFAssets.swift */; };
@@ -188,7 +189,7 @@
 		42A42EC01FF1C118002FE4A7 /* SFVideoPlayerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFVideoPlayerDelegate.swift; sourceTree = "<group>"; };
 		42A42EC21FF1C13E002FE4A7 /* SFVideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFVideoView.swift; sourceTree = "<group>"; };
 		42A67AC520411B3B00F2FF3E /* UIWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIWindow.swift; sourceTree = "<group>"; };
-		42A67ACF2041CA6500F2FF3E /* LoginManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginManager.swift; sourceTree = "<group>"; };
+		42A67ACF2041CA6500F2FF3E /* FirebaseLogin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseLogin.swift; sourceTree = "<group>"; };
 		42AFAE38203A2246002CAB0F /* SFImageViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFImageViewer.swift; sourceTree = "<group>"; };
 		42AFAE3A203A2271002CAB0F /* SFImageViewerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFImageViewerController.swift; sourceTree = "<group>"; };
 		42B253E21FEA04E90002C297 /* DispatchQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchQueue.swift; sourceTree = "<group>"; };
@@ -198,6 +199,7 @@
 		42B8DEF920409FA000B5770A /* SFLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFLoginView.swift; sourceTree = "<group>"; };
 		42B8DEFD2040A00800B5770A /* SFSignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFSignupViewController.swift; sourceTree = "<group>"; };
 		42B8DEFF2040A02F00B5770A /* SFSignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFSignupView.swift; sourceTree = "<group>"; };
+		42C2E17920422AB800087B3C /* FacebookLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookLogin.swift; sourceTree = "<group>"; };
 		42C701B02016834E00EBFBE2 /* SFPopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFPopViewController.swift; sourceTree = "<group>"; };
 		42C701B32016839500EBFBE2 /* SFPresentationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFPresentationManager.swift; sourceTree = "<group>"; };
 		42C7D682202FEAAE006B62A1 /* SFAssets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFAssets.swift; sourceTree = "<group>"; };
@@ -321,7 +323,8 @@
 		423AAC1E1FE76718009D6C39 /* SwifterUI */ = {
 			isa = PBXGroup;
 			children = (
-				42A67AC92041B13100F2FF3E /* LoginManager */,
+				42C2E17B20422AF800087B3C /* Facebook */,
+				42A67AC92041B13100F2FF3E /* Firebase */,
 				42C7D682202FEAAE006B62A1 /* SFAssets.swift */,
 				42A42EAC1FF1AB98002FE4A7 /* SFColors.swift */,
 				424BE0C41FF45B9C005DE2AD /* Extensions */,
@@ -444,12 +447,12 @@
 			path = SFVideo;
 			sourceTree = "<group>";
 		};
-		42A67AC92041B13100F2FF3E /* LoginManager */ = {
+		42A67AC92041B13100F2FF3E /* Firebase */ = {
 			isa = PBXGroup;
 			children = (
-				42A67ACF2041CA6500F2FF3E /* LoginManager.swift */,
+				42A67ACF2041CA6500F2FF3E /* FirebaseLogin.swift */,
 			);
-			path = LoginManager;
+			path = Firebase;
 			sourceTree = "<group>";
 		};
 		42B253E61FEA0E820002C297 /* Layout */ = {
@@ -493,6 +496,14 @@
 				42B8DEFF2040A02F00B5770A /* SFSignupView.swift */,
 			);
 			path = Signup;
+			sourceTree = "<group>";
+		};
+		42C2E17B20422AF800087B3C /* Facebook */ = {
+			isa = PBXGroup;
+			children = (
+				42C2E17920422AB800087B3C /* FacebookLogin.swift */,
+			);
+			path = Facebook;
 			sourceTree = "<group>";
 		};
 		42C701B22016838700EBFBE2 /* Presentation */ = {
@@ -895,7 +906,7 @@
 				42B7B27D203A611E004B5C6E /* SFScrollView.swift in Sources */,
 				423AAC261FE7678C009D6C39 /* ConstraintAxis.swift in Sources */,
 				42CB47AF20371962008C4AE6 /* SFChatView.swift in Sources */,
-				42A67AD02041CA6500F2FF3E /* LoginManager.swift in Sources */,
+				42A67AD02041CA6500F2FF3E /* FirebaseLogin.swift in Sources */,
 				42289AE4203481C70095FF5C /* UITableView.swift in Sources */,
 				425AFDAC20300C580049B68B /* SFCollectionView.swift in Sources */,
 				42A42EC31FF1C13E002FE4A7 /* SFVideoView.swift in Sources */,
@@ -914,6 +925,7 @@
 				424BE0C31FF45B42005DE2AD /* CGFloat.swift in Sources */,
 				42AFAE39203A2246002CAB0F /* SFImageViewer.swift in Sources */,
 				429FD4A51FED938400FD7F10 /* SFZoomAnimation.swift in Sources */,
+				42C2E17A20422AB800087B3C /* FacebookLogin.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'SwifterUI'
-  s.version          = '0.4.9'
+  s.version          = '0.4.10'
   s.summary          = 'UI Library'
  
   s.description      = 'This is a UI Library to improve development process'
@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
   }
 
   s.ios.deployment_target = '11.0'
-  s.source_files = 'SwifterUI/SwifterUI/*', 'SwifterUI/SwifterUI/**/*'
+  s.source_files = 'SwifterUI/SwifterUI/*', 'SwifterUI/SwifterUI/Extensions/*', 'SwifterUI/SwifterUI/Layout/*', 'SwifterUI/SwifterUI/Animations/*', 'SwifterUI/SwifterUI/SFGradient/*', 'SwifterUI/SwifterUI/UILibrary/*', 'SwifterUI/SwifterUI/UILibrary/**/*'
   s.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.0' }
 
   s.subspec 'LoginManager' do |loginManager|

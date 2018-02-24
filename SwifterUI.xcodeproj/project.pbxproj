@@ -80,6 +80,7 @@
 		42B8DEFE2040A00800B5770A /* SFSignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B8DEFD2040A00800B5770A /* SFSignupViewController.swift */; };
 		42B8DF002040A02F00B5770A /* SFSignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B8DEFF2040A02F00B5770A /* SFSignupView.swift */; };
 		42C2E17A20422AB800087B3C /* FacebookLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C2E17920422AB800087B3C /* FacebookLogin.swift */; };
+		42C2E17D20422DCA00087B3C /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C2E17C20422DCA00087B3C /* UIViewController.swift */; };
 		42C701B12016834E00EBFBE2 /* SFPopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C701B02016834E00EBFBE2 /* SFPopViewController.swift */; };
 		42C701B42016839500EBFBE2 /* SFPresentationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C701B32016839500EBFBE2 /* SFPresentationManager.swift */; };
 		42C7D683202FEAAE006B62A1 /* SFAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C7D682202FEAAE006B62A1 /* SFAssets.swift */; };
@@ -200,6 +201,7 @@
 		42B8DEFD2040A00800B5770A /* SFSignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFSignupViewController.swift; sourceTree = "<group>"; };
 		42B8DEFF2040A02F00B5770A /* SFSignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFSignupView.swift; sourceTree = "<group>"; };
 		42C2E17920422AB800087B3C /* FacebookLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookLogin.swift; sourceTree = "<group>"; };
+		42C2E17C20422DCA00087B3C /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		42C701B02016834E00EBFBE2 /* SFPopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFPopViewController.swift; sourceTree = "<group>"; };
 		42C701B32016839500EBFBE2 /* SFPresentationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFPresentationManager.swift; sourceTree = "<group>"; };
 		42C7D682202FEAAE006B62A1 /* SFAssets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFAssets.swift; sourceTree = "<group>"; };
@@ -352,6 +354,7 @@
 				424E2C74202378EA00F9A4E2 /* UITextView.swift */,
 				42289AE1203481A30095FF5C /* String.swift */,
 				42289AE3203481C70095FF5C /* UITableView.swift */,
+				42C2E17C20422DCA00087B3C /* UIViewController.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -865,6 +868,7 @@
 				423AAC2C1FE770E6009D6C39 /* Constraints.swift in Sources */,
 				42A67AC620411B3B00F2FF3E /* UIWindow.swift in Sources */,
 				423AAC281FE76B57009D6C39 /* SFDimension.swift in Sources */,
+				42C2E17D20422DCA00087B3C /* UIViewController.swift in Sources */,
 				424BE0BF1FF45B18005DE2AD /* UIColor.swift in Sources */,
 				42A42EC11FF1C118002FE4A7 /* SFVideoPlayerDelegate.swift in Sources */,
 				42CB6AFE203603060080EFB8 /* SFTableViewChatCell.swift in Sources */,

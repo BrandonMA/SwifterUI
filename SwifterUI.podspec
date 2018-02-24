@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'SwifterUI'
-  s.version          = '0.4.16'
+  s.version          = '0.4.17'
   s.summary          = 'UI Library'
  
   s.description      = 'This is a UI Library to improve development process'
@@ -15,8 +15,13 @@ Pod::Spec.new do |s|
   }
 
   s.ios.deployment_target = '11.0'
-  s.source_files = 'SwifterUI/SwifterUI/*', 'SwifterUI/SwifterUI/Extensions/*', 'SwifterUI/SwifterUI/Layout/*', 'SwifterUI/SwifterUI/Animations/*', 'SwifterUI/SwifterUI/SFGradient/*', 'SwifterUI/SwifterUI/UILibrary/*', 'SwifterUI/SwifterUI/UILibrary/**/*'
   s.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.0' }
+
+  s.subspec 'Core' do |core|
+    core.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.0' }
+    core.ios.deployment_target = '11.0'
+    core.source_files = 'SwifterUI/SwifterUI/*', 'SwifterUI/SwifterUI/Extensions/*', 'SwifterUI/SwifterUI/Layout/*', 'SwifterUI/SwifterUI/Animations/*', 'SwifterUI/SwifterUI/SFGradient/*', 'SwifterUI/SwifterUI/UILibrary/*', 'SwifterUI/SwifterUI/UILibrary/**/*'
+  end
 
   s.subspec 'Firebase' do |firebase|
     firebase.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.0' }
@@ -24,7 +29,7 @@ Pod::Spec.new do |s|
     firebase.source_files  = 'SwifterUI/SwifterUI/Firebase/*'
     firebase.dependency 'Firebase/Core'
     firebase.dependency 'Firebase/Auth'
-    firebase.dependency 'SwifterUI'
+    firebase.dependency 'SwifterUI/Core'
   end
 
   s.subspec 'Facebook' do |facebook|
@@ -32,7 +37,7 @@ Pod::Spec.new do |s|
     facebook.ios.deployment_target = '11.0'
     facebook.source_files  = 'SwifterUI/SwifterUI/Facebook/*'
     facebook.dependency 'FBSDKLoginKit'
-    facebook.dependency 'SwifterUI'
+    facebook.dependency 'SwifterUI/Core'
   end
 
 end

@@ -18,6 +18,7 @@ open class SFSignupView: SFScrollView {
         section.textField.placeholder = "Escribe..."
         section.translatesAutoresizingMaskIntoConstraints = false
         section.textField.useAlternativeColors = true
+        section.textField.autocorrectionType = .no
         return section
     }()
     
@@ -27,6 +28,7 @@ open class SFSignupView: SFScrollView {
         section.textField.placeholder = "Escribe..."
         section.translatesAutoresizingMaskIntoConstraints = false
         section.textField.useAlternativeColors = true
+        section.textField.autocorrectionType = .no
         return section
     }()
     
@@ -37,6 +39,7 @@ open class SFSignupView: SFScrollView {
         section.textField.isSecureTextEntry = true
         section.translatesAutoresizingMaskIntoConstraints = false
         section.textField.useAlternativeColors = true
+        section.textField.autocorrectionType = .no
         return section
     }()
     

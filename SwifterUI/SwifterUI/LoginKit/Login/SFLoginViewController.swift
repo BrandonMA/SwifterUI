@@ -12,7 +12,7 @@ open class SFLoginViewController: SFViewController {
     
     // MARK: - Instance Properties
     
-    open lazy var scrollView: SFLoginView = {
+    open lazy var loginView: SFLoginView = {
         let scrollView = SFLoginView(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.useAlternativeColors = true
@@ -24,11 +24,11 @@ open class SFLoginViewController: SFViewController {
     
     open override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(scrollView)
+        view.addSubview(loginView)
         autorotate = UIDevice.current.userInterfaceIdiom == .pad ? true : false
-        scrollView.logInButton.addTarget(self, action: #selector(logInButtonDidTouch), for: .touchUpInside)
-        scrollView.signUpButton.addTarget(self, action: #selector(signUpButtonDidTouch), for: .touchUpInside)
-        scrollView.facebookButton.addTarget(self, action: #selector(facebookButtonDidTouch), for: .touchUpInside)
+        loginView.logInButton.addTarget(self, action: #selector(logInButtonDidTouch), for: .touchUpInside)
+        loginView.signUpButton.addTarget(self, action: #selector(signUpButtonDidTouch), for: .touchUpInside)
+        loginView.facebookButton.addTarget(self, action: #selector(facebookButtonDidTouch), for: .touchUpInside)
     }
     
     @objc open func logInButtonDidTouch() {
@@ -36,8 +36,7 @@ open class SFLoginViewController: SFViewController {
     }
     
     @objc open func signUpButtonDidTouch() {
-        let controller = SFSignupViewController(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
-        navigationController?.pushViewController(controller, animated: true)
+        
     }
     
     @objc open func facebookButtonDidTouch() {

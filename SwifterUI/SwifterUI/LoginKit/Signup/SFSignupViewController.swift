@@ -12,7 +12,7 @@ open class SFSignupViewController: SFViewController {
     
     // MARK: - Instance Properties
     
-    open lazy var scrollView: SFSignupView = {
+    open lazy var signupView: SFSignupView = {
         let scrollView = SFSignupView(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.useAlternativeColors = true
@@ -24,10 +24,10 @@ open class SFSignupViewController: SFViewController {
     
     open override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(scrollView)
+        view.addSubview(signupView)
         autorotate = UIDevice.current.userInterfaceIdiom == .pad ? true : false
-        scrollView.signUpButton.addTarget(self, action: #selector(signUpButtonDidTouch), for: .touchUpInside)
-        scrollView.facebookButton.addTarget(self, action: #selector(facebookButtonDidTouch), for: .touchUpInside)
+        signupView.signUpButton.addTarget(self, action: #selector(signUpButtonDidTouch), for: .touchUpInside)
+        signupView.facebookButton.addTarget(self, action: #selector(facebookButtonDidTouch), for: .touchUpInside)
     }
     
     @objc open func signUpButtonDidTouch() {

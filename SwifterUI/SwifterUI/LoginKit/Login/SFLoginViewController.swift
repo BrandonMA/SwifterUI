@@ -31,7 +31,29 @@ open class SFLoginViewController: SFViewController {
         loginView.facebookButton.addTarget(self, action: #selector(facebookButtonDidTouch), for: .touchUpInside)
     }
     
-    @objc open func logInButtonDidTouch() {
+    @objc private func logInButtonDidTouch() {
+        guard let email = loginView.mailSection.textField.text else {
+            SFMorphAnimation(with: loginView.mailSection).start()
+            return
+        }
+        
+        if email != "" {
+            guard let password = loginView.passwordSection.textField.text else {
+                SFMorphAnimation(with: loginView.passwordSection).start()
+                return
+            }
+            
+            if password != "" {
+                login(with: email, password: password)
+            } else {
+                SFMorphAnimation(with: loginView.passwordSection).start()
+            }
+        } else {
+            SFMorphAnimation(with: loginView.mailSection).start()
+        }
+    }
+    
+    open func login(with email: String, password: String) {
         
     }
     

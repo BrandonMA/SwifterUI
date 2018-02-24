@@ -12,6 +12,11 @@ open class SFMorphAnimation: SFAnimation {
     
     // MARK: - Instance Methods
     
+    open override func load() {
+        super.load()
+        animationCurve = .easeOut
+    }
+    
     open override func start() {
         guard let view = self.view else { return }
         CATransaction.begin()

@@ -17,8 +17,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window = UIWindow(frame: UIScreen.main.bounds)
         
-//        let controller = SFNavigationController(rootViewController: SFChatViewController<Message>())
-//        controller.autorotate = false
         let controller = SFTabBarController()
         let mainController = ViewController(automaticallyAdjustsColorStyle: false)
         mainController.tabBarItem = UITabBarItem(title: "Prueba", image: SFAssets.imageOfPlus.withRenderingMode(.alwaysTemplate), tag: 0)
@@ -26,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         secondController.tabBarItem = UITabBarItem(title: "Prueba", image: SFAssets.imageOfPlus.withRenderingMode(.alwaysTemplate), tag: 1)
         controller.viewControllers = [mainController, secondController]
         controller.selectedViewController = mainController
-        window?.rootViewController = secondController
+        window?.rootViewController = SFLoginViewController(automaticallyAdjustsColorStyle: true)
         window?.makeKeyAndVisible()
         
         return true

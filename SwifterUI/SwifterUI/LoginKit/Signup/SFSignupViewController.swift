@@ -30,7 +30,38 @@ open class SFSignupViewController: SFViewController {
         signupView.facebookButton.addTarget(self, action: #selector(facebookButtonDidTouch), for: .touchUpInside)
     }
     
-    @objc open func signUpButtonDidTouch() {
+    @objc private func signUpButtonDidTouch() {
+        guard let name = signupView.nameSection.textField.text else {
+            SFMorphAnimation(with: signupView.nameSection).start()
+            return
+        }
+        
+        if name != "" {
+            guard let email = signupView.mailSection.textField.text else {
+                SFMorphAnimation(with: signupView.mailSection).start()
+                return
+            }
+            
+            if email != "" {
+                guard let password = signupView.passwordSection.textField.text else {
+                    SFMorphAnimation(with: signupView.passwordSection).start()
+                    return
+                }
+                
+                if password != "" {
+                    signup(with: name, email: email, password: password)
+                } else {
+                    SFMorphAnimation(with: signupView.passwordSection).start()
+                }
+            } else {
+                SFMorphAnimation(with: signupView.mailSection).start()
+            }
+        } else {
+            SFMorphAnimation(with: signupView.nameSection).start()
+        }
+    }
+    
+    open func signup(with name: String, email: String, password: String) {
         
     }
     

@@ -98,7 +98,7 @@ open class SFPickerView: SFView {
         
         super.layoutSubviews()
         
-        blurView.clipEdges()
+        blurView.clipEdges(useSafeArea: false)
         
         middleView.clipRight(to: .right, margin: 8)
         middleView.clipLeft(to: .left, margin: 8)

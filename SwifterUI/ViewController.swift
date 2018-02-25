@@ -92,6 +92,16 @@ class ViewController: SFViewController {
         super.viewDidLoad()
         view.addSubview(scrollView)
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        DispatchQueue.delay(by: 1.0, dispatchLevel: .main) {
+            self.showLoadingView()
+        }
+        DispatchQueue.delay(by: 3.0, dispatchLevel: .main) {
+            self.removeLoadingView()
+        }
+    }
 }
 
 open class Message: SFMessage {

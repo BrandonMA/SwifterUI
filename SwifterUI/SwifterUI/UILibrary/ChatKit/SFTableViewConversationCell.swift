@@ -74,7 +74,6 @@ open class SFTableViewConversationCell: SFTableViewCell {
         
         nameLabel.clipTop(to: .top, of: profileImageView)
         nameLabel.clipLeft(to: .right, of: profileImageView, margin: 12)
-        nameLabel.clipRight(to: .left, of: hourLabel)
         
         messageLabel.clipBottom(to: .bottom, of: profileImageView)
         messageLabel.clipLeft(to: .right, of: profileImageView, margin: 12)

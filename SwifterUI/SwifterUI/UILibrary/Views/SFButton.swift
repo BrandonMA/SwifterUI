@@ -45,7 +45,7 @@ open class SFButton: UIButton, SFViewColorStyle {
     
     open override func layoutSubviews() {
         super.layoutSubviews()
-        rightImageView.clipEdges(margin: ConstraintMargin(top: 8, right: 8, bottom: 8, left: 0), exclude: [.left])
+        rightImageView.clipEdges(margin: ConstraintMargin(top: 8, right: 8, bottom: 8, left: 0), exclude: [.left], useSafeArea: false)
         rightImageView.width(SFDimension(value: 14))
     }
     

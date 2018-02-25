@@ -55,7 +55,7 @@ open class SFPopPresentation: UIPresentationController {
         }
         
         presentingViewController.view.layer.masksToBounds = true
-        blurView.clipEdges()
+        blurView.clipEdges(useSafeArea: false)
         updateColors()
         
         if #available(iOS 11.0, *) {

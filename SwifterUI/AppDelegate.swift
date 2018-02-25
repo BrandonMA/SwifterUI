@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         secondController.tabBarItem = UITabBarItem(title: "Prueba", image: SFAssets.imageOfPlus.withRenderingMode(.alwaysTemplate), tag: 1)
         controller.viewControllers = [mainController, secondController]
         controller.selectedViewController = mainController
-        window?.rootViewController = SFLoginViewController(automaticallyAdjustsColorStyle: true)
+        window?.rootViewController = ViewController()
         window?.makeKeyAndVisible()
         
         return true

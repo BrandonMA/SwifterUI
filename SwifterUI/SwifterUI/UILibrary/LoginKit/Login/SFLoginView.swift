@@ -26,6 +26,7 @@ open class SFLoginView: SFScrollView {
         section.translatesAutoresizingMaskIntoConstraints = false
         section.textField.useAlternativeColors = true
         section.textField.autocorrectionType = .no
+        section.textField.autocapitalizationType = .none
         return section
     }()
     

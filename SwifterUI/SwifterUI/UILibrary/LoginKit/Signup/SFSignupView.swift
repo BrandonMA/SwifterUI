@@ -19,6 +19,7 @@ open class SFSignupView: SFScrollView {
         section.translatesAutoresizingMaskIntoConstraints = false
         section.textField.useAlternativeColors = true
         section.textField.autocorrectionType = .no
+        section.textField.autocapitalizationType = .words
         return section
     }()
     
@@ -29,6 +30,7 @@ open class SFSignupView: SFScrollView {
         section.translatesAutoresizingMaskIntoConstraints = false
         section.textField.useAlternativeColors = true
         section.textField.autocorrectionType = .no
+        section.textField.autocapitalizationType = .words
         return section
     }()
     
@@ -39,6 +41,7 @@ open class SFSignupView: SFScrollView {
         section.translatesAutoresizingMaskIntoConstraints = false
         section.textField.useAlternativeColors = true
         section.textField.autocorrectionType = .no
+        section.textField.autocapitalizationType = .none
         return section
     }()
     
@@ -67,6 +70,7 @@ open class SFSignupView: SFScrollView {
     public override init(automaticallyAdjustsColorStyle: Bool = true, frame: CGRect = .zero) {
         super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, frame: frame)
         contentView.addSubview(nameSection)
+        contentView.addSubview(lastNameSection)
         contentView.addSubview(mailSection)
         contentView.addSubview(passwordSection)
         contentView.addSubview(signUpButton)

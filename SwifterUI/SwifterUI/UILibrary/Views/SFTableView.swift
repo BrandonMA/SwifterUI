@@ -21,6 +21,7 @@ open class SFTableView: UITableView, SFViewColorStyle {
     public init(automaticallyAdjustsColorStyle: Bool = true, frame: CGRect = .zero, style: UITableViewStyle = .plain) {
         self.automaticallyAdjustsColorStyle = automaticallyAdjustsColorStyle
         super.init(frame: frame, style: style)
+        updateColors()
     }
     
     required public init?(coder aDecoder: NSCoder) {

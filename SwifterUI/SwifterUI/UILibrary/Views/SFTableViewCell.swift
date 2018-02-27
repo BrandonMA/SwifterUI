@@ -27,6 +27,7 @@ open class SFTableViewCell: UITableViewCell, SFViewColorStyle {
     
     public override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        updateColors()
         addSubview(rightImageView)
         textLabel?.font = UIFont.systemFont(ofSize: 17)
     }

@@ -21,6 +21,7 @@ open class SFCollectionView: UICollectionView, SFViewColorStyle {
     public init(automaticallyAdjustsColorStyle: Bool = true, frame: CGRect = .zero, collectionViewLayout: UICollectionViewLayout) {
         self.automaticallyAdjustsColorStyle = automaticallyAdjustsColorStyle
         super.init(frame: frame, collectionViewLayout: collectionViewLayout)
+        updateColors()
     }
     
     required public init?(coder aDecoder: NSCoder) {

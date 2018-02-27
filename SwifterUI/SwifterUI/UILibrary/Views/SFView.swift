@@ -21,6 +21,7 @@ open class SFView: UIView, SFViewColorStyle {
     public init(automaticallyAdjustsColorStyle: Bool = true, frame: CGRect = .zero) {
         self.automaticallyAdjustsColorStyle = automaticallyAdjustsColorStyle
         super.init(frame: frame)
+        updateColors()
     }
     
     required public init?(coder aDecoder: NSCoder) {

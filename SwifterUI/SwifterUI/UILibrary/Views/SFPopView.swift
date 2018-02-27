@@ -32,6 +32,7 @@ open class SFPopView: SFView {
         clipsToBounds = true
         addSubview(bar)
         addSubview(contentView)
+        updateColors()
     }
     
     required public init?(coder aDecoder: NSCoder) {

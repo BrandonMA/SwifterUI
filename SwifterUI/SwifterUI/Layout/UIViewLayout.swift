@@ -125,23 +125,6 @@ public extension UIView {
         return widthConstraint
     }
     
-    // MARK: - Center
-    
-    public func center(axis: [ConstraintAxis] = [.x, .y], in view: UIView? = nil, offSet: CGPoint = .zero) {
-        
-        guard let anchorView = getAnchorView(view: view) else { fatalError("You didn't set a relative view or superview isn't available") }
-        var constraints: Constraints = []
-        
-        if axis.contains(.x) {
-            constraints.append(centerXAnchor.constraint(equalTo: anchorView.centerXAnchor, constant: offSet.x).set(identifier: ConstraintType.centerX.rawValue))
-        }
-        if axis.contains(.y) {
-            constraints.append(centerYAnchor.constraint(equalTo: anchorView.centerYAnchor, constant: offSet.y).set(identifier: ConstraintType.centerY.rawValue))
-        }
-        
-        constraints.active()
-    }
-    
     // MARK: - Clip individual edges
     
     @discardableResult
@@ -195,6 +178,16 @@ public extension UIView {
     }
     
     @discardableResult
+    public func clipCenterX(to edge: ConstraintEdge, of view: UIView? = nil, margin: CGFloat = 0, relation: ConstraintRelation = .equal, useSafeArea: Bool = true) -> Constraint? {
+        return clipXAxisAnchor(childAnchor: centerXAnchor, to: edge, useSafeArea: useSafeArea)?.set(identifier: ConstraintType.centerX.rawValue)
+    }
+    
+    @discardableResult
+    public func clipCenterY(to edge: ConstraintEdge, of view: UIView? = nil, margin: CGFloat = 0, relation: ConstraintRelation = .equal, useSafeArea: Bool = true) -> Constraint? {
+        return clipYAxisAnchor(childAnchor: centerYAnchor, to: edge, useSafeArea: useSafeArea)?.set(identifier: ConstraintType.centerY.rawValue)
+    }
+    
+    @discardableResult
     public func clipTop(to edge: ConstraintEdge, of view: UIView? = nil, margin: CGFloat = 0, relation: ConstraintRelation = .equal, useSafeArea: Bool = true) -> Constraint? {
         return clipYAxisAnchor(childAnchor: topAnchor, to: edge, of: view, margin: margin, relation: relation, useSafeArea: useSafeArea)?.set(identifier: ConstraintType.top.rawValue)
     }
@@ -214,6 +207,24 @@ public extension UIView {
     @discardableResult
     public func clipLeft(to edge: ConstraintEdge, of view: UIView? = nil, margin: CGFloat = 0, relation: ConstraintRelation = .equal, useSafeArea: Bool = true) -> Constraint? {
         return clipXAxisAnchor(childAnchor: leftAnchor, to: edge, of: view, margin: margin, relation: relation, useSafeArea: useSafeArea)?.set(identifier: ConstraintType.left.rawValue)
+    }
+    
+    // MARK: - Center
+    
+    @discardableResult
+    public func center(axis: [ConstraintAxis] = [.x, .y], in view: UIView? = nil, offSet: CGPoint = .zero) -> [Constraint?] {
+        
+        guard let anchorView = getAnchorView(view: view) else { fatalError("You didn't set a relative view or superview isn't available") }
+        var constraints: [Constraint?] = []
+        
+        if axis.contains(.x) {
+            constraints.append(clipCenterX(to: .centerX, of: anchorView, margin: offSet.x, relation: .equal, useSafeArea: false))
+        }
+        if axis.contains(.y) {
+            constraints.append(clipCenterY(to: .centerY, of: anchorView, margin: offSet.y, relation: .equal, useSafeArea: false))
+        }
+        
+        return constraints
     }
     
     // MARK: - Clip multiple edges

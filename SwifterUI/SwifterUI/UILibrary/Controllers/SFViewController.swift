@@ -122,7 +122,7 @@ open class SFViewController: UIViewController, SFControllerColorStyle {
     open func updateColors() {
         DispatchQueue.addAsyncTask(to: .main) {
             UIView.animate(withDuration: 0.6, animations: {
-                
+                UIApplication.shared.keyWindow?.backgroundColor = self.colorStyle.getMainColor()
                 self.updateSubviewsColors()
                 
                 if self.automaticallyTintNavigationBar == true {

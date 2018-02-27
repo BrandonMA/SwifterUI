@@ -31,7 +31,7 @@ open class SFTableView: UITableView, SFViewColorStyle {
     // MARK: - Instance Methods
     
     open func updateColors() {
-        backgroundColor = useAlternativeColors ? colorStyle.getAlternativeColors() : colorStyle.getMainColor()
+        backgroundColor = useAlternativeColors ? colorStyle.getAlternativeColor() : colorStyle.getMainColor()
         separatorColor = colorStyle.getSeparatorColor()
         updateSubviewsColors()
         

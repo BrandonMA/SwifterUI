@@ -31,7 +31,7 @@ open class SFTextView: UITextView, SFViewColorStyle {
     // MARK: - Instance Methods
     
     open func updateColors() {
-        backgroundColor = useAlternativeColors ? colorStyle.getTextEntryColor() : colorStyle.getAlternativeColors()
+        backgroundColor = useAlternativeColors ? colorStyle.getTextEntryColor() : colorStyle.getAlternativeColor()
         textColor = colorStyle.getTextColor()
         keyboardAppearance = colorStyle.getKeyboardStyle()
         updateSubviewsColors()

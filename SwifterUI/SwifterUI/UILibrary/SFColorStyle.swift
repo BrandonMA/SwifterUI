@@ -81,7 +81,7 @@ public enum SFColorStyle: Int {
         }
     }
     
-    public func getAlternativeColors() -> UIColor {
+    public func getAlternativeColor() -> UIColor {
         switch self {
         case .light: return SFColors.alternativeWhite
         case .dark: return SFColors.alternativeBlack

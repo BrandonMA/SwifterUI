@@ -86,7 +86,7 @@ open class SFScrollView: UIScrollView, SFViewColorStyle {
     }
     
     open func updateColors() {
-        backgroundColor = useAlternativeColors ? colorStyle.getAlternativeColors() : colorStyle.getMainColor()
+        backgroundColor = useAlternativeColors ? colorStyle.getAlternativeColor() : colorStyle.getMainColor()
         updateSubviewsColors()
     }
     

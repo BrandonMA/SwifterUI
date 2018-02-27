@@ -37,6 +37,7 @@
 		424BE0C11FF45B2D005DE2AD /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424BE0C01FF45B2D005DE2AD /* Date.swift */; };
 		424BE0C31FF45B42005DE2AD /* CGFloat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424BE0C21FF45B42005DE2AD /* CGFloat.swift */; };
 		424BE0C61FF45C20005DE2AD /* SFPopPresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424BE0C51FF45C20005DE2AD /* SFPopPresentation.swift */; };
+		424D5A692045ECF000C029E1 /* SFProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424D5A682045ECF000C029E1 /* SFProfileImageView.swift */; };
 		424E2C75202378EA00F9A4E2 /* UITextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424E2C74202378EA00F9A4E2 /* UITextView.swift */; };
 		424E6C1E2028F06D00568F85 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424E6C1D2028F06C00568F85 /* View.swift */; };
 		4253D3C2203CDEE500507F88 /* SFTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4253D3C1203CDEE500507F88 /* SFTabBarController.swift */; };
@@ -158,6 +159,7 @@
 		424BE0C01FF45B2D005DE2AD /* Date.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		424BE0C21FF45B42005DE2AD /* CGFloat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGFloat.swift; sourceTree = "<group>"; };
 		424BE0C51FF45C20005DE2AD /* SFPopPresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFPopPresentation.swift; sourceTree = "<group>"; };
+		424D5A682045ECF000C029E1 /* SFProfileImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFProfileImageView.swift; sourceTree = "<group>"; };
 		424E2C74202378EA00F9A4E2 /* UITextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextView.swift; sourceTree = "<group>"; };
 		424E6C1D2028F06C00568F85 /* View.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		4253D3C1203CDEE500507F88 /* SFTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFTabBarController.swift; sourceTree = "<group>"; };
@@ -427,6 +429,7 @@
 				42D34C66202F5FA3002B6FA6 /* SFTextSection.swift */,
 				42DBF1A3203754E900F4BB6F /* SFPickerView.swift */,
 				42AFAE38203A2246002CAB0F /* SFImageViewer.swift */,
+				424D5A682045ECF000C029E1 /* SFProfileImageView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -918,6 +921,7 @@
 				4244674F202A9FE900F59892 /* SFTableView.swift in Sources */,
 				42CDA9BB20361BC50046791D /* SFChatViewController.swift in Sources */,
 				423AAC201FE76727009D6C39 /* UIViewLayout.swift in Sources */,
+				424D5A692045ECF000C029E1 /* SFProfileImageView.swift in Sources */,
 				423AABF01FE7548F009D6C39 /* AppDelegate.swift in Sources */,
 				42B8DEF820409F6000B5770A /* SFLoginViewController.swift in Sources */,
 				42A42EB31FF1AD8C002FE4A7 /* SFViewController.swift in Sources */,

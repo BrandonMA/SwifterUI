@@ -179,12 +179,12 @@ public extension UIView {
     
     @discardableResult
     public func clipCenterX(to edge: ConstraintEdge, of view: UIView? = nil, margin: CGFloat = 0, relation: ConstraintRelation = .equal, useSafeArea: Bool = true) -> Constraint? {
-        return clipXAxisAnchor(childAnchor: centerXAnchor, to: edge, useSafeArea: useSafeArea)?.set(identifier: ConstraintType.centerX.rawValue)
+        return clipXAxisAnchor(childAnchor: centerXAnchor, to: edge, of: view, margin: margin, relation: relation, useSafeArea: useSafeArea)?.set(identifier: ConstraintType.centerX.rawValue)
     }
     
     @discardableResult
     public func clipCenterY(to edge: ConstraintEdge, of view: UIView? = nil, margin: CGFloat = 0, relation: ConstraintRelation = .equal, useSafeArea: Bool = true) -> Constraint? {
-        return clipYAxisAnchor(childAnchor: centerYAnchor, to: edge, useSafeArea: useSafeArea)?.set(identifier: ConstraintType.centerY.rawValue)
+        return clipYAxisAnchor(childAnchor: centerYAnchor, to: edge, of: view, margin: margin, relation: relation, useSafeArea: useSafeArea)?.set(identifier: ConstraintType.centerY.rawValue)
     }
     
     @discardableResult

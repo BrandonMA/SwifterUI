@@ -35,8 +35,8 @@ open class SFTableViewProfileCell: SFTableViewCell {
     
     public override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        addSubview(profileImageView)
-        addSubview(nameLabel)
+        contentView.addSubview(profileImageView)
+        contentView.addSubview(nameLabel)
     }
     
     required public init?(coder aDecoder: NSCoder) {

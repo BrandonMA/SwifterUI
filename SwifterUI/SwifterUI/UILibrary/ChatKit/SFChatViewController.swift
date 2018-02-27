@@ -20,7 +20,8 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
     }
     
     open lazy var chatBar: SFChatBar = {
-        let chatBar = SFChatBar(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle, frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 48))
+        let chatBar = SFChatBar(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
+        chatBar.translatesAutoresizingMaskIntoConstraints = false
         return chatBar
     }()
     
@@ -245,27 +246,9 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
     
 }
 
-extension SFChatViewController: SFImageViewerControllerDelegate {
-    
-    public func willDismiss() {
-        activeCell?.messageImageView.alpha = 1
-        activeCell?.messageImageView.isUserInteractionEnabled = true
-        activeCell?.zoomOut()
-    }
-    
-}
-
 extension SFChatViewController: SFTableViewChatCellDelegate {
     public func didZoomIn(cell: SFTableViewChatCell) {
-        activeCell = cell
-        let controller = SFImageViewerController(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
-        controller.modalTransitionStyle = .crossDissolve
-        controller.imageViewer.imageView.image = cell.messageImageView.image
-        controller.delegate = self
-        present(controller, animated: true) {
-            cell.messageImageView.alpha = 0
-            cell.messageImageView.isUserInteractionEnabled = false
-        }
+        // TODO: Implement zooming
     }
 }
 

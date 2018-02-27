@@ -14,7 +14,7 @@ open class SFPopViewController: SFViewController {
     
     private var initialPoint: CGFloat = 0
     
-    open override var sfview: SFPopView {
+    open var sfview: SFPopView {
         return view as! SFPopView
     }
     
@@ -57,3 +57,4 @@ open class SFPopViewController: SFViewController {
         }
     }
 }
+

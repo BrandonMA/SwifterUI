@@ -78,10 +78,6 @@ open class SFViewController: UIViewController, SFControllerColorStyle {
     
     open var autorotate: Bool = true
     
-    var sfview: SFView {
-        return view as! SFView
-    }
-        
     // MARK: - Initializers
     
     public required init(automaticallyAdjustsColorStyle: Bool = true) {
@@ -122,9 +118,9 @@ open class SFViewController: UIViewController, SFControllerColorStyle {
     open func updateColors() {
         DispatchQueue.addAsyncTask(to: .main) {
             UIView.animate(withDuration: 0.6, animations: {
-                UIApplication.shared.keyWindow?.backgroundColor = self.colorStyle.getMainColor()
-                self.updateSubviewsColors()
                 
+                self.updateSubviewsColors()
+                UIApplication.shared.keyWindow?.backgroundColor = self.view.backgroundColor
                 if self.automaticallyTintNavigationBar == true {
                     self.updateNavItem()
                     self.statusBarStyle = self.colorStyle.getStatusBarStyle()

@@ -49,7 +49,7 @@ open class SFTableViewChatCell: SFTableViewCell {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
-//        imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTouchImageView)))
+        imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTouchImageView)))
         imageView.isUserInteractionEnabled = true
         return imageView
     }()
@@ -66,7 +66,7 @@ open class SFTableViewChatCell: SFTableViewCell {
     
     public override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        addSubview(bubbleView)
+        contentView.addSubview(bubbleView)
         bubbleView.addSubview(messageLabel)
         useAlternativeColors = true
     }

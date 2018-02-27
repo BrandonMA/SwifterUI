@@ -9,7 +9,7 @@
 import UIKit
 
 open class SFTableViewCell: UITableViewCell, SFViewColorStyle {
-        
+    
     // MARK: - Instance Properties
     
     open var automaticallyAdjustsColorStyle: Bool = true
@@ -28,7 +28,7 @@ open class SFTableViewCell: UITableViewCell, SFViewColorStyle {
     public override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         updateColors()
-        addSubview(rightImageView)
+        contentView.addSubview(rightImageView)
         textLabel?.font = UIFont.systemFont(ofSize: 17)
     }
     
@@ -55,6 +55,16 @@ open class SFTableViewCell: UITableViewCell, SFViewColorStyle {
         selectedBackgroundView.backgroundColor = useAlternativeColors ? colorStyle.getMainColor() : colorStyle.getAlternativeColor()
         self.selectedBackgroundView = selectedBackgroundView
         updateSubviewsColors()
+    }
+    
+    public func updateSubviewsColors() {
+        for view in self.contentView.subviews {
+            if let subview = view as? SFViewColorStyle {
+                if subview.automaticallyAdjustsColorStyle == true {
+                    subview.updateColors()
+                }
+            }
+        }
     }
     
 }

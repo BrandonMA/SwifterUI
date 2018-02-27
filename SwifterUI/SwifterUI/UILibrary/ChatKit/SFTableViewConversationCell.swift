@@ -51,10 +51,10 @@ open class SFTableViewConversationCell: SFTableViewCell {
     
     public override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        addSubview(profileImageView)
-        addSubview(nameLabel)
-        addSubview(messageLabel)
-        addSubview(hourLabel)
+        contentView.addSubview(profileImageView)
+        contentView.addSubview(nameLabel)
+        contentView.addSubview(messageLabel)
+        contentView.addSubview(hourLabel)
     }
     
     required public init?(coder aDecoder: NSCoder) {

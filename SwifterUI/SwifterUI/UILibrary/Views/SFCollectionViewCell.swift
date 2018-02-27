@@ -25,4 +25,14 @@ open class SFCollectionViewCell: UICollectionViewCell, SFViewColorStyle {
         updateSubviewsColors()
     }
     
+    public func updateSubviewsColors() {
+        for view in self.contentView.subviews {
+            if let subview = view as? SFViewColorStyle {
+                if subview.automaticallyAdjustsColorStyle == true {
+                    subview.updateColors()
+                }
+            }
+        }
+    }
+    
 }

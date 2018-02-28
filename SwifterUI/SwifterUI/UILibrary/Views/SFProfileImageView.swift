@@ -57,6 +57,8 @@ open class SFProfileImageView: SFView {
         closeButton.clipCenterY(to: .bottom, of: imageView)
         closeButton.width(SFDimension(value: 44))
         closeButton.height(SFDimension(value: 44))
+        
+        clipBottom(to: .bottom, of: closeButton)
     }
     
     open override func updateColors() {

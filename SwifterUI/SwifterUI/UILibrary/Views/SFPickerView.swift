@@ -48,7 +48,7 @@ open class SFPickerView: SFView {
     
     open lazy var titleLabel: SFLabel = {
         let label = SFLabel(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
-        label.font = .boldSystemFont(ofSize: 21)
+        label.font = .boldSystemFont(ofSize: 17)
         label.text = "Titulo"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label

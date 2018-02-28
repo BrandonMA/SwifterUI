@@ -18,7 +18,7 @@ open class SFTextSection: SFSection {
     
     open var usePickerMode: Bool = false {
         didSet {
-            textField.rightImage = UIImage(named: "rightArrow")
+            textField.rightImage = SFAssets.imageOfArrowRight.withRenderingMode(.alwaysTemplate)
         }
     }
     
@@ -34,7 +34,42 @@ open class SFTextSection: SFSection {
     
 }
 
-
+open class SFButtonSection: SFSection {
+    
+    // MARK: - Instance Properties
+    
+    open var placeholder: String = "" {
+        didSet {
+            button.useAlternativeTextColor = true
+            button.setTitle(placeholder, for: .normal)
+            updateColors()
+        }
+    }
+    
+    open var title: String = "" {
+        didSet {
+            button.useAlternativeTextColor = false
+            button.setTitle(title, for: .normal)
+            updateColors()
+        }
+    }
+    
+    open var button: SFButton {
+        return bottomView as! SFButton
+    }
+    
+    open override lazy var bottomView: UIView = {
+        let button = SFButton(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
+        button.rightImageView.image = SFAssets.imageOfArrowRight.withRenderingMode(.alwaysTemplate)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.layer.cornerRadius = 10
+        button.contentHorizontalAlignment = UIControlContentHorizontalAlignment.left
+        button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 0)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 15)
+        return button
+    }()
+    
+}
 
 
 

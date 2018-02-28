@@ -17,7 +17,7 @@ open class SFChatBar: SFView {
         return CGSize(width: window.bounds.width, height: 0)
     }
     
-    private lazy var contentView: SFView = {
+    open lazy var contentView: SFView = {
         let view = SFView(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view

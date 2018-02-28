@@ -22,6 +22,8 @@ open class SFButton: UIButton, SFViewColorStyle {
     
     open var useClearColor: Bool = false
     
+    open var isTextPicker: Bool = false
+    
     lazy var rightImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
@@ -50,7 +52,7 @@ open class SFButton: UIButton, SFViewColorStyle {
     }
     
     open func updateColors() {
-        backgroundColor = useClearColor ? .clear : useAlternativeColors ? colorStyle.getMainColor() : colorStyle.getAlternativeColor()
+        backgroundColor = isTextPicker ? colorStyle.getTextEntryColor() : useClearColor ? .clear : useAlternativeColors ? colorStyle.getMainColor() : colorStyle.getAlternativeColor()
         if setTextColor {
             if useAlternativeTextColor {
                 tintColor = colorStyle.getPlaceholderColor()

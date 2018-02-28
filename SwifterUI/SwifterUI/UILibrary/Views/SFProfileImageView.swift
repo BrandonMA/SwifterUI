@@ -12,12 +12,21 @@ open class SFProfileImageView: SFView {
     
     // MARK: - Instance Properties
     
+    open var image: UIImage? = nil {
+        didSet {
+            imageView.image = image
+            imageView.contentMode = .scaleAspectFill
+        }
+    }
+    
     open lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.layer.cornerRadius = 64
         imageView.image = SFAssets.imageOfBigPlus.withRenderingMode(.alwaysTemplate)
         imageView.contentMode = .center
+        imageView.isUserInteractionEnabled = true
+        imageView.clipsToBounds = true
         return imageView
     }()
     
@@ -58,13 +67,20 @@ open class SFProfileImageView: SFView {
         closeButton.width(SFDimension(value: 44))
         closeButton.height(SFDimension(value: 44))
         
+        clipRight(to: .right, of: imageView)
         clipBottom(to: .bottom, of: closeButton)
+        clipLeft(to: .left, of: imageView)
     }
     
     open override func updateColors() {
         super.updateColors()
         imageView.backgroundColor = useAlternativeColors ? colorStyle.getTextEntryColor() : colorStyle.getAlternativeColor()
         imageView.tintColor = colorStyle.getPlaceholderColor()
+    }
+    
+    open func removeImage() {
+        imageView.image = SFAssets.imageOfBigPlus.withRenderingMode(.alwaysTemplate)
+        imageView.contentMode = .center
     }
 }
 

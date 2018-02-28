@@ -44,6 +44,7 @@
 		425AFDAC20300C580049B68B /* SFCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425AFDAB20300C580049B68B /* SFCollectionView.swift */; };
 		425AFDAE20300C700049B68B /* SFCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425AFDAD20300C700049B68B /* SFCollectionViewCell.swift */; };
 		42795F64202FB55300C3767F /* SFPopBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42795F63202FB55300C3767F /* SFPopBar.swift */; };
+		42834C0C20465964009CFE22 /* SFButtonSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42834C0B20465964009CFE22 /* SFButtonSection.swift */; };
 		429FD4911FED7EDC00FD7F10 /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429FD4901FED7EDC00FD7F10 /* UIImageView.swift */; };
 		429FD4931FED89C200FD7F10 /* SFAnimationCurve.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429FD4921FED89C200FD7F10 /* SFAnimationCurve.swift */; };
 		429FD4951FED89F300FD7F10 /* SFShakeAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429FD4941FED89F300FD7F10 /* SFShakeAnimation.swift */; };
@@ -166,6 +167,7 @@
 		425AFDAB20300C580049B68B /* SFCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFCollectionView.swift; sourceTree = "<group>"; };
 		425AFDAD20300C700049B68B /* SFCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFCollectionViewCell.swift; sourceTree = "<group>"; };
 		42795F63202FB55300C3767F /* SFPopBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFPopBar.swift; sourceTree = "<group>"; };
+		42834C0B20465964009CFE22 /* SFButtonSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFButtonSection.swift; sourceTree = "<group>"; };
 		429FD4901FED7EDC00FD7F10 /* UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 		429FD4921FED89C200FD7F10 /* SFAnimationCurve.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFAnimationCurve.swift; sourceTree = "<group>"; };
 		429FD4941FED89F300FD7F10 /* SFShakeAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFShakeAnimation.swift; sourceTree = "<group>"; };
@@ -427,6 +429,7 @@
 				42D34C64202F5F84002B6FA6 /* SFLabel.swift */,
 				42D34C6C202F6ECE002B6FA6 /* SFSection.swift */,
 				42D34C66202F5FA3002B6FA6 /* SFTextSection.swift */,
+				42834C0B20465964009CFE22 /* SFButtonSection.swift */,
 				42DBF1A3203754E900F4BB6F /* SFPickerView.swift */,
 				42AFAE38203A2246002CAB0F /* SFImageViewer.swift */,
 				424D5A682045ECF000C029E1 /* SFProfileImageView.swift */,
@@ -889,6 +892,7 @@
 				42A42EBF1FF1BC81002FE4A7 /* SFGradientReady.swift in Sources */,
 				424E2C75202378EA00F9A4E2 /* UITextView.swift in Sources */,
 				429FD4911FED7EDC00FD7F10 /* UIImageView.swift in Sources */,
+				42834C0C20465964009CFE22 /* SFButtonSection.swift in Sources */,
 				424BE0BB1FF45AD7005DE2AD /* UIFont.swift in Sources */,
 				429FD4931FED89C200FD7F10 /* SFAnimationCurve.swift in Sources */,
 				42A42EA91FF1A95F002FE4A7 /* SFColorStyleProtocol.swift in Sources */,

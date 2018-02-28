@@ -61,7 +61,7 @@ open class SFPickerController: SFViewController {
     
     private lazy var slideAnimation: SFSlideAnimation = {
         let slideAnimation = SFSlideAnimation(with: backgroundView.backgroundView, direction: .bottom, type: .inside)
-        slideAnimation.duration = 0.8
+        slideAnimation.duration = 0.6
         slideAnimation.animationCurve = .easeOut
         return slideAnimation
     }()

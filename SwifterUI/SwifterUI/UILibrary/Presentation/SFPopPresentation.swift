@@ -75,6 +75,13 @@ open class SFPopPresentation: UIPresentationController {
             
             self.presentedView?.layer.cornerRadius = 20
             
+            if let tabBar = mainController as? SFTabBarController {
+                if var child = tabBar.selectedViewController as? SFControllerColorStyle {
+                    child.automaticallyTintNavigationBar = false
+                    child.statusBarStyle = .lightContent
+                }
+            }
+            
             mainController.automaticallyTintNavigationBar = false
             mainController.statusBarStyle = .lightContent
         }
@@ -93,6 +100,13 @@ open class SFPopPresentation: UIPresentationController {
         UIView.animate(withDuration: 0.6, animations: {
             
             self.blurView.effect = nil
+            
+            if let tabBar = mainController as? SFTabBarController {
+                if var child = tabBar.selectedViewController as? SFControllerColorStyle {
+                    child.automaticallyTintNavigationBar = true
+                    child.updateColors()
+                }
+            }
             
             mainController.automaticallyTintNavigationBar = true
             mainController.updateColors()

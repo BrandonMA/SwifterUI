@@ -21,6 +21,7 @@ open class SFPopView: SFView {
     open lazy var contentView: SFView = {
         let view = SFView(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.useAlternativeColors = true
         return view
     }()
     

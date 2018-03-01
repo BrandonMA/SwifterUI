@@ -120,7 +120,7 @@ open class SFViewController: UIViewController, SFControllerColorStyle {
             UIView.animate(withDuration: 0.6, animations: {
                 
                 self.updateSubviewsColors()
-                UIApplication.shared.keyWindow?.backgroundColor = self.view.backgroundColor
+                
                 if self.automaticallyTintNavigationBar == true {
                     self.updateNavItem()
                     self.statusBarStyle = self.colorStyle.getStatusBarStyle()

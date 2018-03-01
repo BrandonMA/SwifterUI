@@ -83,6 +83,11 @@ open class SFTabBarController: UITabBarController, SFControllerColorStyle {
         UIView.animate(withDuration: 0.6) {
             self.tabBar.tintColor = self.colorStyle.getInteractiveColor()
             self.tabBar.barStyle = self.colorStyle.getBarStyle()
+            
+            if self.automaticallyTintNavigationBar == true {
+                self.updateNavItem()
+                self.statusBarStyle = self.colorStyle.getStatusBarStyle()
+            }
         }
     }
     

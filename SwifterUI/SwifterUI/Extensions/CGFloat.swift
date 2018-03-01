@@ -13,7 +13,8 @@ public extension CGFloat {
     // MARK: - Static Methods
     
     public static func random() -> CGFloat {
-        return CGFloat(arc4random()) / CGFloat(UInt32.max)
+        return CGFloat(arc4random_uniform(UInt32.max))
     }
     
 }
+

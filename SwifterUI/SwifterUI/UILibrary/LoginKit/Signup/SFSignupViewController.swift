@@ -31,43 +31,11 @@ open class SFSignupViewController: SFViewController {
     }
     
     @objc private func signUpButtonDidTouch() {
-        guard let name = signupView.nameSection.textField.text else {
-            SFWobbleAnimation(with: signupView.nameSection).start()
-            return
-        }
-        
-        if name != "" {
-            guard let lastName = signupView.lastNameSection.textField.text else {
-                SFWobbleAnimation(with: signupView.lastNameSection).start()
-                return
-            }
-            
-            if lastName != "" {
-                guard let email = signupView.mailSection.textField.text else {
-                    SFWobbleAnimation(with: signupView.mailSection).start()
-                    return
-                }
-                
-                if email != "" {
-                    guard let password = signupView.passwordSection.textField.text else {
-                        SFWobbleAnimation(with: signupView.passwordSection).start()
-                        return
-                    }
-                    
-                    if password != "" {
-                        signup(with: name, lastname: lastName, email: email, password: password)
-                    } else {
-                        SFWobbleAnimation(with: signupView.passwordSection).start()
-                    }
-                } else {
-                    SFWobbleAnimation(with: signupView.mailSection).start()
-                }
-            } else {
-                SFWobbleAnimation(with: signupView.lastNameSection).start()
-            }
-        } else {
-            SFWobbleAnimation(with: signupView.nameSection).start()
-        }
+        guard let name = signupView.nameSection.getText() else { return }
+        guard let lastName = signupView.lastNameSection.getText() else { return }
+        guard let email = signupView.mailSection.getText() else { return }
+        guard let password = signupView.passwordSection.getText() else { return }
+        signup(with: name, lastname: lastName, email: email, password: password)
     }
     
     open func signup(with name: String, lastname: String, email: String, password: String) {

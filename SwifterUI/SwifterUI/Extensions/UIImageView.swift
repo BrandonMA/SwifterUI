@@ -10,14 +10,11 @@ import UIKit
 
 public extension UIImageView {
     
-    public func download(from url: String) {
-        guard let url = URL(string: url) else { return }
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            guard let data = data, error == nil else { return }
+    public func download(from url: String, completion: @escaping ((Bool) -> Void)? = nil ) {
+        UIImage.download(from: url) { (image) in
             DispatchQueue.addAsyncTask(to: .main, handler: {
-                guard let image = UIImage(data: data) else { return }
-                UIView.transition(with: self, duration: 0.3, options: .transitionCrossDissolve, animations: { self.image = image }, completion: nil)
+                UIView.transition(with: self, duration: 0.3, options: .transitionCrossDissolve, animations: { self.image = image }, completion: completion)
             })
-            }.resume()
+        }
     }
 }

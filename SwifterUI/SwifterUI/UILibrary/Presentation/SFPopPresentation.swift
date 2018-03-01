@@ -67,7 +67,7 @@ open class SFPopPresentation: UIPresentationController {
             self.blurView.effect = mainController.colorStyle.getEffectStyle()
             
             if (self.presentedView?.useCompactInterface)! {
-                self.presentingViewController.view.transform = CGAffineTransform(scaleX: 0.9, y: 1)
+                //                self.presentingViewController.view.transform = CGAffineTransform(scaleX: 1, y: 1)
                 self.presentingViewController.view.frame.size.height -= UIApplication.shared.statusBarFrame.height * 2
                 self.presentingViewController.view.frame.origin.y += UIApplication.shared.statusBarFrame.height
                 self.presentingViewController.view.layer.cornerRadius = 20
@@ -114,7 +114,7 @@ open class SFPopPresentation: UIPresentationController {
             self.presentedView?.layer.cornerRadius = 0
             
             if (self.presentedView?.useCompactInterface)! {
-                self.presentingViewController.view.transform = CGAffineTransform.identity
+                //                self.presentingViewController.view.transform = CGAffineTransform.identity
                 self.presentingViewController.view.frame.size.height += UIApplication.shared.statusBarFrame.height * 2
                 self.presentingViewController.view.frame.origin.y -= UIApplication.shared.statusBarFrame.height
                 self.presentingViewController.view.layer.cornerRadius = 0
@@ -150,6 +150,7 @@ open class SFPopPresentation: UIPresentationController {
         return frame
     }
 }
+
 
 
 

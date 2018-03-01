@@ -43,6 +43,7 @@ open class SFPickerView: SFView {
         button.layer.cornerRadius = 16
         button.setTitle("Listo", for: .normal)
         button.titleLabel?.font = .boldSystemFont(ofSize: 17)
+        button.addTouchAnimations = true
         return button
     }()
     

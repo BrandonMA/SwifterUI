@@ -62,6 +62,7 @@ open class SFSignupView: SFScrollView {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.useAlternativeColors = true
         button.layer.cornerRadius = 10
+        button.addTouchAnimations = true
         return button
     }()
     

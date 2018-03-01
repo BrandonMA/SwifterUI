@@ -15,7 +15,7 @@ open class SFButton: UIButton, SFViewColorStyle {
     open var automaticallyAdjustsColorStyle: Bool = false
     
     open var useAlternativeColors: Bool = false
-        
+    
     open var setTextColor: Bool = true
     
     open var useAlternativeTextColor: Bool = false
@@ -80,18 +80,22 @@ open class SFButton: UIButton, SFViewColorStyle {
     }
     
     @objc open func touchDown(button: UIButton) {
+        titleLabel?.alpha = 0.7
         let animation = SFScaleAnimation(with: button, type: .outside)
-        animation.finalScaleX = 0.8
-        animation.finalScaleY = 0.8
+        animation.finalScaleX = 0.9
+        animation.finalScaleY = 0.9
         animation.finalAlpha = 1.0
-        animation.duration = 0.6
+        animation.duration = 0.5
+        animation.damping = 0.6
         animation.start()
     }
     
     @objc open func touchUp(button: UIButton) {
-        UIView.animate(withDuration: 0.6) {
+        UIView.animate(withDuration: 0.4) {
+            self.titleLabel?.alpha = 1.0
             button.transform = .identity
         }
     }
     
 }
+

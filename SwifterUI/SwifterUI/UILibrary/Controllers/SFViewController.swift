@@ -42,7 +42,7 @@ open class SFViewController: UIViewController, SFControllerColorStyle {
     
     // MARK: - Instance Properties
     
-    open var currentColorStyle: SFColorStyle? = nil
+    public final var currentColorStyle: SFColorStyle? = nil
     
     open var automaticallyAdjustsColorStyle: Bool = false {
         didSet {
@@ -101,7 +101,7 @@ open class SFViewController: UIViewController, SFControllerColorStyle {
         self.view = SFView(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
     }
     
-    open func checkColorStyleListener() {
+    public final func checkColorStyleListener() {
         if self.automaticallyAdjustsColorStyle == true {
             NotificationCenter.default.addObserver(self, selector: #selector(handleBrightnessChange), name: .UIScreenBrightnessDidChange, object: nil)
         } else {
@@ -109,7 +109,7 @@ open class SFViewController: UIViewController, SFControllerColorStyle {
         }
     }
     
-    @objc final func handleBrightnessChange() {
+    @objc private final func handleBrightnessChange() {
         if currentColorStyle != self.colorStyle || self.currentColorStyle == nil {
             updateColors()
         }
@@ -134,3 +134,4 @@ open class SFViewController: UIViewController, SFControllerColorStyle {
         }
     }
 }
+

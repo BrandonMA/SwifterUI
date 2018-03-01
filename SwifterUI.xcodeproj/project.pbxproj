@@ -492,8 +492,8 @@
 		42B8DEFB20409FCC00B5770A /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				42B8DEF720409F6000B5770A /* SFLoginViewController.swift */,
 				42B8DEF920409FA000B5770A /* SFLoginView.swift */,
+				42B8DEF720409F6000B5770A /* SFLoginViewController.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -501,8 +501,8 @@
 		42B8DEFC20409FE100B5770A /* Signup */ = {
 			isa = PBXGroup;
 			children = (
-				42B8DEFD2040A00800B5770A /* SFSignupViewController.swift */,
 				42B8DEFF2040A02F00B5770A /* SFSignupView.swift */,
+				42B8DEFD2040A00800B5770A /* SFSignupViewController.swift */,
 			);
 			path = Signup;
 			sourceTree = "<group>";

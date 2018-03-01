@@ -67,7 +67,8 @@ open class SFScrollView: UIScrollView, SFViewColorStyle {
     // MARK: - Instance Methods
     
     open func layoutIfBoundsChanged() {
-        clipEdges(useSafeArea: false)
+        
+        clipEdges(useSafeArea: true)
         
         if scrollsHorizontally == false {
             contentView.width(SFDimension(type: .fraction, value: 1), comparedTo: superview)

@@ -134,15 +134,17 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
             let message = MessageType(text: self.chatBar.textView.text, image: nil, videoURL: nil, fileURL: nil, isMine: true, timestamp: Date())
             messages.append(message)
             self.chatBar.textView.text = ""
-            let numberOfSection = chatView.tableView.numberOfSections - 1 > 0 ? chatView.tableView.numberOfSections - 1 : 0
-            let rowNumber = chatView.tableView.numberOfRows(inSection: numberOfSection)
-            didSend(message: message)
-            chatView.tableView.insertRows(at: [IndexPath(row: rowNumber, section: numberOfSection)], with: .fade)
-            chatView.tableView.scrollToBottom(animated: true)
+            if didSend(message: message) {
+                let numberOfSection = chatView.tableView.numberOfSections - 1 > 0 ? chatView.tableView.numberOfSections - 1 : 0
+                let rowNumber = chatView.tableView.numberOfRows(inSection: numberOfSection)
+                chatView.tableView.insertRows(at: [IndexPath(row: rowNumber, section: numberOfSection)], with: .fade)
+                chatView.tableView.scrollToBottom(animated: true)
+            }
         }
     }
     
-    open func didSend(message: MessageType) {
+    open func didSend(message: MessageType) -> Bool {
+        return true
     }
     
     // MARK: - UIImagePickerControllerDelegate

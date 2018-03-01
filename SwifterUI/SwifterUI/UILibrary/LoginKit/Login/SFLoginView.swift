@@ -47,6 +47,7 @@ open class SFLoginView: SFScrollView {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.useAlternativeColors = true
         button.layer.cornerRadius = 10
+        button.addTouchAnimations = true
         return button
     }()
     
@@ -57,6 +58,7 @@ open class SFLoginView: SFScrollView {
         button.useAlternativeColors = true
         button.layer.cornerRadius = 10
         button.useAlternativeTextColor = true
+        button.addTouchAnimations = true
         return button
     }()
     
@@ -66,6 +68,7 @@ open class SFLoginView: SFScrollView {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = UIColor(hex: "3B5998")
         button.layer.cornerRadius = 10
+        button.addTouchAnimations = true
         return button
     }()
     

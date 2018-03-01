@@ -49,4 +49,8 @@ open class SFSection: SFView {
         backgroundColor = .clear
         updateSubviewsColors()
     }
+    
+    open func getText() -> String? {
+        return nil
+    }
 }

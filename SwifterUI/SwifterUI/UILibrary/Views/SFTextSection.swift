@@ -32,7 +32,9 @@ open class SFTextSection: SFSection {
         return textField
     }()
     
-    open func getText() -> String? {
+    // MARK: - Instance Methods
+    
+    open override func getText() -> String? {
         guard let text = textField.text else {
             SFWobbleAnimation(with: self).start()
             return nil

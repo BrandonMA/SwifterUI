@@ -43,4 +43,28 @@ open class SFButtonSection: SFSection {
         return button
     }()
     
+    // MARK: - Instance Methods
+    
+    open override func getText() -> String? {
+        
+        if title != "" {
+            return title
+        } else {
+            SFWobbleAnimation(with: self).start()
+            return nil
+        }
+    }
+    
 }
+
+
+
+
+
+
+
+
+
+
+
+

@@ -28,6 +28,7 @@ open class SFTableViewConversationCell: SFTableViewCell {
         let label = SFLabel(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         label.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .left
         return label
     }()
     
@@ -44,6 +45,7 @@ open class SFTableViewConversationCell: SFTableViewCell {
         label.useAlternativeColors = true
         label.font = UIFont.systemFont(ofSize: 13)
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .right
         return label
     }()
     
@@ -74,6 +76,7 @@ open class SFTableViewConversationCell: SFTableViewCell {
         
         nameLabel.clipTop(to: .top, of: profileImageView)
         nameLabel.clipLeft(to: .right, of: profileImageView, margin: 12)
+        nameLabel.clipRight(to: .left, of: hourLabel, margin: 12)
         
         messageLabel.clipBottom(to: .bottom, of: profileImageView)
         messageLabel.clipLeft(to: .right, of: profileImageView, margin: 12)

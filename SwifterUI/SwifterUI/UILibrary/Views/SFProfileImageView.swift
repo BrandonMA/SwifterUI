@@ -37,6 +37,7 @@ open class SFProfileImageView: SFView {
         button.setImage(SFAssets.imageOfCancelIcon, for: .normal)
         button.useAlternativeColors = true
         button.addShadow(color: .black, offSet: CGSize(width: 0, height: 2), radius: 6, opacity: 0.05)
+        button.addTouchAnimations = true
         return button
     }()
     

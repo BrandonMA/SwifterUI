@@ -157,20 +157,16 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
         var optionalMessage: MessageType? = nil
         
         if let originalImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            optionalMessage = MessageType(senderId: "", text: "Envió una imagen", image: originalImage, videoURL: nil, fileURL: nil, timestamp: NSDate())
+            optionalMessage = MessageType(senderId: "", text: nil, image: originalImage, videoURL: nil, fileURL: nil, timestamp: NSDate())
         } else if let videoURL = info[UIImagePickerControllerMediaURL] as? URL {
-            optionalMessage = MessageType(senderId: "", text: "Envió un video", image: nil, videoURL: videoURL, fileURL: nil, timestamp: NSDate())
+            optionalMessage = MessageType(senderId: "", text: nil, image: nil, videoURL: videoURL, fileURL: nil, timestamp: NSDate())
         }
         
         picker.dismiss(animated: true, completion: {
             guard let message = optionalMessage else { return }
             self.messages.append(message)
             if self.didSend(message: message) {
-                let numberOfSection = self.chatView.tableView.numberOfSections - 1 > 0 ? self.chatView.tableView.numberOfSections - 1 : 0
-                let rowNumber = self.chatView.tableView.numberOfRows(inSection: numberOfSection)
-                self.chatView.tableView.beginUpdates()
-                self.chatView.tableView.insertRows(at: [IndexPath(row: rowNumber, section: numberOfSection)], with: .fade)
-                self.chatView.tableView.endUpdates()
+                self.chatView.tableView.reloadData()
                 self.chatView.tableView.scrollToBottom(animated: true)
             }
         })
@@ -200,7 +196,7 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
         if let width = cachedBubbleWidths[indexPath] {
             cell.width = width
         } else {
-            if message.image != nil || message.videoURL != nil {
+            if message.image != nil || message.videoURL != nil || message.imageURL != nil {
                 cell.width = (tableView.bounds.width * 2/3)
             } else {
                 cell.width = message.text?.estimatedFrame(with: cell.messageLabel.font, maxWidth: (tableView.bounds.width * 2/3) - 16).size.width ?? 0
@@ -232,6 +228,8 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
                 let height = ((tableView.bounds.width * 2/3) / (image.size.width / image.size.height)) + 33
                 cachedHeights[indexPath] = height
                 return height
+            } else if message.imageURL != nil {
+                return tableView.bounds.width * 2/3
             } else if message.videoURL != nil {
                 let height = tableView.bounds.width * 2/3
                 cachedHeights[indexPath] = height

@@ -14,6 +14,7 @@ public protocol SFMessage {
     var senderId: String { get set }
     var text: String? { get set }
     var image: UIImage? { get set }
+    var imageURL: String? { get set }
     var videoURL: URL? { get set }
     var fileURL: URL? { get set }
     var timestamp: NSDate { get set }

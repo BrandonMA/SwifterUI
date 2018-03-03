@@ -140,9 +140,7 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
             messages.append(message)
             self.chatBar.textView.text = ""
             if didSend(message: message) {
-                let numberOfSection = chatView.tableView.numberOfSections - 1 > 0 ? chatView.tableView.numberOfSections - 1 : 0
-                let rowNumber = chatView.tableView.numberOfRows(inSection: numberOfSection)
-                chatView.tableView.insertRows(at: [IndexPath(row: rowNumber, section: numberOfSection)], with: .fade)
+                chatView.tableView.reloadData()
                 chatView.tableView.scrollToBottom(animated: true)
             }
         }
@@ -268,3 +266,4 @@ extension SFChatViewController: SFPickerControllerDelegate {
     }
     
 }
+

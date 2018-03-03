@@ -88,6 +88,11 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
         chatView.tableView.scrollToBottom(animated: false)
     }
     
+    open override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationItem.largeTitleDisplayMode = .never
+    }
+    
     open override func updateColors() {
         super.updateColors()
         if let view = inputAccessoryView as? SFViewColorStyle {
@@ -126,12 +131,12 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
         imagePicker.mediaTypes = [kUTTypeMovie as String, kUTTypeImage as String]
         self.present(imagePicker, animated: true, completion: nil)
     }
-        
+    
     // MARK: - Send Methods
     
     @objc private func sendButtonDidTouch() {
         if self.chatBar.textView.text != "" {
-            let message = MessageType(text: self.chatBar.textView.text, image: nil, videoURL: nil, fileURL: nil, isMine: true, timestamp: Date())
+            let message = MessageType(senderId: "", text: self.chatBar.textView.text, image: nil, videoURL: nil, fileURL: nil, timestamp: NSDate())
             messages.append(message)
             self.chatBar.textView.text = ""
             if didSend(message: message) {
@@ -154,21 +159,22 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
         var optionalMessage: MessageType? = nil
         
         if let originalImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            optionalMessage = MessageType(text: "Envió una imagen", image: originalImage, videoURL: nil, fileURL: nil, isMine: true, timestamp: Date())
+            optionalMessage = MessageType(senderId: "", text: "Envió una imagen", image: originalImage, videoURL: nil, fileURL: nil, timestamp: NSDate())
         } else if let videoURL = info[UIImagePickerControllerMediaURL] as? URL {
-            optionalMessage = MessageType(text: "Envió un video", image: nil, videoURL: videoURL, fileURL: nil, isMine: true, timestamp: Date())
+            optionalMessage = MessageType(senderId: "", text: "Envió un video", image: nil, videoURL: videoURL, fileURL: nil, timestamp: NSDate())
         }
         
         picker.dismiss(animated: true, completion: {
             guard let message = optionalMessage else { return }
             self.messages.append(message)
-            let numberOfSection = self.chatView.tableView.numberOfSections - 1 > 0 ? self.chatView.tableView.numberOfSections - 1 : 0
-            let rowNumber = self.chatView.tableView.numberOfRows(inSection: numberOfSection)
-            self.didSend(message: message)
-            self.chatView.tableView.beginUpdates()
-            self.chatView.tableView.insertRows(at: [IndexPath(row: rowNumber, section: numberOfSection)], with: .fade)
-            self.chatView.tableView.endUpdates()
-            self.chatView.tableView.scrollToBottom(animated: true)
+            if self.didSend(message: message) {
+                let numberOfSection = self.chatView.tableView.numberOfSections - 1 > 0 ? self.chatView.tableView.numberOfSections - 1 : 0
+                let rowNumber = self.chatView.tableView.numberOfRows(inSection: numberOfSection)
+                self.chatView.tableView.beginUpdates()
+                self.chatView.tableView.insertRows(at: [IndexPath(row: rowNumber, section: numberOfSection)], with: .fade)
+                self.chatView.tableView.endUpdates()
+                self.chatView.tableView.scrollToBottom(animated: true)
+            }
         })
     }
     
@@ -191,7 +197,6 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
         cell.messageVideoView.url = message.videoURL
         cell.isUserInteractionEnabled = true
         cell.messageVideoView.delegate = self
-//        cell.delegate = self
         cell.updateColors()
         
         if let width = cachedBubbleWidths[indexPath] {
@@ -204,17 +209,15 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
             }
         }
         
-        cachedBubbleWidths[indexPath] = cell.width
-        
         if message.isMine {
-            cell.isBlue = false
-            cell.bubbleView.automaticallyAdjustsColorStyle = true
-            cell.updateColors()
-        } else {
             cell.isBlue = true
             cell.bubbleView.automaticallyAdjustsColorStyle = false
             cell.bubbleView.backgroundColor = SFColors.blue
             cell.messageLabel.textColor = .white
+        } else {
+            cell.isBlue = false
+            cell.bubbleView.automaticallyAdjustsColorStyle = true
+            cell.updateColors()
         }
         
         return cell

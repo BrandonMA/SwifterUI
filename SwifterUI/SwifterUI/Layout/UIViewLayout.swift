@@ -14,16 +14,24 @@ public extension UIView {
         
         var constraints: Constraints = []
         
-        constraints.append(contentsOf: self.constraints)
-        
-        guard let superview = superview else { return constraints }
-        
-        superview.constraints.forEach { (constraint) in
-            guard let view = constraint.firstItem as? UIView else { return }
-            if view === self {
-                constraints.append(constraint)
+        for constraint in self.constraints {
+            if let view = constraint.firstItem as? UIView {
+                if view === self {
+                    constraints.append(constraint)
+                }
             }
         }
+        
+        if let superview = superview {
+            for constraint in superview.constraints {
+                if let view = constraint.firstItem as? UIView {
+                    if view === self {
+                        constraints.append(constraint)
+                    }
+                }
+            }
+        }
+        
         return constraints
     }
     
@@ -39,18 +47,23 @@ public extension UIView {
     public func get(constraintType: ConstraintType) -> Constraint? {
         
         for constraint in self.constraints {
-            if constraint.identifier == constraintType.rawValue {
-                return constraint
+            if let view = constraint.firstItem as? UIView {
+                if view === self {
+                    if constraint.identifier == constraintType.rawValue {
+                        return constraint
+                    }
+                }
             }
         }
         
-        guard let superview = superview else { return nil }
-        
-        for constraint in superview.constraints {
-            guard let view = constraint.firstItem as? UIView else { return nil }
-            if view === self {
-                if constraint.identifier == constraintType.rawValue {
-                    return constraint
+        if let superview = superview {
+            for constraint in superview.constraints {
+                if let view = constraint.firstItem as? UIView {
+                    if view === self {
+                        if constraint.identifier == constraintType.rawValue {
+                            return constraint
+                        }
+                    }
                 }
             }
         }
@@ -59,10 +72,11 @@ public extension UIView {
     }
     
     public func remove(constraintType: ConstraintType) {
-        guard let oldConstraint = get(constraintType: constraintType) else { return }
-        guard let superview = superview else { return }
-        removeConstraint(oldConstraint)
-        superview.removeConstraint(oldConstraint)
+        guard let superview = superview else { fatalError() }
+        if let oldConstraint = get(constraintType: constraintType) {
+            removeConstraint(oldConstraint)
+            superview.removeConstraint(oldConstraint)
+        }
     }
     
     private func getAnchorView(view: UIView?) -> UIView? {

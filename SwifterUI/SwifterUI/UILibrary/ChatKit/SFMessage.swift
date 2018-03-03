@@ -9,12 +9,16 @@
 import UIKit
 
 public protocol SFMessage {
+    
+    var id: String { get set }
+    var senderId: String { get set }
     var text: String? { get set }
     var image: UIImage? { get set }
     var videoURL: URL? { get set }
     var fileURL: URL? { get set }
-    var timestamp: Date { get set }
+    var timestamp: NSDate { get set }
     var isMine: Bool { get set }
     
-    init(text: String?, image: UIImage?, videoURL: URL?, fileURL: URL?, isMine: Bool, timestamp: Date)
+    init(senderId: String, text: String?, image: UIImage?, videoURL: URL?, fileURL: URL?, timestamp: NSDate)
 }
+

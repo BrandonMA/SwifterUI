@@ -114,17 +114,17 @@ open class SFTableViewChatCell: SFTableViewCell {
         super.layoutSubviews()
         
         bubbleView.remove(constraintType: .width)
+        bubbleView.remove(constraintType: .left)
+        bubbleView.remove(constraintType: .right)
         
         bubbleView.clipTop(to: .top, margin: 8)
         bubbleView.clipBottom(to: .bottom, margin: 8)
         bubbleView.width(SFDimension(value: width + 17))
         
         if isBlue {
-            bubbleView.remove(constraintType: .right)
-            bubbleView.clipLeft(to: .left, margin: 8)
-        } else {
-            bubbleView.remove(constraintType: .left)
             bubbleView.clipRight(to: .right, margin: 8)
+        } else {
+            bubbleView.clipLeft(to: .left, margin: 8)
         }
         
         messageLabel.clipEdges(margin: ConstraintMargin(top: 8, right: 8, bottom: 8, left: 8))
@@ -137,6 +137,5 @@ open class SFTableViewChatCell: SFTableViewCell {
             messageVideoView.prepareVideoView()
             messageVideoView.clipEdges(margin: ConstraintMargin(top: 8, right: 8, bottom: 8, left: 8))
         }
-        
     }
 }

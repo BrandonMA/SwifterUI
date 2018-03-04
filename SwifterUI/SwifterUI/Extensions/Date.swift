@@ -18,4 +18,12 @@ public extension Date {
         formatter.dateFormat = format
         return formatter.string(from: date)
     }
+    
+    // MARK: - Instance Methods
+    
+    public func string(with format: String) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = format
+        return formatter.string(from: self)
+    }
 }

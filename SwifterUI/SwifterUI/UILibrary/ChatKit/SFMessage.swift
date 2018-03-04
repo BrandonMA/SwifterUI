@@ -17,9 +17,9 @@ public protocol SFMessage {
     var imageURL: String? { get set }
     var videoURL: URL? { get set }
     var fileURL: URL? { get set }
-    var timestamp: NSDate { get set }
+    var timestamp: Date { get set }
     var isMine: Bool { get set }
     
-    init(senderId: String, text: String?, image: UIImage?, videoURL: URL?, fileURL: URL?, timestamp: NSDate)
+    init(senderId: String, text: String?, image: UIImage?, videoURL: URL?, fileURL: URL?, timestamp: Date)
 }
 

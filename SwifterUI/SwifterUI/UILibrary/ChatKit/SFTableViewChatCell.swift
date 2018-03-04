@@ -21,6 +21,13 @@ public extension SFTableViewChatCellDelegate {
     }
 }
 
+open class SFBubbleView: SFView {
+    open override func updateColors() {
+        backgroundColor = useAlternativeColors ? colorStyle.getInteractiveColor() : colorStyle.getMainColor()
+        updateSubviewsColors()
+    }
+}
+
 open class SFTableViewChatCell: SFTableViewCell {
     
     // MARK: - Instance Properties
@@ -30,8 +37,8 @@ open class SFTableViewChatCell: SFTableViewCell {
     open var isBlue: Bool = false
     open var width: CGFloat = 0
     
-    open lazy var bubbleView: SFView = {
-        let view = SFView(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
+    open lazy var bubbleView: SFBubbleView = {
+        let view = SFBubbleView(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 10
         return view
@@ -109,6 +116,12 @@ open class SFTableViewChatCell: SFTableViewCell {
         }
     }
     
+    open override func prepareForReuse() {
+        messageVideoView.removeFromSuperview()
+        messageImageView.removeFromSuperview()
+        super.prepareForReuse()
+    }
+    
     open override func layoutSubviews() {
         
         super.layoutSubviews()
@@ -116,6 +129,7 @@ open class SFTableViewChatCell: SFTableViewCell {
         bubbleView.remove(constraintType: .width)
         bubbleView.remove(constraintType: .left)
         bubbleView.remove(constraintType: .right)
+        messageVideoView.removeAllConstraints()
         
         bubbleView.clipTop(to: .top, margin: 8)
         bubbleView.clipBottom(to: .bottom, margin: 8)
@@ -138,4 +152,16 @@ open class SFTableViewChatCell: SFTableViewCell {
             messageVideoView.clipEdges(margin: ConstraintMargin(top: 8, right: 8, bottom: 8, left: 8))
         }
     }
+    
+    open override func updateColors() {
+        if self.bubbleView.useAlternativeColors {
+            messageLabel.automaticallyAdjustsColorStyle = false
+            messageLabel.textColor = .white
+        } else {
+            messageLabel.automaticallyAdjustsColorStyle = true
+        }
+        super.updateColors()
+    }
 }
+
+

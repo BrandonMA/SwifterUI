@@ -13,41 +13,54 @@ open class SFVideoView: SFView {
     
     // MARK: - Instance Properties
     
-    private var videoView: UIView? = nil
-//    private var youtubeView: YouTubePlayerView? = nil
-    open var url: URL? = nil //{ didSet { prepareVideoView() } }
-//    open var youtubeURL: URL? = nil { didSet { prepareYoutubeView() } }
+    open var videoView: UIView? = nil
+    
+    open var url: URL? = nil {
+        didSet {
+            DispatchQueue.addAsyncTask(to: .background) {
+                guard let url = self.url else {
+                    DispatchQueue.addAsyncTask(to: .main, handler: {
+                        self.videoView?.removeFromSuperview()
+                    })
+                    return
+                }
+                self.player = AVPlayer(url: url)
+            }
+        }
+    }
+    
+    open var controller = AVPlayerViewController()
+    
+    open var player: AVPlayer? {
+        didSet {
+            DispatchQueue.addAsyncTask(to: .main) {
+                self.controller.player = self.player
+            }
+        }
+    }
+    
     open weak var delegate: SFVideoPlayerDelegate? = nil
+    
+    public override init(automaticallyAdjustsColorStyle: Bool = true, frame: CGRect = .zero) {
+        super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, frame: frame)
+        controller.allowsPictureInPicturePlayback = true
+        controller.entersFullScreenWhenPlaybackBegins = true
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - Instance Methods
     
     open func prepareVideoView() {
-        
-        guard let url = self.url else {
-            self.videoView?.removeFromSuperview()
-            return
-        }
-        
-        let controller = AVPlayerViewController()
-        let player = AVPlayer(url: url)
-        controller.player = player
-        controller.allowsPictureInPicturePlayback = true
-        controller.entersFullScreenWhenPlaybackBegins = true
         delegate?.prepare(mediaController: controller)
         videoView = controller.view
         addSubview(videoView!)
+        print(subviews.count)
         videoView?.clipEdges()
     }
     
-//    private func prepareYoutubeView() {
-//        youtubeView = YouTubePlayerView()
-//        guard let youtubeURL = self.youtubeURL else {
-//            self.youtubeView.removeFromSuperview()
-//            return
-//        }
-//        youtubeView.loadVideoURL(youtubeURL)
-//        youtubeView?.clipEdges()
-//    }
-    
 }
+
 

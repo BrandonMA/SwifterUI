@@ -136,7 +136,7 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
     
     @objc private func sendButtonDidTouch() {
         if self.chatBar.textView.text != "" {
-            let message = MessageType(senderId: "", text: self.chatBar.textView.text, image: nil, videoURL: nil, fileURL: nil, timestamp: NSDate())
+            let message = MessageType(senderId: "", text: self.chatBar.textView.text, image: nil, videoURL: nil, fileURL: nil, timestamp: Date())
             messages.append(message)
             self.chatBar.textView.text = ""
             if didSend(message: message) {
@@ -157,9 +157,9 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
         var optionalMessage: MessageType? = nil
         
         if let originalImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            optionalMessage = MessageType(senderId: "", text: nil, image: originalImage, videoURL: nil, fileURL: nil, timestamp: NSDate())
+            optionalMessage = MessageType(senderId: "", text: nil, image: originalImage, videoURL: nil, fileURL: nil, timestamp: Date())
         } else if let videoURL = info[UIImagePickerControllerMediaURL] as? URL {
-            optionalMessage = MessageType(senderId: "", text: nil, image: nil, videoURL: videoURL, fileURL: nil, timestamp: NSDate())
+            optionalMessage = MessageType(senderId: "", text: nil, image: nil, videoURL: videoURL, fileURL: nil, timestamp: Date())
         }
         
         picker.dismiss(animated: true, completion: {
@@ -204,13 +204,12 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
         }
         
         if message.isMine {
+            cell.bubbleView.useAlternativeColors = true
             cell.isBlue = true
-            cell.bubbleView.automaticallyAdjustsColorStyle = false
-            cell.bubbleView.backgroundColor = SFColors.blue
-            cell.messageLabel.textColor = .white
+            cell.updateColors()
         } else {
+            cell.bubbleView.useAlternativeColors = false
             cell.isBlue = false
-            cell.bubbleView.automaticallyAdjustsColorStyle = true
             cell.updateColors()
         }
         

@@ -50,10 +50,6 @@ open class SFNavigationController: UINavigationController, SFControllerColorStyl
     
     // MARK: - Initializers
     
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
-    
     public override init(rootViewController: UIViewController) {
         super.init(rootViewController: rootViewController)
         checkColorStyle()
@@ -66,6 +62,10 @@ open class SFNavigationController: UINavigationController, SFControllerColorStyl
     
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     // MARK: - Instance Methods

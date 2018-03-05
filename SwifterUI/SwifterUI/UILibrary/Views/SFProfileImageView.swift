@@ -26,7 +26,7 @@ open class SFProfileImageView: SFView {
         imageView.image = SFAssets.imageOfBigPlus.withRenderingMode(.alwaysTemplate)
         imageView.contentMode = .center
         imageView.isUserInteractionEnabled = true
-        imageView.clipsToBounds = true
+        imageView.layer.masksToBounds = true
         return imageView
     }()
     

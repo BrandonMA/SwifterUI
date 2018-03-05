@@ -21,10 +21,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let mainController = ViewController(automaticallyAdjustsColorStyle: false)
         mainController.tabBarItem = UITabBarItem(title: "Prueba", image: SFAssets.imageOfPlus.withRenderingMode(.alwaysTemplate), tag: 0)
         let secondController = ViewController(automaticallyAdjustsColorStyle: true)
-        secondController.tabBarItem = UITabBarItem(title: "Prueba", image: SFAssets.imageOfPlus.withRenderingMode(.alwaysTemplate), tag: 1)
+        secondController.tabBarItem = UITabBarItem(title: "Prueba", image: SFAssets.imageOfArrowDown.withRenderingMode(.alwaysTemplate), tag: 1)
         controller.viewControllers = [mainController, secondController]
         controller.selectedViewController = mainController
-        window?.rootViewController = ViewController()
+        window?.rootViewController = controller
         window?.makeKeyAndVisible()
         
         return true

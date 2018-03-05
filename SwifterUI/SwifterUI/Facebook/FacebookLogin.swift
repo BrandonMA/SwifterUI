@@ -11,19 +11,25 @@ import FBSDKCoreKit
 import FBSDKLoginKit
 
 public protocol FacebookLogin {
+    
+    // MARK: - Instance Methods
+    
     func logIn(withReadPermissions permissions: [String], from viewController: UIViewController, handler: @escaping (FBSDKLoginManagerLoginResult) -> Void)
     func getProfile(completion: @escaping (FBSDKProfile) -> Void)
 }
 
-public extension FacebookLogin where Self: UIViewController {
+public extension FacebookLogin {
+    
+    // MARK: - Instance Methods
+    
     public func logIn(withReadPermissions permissions: [String], from viewController: UIViewController, handler: @escaping (FBSDKLoginManagerLoginResult) -> Void) {
         let manager = FBSDKLoginManager()
         manager.logIn(withReadPermissions: permissions, from: viewController) { (result, error) in
             if let error = error {
-                self.showError(message: error.localizedDescription)
+                UIApplication.shared.keyWindow?.visibleViewController?.showError(message: error.localizedDescription)
             } else if let result = result {
                 if result.isCancelled {
-                    self.showError()
+                    UIApplication.shared.keyWindow?.visibleViewController?.showError()
                 } else {
                     handler(result)
                 }
@@ -34,7 +40,7 @@ public extension FacebookLogin where Self: UIViewController {
     public func getProfile(completion: @escaping (FBSDKProfile) -> Void) {
         FBSDKProfile.loadCurrentProfile { (profile, error) in
             if let error = error {
-                self.showError(message: error.localizedDescription)
+                UIApplication.shared.keyWindow?.visibleViewController?.showError(message: error.localizedDescription)
             } else if let profile = profile {
                 completion(profile)
             }

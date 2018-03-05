@@ -28,6 +28,8 @@ public protocol SFControllerColorStyle: SFColorStyleProtocol {
 
 public extension SFControllerColorStyle where Self: UIViewController {
     
+    // MARK: - Instance Methods
+    
     public func checkColorStyle() {
         if automaticallyAdjustsColorStyle == true {
             updateColors()

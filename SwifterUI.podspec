@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'SwifterUI'
-  s.version          = '0.4.43'
+  s.version          = '0.4.44'
   s.summary          = 'UI Library'
  
   s.description      = 'This is a UI Library to improve development process'
@@ -20,7 +20,21 @@ Pod::Spec.new do |s|
   s.subspec 'Core' do |core|
     core.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.0' }
     core.ios.deployment_target = '11.0'
-    core.source_files = 'SwifterUI/SwifterUI/*', 'SwifterUI/SwifterUI/Extensions/*', 'SwifterUI/SwifterUI/Layout/*', 'SwifterUI/SwifterUI/Animations/*', 'SwifterUI/SwifterUI/SFGradient/*', 'SwifterUI/SwifterUI/UILibrary/*', 'SwifterUI/SwifterUI/UILibrary/**/*'
+    core.source_files = 'SwifterUI/SwifterUI/UILibrary/*', 'SwifterUI/SwifterUI/UILibrary/**/*'
+  end
+
+  s.subspec 'ChatKit' do |chatkit|
+    chatkit.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.0' }
+    chatkit.ios.deployment_target = '11.0'
+    chatkit.source_files  = 'SwifterUI/SwifterUI/ChatKit/*'
+    chatkit.dependency 'SwifterUI/Core'
+  end
+
+  s.subspec 'LoginKit' do |loginkit|
+    loginkit.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.0' }
+    loginkit.ios.deployment_target = '11.0'
+    loginkit.source_files  = 'SwifterUI/SwifterUI/LoginKit/*'
+    loginkit.dependency 'SwifterUI/Core'
   end
 
   s.subspec 'Firebase' do |firebase|

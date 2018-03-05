@@ -1,68 +1,101 @@
 //
-//  ViewController.swift
+//  SFLoginView.swift
 //  SwifterUI
 //
-//  Created by Brandon Maldonado Alonso on 17/12/17.
-//  Copyright © 2017 Brandon Maldonado Alonso. All rights reserved.
+//  Created by brandon maldonado alonso on 23/02/18.
+//  Copyright © 2018 Brandon Maldonado Alonso. All rights reserved.
 //
 
 import UIKit
 
-class LoginView: SFScrollView {
+open class SFLoginView: SFScrollView {
     
-    lazy var imageView: UIImageView = {
+    // MARK: - Instance Properties
+    
+    open lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
-    lazy var mailSection: SFTextSection = {
+    open lazy var mailSection: SFTextSection = {
         let section = SFTextSection(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         section.titleLabel.text = "Correo Electronico"
         section.textField.placeholder = "Escribe..."
         section.translatesAutoresizingMaskIntoConstraints = false
         section.textField.useAlternativeColors = true
+        section.textField.autocorrectionType = .no
+        section.textField.autocapitalizationType = .none
         return section
     }()
     
-    lazy var passwordSection: SFTextSection = {
+    open lazy var passwordSection: SFTextSection = {
         let section = SFTextSection(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         section.titleLabel.text = "Contraseña"
         section.textField.placeholder = "Escribe..."
         section.textField.isSecureTextEntry = true
         section.translatesAutoresizingMaskIntoConstraints = false
         section.textField.useAlternativeColors = true
+        section.textField.autocorrectionType = .no
         return section
     }()
     
-    lazy var logInButton: SFButton = {
+    open lazy var logInButton: SFButton = {
         let button = SFButton(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         button.setTitle("Iniciar Sesión", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.useAlternativeColors = true
         button.layer.cornerRadius = 10
+        button.addTouchAnimations = true
         return button
     }()
     
-    override init(automaticallyAdjustsColorStyle: Bool = true, frame: CGRect = .zero) {
+    open lazy var signUpButton: SFButton = {
+        let button = SFButton(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
+        button.setTitle("Crear Cuenta", for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.useAlternativeColors = true
+        button.layer.cornerRadius = 10
+        button.useAlternativeTextColor = true
+        button.addTouchAnimations = true
+        return button
+    }()
+    
+    open lazy var facebookButton: SFButton = {
+        let button = SFButton(automaticallyAdjustsColorStyle: false)
+        button.setTitle("Facebook", for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.backgroundColor = UIColor(hex: "3B5998")
+        button.layer.cornerRadius = 10
+        button.addTouchAnimations = true
+        return button
+    }()
+    
+    // MARK: - Initializers
+    
+    public override init(automaticallyAdjustsColorStyle: Bool = true, frame: CGRect = .zero) {
         super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, frame: frame)
         contentView.addSubview(imageView)
         contentView.addSubview(mailSection)
         contentView.addSubview(passwordSection)
         contentView.addSubview(logInButton)
+        contentView.addSubview(signUpButton)
+        contentView.addSubview(facebookButton)
         useAlternativeColors = true
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func layoutIfBoundsChanged() {
+    // MARK: - Instance Methods
+    
+    open override func layoutIfBoundsChanged() {
         super.layoutIfBoundsChanged()
         
         imageView.clipEdges(margin: UIEdgeInsets(top: 16, left: 16, bottom: 0, right: 16), exclude: [.bottom])
-        imageView.height(SFDimension(value: 200))
+        imageView.height(SFDimension(value: 160))
         
         mailSection.clipEdges(margin: UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16), exclude: [.top, .bottom])
         mailSection.clipTop(to: .bottom, of: imageView, margin: 16)
@@ -74,52 +107,14 @@ class LoginView: SFScrollView {
         logInButton.clipTop(to: .bottom, of: passwordSection, margin: 16)
         logInButton.height(SFDimension(value: 44))
         
-        contentView.clipBottom(to: .bottom, of: logInButton, margin: -16)
+        signUpButton.clipEdges(margin: UIEdgeInsets(top: 16, left: 16, bottom: 0, right: 16), exclude: [.top, .bottom])
+        signUpButton.clipTop(to: .bottom, of: logInButton, margin: 16)
+        signUpButton.height(SFDimension(value: 44))
+        
+        facebookButton.clipEdges(margin: UIEdgeInsets(top: 16, left: 16, bottom: 0, right: 16), exclude: [.top, .bottom])
+        facebookButton.clipTop(to: .bottom, of: signUpButton, margin: 16)
+        facebookButton.height(SFDimension(value: 44))
+        
+        contentView.clipBottom(to: .bottom, of: facebookButton, margin: -16)
     }
 }
-
-class ViewController: SFViewController {
-    
-    lazy var scrollView: LoginView = {
-        let scrollView = LoginView(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.useAlternativeColors = true
-        scrollView.scrollsHorizontally = false
-        return scrollView
-    }()
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.addSubview(scrollView)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-    }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

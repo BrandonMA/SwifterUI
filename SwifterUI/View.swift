@@ -29,7 +29,7 @@ class View: SFView {
     }
     
     override func layoutSubviews() {
-        textSection.clipEdges(margin: ConstraintMargin(top: 12, right: 12, bottom: 0, left: 12), exclude: [.bottom], useSafeArea: true)
+        textSection.clipEdges(margin: UIEdgeInsets(top: 12, left: 12, bottom: 0, right: 12), exclude: [.bottom], useSafeArea: true)
         super.layoutSubviews()
     }
     

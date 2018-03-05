@@ -8,7 +8,26 @@
 
 import UIKit
 
-open class SFTableViewCell: UITableViewCell, SFViewColorStyle {
+public protocol SFTableCell {
+    
+    // MARK: Static Methods
+    
+    func height() -> CGFloat
+    func identifier() -> String
+    
+}
+
+open class SFTableViewCell: UITableViewCell, SFViewColorStyle, SFTableCell {
+    
+    // MARK: - Static Methods
+    
+    open func height() -> CGFloat {
+        return 46
+    }
+    
+    open func identifier() -> String {
+        return "SFTableViewCell"
+    }
     
     // MARK: - Instance Properties
     
@@ -16,7 +35,7 @@ open class SFTableViewCell: UITableViewCell, SFViewColorStyle {
     
     open var useAlternativeColors: Bool = false
     
-    lazy var rightImageView: UIImageView = {
+    open lazy var rightImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false

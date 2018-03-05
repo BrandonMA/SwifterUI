@@ -9,16 +9,24 @@
 import UIKit
 
 public protocol SFPickerControllerDelegate: class {
+    
+    // MARK: - Instance Methods
+    
     func pickerController(_ pickerController: SFPickerController, retreivedValue: String?, index: Int?)
     func pickerController(_ pickerController: SFPickerController, didTouch button: UIButton)
+    
 }
 
 extension SFPickerControllerDelegate {
+    
+    // MARK: - Instance Methods
+    
     public func pickerController(_ pickerController: SFPickerController, retreivedValue: String?, index: Int?) {
         
     }
     public func pickerController(_ pickerController: SFPickerController, didTouch button: UIButton) {
     }
+    
 }
 
 open class SFPickerController: SFViewController {

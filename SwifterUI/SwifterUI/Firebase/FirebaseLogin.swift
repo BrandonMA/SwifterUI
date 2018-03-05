@@ -9,19 +9,24 @@ import UIKit
 import FirebaseAuth
 
 public protocol FirebaseLogin {
+    
+    // MARK: - Instance Methods
+    
     func handleFirebaseLogin(user: User?, error: Error?, completion: ((User) -> Void)?)
 }
 
-public extension FirebaseLogin where Self: UIViewController {
+public extension FirebaseLogin {
+    
+    // MARK: - Instance Methods
     
     public func handleFirebaseLogin(user: User?, error: Error?, completion: ((User) -> Void)?) {
         if let error = error {
-            showError(message: error.localizedDescription)
+            UIApplication.shared.keyWindow?.visibleViewController?.showError(message: error.localizedDescription)
         }
         if let user = user {
             completion?(user)
         } else {
-            showError()
+            UIApplication.shared.keyWindow?.visibleViewController?.showError()
         }
     }
 }

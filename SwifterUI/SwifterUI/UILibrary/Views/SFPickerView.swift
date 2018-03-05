@@ -120,7 +120,7 @@ open class SFPickerView: SFView {
                 }
             }
         } else {
-            doneButton.clipEdges(margin: ConstraintMargin(top: 0, right: 8, bottom: 8, left: 8), exclude: [.top])
+            doneButton.clipEdges(margin: UIEdgeInsets(top: 0, left: 8, bottom: 8, right: 8), exclude: [.top])
             doneButton.height(SFDimension(value: 48))
             middleView.clipBottom(to: .top, of: doneButton)
             middleView.height(SFDimension(value: 200))
@@ -134,7 +134,7 @@ open class SFPickerView: SFView {
         titleLabel.center(axis: [.x])
         titleLabel.center(axis: [.y], in: closeButton)
         
-        backgroundView.clipEdges(margin: ConstraintMargin(top: 0, right: 12, bottom: 12, left: 12), exclude: [.top])
+        backgroundView.clipEdges(margin: UIEdgeInsets(top: 0, left: 12, bottom: 12, right: 12), exclude: [.top])
         backgroundView.clipTop(to: .top, of: closeButton, margin: -8)
         
     }

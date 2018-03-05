@@ -10,12 +10,20 @@ import UIKit
 
 
 public protocol SFImageViewerControllerDelegate: class {
+    
+    // MARK: - Instance Methods
+    
     func willDismiss()
+    
 }
 
 public extension SFImageViewerControllerDelegate {
+    
+    // MARK: - Instance Methods
+    
     public func willDismiss() {
     }
+    
 }
 
 open class SFImageViewerController: SFViewController, UIScrollViewDelegate {

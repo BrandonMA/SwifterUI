@@ -14,6 +14,8 @@ public enum SFColorStyle: Int {
     case light
     case dark
     
+    // MARK: - Instance Methods
+    
     // MARK: - Styles
     
     public func getBarStyle() -> UIBarStyle {

@@ -8,36 +8,6 @@
 
 import UIKit
 
-private extension UIViewController {
-    
-    private func showLoadingView() {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.restorationIdentifier = "loadingView"
-        view.backgroundColor = .red
-        view.alpha = 0
-        self.view.addSubview(view)
-        view.clipEdges(useSafeArea: false)
-        view.layoutIfNeeded()
-        UIView.animate(withDuration: 0.5) {
-            view.alpha = 1
-        }
-    }
-    
-    private func removeLoadingView() {
-        for view in view.subviews {
-            if view.restorationIdentifier == "loadingView" {
-                UIView.animate(withDuration: 0.5, animations: {
-                    view.alpha = 0
-                }, completion: { (finished) in
-                    view.removeFromSuperview()
-                })
-            }
-        }
-    }
-    
-}
-
 open class SFViewController: UIViewController, SFControllerColorStyle {
     
     // MARK: - Instance Properties

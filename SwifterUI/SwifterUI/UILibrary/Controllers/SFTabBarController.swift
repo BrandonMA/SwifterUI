@@ -10,7 +10,19 @@ import UIKit
 
 open class SFTabBarController: UITabBarController, SFControllerColorStyle {
     
+    public enum SFTabBarAnimation {
+        case none
+        case shake
+        case morph
+        case squeeze
+        case wobble
+        case flip
+        case rotate
+    }
+    
     // MARK: - Instance Properties
+    
+    var animation: SFTabBarAnimation = .none
     
     open var currentColorStyle: SFColorStyle? = nil
     
@@ -50,10 +62,6 @@ open class SFTabBarController: UITabBarController, SFControllerColorStyle {
     
     // MARK: - Initializers
     
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
-    
     public override init(nibName nibNameOrNil: String? = nil, bundle nibBundleOrNil: Bundle? = nil) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         checkColorStyle()
@@ -63,7 +71,26 @@ open class SFTabBarController: UITabBarController, SFControllerColorStyle {
         fatalError("init(coder:) has not been implemented")
     }
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     // MARK: - Instance Methods
+    
+    open override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        if let view = item.value(forKey: "view") as? UIView {
+            let imageView = view.subviews[0]
+            switch animation {
+            case .none: return
+            case .shake: SFShakeAnimation(with: imageView).start()
+            case .morph: SFMorphAnimation(with: imageView).start()
+            case .squeeze: SFSqueezeAnimation(with: imageView).start()
+            case .wobble: SFWobbleAnimation(with: imageView).start()
+            case .flip: SFFlipAnimation(with: imageView).start()
+            case .rotate: SFRotationAnimation(with: imageView).start()
+            }
+        }
+    }
     
     open func checkColorStyleListener() {
         if self.automaticallyAdjustsColorStyle == true {

@@ -12,22 +12,12 @@ public protocol SFTableCell {
     
     // MARK: Static Methods
     
-    func height() -> CGFloat
-    func identifier() -> String
+    static func height() -> CGFloat
+    static func identifier() -> String
     
 }
 
-open class SFTableViewCell: UITableViewCell, SFViewColorStyle, SFTableCell {
-    
-    // MARK: - Static Methods
-    
-    open func height() -> CGFloat {
-        return 46
-    }
-    
-    open func identifier() -> String {
-        return "SFTableViewCell"
-    }
+open class SFTableViewCell: UITableViewCell, SFViewColorStyle {
     
     // MARK: - Instance Properties
     
@@ -84,6 +74,19 @@ open class SFTableViewCell: UITableViewCell, SFViewColorStyle, SFTableCell {
                 }
             }
         }
+    }
+    
+}
+
+extension SFTableViewCell: SFTableCell {
+    // MARK: - Static Methods
+    
+    public static func height() -> CGFloat {
+        return 46
+    }
+    
+    public static func identifier() -> String {
+        return "SFTableViewCell"
     }
     
 }

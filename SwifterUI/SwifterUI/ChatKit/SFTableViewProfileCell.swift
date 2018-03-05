@@ -10,16 +10,6 @@ import UIKit
 
 open class SFTableViewProfileCell: SFTableViewCell {
     
-    // MARK: - Static Methods
-    
-    open override func height() -> CGFloat {
-        return 56
-    }
-    
-    open override func identifier() -> String {
-        return "SFTableViewProfileCell"
-    }
-    
     // MARK: - Instance Properties
     
     open lazy var profileImageView: UIImageView = {
@@ -67,7 +57,19 @@ open class SFTableViewProfileCell: SFTableViewCell {
     
 }
 
-
+public extension SFTableViewProfileCell {
+    
+    // MARK: - Static Methods
+    
+    public func height() -> CGFloat {
+        return 64
+    }
+    
+    public func identifier() -> String {
+        return "SFTableViewConversationCell"
+    }
+    
+}
 
 
 

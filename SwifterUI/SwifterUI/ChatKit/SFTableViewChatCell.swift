@@ -31,17 +31,6 @@ public extension SFTableViewChatCellDelegate {
 
 open class SFTableViewChatCell: SFTableViewCell {
     
-    // MARK: - Static Methods
-    
-    open override func height() -> CGFloat {
-        print("You must get the height depending on the text")
-        return 0
-    }
-    
-    open override func identifier() -> String {
-        return "SFTableViewChatCell"
-    }
-    
     // MARK: - Instance Properties
     
     open weak var delegate: SFTableViewChatCellDelegate? = nil
@@ -176,4 +165,18 @@ open class SFTableViewChatCell: SFTableViewCell {
     }
 }
 
+public extension SFTableViewChatCell {
+    
+    // MARK: - Static Methods
+    
+    public func height() -> CGFloat {
+        print("You must get the height depending on the text")
+        return 0
+    }
+    
+    public func identifier() -> String {
+        return "SFTableViewChatCell"
+    }
+    
+}
 

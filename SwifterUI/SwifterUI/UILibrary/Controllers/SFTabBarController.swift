@@ -22,7 +22,7 @@ open class SFTabBarController: UITabBarController, SFControllerColorStyle {
     
     // MARK: - Instance Properties
     
-    var animation: SFTabBarAnimation = .none
+    open var animation: SFTabBarAnimation = .none
     
     open var currentColorStyle: SFColorStyle? = nil
     

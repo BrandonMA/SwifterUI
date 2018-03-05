@@ -8,7 +8,17 @@
 
 import UIKit
 
-open class SFTableViewConversationCell: SFTableViewCell {    
+open class SFTableViewConversationCell: SFTableViewCell {
+    
+    // MARK: - Class Properties
+    
+    open override class var height: CGFloat {
+        return 64
+    }
+    
+    open override class var identifier: String {
+        return "SFTableViewConversationCell"
+    }
     
     // MARK: - Instance Properties
     
@@ -97,21 +107,6 @@ open class SFTableViewConversationCell: SFTableViewCell {
         
     }
 }
-
-public extension SFTableViewConversationCell {
-    
-    // MARK: - Static Methods
-    
-    public func height() -> CGFloat {
-        return 64
-    }
-    
-    public func identifier() -> String {
-        return "SFTableViewConversationCell"
-    }
-    
-}
-
 
 
 

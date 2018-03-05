@@ -165,18 +165,3 @@ open class SFTableViewChatCell: SFTableViewCell {
     }
 }
 
-public extension SFTableViewChatCell {
-    
-    // MARK: - Static Methods
-    
-    public func height() -> CGFloat {
-        print("You must get the height depending on the text")
-        return 0
-    }
-    
-    public func identifier() -> String {
-        return "SFTableViewChatCell"
-    }
-    
-}
-

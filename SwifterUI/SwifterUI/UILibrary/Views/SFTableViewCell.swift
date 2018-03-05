@@ -8,16 +8,17 @@
 
 import UIKit
 
-public protocol SFTableCell {
-    
-    // MARK: Static Methods
-    
-    static func height() -> CGFloat
-    static func identifier() -> String
-    
-}
-
 open class SFTableViewCell: UITableViewCell, SFViewColorStyle {
+    
+    // MARK: - Class Properties
+    
+    open class var height: CGFloat {
+        return 46
+    }
+    
+    open class var identifier: String {
+        return "SFTableViewCell"
+    }
     
     // MARK: - Instance Properties
     
@@ -74,19 +75,6 @@ open class SFTableViewCell: UITableViewCell, SFViewColorStyle {
                 }
             }
         }
-    }
-    
-}
-
-extension SFTableViewCell: SFTableCell {
-    // MARK: - Static Methods
-    
-    public static func height() -> CGFloat {
-        return 46
-    }
-    
-    public static func identifier() -> String {
-        return "SFTableViewCell"
     }
     
 }

@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'SwifterUI'
-  s.version          = '0.4.45'
+  s.version          = '0.4.46'
   s.summary          = 'UI Library'
  
   s.description      = 'This is a UI Library to improve development process'
@@ -33,7 +33,7 @@ Pod::Spec.new do |s|
   s.subspec 'LoginKit' do |loginkit|
     loginkit.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.0' }
     loginkit.ios.deployment_target = '11.0'
-    loginkit.source_files  = 'SwifterUI/SwifterUI/LoginKit/*'
+    loginkit.source_files  = 'SwifterUI/SwifterUI/LoginKit/**/*'
     loginkit.dependency 'SwifterUI/Core'
   end
 

@@ -40,6 +40,9 @@ open class SFTableView: UITableView, SFViewColorStyle {
             let numberOfSections = self.numberOfSections - 1
             if numberOfSections >= 0 {
                 for i in 0...numberOfSections {
+                    if let headerCell = headerView(forSection: i) as? SFViewColorStyle {
+                        headerCell.updateColors()
+                    }
                     let numberOfRows = self.numberOfRows(inSection: i) - 1
                     if numberOfRows > 0 {
                         for j in 0...numberOfRows {

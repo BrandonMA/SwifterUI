@@ -39,7 +39,7 @@ open class SFFlipAnimation: SFAnimation {
         
         let animation = CABasicAnimation(keyPath: "transform")
         animation.fromValue = NSValue(caTransform3D: CATransform3DMakeRotation(0, 0, 0, 0))
-        animation.toValue = NSValue(caTransform3D: CATransform3DConcat(perspective, CATransform3DMakeRotation(CGFloat(CGFloat.pi), self.flipType == .x ? 0 : 1, self.flipType == .x ? 1 : 0, 0)))
+        animation.toValue = NSValue(caTransform3D: CATransform3DConcat(perspective, CATransform3DMakeRotation(CGFloat.pi, self.flipType == .x ? 0 : 1, self.flipType == .x ? 1 : 0, 0)))
         animation.duration = CFTimeInterval(duration)
         animation.beginTime = CACurrentMediaTime() + CFTimeInterval(delay)
         animation.timingFunction = self.animationCurve.getTimingFunction()

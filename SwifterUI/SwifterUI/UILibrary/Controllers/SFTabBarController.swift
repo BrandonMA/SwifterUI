@@ -8,7 +8,7 @@
 
 import UIKit
 
-open class SFTabBarController: UITabBarController, SFControllerColorStyle {
+open class SFTabBarItem: UITabBarItem {
     
     public enum SFTabBarAnimation {
         case none
@@ -20,9 +20,13 @@ open class SFTabBarController: UITabBarController, SFControllerColorStyle {
         case rotate
     }
     
-    // MARK: - Instance Properties
-    
     open var animation: SFTabBarAnimation = .none
+    
+}
+
+open class SFTabBarController: UITabBarController, SFControllerColorStyle {
+    
+    // MARK: - Instance Properties
     
     open var currentColorStyle: SFColorStyle? = nil
     
@@ -78,9 +82,10 @@ open class SFTabBarController: UITabBarController, SFControllerColorStyle {
     // MARK: - Instance Methods
     
     open override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        guard let item = item as? SFTabBarItem else { return }
         if let view = item.value(forKey: "view") as? UIView {
             let imageView = view.subviews[0]
-            switch animation {
+            switch item.animation {
             case .none: return
             case .shake: SFShakeAnimation(with: imageView).start()
             case .morph: SFMorphAnimation(with: imageView).start()

@@ -19,9 +19,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let controller = SFTabBarController()
         let mainController = ViewController(automaticallyAdjustsColorStyle: false)
-        mainController.tabBarItem = UITabBarItem(title: "Prueba", image: SFAssets.imageOfPlus.withRenderingMode(.alwaysTemplate), tag: 0)
+        let firstTab = SFTabBarItem(title: "Prueba", image: SFAssets.imageOfPlus.withRenderingMode(.alwaysTemplate), tag: 0)
+        firstTab.animation = .flip
+        mainController.tabBarItem = firstTab
         let secondController = ViewController(automaticallyAdjustsColorStyle: true)
-        secondController.tabBarItem = UITabBarItem(title: "Prueba", image: SFAssets.imageOfArrowDown.withRenderingMode(.alwaysTemplate), tag: 1)
+        let secondTab = SFTabBarItem(title: "Prueba", image: SFAssets.imageOfArrowDown.withRenderingMode(.alwaysTemplate), tag: 1)
+        secondTab.animation = .rotate
+        secondController.tabBarItem = secondTab
         controller.viewControllers = [mainController, secondController]
         controller.selectedViewController = mainController
         window?.rootViewController = controller

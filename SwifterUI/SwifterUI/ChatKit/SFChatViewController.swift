@@ -139,14 +139,15 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
     }
     
     @objc private func sendButtonDidTouch() {
-        if self.chatBar.textView.text != "" {
-            let message = MessageType(senderId: "", text: self.chatBar.textView.text, image: nil, videoURL: nil, fileURL: nil, timestamp: Date())
+        if chatBar.textView.text != "" {
+            let message = MessageType(senderId: "", text: chatBar.textView.text, image: nil, videoURL: nil, fileURL: nil, timestamp: Date())
             messages.append(message)
             
             if didSend(message: message) {
-                self.chatBar.textView.text = ""
-                chatView.tableView.reloadData()
-                chatView.tableView.scrollToBottom(animated: true)
+                chatBar.textView.text = ""
+                let indexPath = IndexPath(row: chatView.tableView.numberOfRows(inSection: 0), section: 0)
+                chatView.tableView.updateRow(with: .insert, indexPath: indexPath, animation: .right)
+                chatView.tableView.scrollToBottom()
             }
         }
     }
@@ -167,8 +168,9 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
             guard let message = optionalMessage else { return }
             self.messages.append(message)
             if self.didSend(message: message) {
-                self.chatView.tableView.reloadData()
-                self.chatView.tableView.scrollToBottom(animated: true)
+                let indexPath = IndexPath(row: self.chatView.tableView.numberOfRows(inSection: 0), section: 0)
+                self.chatView.tableView.updateRow(with: .insert, indexPath: indexPath, animation: .right)
+                self.chatView.tableView.scrollToBottom()
             }
         })
     }
@@ -184,7 +186,7 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
     }
     
     open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as? SFTableViewChatCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: SFTableViewChatCell.identifier, for: indexPath) as? SFTableViewChatCell else { return UITableViewCell() }
         
         let message = messages[indexPath.row]
         cell.messageLabel.text = message.text

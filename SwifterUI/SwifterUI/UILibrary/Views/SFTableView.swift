@@ -8,6 +8,13 @@
 
 import UIKit
 
+public enum SFTableCellAction {
+    case delete
+    case insert
+    case reload
+    case move
+}
+
 open class SFTableView: UITableView, SFViewColorStyle {
     
     // MARK: - Instance Properties
@@ -29,6 +36,19 @@ open class SFTableView: UITableView, SFViewColorStyle {
     }
     
     // MARK: - Instance Methods
+    
+    open func updateRow(with action: SFTableCellAction, indexPath: IndexPath, newIndexPath: IndexPath? = nil, animation: UITableViewRowAnimation) {
+        beginUpdates()
+        switch action {
+        case .delete: deleteRows(at: [indexPath], with: animation)
+        case .insert: insertRows(at: [indexPath], with: animation)
+        case .reload: reloadRows(at: [indexPath], with: animation)
+        case .move:
+            guard let newIndexPath = newIndexPath else { return }
+            moveRow(at: indexPath, to: newIndexPath)
+        }
+        endUpdates()
+    }
     
     open func updateColors() {
         backgroundColor = useAlternativeColors ? colorStyle.getAlternativeColor() : colorStyle.getMainColor()

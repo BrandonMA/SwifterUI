@@ -31,6 +31,16 @@ public extension SFTableViewChatCellDelegate {
 
 open class SFTableViewChatCell: SFTableViewCell {
     
+    // MARK: - Class Properties
+    
+    open override class var height: CGFloat {
+        return 0
+    }
+    
+    open override class var identifier: String {
+        return "SFTableViewChatCell"
+    }
+    
     // MARK: - Instance Properties
     
     open weak var delegate: SFTableViewChatCellDelegate? = nil

@@ -134,16 +134,16 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
     
     // MARK: - Send Methods
     
-    open func didSend(message: MessageType) -> Bool {
+    open func send(message: MessageType) -> Bool {
         return true
     }
     
     @objc private func sendButtonDidTouch() {
         if chatBar.textView.text != "" {
-            let message = MessageType(senderId: "", text: chatBar.textView.text, image: nil, videoURL: nil, fileURL: nil, timestamp: Date())
+            let message = MessageType(senderId: "", text: chatBar.textView.text, image: nil, videoURL: nil, fileURL: nil, timestamp: Date(), isMine: true)
             messages.append(message)
             
-            if didSend(message: message) {
+            if send(message: message) {
                 chatBar.textView.text = ""
                 let indexPath = IndexPath(row: chatView.tableView.numberOfRows(inSection: 0), section: 0)
                 chatView.tableView.updateRow(with: .insert, indexPath: indexPath, animation: .right)
@@ -159,15 +159,15 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
         var optionalMessage: MessageType? = nil
         
         if let originalImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            optionalMessage = MessageType(senderId: "", text: nil, image: originalImage, videoURL: nil, fileURL: nil, timestamp: Date())
+            optionalMessage = MessageType(senderId: "", text: nil, image: originalImage, videoURL: nil, fileURL: nil, timestamp: Date(), isMine: true)
         } else if let videoURL = info[UIImagePickerControllerMediaURL] as? URL {
-            optionalMessage = MessageType(senderId: "", text: nil, image: nil, videoURL: videoURL, fileURL: nil, timestamp: Date())
+            optionalMessage = MessageType(senderId: "", text: nil, image: nil, videoURL: videoURL, fileURL: nil, timestamp: Date(), isMine: true)
         }
         
         picker.dismiss(animated: true, completion: {
             guard let message = optionalMessage else { return }
             self.messages.append(message)
-            if self.didSend(message: message) {
+            if self.send(message: message) {
                 let indexPath = IndexPath(row: self.chatView.tableView.numberOfRows(inSection: 0), section: 0)
                 self.chatView.tableView.updateRow(with: .insert, indexPath: indexPath, animation: .right)
                 self.chatView.tableView.scrollToBottom()

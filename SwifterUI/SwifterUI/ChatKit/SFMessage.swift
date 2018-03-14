@@ -18,7 +18,6 @@ open class SFMessage: Codable {
         case videoURL
         case fileURL
         case timestamp
-        case isMine
     }
     
     // MARK: - Instance Properties
@@ -56,7 +55,20 @@ open class SFMessage: Codable {
         imageURL = try values.decode(String?.self, forKey: .imageURL)
         videoURL = try values.decode(URL?.self, forKey: .videoURL)
         fileURL = try values.decode(URL?.self, forKey: .fileURL)
-        timestamp = try values.decode(Date.self, forKey: .timestamp)        
+        timestamp = try values.decode(Date.self, forKey: .timestamp)
+    }
+    
+    // MARK: - Instance Methods
+    
+    open func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id, forKey: .id)
+        try container.encode(senderId, forKey: .senderId)
+        try container.encode(text, forKey: .text)
+        try container.encode(imageURL, forKey: .imageURL)
+        try container.encode(videoURL, forKey: .videoURL)
+        try container.encode(fileURL, forKey: .fileURL)
+        try container.encode(timestamp, forKey: .timestamp)
     }
     
 }

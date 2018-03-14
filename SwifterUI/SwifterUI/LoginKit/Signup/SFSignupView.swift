@@ -89,11 +89,11 @@ open class SFSignupView: SFScrollView {
         
         nameSection.clipEdges(margin: UIEdgeInsets(top: 16, left: 16, bottom: 0, right: 16), exclude: [.bottom])
         
-        mailSection.clipEdges(margin: UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16), exclude: [.top, .bottom])
-        mailSection.clipTop(to: .bottom, of: nameSection, margin: 16)
-        
         lastNameSection.clipEdges(margin: UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16), exclude: [.top, .bottom])
-        lastNameSection.clipTop(to: .bottom, of: mailSection, margin: 16)
+        lastNameSection.clipTop(to: .bottom, of: nameSection, margin: 16)
+        
+        mailSection.clipEdges(margin: UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16), exclude: [.top, .bottom])
+        mailSection.clipTop(to: .bottom, of: mailSection, margin: 16)
         
         passwordSection.clipEdges(margin: UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16), exclude: [.top, .bottom])
         passwordSection.clipTop(to: .bottom, of: lastNameSection, margin: 16)

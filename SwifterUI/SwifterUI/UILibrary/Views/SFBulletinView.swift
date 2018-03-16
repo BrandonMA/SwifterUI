@@ -8,7 +8,7 @@
 
 import UIKit
 
-open class SFPickerView: SFView {
+open class SFBulletinView: SFView {
     
     // MARK: - Instance Properties
     
@@ -16,7 +16,6 @@ open class SFPickerView: SFView {
         let view = UIVisualEffectView()
         view.isUserInteractionEnabled = true
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.alpha = 0.7
         return view
     }()
     
@@ -82,6 +81,11 @@ open class SFPickerView: SFView {
             buttons.forEach({ (button) in
                 button.translatesAutoresizingMaskIntoConstraints = false
                 button.layer.cornerRadius = 10
+                
+                if let sfbutton = button as? SFButton {
+                    sfbutton.addTouchAnimations = true
+                }
+                
                 self.middleView.addSubview(button)
             })
         } else {

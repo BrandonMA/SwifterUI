@@ -8,38 +8,38 @@
 
 import UIKit
 
-public protocol SFPickerControllerDelegate: class {
+public protocol SFBulletinControllerDelegate: class {
     
     // MARK: - Instance Methods
     
-    func pickerController(_ pickerController: SFPickerController, retreivedValue: String?, index: Int?)
-    func pickerController(_ pickerController: SFPickerController, didTouch button: UIButton)
+    func bulletinController(_ bulletinController: SFBulletinController, retreivedValue: String?, index: Int?)
+    func bulletinController(_ bulletinController: SFBulletinController, didTouch button: UIButton)
     
 }
 
-extension SFPickerControllerDelegate {
+extension SFBulletinControllerDelegate {
     
     // MARK: - Instance Methods
     
-    public func pickerController(_ pickerController: SFPickerController, retreivedValue: String?, index: Int?) {
+    public func bulletinController(_ bulletinController: SFBulletinController, retreivedValue: String?, index: Int?) {
         
     }
-    public func pickerController(_ pickerController: SFPickerController, didTouch button: UIButton) {
+    public func bulletinController(_ bulletinController: SFBulletinController, didTouch button: UIButton) {
     }
     
 }
 
-open class SFPickerController: SFViewController {
+open class SFBulletinController: SFViewController {
     
     // MARK: - Instance Properties
     
-    open weak var delegate: SFPickerControllerDelegate? = nil
+    open weak var delegate: SFBulletinControllerDelegate? = nil
     
     open var pickerValues: [String] = []
     open var buttons: [UIButton] = []
     
-    open var backgroundView: SFPickerView {
-        return self.view as! SFPickerView
+    open var backgroundView: SFBulletinView {
+        return self.view as! SFBulletinView
     }
     
     open var useDatePicker: Bool = false
@@ -61,9 +61,9 @@ open class SFPickerController: SFViewController {
         return datePicker
     }()
     
-    open var pickerTitle: String = "Titulo" {
+    open var bulletinTitle: String = "Titulo" {
         didSet {
-            backgroundView.titleLabel.text = pickerTitle
+            backgroundView.titleLabel.text = bulletinTitle
         }
     }
     
@@ -113,7 +113,7 @@ open class SFPickerController: SFViewController {
     // MARK: - Instance Methods
     
     open override func loadView() {
-        let picker = SFPickerView(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle, middleView: useButtons ? nil : useDatePicker ? datePicker : pickerView, buttons: buttons)
+        let picker = SFBulletinView(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle, middleView: useButtons ? nil : useDatePicker ? datePicker : pickerView, buttons: buttons)
         self.view = picker
     }
     
@@ -127,7 +127,7 @@ open class SFPickerController: SFViewController {
     
     @objc private func closeButtonDidTouch() {
         returnToMainViewController()
-        delegate?.pickerController(self, retreivedValue: nil, index: nil)
+        delegate?.bulletinController(self, retreivedValue: nil, index: nil)
     }
     
     @objc private func doneButtonDidTouch() {
@@ -137,16 +137,16 @@ open class SFPickerController: SFViewController {
                 let formatter = DateFormatter()
                 formatter.dateFormat = "dd/MM/yyyy"
                 formatter.timeZone = TimeZone.current
-                delegate?.pickerController(self, retreivedValue: formatter.string(from: datePicker.date), index: nil)
+                delegate?.bulletinController(self, retreivedValue: formatter.string(from: datePicker.date), index: nil)
             } else {
-                delegate?.pickerController(self, retreivedValue: pickerValues[pickerView.selectedRow(inComponent: 0)], index: pickerView.selectedRow(inComponent: 0))
+                delegate?.bulletinController(self, retreivedValue: pickerValues[pickerView.selectedRow(inComponent: 0)], index: pickerView.selectedRow(inComponent: 0))
             }
         }
     }
     
     @objc private func handleTouch(button: UIButton) {
         returnToMainViewController {
-            self.delegate?.pickerController(self, didTouch: button)
+            self.delegate?.bulletinController(self, didTouch: button)
         }
     }
     
@@ -170,7 +170,7 @@ open class SFPickerController: SFViewController {
     
 }
 
-extension SFPickerController: UIPickerViewDataSource, UIPickerViewDelegate {
+extension SFBulletinController: UIPickerViewDataSource, UIPickerViewDelegate {
     
     public func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1

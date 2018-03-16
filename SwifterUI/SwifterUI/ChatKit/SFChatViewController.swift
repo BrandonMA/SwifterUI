@@ -115,10 +115,10 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
     // MARK: - Media Methods
     
     @objc private func mediaButtonDidTouch() {
-        let viewController = SFPickerController(buttons: [photosButton, cameraButton])
+        let viewController = SFBulletinController(buttons: [photosButton, cameraButton])
         viewController.modalPresentationStyle = .overCurrentContext
         viewController.modalTransitionStyle = .crossDissolve
-        viewController.pickerTitle = "Multimedia"
+        viewController.bulletinTitle = "Multimedia"
         viewController.delegate = self
         present(viewController, animated: true, completion: nil)
     }
@@ -257,11 +257,11 @@ extension SFChatViewController: SFTableViewChatCellDelegate {
     }
 }
 
-extension SFChatViewController: SFPickerControllerDelegate {
+extension SFChatViewController: SFBulletinControllerDelegate {
     
     // MARK: - Instance Methods
     
-    open func pickerController(_ pickerController: SFPickerController, didTouch button: UIButton) {
+    open func pickerController(_ pickerController: SFBulletinController, didTouch button: UIButton) {
         if button == photosButton {
             showMediaPicker(sourceType: .photoLibrary)
         } else if button == cameraButton {

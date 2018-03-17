@@ -261,7 +261,7 @@ extension SFChatViewController: SFBulletinControllerDelegate {
     
     // MARK: - Instance Methods
     
-    open func pickerController(_ pickerController: SFBulletinController, didTouch button: UIButton) {
+    open func bulletinController(_ bulletinController: SFBulletinController, didTouch button: UIButton) {
         if button == photosButton {
             showMediaPicker(sourceType: .photoLibrary)
         } else if button == cameraButton {

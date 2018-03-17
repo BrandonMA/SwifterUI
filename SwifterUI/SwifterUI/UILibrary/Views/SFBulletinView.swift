@@ -146,12 +146,6 @@ open class SFBulletinView: SFView {
     open override func updateColors() {
         backgroundColor = .clear
         blurView.effect = colorStyle.getEffectStyle()
-        if let pickerView = middleView as? UIPickerView {
-            if pickerView.subviews.count >= 2 {
-                pickerView.subviews[1].backgroundColor = colorStyle.getSeparatorColor()
-                pickerView.subviews[2].backgroundColor = colorStyle.getSeparatorColor()
-            }
-        }
         updateSubviewsColors()
     }
 }

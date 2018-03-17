@@ -87,6 +87,8 @@
 		42BFCFC420537CA700111E17 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BFCFC320537CA700111E17 /* Array.swift */; };
 		42C2E17A20422AB800087B3C /* FacebookLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C2E17920422AB800087B3C /* FacebookLogin.swift */; };
 		42C2E17D20422DCA00087B3C /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C2E17C20422DCA00087B3C /* UIViewController.swift */; };
+		42C67250205CD7C400DA4BCB /* SFPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C6724F205CD7C400DA4BCB /* SFPickerView.swift */; };
+		42C67252205CD7DE00DA4BCB /* SFDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C67251205CD7DE00DA4BCB /* SFDatePicker.swift */; };
 		42C701B12016834E00EBFBE2 /* SFPopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C701B02016834E00EBFBE2 /* SFPopViewController.swift */; };
 		42C701B42016839500EBFBE2 /* SFPresentationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C701B32016839500EBFBE2 /* SFPresentationManager.swift */; };
 		42C7D683202FEAAE006B62A1 /* SFAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C7D682202FEAAE006B62A1 /* SFAssets.swift */; };
@@ -214,6 +216,8 @@
 		42BFCFC320537CA700111E17 /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		42C2E17920422AB800087B3C /* FacebookLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookLogin.swift; sourceTree = "<group>"; };
 		42C2E17C20422DCA00087B3C /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
+		42C6724F205CD7C400DA4BCB /* SFPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFPickerView.swift; sourceTree = "<group>"; };
+		42C67251205CD7DE00DA4BCB /* SFDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFDatePicker.swift; sourceTree = "<group>"; };
 		42C701B02016834E00EBFBE2 /* SFPopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFPopViewController.swift; sourceTree = "<group>"; };
 		42C701B32016839500EBFBE2 /* SFPresentationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFPresentationManager.swift; sourceTree = "<group>"; };
 		42C7D682202FEAAE006B62A1 /* SFAssets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFAssets.swift; sourceTree = "<group>"; };
@@ -444,6 +448,8 @@
 				42DBF1A3203754E900F4BB6F /* SFBulletinView.swift */,
 				42AFAE38203A2246002CAB0F /* SFImageViewer.swift */,
 				424D5A682045ECF000C029E1 /* SFProfileImageView.swift */,
+				42C6724F205CD7C400DA4BCB /* SFPickerView.swift */,
+				42C67251205CD7DE00DA4BCB /* SFDatePicker.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -918,7 +924,9 @@
 				42CDA9BD20361BDE0046791D /* SFChatBar.swift in Sources */,
 				42AFAE3B203A2271002CAB0F /* SFImageViewerController.swift in Sources */,
 				424BE0C11FF45B2D005DE2AD /* Date.swift in Sources */,
+				42C67250205CD7C400DA4BCB /* SFPickerView.swift in Sources */,
 				42446775202AC2BB00F59892 /* SFTextField.swift in Sources */,
+				42C67252205CD7DE00DA4BCB /* SFDatePicker.swift in Sources */,
 				42D34C73202FABB3002B6FA6 /* SFNavigationController.swift in Sources */,
 				42D34C75202FAF10002B6FA6 /* SFPopView.swift in Sources */,
 				429FD4A11FED919A00FD7F10 /* SFFlipAnimation.swift in Sources */,

@@ -45,16 +45,16 @@ open class SFBulletinController: SFViewController {
     open var useDatePicker: Bool = false
     open var useButtons: Bool = false
     
-    open lazy var pickerView: UIPickerView = {
-        let pickerView = UIPickerView()
+    open lazy var pickerView: SFPickerView = {
+        let pickerView = SFPickerView(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         pickerView.translatesAutoresizingMaskIntoConstraints = false
         pickerView.dataSource = self
         pickerView.delegate = self
         return pickerView
     }()
     
-    open lazy var datePicker: UIDatePicker = {
-        let datePicker = UIDatePicker()
+    open lazy var datePicker: SFDatePicker = {
+        let datePicker = SFDatePicker(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         datePicker.timeZone = TimeZone.current
         datePicker.datePickerMode = .date
         datePicker.translatesAutoresizingMaskIntoConstraints = false
@@ -160,12 +160,8 @@ open class SFBulletinController: SFViewController {
     
     open override func updateColors() {
         super.updateColors()
-        if useDatePicker {
-            datePicker.setValue(colorStyle.getTextColor(), forKeyPath: "textColor")
-            datePicker.setValue(false, forKeyPath: "highlightsToday")
-        } else {
-            pickerView.reloadAllComponents()
-        }
+        pickerView.updateColors()
+        datePicker.updateColors()
     }
     
 }

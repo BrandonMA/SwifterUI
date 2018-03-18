@@ -79,11 +79,11 @@ open class SFScrollView: UIScrollView, SFViewColorStyle {
         }
     }
     
-    open override func layoutSubviews() {
-        super.layoutSubviews()
+    open override func updateConstraints() {
         if needsLayoutUpdate {
             layoutIfBoundsChanged()
         }
+        super.updateConstraints()
     }
     
     open func updateColors() {

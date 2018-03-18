@@ -99,9 +99,7 @@ open class SFBulletinView: SFView {
     
     // MARK: - Instance Methods
     
-    open override func layoutSubviews() {
-        
-        super.layoutSubviews()
+    open override func updateConstraints() {
         
         blurView.clipEdges(useSafeArea: false)
         
@@ -140,6 +138,8 @@ open class SFBulletinView: SFView {
         
         backgroundView.clipEdges(margin: UIEdgeInsets(top: 0, left: 12, bottom: 12, right: 12), exclude: [.top])
         backgroundView.clipTop(to: .top, of: closeButton, margin: -8)
+        
+        super.updateConstraints()
         
     }
     

@@ -36,13 +36,13 @@ open class SFSection: SFView {
     
     // MARK: - Instance Methods
     
-    open override func layoutSubviews() {
-        super.layoutSubviews()
+    open override func updateConstraints() {
         titleLabel.clipEdges(exclude: [.bottom])
         bottomView.height(SFDimension(value: 34))
         bottomView.clipEdges(exclude: [.top, .bottom])
         bottomView.clipTop(to: .bottom, of: titleLabel, margin: 8)
         clipBottom(to: .bottom, of: bottomView)
+        super.updateConstraints()
     }
     
     open override func updateColors() {

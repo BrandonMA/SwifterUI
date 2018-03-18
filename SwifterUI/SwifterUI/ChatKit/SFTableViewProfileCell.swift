@@ -51,10 +51,7 @@ open class SFTableViewProfileCell: SFTableViewCell {
     
     // MARK: - Instance Methods
     
-    open override func layoutSubviews() {
-        
-        super.layoutSubviews()
-        
+    open override func updateConstraints() {
         profileImageView.height(SFDimension(value: 36))
         profileImageView.width(SFDimension(value: 36))
         profileImageView.clipLeft(to: .left, margin: 12)
@@ -62,7 +59,7 @@ open class SFTableViewProfileCell: SFTableViewCell {
         
         nameLabel.center(axis: [.y])
         nameLabel.clipLeft(to: .right, of: profileImageView, margin: 12)
-        
+        super.updateConstraints()
     }
     
 }

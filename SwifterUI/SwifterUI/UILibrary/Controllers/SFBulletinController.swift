@@ -114,6 +114,7 @@ open class SFBulletinController: SFViewController {
     
     open override func loadView() {
         let picker = SFBulletinView(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle, middleView: useButtons ? nil : useDatePicker ? datePicker : pickerView, buttons: buttons)
+        picker.updateConstraintsIfNeeded() // Depending on how you present this view controller it may have wrong constraints so you must call this method
         self.view = picker
     }
     

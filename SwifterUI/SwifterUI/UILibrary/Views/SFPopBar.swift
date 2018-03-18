@@ -19,7 +19,7 @@ open class SFPopBar: SFView {
         }
     }
     
-    lazy var dismissButton: SFButton = {
+    open lazy var dismissButton: SFButton = {
         let button = SFButton(automaticallyAdjustsColorStyle: false)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.useAlternativeColors = true
@@ -27,11 +27,18 @@ open class SFPopBar: SFView {
         return button
     }()
     
-    lazy var titleLabel: SFLabel = {
+    open lazy var titleLabel: SFLabel = {
         let label = SFLabel(automaticallyAdjustsColorStyle: false)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         return label
+    }()
+    
+    open lazy var rightButton: SFButton = {
+        let button = SFButton(automaticallyAdjustsColorStyle: false)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.useAlternativeColors = true
+        return button
     }()
     
     // MARK: - Initializers
@@ -48,14 +55,17 @@ open class SFPopBar: SFView {
     
     // MARK: - Instance Methods
     
-    open override func layoutSubviews() {
-        super.layoutSubviews()
+    open override func updateConstraints() {
         dismissButton.center(axis: [.y])
         dismissButton.clipLeft(to: .left, margin: 12)
-        dismissButton.width(SFDimension(value: 28))
-        dismissButton.height(SFDimension(value: 28))
+        dismissButton.width(SFDimension(value: 32))
+        dismissButton.height(SFDimension(value: 32))
         titleLabel.center()
+        rightButton.clipCenterY(to: .centerY)
+        rightButton.clipRight(to: .right, margin: 12)
+        rightButton.height(SFDimension(value: 32))
         height(SFDimension(value: 44))
+        super.updateConstraints()
     }
     
     open override func updateColors() {

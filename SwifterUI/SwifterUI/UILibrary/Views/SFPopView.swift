@@ -42,12 +42,11 @@ open class SFPopView: SFView {
     
     // MARK: - Instance Methods
     
-    open override func layoutSubviews() {
-        super.layoutSubviews()
-        bar.clipEdges(exclude: [.bottom])
+    open override func updateConstraints() {
+        bar.clipEdges(exclude: [.bottom], useSafeArea: false)
         contentView.clipEdges(exclude: [.top])
         contentView.clipTop(to: .bottom, of: bar)
+        super.updateConstraints()
     }
-    
 }
 

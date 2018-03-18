@@ -26,4 +26,20 @@ public extension Date {
         formatter.dateFormat = format
         return formatter.string(from: self)
     }
+    
+    public func getHour() -> String {
+        let calendar = Calendar.current
+        var hour = "\(calendar.component(.hour, from: self))"
+        var minute = "\(calendar.component(.minute, from: self))"
+        
+        if hour.count == 1 {
+            hour = "0\(hour)"
+        }
+        
+        if minute.count == 1 {
+            minute = "0\(minute)"
+        }
+        
+        return "\(hour):\(minute)"
+    }
 }

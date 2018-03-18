@@ -80,10 +80,7 @@ open class SFTableViewConversationCell: SFTableViewCell {
     
     // MARK: - Instance Methods
     
-    open override func layoutSubviews() {
-        
-        super.layoutSubviews()
-        
+    open override func updateConstraints() {
         profileImageView.height(SFDimension(value: 40))
         profileImageView.width(SFDimension(value: 40))
         profileImageView.clipLeft(to: .left, margin: 12)
@@ -104,7 +101,7 @@ open class SFTableViewConversationCell: SFTableViewCell {
         
         hourLabel.clipTop(to: .top, of: profileImageView)
         hourLabel.clipRight(to: .right, margin: 12)
-        
+        super.updateConstraints()
     }
 }
 

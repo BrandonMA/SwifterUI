@@ -36,9 +36,9 @@ open class SFChatView: SFView {
     
     // MARK: - Instance Methods
     
-    open override func layoutSubviews() {
-        super.layoutSubviews()
+    open override func updateConstraints() {
         tableView.clipEdges()
+        super.updateConstraints()
     }
     
 }

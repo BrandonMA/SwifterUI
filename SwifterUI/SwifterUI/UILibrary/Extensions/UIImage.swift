@@ -10,17 +10,6 @@ import UIKit
 
 public extension UIImage {
     
-    // MARK: - Static Methods
-    
-    public static func download(from url: String, completion: @escaping (UIImage) -> Void) {
-        guard let url = URL(string: url) else { return }
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            guard let data = data, error == nil else { return }
-            guard let image = UIImage(data: data) else { return }
-            completion(image)
-            }.resume()
-    }
-    
     // MARK: - Instance Methods
     
     public func tint(color: UIColor, alpha: CGFloat) -> UIImage? {

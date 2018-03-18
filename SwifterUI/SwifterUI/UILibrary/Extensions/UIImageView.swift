@@ -9,14 +9,4 @@
 import UIKit
 
 public extension UIImageView {
-    
-    // MARK: - Instance Methods
-    
-    public func download(from url: String, completion: ((Bool) -> Void)? = nil ) {
-        UIImage.download(from: url) { (image) in
-            DispatchQueue.addAsyncTask(to: .main, handler: {
-                UIView.transition(with: self, duration: 0.3, options: .transitionCrossDissolve, animations: { self.image = image }, completion: completion)
-            })
-        }
-    }
 }

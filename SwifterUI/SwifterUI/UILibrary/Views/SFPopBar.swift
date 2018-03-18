@@ -15,7 +15,6 @@ open class SFPopBar: SFView {
     open override var tintColor: UIColor! {
         didSet {
             dismissButton.tintColor = tintColor
-            titleLabel.textColor = tintColor
         }
     }
     
@@ -24,20 +23,24 @@ open class SFPopBar: SFView {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.useAlternativeColors = true
         button.setImage(SFAssets.imageOfArrowDown.withRenderingMode(.alwaysTemplate), for: .normal)
+        button.addTouchAnimations = true
         return button
     }()
     
     open lazy var titleLabel: SFLabel = {
-        let label = SFLabel(automaticallyAdjustsColorStyle: false)
+        let label = SFLabel(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         return label
     }()
     
     open lazy var rightButton: SFButton = {
-        let button = SFButton(automaticallyAdjustsColorStyle: false)
+        let button = SFButton(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.useAlternativeColors = true
+        button.contentHorizontalAlignment = .right
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
+        button.addTouchAnimations = true
         return button
     }()
     
@@ -47,6 +50,7 @@ open class SFPopBar: SFView {
         super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, frame: frame)
         addSubview(dismissButton)
         addSubview(titleLabel)
+        addSubview(rightButton)
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -61,9 +65,12 @@ open class SFPopBar: SFView {
         dismissButton.width(SFDimension(value: 32))
         dismissButton.height(SFDimension(value: 32))
         titleLabel.center()
+        
         rightButton.clipCenterY(to: .centerY)
-        rightButton.clipRight(to: .right, margin: 12)
+        rightButton.clipRight(to: .right, margin: 16)
         rightButton.height(SFDimension(value: 32))
+        rightButton.clipLeft(to: .right, of: titleLabel)
+        
         height(SFDimension(value: 44))
         super.updateConstraints()
     }
@@ -75,3 +82,4 @@ open class SFPopBar: SFView {
     }
     
 }
+

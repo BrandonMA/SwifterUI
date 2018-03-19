@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Firebase
+import FirebaseFirestore
 import CodableFirebase
 
 public protocol FirebaseObject: Codable {

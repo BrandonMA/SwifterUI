@@ -68,7 +68,8 @@ open class SFChatBar: SFView {
     
     // MARK: - Instance Methods
     
-    open override func updateConstraints() {
+    open override func layoutSubviews() {
+        super.layoutSubviews()
         contentView.clipEdges(exclude: [.top])
         contentView.height(SFDimension(value: 49))
         
@@ -83,7 +84,6 @@ open class SFChatBar: SFView {
         textView.clipRight(to: .left, of: fileButton, margin: 8, useSafeArea: false)
         
         clipTop(to: .top, of: contentView)
-        super.updateConstraints()
     }
     
 }

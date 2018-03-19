@@ -133,7 +133,8 @@ open class SFTableViewChatCell: SFTableViewCell {
         super.prepareForReuse()
     }
     
-    open override func updateConstraints() {
+    open override func layoutSubviews() {
+        super.layoutSubviews()
         bubbleView.remove(constraintType: .width)
         bubbleView.remove(constraintType: .left)
         bubbleView.remove(constraintType: .right)
@@ -159,7 +160,6 @@ open class SFTableViewChatCell: SFTableViewCell {
             messageVideoView.prepareVideoView()
             messageVideoView.clipEdges(margin: UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8))
         }
-        super.updateConstraints()
     }
     
     open override func updateColors() {

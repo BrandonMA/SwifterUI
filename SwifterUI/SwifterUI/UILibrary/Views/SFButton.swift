@@ -38,7 +38,7 @@ open class SFButton: UIButton, SFViewColorStyle {
         }
     }
     
-    lazy var rightImageView: UIImageView = {
+    open lazy var rightImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false

@@ -29,7 +29,7 @@ open class SFCollectionViewHeader: SFCollectionViewCell {
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
-        addSubview(textLabel)
+        contentView.addSubview(textLabel)
     }
     
     required public init?(coder aDecoder: NSCoder) {

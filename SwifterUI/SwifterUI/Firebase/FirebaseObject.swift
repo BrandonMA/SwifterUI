@@ -20,8 +20,6 @@ public protocol FirebaseObject: Codable {
     // MARK: - Instance Methods
     
     func encodeData(completion: @escaping ([String: Any]) -> Void, errorCompletion: ((Error?) -> Void)?)
-    func upload(successCompletion: (() -> Void)?, errorCompletion: ((Error?) -> Void)?)
-    func update(successCompletion: (() -> Void)?, errorCompletion: ((Error?) -> Void)?)
 }
 
 public extension FirebaseObject {
@@ -66,3 +64,28 @@ public extension FirebaseObject {
     }
     
 }
+
+public extension FirebaseObject where Self: NSObject {
+    
+    public func startListener(completion: (() -> Void)? = nil) {
+        DispatchQueue.addAsyncTask(to: .background, handler: {
+            self.reference.addSnapshotListener { (document, error) in
+                if let error = error {
+                    print(error.localizedDescription)
+                } else {
+                    if let document = document {
+                        guard let data = document.data() else { return }
+                        self.setValuesForKeys(data)
+                        completion?()
+                    }
+                }
+            }
+        })
+    }
+    
+}
+
+
+
+
+

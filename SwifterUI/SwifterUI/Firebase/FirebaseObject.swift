@@ -26,7 +26,7 @@ public protocol FirebaseObject: Codable {
 
 public extension FirebaseObject {
     
-    func encodeData(completion: @escaping ([String: Any]) -> Void, errorCompletion: ((Error?) -> Void)?) {
+    public func encodeData(completion: @escaping ([String: Any]) -> Void, errorCompletion: ((Error?) -> Void)?) {
         DispatchQueue.addAsyncTask(to: .background) {
             do {
                 let encodedData = try FirestoreEncoder().encode(self)
@@ -37,7 +37,7 @@ public extension FirebaseObject {
         }
     }
     
-    func upload(successCompletion: (() -> Void)? = nil, errorCompletion: ((Error?) -> Void)? = nil) {
+    public func upload(successCompletion: (() -> Void)? = nil, errorCompletion: ((Error?) -> Void)? = nil) {
         encodeData(completion: { (data) in
             self.reference.setData(data, completion: { (error) in
                 if let error = error {
@@ -51,7 +51,7 @@ public extension FirebaseObject {
         }
     }
     
-    func update(successCompletion: (() -> Void)? = nil, errorCompletion: ((Error?) -> Void)? = nil) {
+    public func update(successCompletion: (() -> Void)? = nil, errorCompletion: ((Error?) -> Void)? = nil) {
         encodeData(completion: { (data) in
             self.reference.updateData(data, completion: { (error) in
                 if let error = error {

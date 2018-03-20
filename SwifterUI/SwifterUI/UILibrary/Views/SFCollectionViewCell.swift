@@ -10,6 +10,12 @@ import UIKit
 
 open class SFCollectionViewCell: UICollectionViewCell, SFViewColorStyle {
     
+    // MARK: - Class Properties
+    
+    open class var identifier: String {
+        return "SFCollectionViewCell"
+    }
+    
     // MARK: - Instance Properties
     
     open var automaticallyAdjustsColorStyle: Bool = true

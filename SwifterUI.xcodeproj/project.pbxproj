@@ -75,6 +75,7 @@
 		42A42EC31FF1C13E002FE4A7 /* SFVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A42EC21FF1C13E002FE4A7 /* SFVideoView.swift */; };
 		42A67AC620411B3B00F2FF3E /* UIWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A67AC520411B3B00F2FF3E /* UIWindow.swift */; };
 		42A67AD02041CA6500F2FF3E /* FirebaseLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A67ACF2041CA6500F2FF3E /* FirebaseLogin.swift */; };
+		42A8CA6720608CB7004250A1 /* SFCollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A8CA6620608CB7004250A1 /* SFCollectionViewHeader.swift */; };
 		42AFAE39203A2246002CAB0F /* SFImageViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AFAE38203A2246002CAB0F /* SFImageViewer.swift */; };
 		42AFAE3B203A2271002CAB0F /* SFImageViewerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AFAE3A203A2271002CAB0F /* SFImageViewerController.swift */; };
 		42B253E31FEA04E90002C297 /* DispatchQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B253E21FEA04E90002C297 /* DispatchQueue.swift */; };
@@ -205,6 +206,7 @@
 		42A42EC21FF1C13E002FE4A7 /* SFVideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFVideoView.swift; sourceTree = "<group>"; };
 		42A67AC520411B3B00F2FF3E /* UIWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIWindow.swift; sourceTree = "<group>"; };
 		42A67ACF2041CA6500F2FF3E /* FirebaseLogin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseLogin.swift; sourceTree = "<group>"; };
+		42A8CA6620608CB7004250A1 /* SFCollectionViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFCollectionViewHeader.swift; sourceTree = "<group>"; };
 		42AFAE38203A2246002CAB0F /* SFImageViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFImageViewer.swift; sourceTree = "<group>"; };
 		42AFAE3A203A2271002CAB0F /* SFImageViewerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFImageViewerController.swift; sourceTree = "<group>"; };
 		42B253E21FEA04E90002C297 /* DispatchQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchQueue.swift; sourceTree = "<group>"; };
@@ -440,6 +442,7 @@
 				4230E8E7204CBF79003E5BCC /* SFTableHeaderView.swift */,
 				425AFDAB20300C580049B68B /* SFCollectionView.swift */,
 				425AFDAD20300C700049B68B /* SFCollectionViewCell.swift */,
+				42A8CA6620608CB7004250A1 /* SFCollectionViewHeader.swift */,
 				42446774202AC2BB00F59892 /* SFTextField.swift */,
 				42446776202AC57700F59892 /* SFTextView.swift */,
 				42446778202AC83000F59892 /* SFButton.swift */,
@@ -951,6 +954,7 @@
 				42D34C75202FAF10002B6FA6 /* SFPopView.swift in Sources */,
 				429FD4A11FED919A00FD7F10 /* SFFlipAnimation.swift in Sources */,
 				42B8DF002040A02F00B5770A /* SFSignupView.swift in Sources */,
+				42A8CA6720608CB7004250A1 /* SFCollectionViewHeader.swift in Sources */,
 				42FB9F9C202FC8AB006895F4 /* SFTableViewProfileCell.swift in Sources */,
 				42DBF1A62037556F00F4BB6F /* SFBulletinController.swift in Sources */,
 				42CB6AFC203602870080EFB8 /* SFMessage.swift in Sources */,

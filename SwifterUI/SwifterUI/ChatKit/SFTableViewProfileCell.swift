@@ -13,7 +13,7 @@ open class SFTableViewProfileCell: SFTableViewCell {
     // MARK: - Class Properties
     
     open override class var height: CGFloat {
-        return 64
+        return 52
     }
     
     open override class var identifier: String {

@@ -22,6 +22,7 @@ open class SFCollectionViewHeader: SFCollectionViewCell {
         let label = SFLabel(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         label.font = UIFont.boldSystemFont(ofSize: 15)
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.useAlternativeColors = true
         return label
     }()
     
@@ -49,3 +50,4 @@ open class SFCollectionViewHeader: SFCollectionViewCell {
     }
     
 }
+

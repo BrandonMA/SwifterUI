@@ -63,6 +63,10 @@ public extension FirebaseObject {
         }
     }
     
+    public func delete(errorCompletion: ((Error?) -> Void)? = nil) {
+        reference.delete(completion: errorCompletion)
+    }
+    
 }
 
 public extension FirebaseObject where Self: NSObject {

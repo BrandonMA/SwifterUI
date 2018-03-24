@@ -13,7 +13,7 @@ open class SFTableViewConversationCell: SFTableViewCell {
     // MARK: - Class Properties
     
     open override class var height: CGFloat {
-        return 64
+        return 72
     }
     
     open override class var identifier: String {
@@ -94,11 +94,11 @@ open class SFTableViewConversationCell: SFTableViewCell {
         notificationIndicator.width(SFDimension(value: 12))
         notificationIndicator.height(SFDimension(value: 12))
         notificationIndicator.clipRight(to: .right, margin: 12)
-        notificationIndicator.clipCenterY(to: .centerY, of: messageLabel)
+        notificationIndicator.clipBottom(to: .bottom, of: profileImageView)
         
         messageLabel.clipBottom(to: .bottom, of: profileImageView)
         messageLabel.clipLeft(to: .right, of: profileImageView, margin: 12)
-        messageLabel.clipRight(to: .left, of: notificationIndicator, margin: 12)
+        messageLabel.clipRight(to: .right, margin: 36)
         
         hourLabel.clipTop(to: .top, of: profileImageView)
         hourLabel.clipRight(to: .right, margin: 12)

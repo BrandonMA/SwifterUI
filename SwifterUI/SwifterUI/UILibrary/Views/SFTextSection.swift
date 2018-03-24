@@ -18,7 +18,9 @@ open class SFTextSection: SFSection {
     
     open var usePickerMode: Bool = false {
         didSet {
-            textField.rightImage = SFAssets.imageOfArrowRight.withRenderingMode(.alwaysTemplate)
+            if usePickerMode {
+                textField.rightImage = SFAssets.imageOfArrowRight.withRenderingMode(.alwaysTemplate)
+            }
         }
     }
     

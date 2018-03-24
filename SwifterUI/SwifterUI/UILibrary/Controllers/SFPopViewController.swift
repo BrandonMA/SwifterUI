@@ -22,20 +22,20 @@ open class SFPopViewController: SFViewController {
     
     open override func loadView() {
         self.view = SFPopView(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
-        sfview.bar.dismissButton.addTarget(self, action: #selector(dismissPop), for: .touchUpInside)
     }
     
     override open func viewDidLoad() {
         super.viewDidLoad()
+        sfview.bar.dismissButton.addTarget(self, action: #selector(dismissPop), for: .touchUpInside)
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(dismiss(withPanGesture:)))
         self.view.addGestureRecognizer(panGesture)
     }
     
-    @objc private func dismissPop() {
+    @objc open func dismissPop() {
         dismiss(animated: true, completion: nil)
     }
     
-    @objc private func dismiss(withPanGesture panGesture: UIPanGestureRecognizer) {
+    @objc open func dismiss(withPanGesture panGesture: UIPanGestureRecognizer) {
         
         guard let window = UIApplication.shared.keyWindow else { fatalError() }
         let currentPoint = panGesture.location(in: window).y

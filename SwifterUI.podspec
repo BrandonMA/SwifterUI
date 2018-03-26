@@ -21,6 +21,7 @@ Pod::Spec.new do |s|
     core.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.0' }
     core.ios.deployment_target = '11.0'
     core.source_files = 'SwifterUI/SwifterUI/UILibrary/*', 'SwifterUI/SwifterUI/UILibrary/**/*'
+    core.dependency 'PromiseKit'
   end
 
   s.subspec 'ChatKit' do |chatkit|

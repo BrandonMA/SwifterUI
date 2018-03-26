@@ -9,16 +9,16 @@
 import UIKit
 
 open class SFLoginView: SFScrollView {
-    
+
     // MARK: - Instance Properties
-    
+
     open lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
-    
+
     open lazy var mailSection: SFTextSection = {
         let section = SFTextSection(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         section.titleLabel.text = "Correo Electronico"
@@ -29,7 +29,7 @@ open class SFLoginView: SFScrollView {
         section.textField.autocapitalizationType = .none
         return section
     }()
-    
+
     open lazy var passwordSection: SFTextSection = {
         let section = SFTextSection(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         section.titleLabel.text = "Contraseña"
@@ -40,7 +40,7 @@ open class SFLoginView: SFScrollView {
         section.textField.autocorrectionType = .no
         return section
     }()
-    
+
     open lazy var logInButton: SFButton = {
         let button = SFButton(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         button.setTitle("Iniciar Sesión", for: .normal)
@@ -50,7 +50,7 @@ open class SFLoginView: SFScrollView {
         button.addTouchAnimations = true
         return button
     }()
-    
+
     open lazy var signUpButton: SFButton = {
         let button = SFButton(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         button.setTitle("Crear Cuenta", for: .normal)
@@ -61,7 +61,7 @@ open class SFLoginView: SFScrollView {
         button.addTouchAnimations = true
         return button
     }()
-    
+
     open lazy var facebookButton: SFButton = {
         let button = SFButton(automaticallyAdjustsColorStyle: false)
         button.setTitle("Facebook", for: .normal)
@@ -71,9 +71,9 @@ open class SFLoginView: SFScrollView {
         button.addTouchAnimations = true
         return button
     }()
-    
+
     // MARK: - Initializers
-    
+
     public override init(automaticallyAdjustsColorStyle: Bool = true, frame: CGRect = .zero) {
         super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, frame: frame)
         contentView.addSubview(imageView)
@@ -84,37 +84,39 @@ open class SFLoginView: SFScrollView {
         contentView.addSubview(facebookButton)
         useAlternativeColors = true
     }
-    
+
     public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     // MARK: - Instance Methods
-    
+
     open override func layoutIfBoundsChanged() {
         super.layoutIfBoundsChanged()
-        
+
         imageView.clipEdges(margin: UIEdgeInsets(top: 16, left: 16, bottom: 0, right: 16), exclude: [.bottom])
         imageView.height(SFDimension(value: 160))
-        
+
         mailSection.clipEdges(margin: UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16), exclude: [.top, .bottom])
         mailSection.clipTop(to: .bottom, of: imageView, margin: 16)
-        
-        passwordSection.clipEdges(margin: UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16), exclude: [.top, .bottom])
+
+        passwordSection.clipEdges(margin: UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16),
+                                  exclude: [.top, .bottom])
         passwordSection.clipTop(to: .bottom, of: mailSection, margin: 16)
-        
+
         logInButton.clipEdges(margin: UIEdgeInsets(top: 16, left: 16, bottom: 0, right: 16), exclude: [.top, .bottom])
         logInButton.clipTop(to: .bottom, of: passwordSection, margin: 16)
         logInButton.height(SFDimension(value: 44))
-        
+
         signUpButton.clipEdges(margin: UIEdgeInsets(top: 16, left: 16, bottom: 0, right: 16), exclude: [.top, .bottom])
         signUpButton.clipTop(to: .bottom, of: logInButton, margin: 16)
         signUpButton.height(SFDimension(value: 44))
-        
-        facebookButton.clipEdges(margin: UIEdgeInsets(top: 16, left: 16, bottom: 0, right: 16), exclude: [.top, .bottom])
+
+        facebookButton.clipEdges(margin: UIEdgeInsets(top: 16, left: 16, bottom: 0, right: 16),
+                                 exclude: [.top, .bottom])
         facebookButton.clipTop(to: .bottom, of: signUpButton, margin: 16)
         facebookButton.height(SFDimension(value: 44))
-        
+
         contentView.clipBottom(to: .bottom, of: facebookButton, margin: -16)
     }
 }

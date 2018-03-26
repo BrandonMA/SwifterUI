@@ -45,7 +45,7 @@ open class SFPopBar: SFView {
     }()
     
     // MARK: - Initializers
-    
+
     public override init(automaticallyAdjustsColorStyle: Bool, frame: CGRect = .zero) {
         super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, frame: frame)
         addSubview(dismissButton)
@@ -60,7 +60,7 @@ open class SFPopBar: SFView {
     // MARK: - Instance Methods
     
     open override func updateConstraints() {
-        dismissButton.center(axis: [.y])
+        dismissButton.center(axis: [.vertical])
         dismissButton.clipLeft(to: .left, margin: 12)
         dismissButton.width(SFDimension(value: 32))
         dismissButton.height(SFDimension(value: 32))

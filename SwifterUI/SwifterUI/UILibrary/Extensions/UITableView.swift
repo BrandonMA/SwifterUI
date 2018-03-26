@@ -9,9 +9,9 @@
 import UIKit
 
 public extension UITableView {
-    
+
     // MARK: - Instance Methods
-    
+
     public func scrollToBottom(animated: Bool = true) {
         let lastSection = numberOfSections - 1
         if lastSection >= 0 {
@@ -23,3 +23,4 @@ public extension UITableView {
         }
     }
 }
+

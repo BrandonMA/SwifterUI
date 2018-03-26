@@ -9,41 +9,59 @@
 import UIKit
 import FBSDKCoreKit
 import FBSDKLoginKit
+import PromiseKit
+
+enum FacebookError: Error {
+    case cancel
+}
 
 public protocol FacebookLogin {
-    
+
     // MARK: - Instance Methods
-    
-    func logIn(withReadPermissions permissions: [String], from viewController: UIViewController, handler: @escaping (FBSDKLoginManagerLoginResult) -> Void)
-    func getProfile(completion: @escaping (FBSDKProfile) -> Void)
+
+    func logIn(withReadPermissions permissions: [String],
+               from viewController: UIViewController,
+               handler: @escaping (FBSDKLoginManagerLoginResult) -> Void)
+
+    func getProfile() -> Promise<FBSDKProfile>
 }
 
 public extension FacebookLogin {
-    
+
     // MARK: - Instance Methods
-    
-    public func logIn(withReadPermissions permissions: [String], from viewController: UIViewController, handler: @escaping (FBSDKLoginManagerLoginResult) -> Void) {
+
+    public func logIn(withReadPermissions permissions: [String],
+                      from viewController: UIViewController) -> Promise<FBSDKLoginManagerLoginResult> {
+
         let manager = FBSDKLoginManager()
-        manager.logIn(withReadPermissions: permissions, from: viewController) { (result, error) in
-            if let error = error {
-                UIApplication.shared.keyWindow?.visibleViewController?.showError(message: error.localizedDescription)
-            } else if let result = result {
-                if result.isCancelled {
-                    UIApplication.shared.keyWindow?.visibleViewController?.showError()
-                } else {
-                    handler(result)
-                }
-            }
+
+        return Promise { seal in
+
+            DispatchQueue.addAsyncTask(to: .background, handler: {
+
+                manager.logIn(withReadPermissions: permissions, from: viewController, handler: { (result, error) in
+                    seal.resolve(result, error)
+                })
+
+            })
+
         }
+
     }
-    
-    public func getProfile(completion: @escaping (FBSDKProfile) -> Void) {
-        FBSDKProfile.loadCurrentProfile { (profile, error) in
-            if let error = error {
-                UIApplication.shared.keyWindow?.visibleViewController?.showError(message: error.localizedDescription)
-            } else if let profile = profile {
-                completion(profile)
-            }
+
+    public func getProfile() -> Promise<FBSDKProfile> {
+
+        return Promise { seal in
+
+            DispatchQueue.addAsyncTask(to: .background, handler: {
+
+                FBSDKProfile.loadCurrentProfile(completion: { (profile, error) in
+                    seal.resolve(profile, error)
+                })
+
+            })
+
         }
+
     }
 }

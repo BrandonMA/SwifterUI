@@ -133,8 +133,8 @@ open class SFBulletinView: SFView {
         closeButton.clipBottom(to: .top, of: middleView, margin: 8)
         closeButton.clipRight(to: .right, margin: 8)
         
-        titleLabel.center(axis: [.x])
-        titleLabel.center(axis: [.y], in: closeButton)
+        titleLabel.center(axis: [.horizontal])
+        titleLabel.center(axis: [.vertical], in: closeButton)
         
         backgroundView.clipEdges(margin: UIEdgeInsets(top: 0, left: 12, bottom: 12, right: 12), exclude: [.top])
         backgroundView.clipTop(to: .top, of: closeButton, margin: -8)

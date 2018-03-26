@@ -9,12 +9,11 @@
 import UIKit
 
 public extension CGFloat {
-    
+
     // MARK: - Static Methods
-    
+
     public static func random() -> CGFloat {
         return CGFloat(arc4random_uniform(UInt32.max))
     }
-    
-}
 
+}

@@ -9,8 +9,6 @@
 //  http://www.paintcodeapp.com
 //
 
-
-
 import UIKit
 
 public class SFAssets : NSObject {
@@ -37,7 +35,7 @@ public class SFAssets : NSObject {
     @objc dynamic public class func drawArrowRight(frame targetFrame: CGRect = CGRect(x: 0, y: 0, width: 11, height: 20), resizing: ResizingBehavior = .aspectFit) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
-        
+
         //// Resize to Target Frame
         context.saveGState()
         let resizedFrame: CGRect = resizing.apply(rect: CGRect(x: 0, y: 0, width: 11, height: 20), target: targetFrame)
@@ -63,7 +61,7 @@ public class SFAssets : NSObject {
         bezierPath.close()
         fillColor.setFill()
         bezierPath.fill()
-        
+
         context.restoreGState()
 
     }
@@ -71,7 +69,7 @@ public class SFAssets : NSObject {
     @objc dynamic public class func drawArrowDown(frame targetFrame: CGRect = CGRect(x: 0, y: 0, width: 20, height: 11), resizing: ResizingBehavior = .aspectFit) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
-        
+
         //// Resize to Target Frame
         context.saveGState()
         let resizedFrame: CGRect = resizing.apply(rect: CGRect(x: 0, y: 0, width: 20, height: 11), target: targetFrame)
@@ -97,7 +95,7 @@ public class SFAssets : NSObject {
         bezierPath.close()
         fillColor.setFill()
         bezierPath.fill()
-        
+
         context.restoreGState()
 
     }
@@ -105,7 +103,7 @@ public class SFAssets : NSObject {
     @objc dynamic public class func drawPlus(frame targetFrame: CGRect = CGRect(x: 0, y: 0, width: 20, height: 20), resizing: ResizingBehavior = .aspectFit) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
-        
+
         //// Resize to Target Frame
         context.saveGState()
         let resizedFrame: CGRect = resizing.apply(rect: CGRect(x: 0, y: 0, width: 20, height: 20), target: targetFrame)
@@ -139,7 +137,7 @@ public class SFAssets : NSObject {
         bezierPath.usesEvenOddFillRule = true
         fillColor.setFill()
         bezierPath.fill()
-        
+
         context.restoreGState()
 
     }
@@ -147,7 +145,7 @@ public class SFAssets : NSObject {
     @objc dynamic public class func drawClose(frame targetFrame: CGRect = CGRect(x: 0, y: 0, width: 12, height: 12), resizing: ResizingBehavior = .aspectFit) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
-        
+
         //// Resize to Target Frame
         context.saveGState()
         let resizedFrame: CGRect = resizing.apply(rect: CGRect(x: 0, y: 0, width: 12, height: 12), target: targetFrame)
@@ -181,7 +179,7 @@ public class SFAssets : NSObject {
         bezierPath.usesEvenOddFillRule = true
         fillColor.setFill()
         bezierPath.fill()
-        
+
         context.restoreGState()
 
     }
@@ -189,7 +187,7 @@ public class SFAssets : NSObject {
     @objc dynamic public class func drawCancelIcon(frame targetFrame: CGRect = CGRect(x: 0, y: 0, width: 16, height: 16), resizing: ResizingBehavior = .aspectFit) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
-        
+
         //// Resize to Target Frame
         context.saveGState()
         let resizedFrame: CGRect = resizing.apply(rect: CGRect(x: 0, y: 0, width: 16, height: 16), target: targetFrame)
@@ -222,7 +220,7 @@ public class SFAssets : NSObject {
         bezierPath.close()
         fillColor2.setFill()
         bezierPath.fill()
-        
+
         context.restoreGState()
 
     }
@@ -230,7 +228,7 @@ public class SFAssets : NSObject {
     @objc dynamic public class func drawBigPlus(frame targetFrame: CGRect = CGRect(x: 0, y: 0, width: 32, height: 32), resizing: ResizingBehavior = .aspectFit) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
-        
+
         //// Resize to Target Frame
         context.saveGState()
         let resizedFrame: CGRect = resizing.apply(rect: CGRect(x: 0, y: 0, width: 32, height: 32), target: targetFrame)
@@ -264,7 +262,7 @@ public class SFAssets : NSObject {
         bezierPath.usesEvenOddFillRule = true
         fillColor.setFill()
         bezierPath.fill()
-        
+
         context.restoreGState()
 
     }
@@ -277,7 +275,7 @@ public class SFAssets : NSObject {
         }
 
         UIGraphicsBeginImageContextWithOptions(CGSize(width: 11, height: 20), false, 0)
-            SFAssets.drawArrowRight()
+        SFAssets.drawArrowRight()
 
         Cache.imageOfArrowRight = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
@@ -291,7 +289,7 @@ public class SFAssets : NSObject {
         }
 
         UIGraphicsBeginImageContextWithOptions(CGSize(width: 20, height: 11), false, 0)
-            SFAssets.drawArrowDown()
+        SFAssets.drawArrowDown()
 
         Cache.imageOfArrowDown = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
@@ -305,7 +303,7 @@ public class SFAssets : NSObject {
         }
 
         UIGraphicsBeginImageContextWithOptions(CGSize(width: 20, height: 20), false, 0)
-            SFAssets.drawPlus()
+        SFAssets.drawPlus()
 
         Cache.imageOfPlus = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
@@ -319,7 +317,7 @@ public class SFAssets : NSObject {
         }
 
         UIGraphicsBeginImageContextWithOptions(CGSize(width: 12, height: 12), false, 0)
-            SFAssets.drawClose()
+        SFAssets.drawClose()
 
         Cache.imageOfClose = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
@@ -333,7 +331,7 @@ public class SFAssets : NSObject {
         }
 
         UIGraphicsBeginImageContextWithOptions(CGSize(width: 16, height: 16), false, 0)
-            SFAssets.drawCancelIcon()
+        SFAssets.drawCancelIcon()
 
         Cache.imageOfCancelIcon = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
@@ -347,7 +345,7 @@ public class SFAssets : NSObject {
         }
 
         UIGraphicsBeginImageContextWithOptions(CGSize(width: 32, height: 32), false, 0)
-            SFAssets.drawBigPlus()
+        SFAssets.drawBigPlus()
 
         Cache.imageOfBigPlus = UIGraphicsGetImageFromCurrentImageContext()!.withRenderingMode(.alwaysTemplate)
         UIGraphicsEndImageContext()
@@ -437,17 +435,17 @@ public class SFAssets : NSObject {
             scales.height = abs(target.height / rect.height)
 
             switch self {
-                case .aspectFit:
-                    scales.width = min(scales.width, scales.height)
-                    scales.height = scales.width
-                case .aspectFill:
-                    scales.width = max(scales.width, scales.height)
-                    scales.height = scales.width
-                case .stretch:
-                    break
-                case .center:
-                    scales.width = 1
-                    scales.height = 1
+            case .aspectFit:
+                scales.width = min(scales.width, scales.height)
+                scales.height = scales.width
+            case .aspectFill:
+                scales.width = max(scales.width, scales.height)
+                scales.height = scales.width
+            case .stretch:
+                break
+            case .center:
+                scales.width = 1
+                scales.height = 1
             }
 
             var result = rect.standardized
@@ -459,3 +457,4 @@ public class SFAssets : NSObject {
         }
     }
 }
+

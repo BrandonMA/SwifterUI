@@ -9,34 +9,33 @@
 import UIKit
 
 public protocol SFControllerColorStyle: SFColorStyleProtocol {
-    
+
     // MARK: - Instance Properties
-        
+
     // statusBarStyle: This enables preferredStatusBarStyle changes on the go, without needing to
     var statusBarStyle: UIStatusBarStyle { get set }
-    
-    // automaticallyTintNavigationBar: This should be set the same as automaticallyAdjustsColorStyle when initializing, but you can disable it so navigation bar color is not changed
+
     var automaticallyTintNavigationBar: Bool { get set }
-    
+
     // MARK: - Instance Methods
-        
+
     func checkColorStyle()
-    
+
     func checkColorStyleListener()
-    
+
 }
 
 public extension SFControllerColorStyle where Self: UIViewController {
-    
+
     // MARK: - Instance Methods
-    
+
     public func checkColorStyle() {
         if automaticallyAdjustsColorStyle == true {
             updateColors()
             checkColorStyleListener()
         }
     }
-    
+
     public func updateSubviewsColors() {
         if let view = self.view as? SFViewColorStyle {
             if view.automaticallyAdjustsColorStyle == true {
@@ -44,15 +43,11 @@ public extension SFControllerColorStyle where Self: UIViewController {
             }
         }
     }
-    
+
     public func updateNavItem() {
         navigationItem.searchController?.searchBar.barStyle = self.colorStyle.getSearchBarStyle()
         navigationItem.searchController?.searchBar.tintColor = self.colorStyle.getInteractiveColor()
         navigationItem.searchController?.searchBar.keyboardAppearance = self.colorStyle.getKeyboardStyle()
     }
-    
+
 }
-
-
-
-

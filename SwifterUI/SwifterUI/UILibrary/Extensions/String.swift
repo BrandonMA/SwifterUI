@@ -9,9 +9,9 @@
 import UIKit
 
 public extension String {
-    
+
     // MARK: - Instance Methods
-    
+
     public func estimatedFrame(with font: UIFont, maxWidth: CGFloat) -> CGRect {
         let size = CGSize(width: maxWidth, height: 1000)
         let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)

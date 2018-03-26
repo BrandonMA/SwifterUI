@@ -9,9 +9,9 @@
 import UIKit
 
 open class SFSignupViewController: SFViewController {
-    
+
     // MARK: - Instance Properties
-    
+
     open lazy var signupView: SFSignupView = {
         let scrollView = SFSignupView(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -19,9 +19,9 @@ open class SFSignupViewController: SFViewController {
         scrollView.scrollsHorizontally = false
         return scrollView
     }()
-    
+
     // MARK: - Instance Methods
-    
+
     open override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(signupView)
@@ -29,7 +29,7 @@ open class SFSignupViewController: SFViewController {
         autorotate = UIDevice.current.userInterfaceIdiom == .pad ? true : false
         signupView.signUpButton.addTarget(self, action: #selector(signUpButtonDidTouch), for: .touchUpInside)
     }
-    
+
     @objc private func signUpButtonDidTouch() {
         guard let name = signupView.nameSection.getText() else { return }
         guard let lastName = signupView.lastNameSection.getText() else { return }
@@ -37,9 +37,9 @@ open class SFSignupViewController: SFViewController {
         guard let password = signupView.passwordSection.getText() else { return }
         signup(with: name, lastname: lastName, email: email, password: password)
     }
-    
+
     open func signup(with name: String, lastname: String, email: String, password: String) {
         return
     }
-    
+
 }

@@ -11,11 +11,11 @@ import UIKit
 public typealias Constraints = [NSLayoutConstraint]
 
 public extension Array where Element: Constraint {
-    
+
     public func active() {
         Constraint.activate(self)
     }
-    
+
     public func deactive() {
         Constraint.deactivate(self)
     }

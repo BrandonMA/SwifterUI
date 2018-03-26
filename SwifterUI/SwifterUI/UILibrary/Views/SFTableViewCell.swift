@@ -50,7 +50,7 @@ open class SFTableViewCell: UITableViewCell, SFViewColorStyle {
     
     open override func layoutSubviews() {
         super.layoutSubviews()
-        rightImageView.center(axis: [.y])
+        rightImageView.center(axis: [.vertical])
         rightImageView.width(SFDimension(value: 16))
         rightImageView.height(SFDimension(value: 16))
         rightImageView.clipRight(to: .right, margin: 8)

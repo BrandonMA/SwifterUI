@@ -9,7 +9,7 @@
 import UIKit
 
 public extension DispatchQueue {
-    
+
     // DispatchLevel: Enum for easier access to DispatchQueues types
     public enum DispatchLevel {
         case main
@@ -17,7 +17,7 @@ public extension DispatchQueue {
         case userInitiated
         case utility
         case background
-        
+
         // dispatchQueue: correspondent DispatchQueue
         public var dispatchQueue: DispatchQueue {
             switch self {
@@ -29,9 +29,9 @@ public extension DispatchQueue {
             }
         }
     }
-    
+
     // MARK: - Static Methods
-    
+
     // delay: Creates a delay for an action to be done
     // - Parameters:
     //   seconds: Time in seconds to wait
@@ -41,7 +41,7 @@ public extension DispatchQueue {
         // Create a DispatchTime in seconds since now + the number of seconds added
         dispatchLevel.dispatchQueue.asyncAfter(deadline: .now() + seconds, execute: handler) // Add the action to be executed after the delay to the corresponding DispatchQueue
     }
-    
+
     // addAsyncTask: Add an action to a dispatch queue asynchronously
     // - Parameters:
     //   dispatchLevel: Dispatch queue where your code is going to be executed
@@ -51,5 +51,5 @@ public extension DispatchQueue {
             handler()
         }
     }
-    
+
 }

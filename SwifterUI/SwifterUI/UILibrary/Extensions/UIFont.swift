@@ -9,11 +9,11 @@
 import UIKit
 
 public extension UIFont {
-    
+
     // MARK: - Static Properties
-    
+
     public static var systemFont: UIFont {
         return UIFont.systemFont(ofSize: UIFont.systemFontSize)
     }
-    
+
 }

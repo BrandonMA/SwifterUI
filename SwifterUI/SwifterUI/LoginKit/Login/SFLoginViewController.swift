@@ -9,9 +9,9 @@
 import UIKit
 
 open class SFLoginViewController: SFViewController {
-    
+
     // MARK: - Instance Properties
-    
+
     open lazy var loginView: SFLoginView = {
         let scrollView = SFLoginView(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -19,9 +19,9 @@ open class SFLoginViewController: SFViewController {
         scrollView.scrollsHorizontally = false
         return scrollView
     }()
-    
+
     // MARK: - Instance Methods
-    
+
     open override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(loginView)
@@ -31,23 +31,23 @@ open class SFLoginViewController: SFViewController {
         loginView.signUpButton.addTarget(self, action: #selector(signUpButtonDidTouch), for: .touchUpInside)
         loginView.facebookButton.addTarget(self, action: #selector(facebookButtonDidTouch), for: .touchUpInside)
     }
-    
+
     @objc private func logInButtonDidTouch() {
         guard let email = loginView.mailSection.getText() else { return }
         guard let password = loginView.passwordSection.getText() else { return }
         login(with: email, password: password)
     }
-    
+
     open func login(with email: String, password: String) {
         return
     }
-    
+
     @objc open func signUpButtonDidTouch() {
         return
     }
-    
+
     @objc open func facebookButtonDidTouch() {
         return
     }
-    
+
 }

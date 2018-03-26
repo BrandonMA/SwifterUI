@@ -9,9 +9,9 @@
 import Foundation
 
 public extension Bool {
-    
+
     // MARK: - Instance Methods
-    
+
     public mutating func toggle() {
         self = self == true ? false : true
     }

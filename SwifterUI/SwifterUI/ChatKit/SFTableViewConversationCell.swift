@@ -9,19 +9,19 @@
 import UIKit
 
 open class SFTableViewConversationCell: SFTableViewCell {
-    
+
     // MARK: - Class Properties
-    
+
     open override class var height: CGFloat {
         return 72
     }
-    
+
     open override class var identifier: String {
         return "SFTableViewConversationCell"
     }
-    
+
     // MARK: - Instance Properties
-    
+
     open lazy var profileImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.clipsToBounds = true
@@ -30,7 +30,7 @@ open class SFTableViewConversationCell: SFTableViewCell {
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
-    
+
     open lazy var nameLabel: SFLabel = {
         let label = SFLabel(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         label.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
@@ -38,7 +38,7 @@ open class SFTableViewConversationCell: SFTableViewCell {
         label.textAlignment = .left
         return label
     }()
-    
+
     open lazy var messageLabel: SFLabel = {
         let label = SFLabel(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         label.useAlternativeColors = true
@@ -46,7 +46,7 @@ open class SFTableViewConversationCell: SFTableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     open lazy var hourLabel: SFLabel = {
         let label = SFLabel(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         label.useAlternativeColors = true
@@ -55,16 +55,16 @@ open class SFTableViewConversationCell: SFTableViewCell {
         label.textAlignment = .right
         return label
     }()
-    
+
     open lazy var notificationIndicator: SFNotificationIndicator = {
         let indicator = SFNotificationIndicator(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         indicator.translatesAutoresizingMaskIntoConstraints = false
         indicator.alpha = 0
         return indicator
     }()
-    
+
     // MARK: - Initializers
-    
+
     public override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.addSubview(profileImageView)
@@ -73,56 +73,34 @@ open class SFTableViewConversationCell: SFTableViewCell {
         contentView.addSubview(hourLabel)
         contentView.addSubview(notificationIndicator)
     }
-    
+
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     // MARK: - Instance Methods
-    
+
     open override func layoutSubviews() {
         super.layoutSubviews()
         profileImageView.height(SFDimension(value: 40))
         profileImageView.width(SFDimension(value: 40))
         profileImageView.clipLeft(to: .left, margin: 12)
-        profileImageView.center(axis: [.y])
-        
+        profileImageView.center(axis: [.vertical])
+
         nameLabel.clipTop(to: .top, of: profileImageView)
         nameLabel.clipLeft(to: .right, of: profileImageView, margin: 12)
         nameLabel.clipRight(to: .left, of: hourLabel, margin: 12)
-        
+
         notificationIndicator.width(SFDimension(value: 12))
         notificationIndicator.height(SFDimension(value: 12))
         notificationIndicator.clipRight(to: .right, margin: 12)
         notificationIndicator.clipBottom(to: .bottom, of: profileImageView)
-        
+
         messageLabel.clipBottom(to: .bottom, of: profileImageView)
         messageLabel.clipLeft(to: .right, of: profileImageView, margin: 12)
         messageLabel.clipRight(to: .right, margin: 36)
-        
+
         hourLabel.clipTop(to: .top, of: profileImageView)
         hourLabel.clipRight(to: .right, margin: 12)
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

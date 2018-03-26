@@ -9,17 +9,17 @@
 import UIKit
 
 open class SFNotificationIndicator: SFView {
-    
+
     // MARK: - Instance Methods
-    
+
     open override func layoutSubviews() {
         super.layoutSubviews()
         layer.cornerRadius = bounds.width / 2
     }
-    
+
     open override func updateColors() {
         backgroundColor = colorStyle.getInteractiveColor()
         updateSubviewsColors()
     }
-    
+
 }

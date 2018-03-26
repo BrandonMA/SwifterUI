@@ -9,87 +9,122 @@
 import UIKit
 import FirebaseFirestore
 import CodableFirebase
+import PromiseKit
 
 public protocol FirebaseObject: Codable {
-    
+
     // MARK: - Instance Properties
-    
+
     var id: String { get set }
     var reference: DocumentReference { get set }
-    
+
     // MARK: - Instance Methods
-    
-    func encodeData(completion: @escaping ([String: Any]) -> Void, errorCompletion: ((Error?) -> Void)?)
+
+    func encodeData() -> Promise<[String: Any]>
 }
 
 public extension FirebaseObject {
-    
-    public func encodeData(completion: @escaping ([String: Any]) -> Void, errorCompletion: ((Error?) -> Void)?) {
-        DispatchQueue.addAsyncTask(to: .background) {
-            do {
-                let encodedData = try FirestoreEncoder().encode(self)
-                completion(encodedData)
-            } catch let error {
-                errorCompletion?(error)
+
+    public func encodeData() -> Promise<[String: Any]> {
+
+        return Promise { seal in
+
+            DispatchQueue.addAsyncTask(to: .background) {
+
+                do {
+                    let encodedData = try FirestoreEncoder().encode(self)
+                    seal.fulfill(encodedData)
+                } catch let error {
+                    seal.reject(error)
+                }
+
             }
+
         }
+
     }
-    
-    public func upload(successCompletion: (() -> Void)? = nil, errorCompletion: ((Error?) -> Void)? = nil) {
-        encodeData(completion: { (data) in
-            self.reference.setData(data, completion: { (error) in
-                if let error = error {
-                    errorCompletion?(error)
-                } else {
-                    successCompletion?()
-                }
+
+    public func upload() -> Promise<Void> {
+
+        return Promise { seal in
+
+            encodeData().done({ data in
+
+                self.reference.setData(data, completion: { error in
+                    if let error = error {
+                        seal.reject(error)
+                    } else {
+                        seal.fulfill(())
+                    }
+                })
+
+            }).catch({ (error) in
+
+                seal.reject(error)
+
             })
-        }) { (error) in
-            errorCompletion?(error)
+
         }
+
     }
-    
-    public func update(successCompletion: (() -> Void)? = nil, errorCompletion: ((Error?) -> Void)? = nil) {
-        encodeData(completion: { (data) in
-            self.reference.updateData(data, completion: { (error) in
-                if let error = error {
-                    errorCompletion?(error)
-                } else {
-                    successCompletion?()
-                }
+
+    public func update() -> Promise<Void> {
+
+        return Promise { seal in
+
+            encodeData().done({ data in
+
+                self.reference.updateData(data, completion: { error in
+                    if let error = error {
+                        seal.reject(error)
+                    } else {
+                        seal.fulfill(())
+                    }
+                })
+
+            }).catch({ (error) in
+                seal.reject(error)
             })
-        }) { (error) in
-            errorCompletion?(error)
+
         }
     }
-    
-    public func delete(errorCompletion: ((Error?) -> Void)? = nil) {
-        reference.delete(completion: errorCompletion)
+
+    public func delete() -> Promise<Void> {
+
+        return Promise { seal in
+
+            self.reference.delete(completion: { (error) in
+
+                if let error = error {
+                    seal.reject(error)
+                } else {
+                    seal.fulfill(())
+                }
+
+            })
+
+        }
+
     }
-    
+
 }
 
 public extension FirebaseObject where Self: NSObject {
-    
-    public func startListener(completion: (() -> Void)? = nil) {
-        DispatchQueue.addAsyncTask(to: .background, handler: {
-            self.reference.addSnapshotListener { (document, error) in
-                if let error = error {
-                    print(error.localizedDescription)
-                } else {
-                    if let document = document {
-                        guard let data = document.data() else { return }
+
+    public func startListener() -> Promise<Void> {
+
+        return Promise { seal in
+            DispatchQueue.addAsyncTask(to: .background, handler: {
+                self.reference.addSnapshotListener({ (document, error) in
+                    if let document = document, let data = document.data() {
                         self.setValuesForKeys(data)
-                        completion?()
+                        seal.fulfill(())
+                    } else {
+                        seal.resolve(error)
                     }
-                }
-            }
-        })
+                })
+            })
+        }
     }
-    
+
 }
-
-
-
-
-

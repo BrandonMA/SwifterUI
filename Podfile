@@ -5,6 +5,8 @@ target 'SwifterUI' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
 
+  inhibit_all_warnings!
+
   # Pods for SwifterUI
 
   pod 'Firebase/Core'
@@ -12,6 +14,7 @@ target 'SwifterUI' do
   pod 'FBSDKLoginKit'
   pod 'Firebase/Firestore'
   pod 'CodableFirebase'
+  pod "PromiseKit", "~> 6.0"
   
   target 'SwifterUITests' do
     inherit! :search_paths

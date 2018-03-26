@@ -9,34 +9,40 @@
 import UIKit
 
 open class SFMessage: Codable {
-    
+
     private enum CodingKeys: String, CodingKey {
-        case id
-        case senderId
+        case identifier
+        case senderidentifier
         case text
         case imageURL
         case videoURL
         case fileURL
         case timestamp
     }
-    
+
     // MARK: - Instance Properties
-    
-    open var id: String
-    open var senderId: String
-    open var text: String? = nil
-    open var imageURL: String? = nil
-    open var image: UIImage? = nil
-    open var videoURL: URL? = nil
-    open var fileURL: URL? = nil
+
+    open var identifier: String
+    open var senderidentifier: String
+    open var text: String?
+    open var imageURL: String?
+    open var image: UIImage?
+    open var videoURL: URL?
+    open var fileURL: URL?
     open var timestamp: Date
     open var isMine: Bool = true
-    
+
     // MARK: - Initializers
-    
-    public required init(senderId: String, text: String? = nil, image: UIImage? = nil, videoURL: URL? = nil, fileURL: URL? = nil, timestamp: Date, isMine: Bool) {
-        self.id = ""
-        self.senderId = senderId
+
+    public required init(senderidentifier: String,
+                         text: String? = nil,
+                         image: UIImage? = nil,
+                         videoURL: URL? = nil,
+                         fileURL: URL? = nil,
+                         timestamp: Date,
+                         isMine: Bool) {
+        self.identifier = ""
+        self.senderidentifier = senderidentifier
         self.text = text
         self.image = image
         self.imageURL = nil
@@ -45,11 +51,11 @@ open class SFMessage: Codable {
         self.timestamp = timestamp
         self.isMine = isMine
     }
-    
+
     public required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        id = try values.decode(String.self, forKey: .id)
-        senderId = try values.decode(String.self, forKey: .senderId)
+        identifier = try values.decode(String.self, forKey: .identifier)
+        senderidentifier = try values.decode(String.self, forKey: .senderidentifier)
         text = try values.decode(String?.self, forKey: .text)
         image = nil
         imageURL = try values.decode(String?.self, forKey: .imageURL)
@@ -57,51 +63,30 @@ open class SFMessage: Codable {
         fileURL = try values.decode(URL?.self, forKey: .fileURL)
         timestamp = try values.decode(Date.self, forKey: .timestamp)
     }
-    
+
     // MARK: - Instance Methods
-    
+
     open func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(id, forKey: .id)
-        try container.encode(senderId, forKey: .senderId)
+        try container.encode(identifier, forKey: .identifier)
+        try container.encode(senderidentifier, forKey: .senderidentifier)
         try container.encode(text, forKey: .text)
         try container.encode(imageURL, forKey: .imageURL)
         try container.encode(videoURL, forKey: .videoURL)
         try container.encode(fileURL, forKey: .fileURL)
         try container.encode(timestamp, forKey: .timestamp)
     }
-    
+
 }
 
 extension SFMessage: Hashable {
-    
+
     public var hashValue: Int {
-        return id.hashValue
+        return identifier.hashValue
     }
-    
-    public static func ==(lhs: SFMessage, rhs: SFMessage) -> Bool {
-        return lhs.id == rhs.id
+
+    public static func == (lhs: SFMessage, rhs: SFMessage) -> Bool {
+        return lhs.identifier == rhs.identifier
     }
-    
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

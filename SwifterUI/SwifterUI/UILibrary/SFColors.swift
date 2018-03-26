@@ -6,14 +6,12 @@
 //  Copyright © 2017 . All rights reserved.
 //
 
-
-
 import UIKit
 
 public struct SFColors {
-    
+
     // MARK: - Static Properties
-    
+
     static public let white: UIColor = UIColor(hex: "FFFFFF")
     static public let black: UIColor = UIColor(hex: "000000")
     static public let separatorWhite: UIColor = UIColor(hex: "E2E2E4")
@@ -27,5 +25,5 @@ public struct SFColors {
     static public let darkGray: UIColor = UIColor(hex: "999999")
     static public let orange: UIColor = UIColor(hex: "FF941A")
     static public let blue: UIColor = UIColor(hex: "0088FF")
-    
+
 }

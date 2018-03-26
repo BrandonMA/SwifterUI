@@ -9,6 +9,6 @@
 import Foundation
 
 public enum ConstraintAxis {
-    case x
-    case y
+    case horizontal
+    case vertical
 }

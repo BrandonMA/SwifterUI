@@ -9,45 +9,34 @@
 import UIKit
 
 public extension UIWindow {
-    
+
     // MARK: - Static Methods
-    
-    public static func getVisibleViewControllerFrom(_ vc: UIViewController?) -> UIViewController? {
-        if let nc = vc as? UINavigationController {
-            return UIWindow.getVisibleViewControllerFrom(nc.visibleViewController)
-        } else if let tc = vc as? UITabBarController {
-            return UIWindow.getVisibleViewControllerFrom(tc.selectedViewController)
+
+    public static func getVisibleViewControllerFrom(_ viewController: UIViewController?) -> UIViewController? {
+        if let navigationController = viewController as? UINavigationController {
+            return UIWindow.getVisibleViewControllerFrom(navigationController.visibleViewController)
+        } else if let tabBarController = viewController as? UITabBarController {
+            return UIWindow.getVisibleViewControllerFrom(tabBarController.selectedViewController)
         } else {
-            if let pvc = vc?.presentedViewController {
-                return UIWindow.getVisibleViewControllerFrom(pvc)
+            if let presentedViewController = viewController?.presentedViewController {
+                return UIWindow.getVisibleViewControllerFrom(presentedViewController)
             } else {
-                return vc
+                return viewController
             }
         }
     }
-    
+
     public static func updateRootViewController(with viewController: UIViewController, completion: ((Bool) -> Void)?) {
         guard let window = UIApplication.shared.keyWindow else { return }
         UIView.transition(with: window, duration: 0.6, options: .transitionCrossDissolve, animations: {
             window.rootViewController = viewController
         }, completion: completion)
     }
-    
+
     // MARK: - Instance Properties
-    
+
     public var visibleViewController: UIViewController? {
         return UIWindow.getVisibleViewControllerFrom(self.rootViewController)
     }
-    
+
 }
-
-
-
-
-
-
-
-
-
-
-

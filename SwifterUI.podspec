@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'SwifterUI'
-  s.version          = '0.4.65'
+  s.version          = '0.4.66'
   s.summary          = 'UI Library'
  
   s.description      = 'This is a UI Library to improve development process'
@@ -21,7 +21,6 @@ Pod::Spec.new do |s|
     core.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.0' }
     core.ios.deployment_target = '11.0'
     core.source_files = 'SwifterUI/SwifterUI/UILibrary/*', 'SwifterUI/SwifterUI/UILibrary/**/*'
-    core.dependency 'PromiseKit'
   end
 
   s.subspec 'ChatKit' do |chatkit|
@@ -47,6 +46,7 @@ Pod::Spec.new do |s|
     firebase.dependency 'Firebase/Firestore'
     firebase.dependency 'CodableFirebase'
     firebase.dependency 'SwifterUI/Core'
+    firebase.dependency 'PromiseKit'
   end
 
   s.subspec 'Facebook' do |facebook|
@@ -55,6 +55,7 @@ Pod::Spec.new do |s|
     facebook.source_files  = 'SwifterUI/SwifterUI/Facebook/*'
     facebook.dependency 'FBSDKLoginKit'
     facebook.dependency 'SwifterUI/Core'
+    facebook.dependency 'PromiseKit'
   end
 
 end

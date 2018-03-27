@@ -7,29 +7,29 @@
 
 import UIKit
 import FirebaseAuth
-import PromiseKit
-
-public protocol FirebaseLogin {
-
-    // MARK: - Instance Methods
-
-    func handleFirebaseLogin(user: User?, error: Error?) -> Promise<User>
-}
-
-public extension FirebaseLogin {
-
-    // MARK: - Instance Methods
-
-    public func handleFirebaseLogin(user: User?, error: Error?) -> Promise<User> {
-
-        return Promise { seal in
-
-            DispatchQueue.addAsyncTask(to: .background, handler: {
-                seal.resolve(user, error)
-            })
-
-        }
-
-    }
-}
+//import PromiseKit
+//
+//public protocol FirebaseLogin {
+//
+//    // MARK: - Instance Methods
+//
+//    func handleFirebaseLogin(user: User?, error: Error?) -> Promise<User>
+//}
+//
+//public extension FirebaseLogin {
+//
+//    // MARK: - Instance Methods
+//
+//    public func handleFirebaseLogin(user: User?, error: Error?) -> Promise<User> {
+//
+//        return Promise { seal in
+//
+//            DispatchQueue.addAsyncTask(to: .background, handler: {
+//                seal.resolve(user, error)
+//            })
+//
+//        }
+//
+//    }
+//}
 

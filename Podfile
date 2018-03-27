@@ -9,11 +9,6 @@ target 'SwifterUI' do
 
   # Pods for SwifterUI
 
-  pod 'Firebase/Core'
-  pod 'Firebase/Auth'
-  pod 'FBSDKLoginKit'
-  pod 'Firebase/Firestore'
-  pod 'CodableFirebase'
   pod 'PromiseKit', '~> 6.0'
   
   target 'SwifterUITests' do

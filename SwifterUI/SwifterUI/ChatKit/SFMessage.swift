@@ -12,7 +12,7 @@ open class SFMessage: Codable {
 
     private enum CodingKeys: String, CodingKey {
         case identifier
-        case senderidentifier
+        case senderIdentifier
         case text
         case imageURL
         case videoURL
@@ -23,7 +23,7 @@ open class SFMessage: Codable {
     // MARK: - Instance Properties
 
     open var identifier: String
-    open var senderidentifier: String
+    open var senderIdentifier: String
     open var text: String?
     open var imageURL: String?
     open var image: UIImage?
@@ -34,7 +34,7 @@ open class SFMessage: Codable {
 
     // MARK: - Initializers
 
-    public required init(senderidentifier: String,
+    public required init(senderIdentifier: String,
                          text: String? = nil,
                          image: UIImage? = nil,
                          videoURL: URL? = nil,
@@ -42,7 +42,7 @@ open class SFMessage: Codable {
                          timestamp: Date,
                          isMine: Bool) {
         self.identifier = ""
-        self.senderidentifier = senderidentifier
+        self.senderIdentifier = senderIdentifier
         self.text = text
         self.image = image
         self.imageURL = nil
@@ -55,7 +55,7 @@ open class SFMessage: Codable {
     public required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         identifier = try values.decode(String.self, forKey: .identifier)
-        senderidentifier = try values.decode(String.self, forKey: .senderidentifier)
+        senderIdentifier = try values.decode(String.self, forKey: .senderIdentifier)
         text = try values.decode(String?.self, forKey: .text)
         image = nil
         imageURL = try values.decode(String?.self, forKey: .imageURL)
@@ -69,7 +69,7 @@ open class SFMessage: Codable {
     open func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(identifier, forKey: .identifier)
-        try container.encode(senderidentifier, forKey: .senderidentifier)
+        try container.encode(senderIdentifier, forKey: .senderIdentifier)
         try container.encode(text, forKey: .text)
         try container.encode(imageURL, forKey: .imageURL)
         try container.encode(videoURL, forKey: .videoURL)

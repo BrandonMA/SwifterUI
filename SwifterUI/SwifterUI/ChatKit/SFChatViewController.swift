@@ -148,7 +148,7 @@ open class SFChatViewController<MessageType: SFMessage>:
 
     @objc private func sendButtonDidTouch() {
         if chatBar.textView.text != "" {
-            let message = MessageType(senderidentifier: "",
+            let message = MessageType(senderIdentifier: "",
                                       text: chatBar.textView.text,
                                       image: nil, videoURL: nil,
                                       fileURL: nil,
@@ -173,7 +173,7 @@ open class SFChatViewController<MessageType: SFMessage>:
         var optionalMessage: MessageType? = nil
 
         if let originalImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            optionalMessage = MessageType(senderidentifier: "",
+            optionalMessage = MessageType(senderIdentifier: "",
                                           text: nil,
                                           image: originalImage,
                                           videoURL: nil,
@@ -181,7 +181,7 @@ open class SFChatViewController<MessageType: SFMessage>:
                                           timestamp: Date(),
                                           isMine: true)
         } else if let videoURL = info[UIImagePickerControllerMediaURL] as? URL {
-            optionalMessage = MessageType(senderidentifier: "",
+            optionalMessage = MessageType(senderIdentifier: "",
                                           text: nil,
                                           image: nil,
                                           videoURL: videoURL,

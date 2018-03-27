@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'SwifterUI'
-  s.version          = '0.4.76'
+  s.version          = '0.4.77'
   s.summary          = 'UI Library'
  
   s.description      = 'This is a UI Library to improve development process'
@@ -45,7 +45,7 @@ Pod::Spec.new do |s|
     firebase.dependency 'Firebase/Auth', '~> 4.9.0'
     firebase.dependency 'Firebase/Firestore', '~> 4.9.0'
     firebase.dependency 'CodableFirebase'
-    # firebase.dependency 'PromiseKit/CorePromise', '~> 6.0'
+    firebase.dependency 'PromiseKit/CorePromise', '~> 6.0'
     firebase.dependency 'SwifterUI/Core'
   end
 

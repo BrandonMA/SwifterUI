@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
-platform :ios, '11.0'
+  platform :ios, '11.0'
 
 target 'SwifterUI' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
@@ -14,7 +14,7 @@ target 'SwifterUI' do
   pod 'FBSDKLoginKit'
   pod 'Firebase/Firestore'
   pod 'CodableFirebase'
-  pod 'PromiseKit/CorePromise', '~> 6.0'
+  pod 'PromiseKit', '~> 6.0'
   
   target 'SwifterUITests' do
     inherit! :search_paths

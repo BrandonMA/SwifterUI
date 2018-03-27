@@ -7,8 +7,8 @@
 
 import UIKit
 import FirebaseAuth
-//import PromiseKit
-//
+import PromiseKit
+
 //public protocol FirebaseLogin {
 //
 //    // MARK: - Instance Methods

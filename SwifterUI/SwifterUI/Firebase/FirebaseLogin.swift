@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import Firebase
+import FirebaseAuth
 import PromiseKit
 
 public protocol FirebaseLogin {

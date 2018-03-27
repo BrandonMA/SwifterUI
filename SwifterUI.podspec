@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'SwifterUI'
-  s.version          = '0.4.74'
+  s.version          = '0.4.75'
   s.summary          = 'UI Library'
  
   s.description      = 'This is a UI Library to improve development process'
@@ -41,21 +41,21 @@ Pod::Spec.new do |s|
     firebase.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.0' }
     firebase.ios.deployment_target = '11.0'
     firebase.source_files  = 'SwifterUI/SwifterUI/Firebase/*'
-    firebase.dependency 'Firebase/Core'
-    firebase.dependency 'Firebase/Auth'
-    firebase.dependency 'Firebase/Firestore'
+    firebase.dependency 'Firebase/Core', '~> 4.9.0'
+    firebase.dependency 'Firebase/Auth', '~> 4.9.0'
+    firebase.dependency 'Firebase/Firestore', '~> 4.9.0'
     firebase.ios.dependency 'CodableFirebase'
     firebase.ios.dependency 'PromiseKit/CorePromise', '~> 6.0'
     firebase.dependency 'SwifterUI/Core'
   end
 
-  # s.subspec 'Facebook' do |facebook|
-  #   facebook.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.0' }
-  #   facebook.ios.deployment_target = '11.0'
-  #   facebook.source_files  = 'SwifterUI/SwifterUI/Facebook/*'
-  #   facebook.dependency 'FBSDKLoginKit'
-  #   facebook.dependency 'PromiseKit/CorePromise', '~> 6.0'
-  #   facebook.dependency 'SwifterUI/Core'
-  # end
+  s.subspec 'Facebook' do |facebook|
+    facebook.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.0' }
+    facebook.ios.deployment_target = '11.0'
+    facebook.source_files  = 'SwifterUI/SwifterUI/Facebook/*'
+    facebook.dependency 'FBSDKLoginKit'
+    facebook.dependency 'PromiseKit/CorePromise', '~> 6.0'
+    facebook.dependency 'SwifterUI/Core'
+  end
 
 end

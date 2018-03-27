@@ -40,7 +40,12 @@ public extension FacebookLogin {
             DispatchQueue.addAsyncTask(to: .background, handler: {
 
                 manager.logIn(withReadPermissions: permissions, from: viewController, handler: { (result, error) in
-                    seal.resolve(result, error)
+                    if let result = result {
+                        seal.fulfill(result)
+                    } else {
+                        UIApplication.shared.keyWindow?.visibleViewController?.showError(message: error?.localizedDescription)
+                        seal.resolve(result, error)
+                    }
                 })
 
             })
@@ -56,7 +61,13 @@ public extension FacebookLogin {
             DispatchQueue.addAsyncTask(to: .background, handler: {
 
                 FBSDKProfile.loadCurrentProfile(completion: { (profile, error) in
-                    seal.resolve(profile, error)
+                    if let profile = profile {
+                        seal.fulfill(profile)
+                    } else {
+                        UIApplication.shared.keyWindow?.visibleViewController?.showError(message: error?.localizedDescription)
+                        seal.resolve(profile, error)
+                    }
+
                 })
 
             })

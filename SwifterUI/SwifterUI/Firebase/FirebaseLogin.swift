@@ -16,20 +16,22 @@ public protocol FirebaseLogin {
     func handleFirebaseLogin(user: User?, error: Error?) -> Promise<User>
 }
 
-//public extension FirebaseLogin {
-//
-//    // MARK: - Instance Methods
-//
-//    public func handleFirebaseLogin(user: User?, error: Error?) -> Promise<User> {
-//
-//        return Promise { seal in
-//
-//            DispatchQueue.addAsyncTask(to: .background, handler: {
-//                seal.resolve(user, error)
-//            })
-//
-//        }
-//
-//    }
-//}
+public extension FirebaseLogin {
+
+    // MARK: - Instance Methods
+
+    public func handleFirebaseLogin(user: User?, error: Error?) -> Promise<User> {
+
+        return Promise { seal in
+
+            if let user = user {
+                seal.fulfill(user)
+            } else {
+                UIApplication.shared.keyWindow?.visibleViewController?.showError(message: error?.localizedDescription)
+                seal.resolve(user, error)
+            }
+        }
+
+    }
+}
 

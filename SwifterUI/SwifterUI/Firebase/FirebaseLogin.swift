@@ -9,13 +9,13 @@ import UIKit
 import FirebaseAuth
 import PromiseKit
 
-//public protocol FirebaseLogin {
-//
-//    // MARK: - Instance Methods
-//
-//    func handleFirebaseLogin(user: User?, error: Error?) -> Promise<User>
-//}
-//
+public protocol FirebaseLogin {
+
+    // MARK: - Instance Methods
+
+    func handleFirebaseLogin(user: User?, error: Error?) -> Promise<User>
+}
+
 //public extension FirebaseLogin {
 //
 //    // MARK: - Instance Methods

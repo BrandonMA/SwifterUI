@@ -53,12 +53,6 @@ public struct SFGradient {
         UIGraphicsEndImageContext() // Stop UIGraphicsContext
         return image
     }
-    
-    public func getGradientImage(width: CGFloat, height: CGFloat, handler: @escaping (UIImage?) -> ()) {
-        DispatchQueue.addAsyncTask(to: .background) {
-            handler(self.getGradientImage(width: width, height: height)) // Calls getGradientImage on the background so it doesn't affect UI performance
-        }
-    }
 }
 
 

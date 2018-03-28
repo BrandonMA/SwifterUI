@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PromiseKit
 
 public extension UIWindow {
 
@@ -26,11 +27,17 @@ public extension UIWindow {
         }
     }
 
-    public static func updateRootViewController(with viewController: UIViewController, completion: ((Bool) -> Void)?) {
-        guard let window = UIApplication.shared.keyWindow else { return }
-        UIView.transition(with: window, duration: 0.6, options: .transitionCrossDissolve, animations: {
-            window.rootViewController = viewController
-        }, completion: completion)
+    // MARK: - Instance Methods
+
+    @discardableResult
+    public func updateRootViewController(with viewController: UIViewController) -> Promise<Void> {
+        return Promise { seal in
+            UIView.transition(with: self, duration: 0.6, options: .transitionCrossDissolve, animations: {
+                self.rootViewController = viewController
+            }, completion: { _ in
+                seal.fulfill(())
+            })
+        }
     }
 
     // MARK: - Instance Properties

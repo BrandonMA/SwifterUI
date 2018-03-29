@@ -13,7 +13,7 @@ public protocol SFTableViewChatCellDelegate: class {
     // MARK: - Instance Methods
 
     func didZoomIn(cell: SFTableViewChatCell)
-    func didZoomOut(cell: SFTableViewCell)
+    func didZoomOut(cell: SFTableViewChatCell)
 
 }
 
@@ -24,7 +24,7 @@ public extension SFTableViewChatCellDelegate {
     public func didZoomIn(cell: SFTableViewChatCell) {
     }
 
-    public func didZoomOut(cell: SFTableViewCell) {
+    public func didZoomOut(cell: SFTableViewChatCell) {
     }
 
 }

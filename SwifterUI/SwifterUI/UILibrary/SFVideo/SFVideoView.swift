@@ -10,11 +10,11 @@ import UIKit
 import AVKit
 
 open class SFVideoView: SFView {
-    
+
     // MARK: - Instance Properties
-    
+
     open var videoView: UIView? = nil
-    
+
     open var url: URL? = nil {
         didSet {
             DispatchQueue.addAsyncTask(to: .background) {
@@ -28,39 +28,39 @@ open class SFVideoView: SFView {
             }
         }
     }
-    
+
     open var controller = AVPlayerViewController()
-    
+
     open var player: AVPlayer? {
         didSet {
             DispatchQueue.addAsyncTask(to: .main) {
                 self.controller.player = self.player
+                self.prepareVideoView()
             }
         }
     }
-    
+
     open weak var delegate: SFVideoPlayerDelegate? = nil
-    
+
     public override init(automaticallyAdjustsColorStyle: Bool = true, frame: CGRect = .zero) {
         super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, frame: frame)
         controller.allowsPictureInPicturePlayback = true
         controller.entersFullScreenWhenPlaybackBegins = true
     }
-    
+
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     // MARK: - Instance Methods
-    
+
     open func prepareVideoView() {
         delegate?.prepare(mediaController: controller)
         videoView = controller.view
         addSubview(videoView!)
-        print(subviews.count)
         videoView?.clipEdges()
     }
-    
+
 }
 
 

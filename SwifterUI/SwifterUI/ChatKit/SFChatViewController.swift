@@ -15,7 +15,7 @@ open class SFChatViewController<MessageType: SFMessage>:
     UITableViewDelegate,
     UIImagePickerControllerDelegate,
     UINavigationControllerDelegate,
-    SFVideoPlayerDelegate {
+SFVideoPlayerDelegate {
 
     // MARK: - Instance Properties
 
@@ -217,6 +217,7 @@ open class SFChatViewController<MessageType: SFMessage>:
             as? SFTableViewChatCell else { return UITableViewCell() }
 
         let message = messages[indexPath.row]
+        cell.delegate = self
         cell.messageLabel.text = message.text
         cell.messageImageView.image = message.image
         cell.messageVideoView.url = message.videoURL
@@ -284,7 +285,23 @@ extension SFChatViewController: SFTableViewChatCellDelegate {
     // MARK: - Instance Methods
 
     public func didZoomIn(cell: SFTableViewChatCell) {
+        guard let image = cell.messageImageView.image else { return }
+        let controller = SFImageZoomViewController(with: image)
+        controller.modalPresentationStyle = .overFullScreen
+        controller.modalTransitionStyle = .crossDissolve
+        present(controller, animated: true) {
+            UIView.animate(.promise, duration: 0.1, animations: {
+                cell.messageImageView.alpha = 0
+            }).done({ _ in
+                cell.zoomOut()
+            })
+        }
     }
+
+    public func didZoomOut(cell: SFTableViewChatCell) {
+        cell.messageImageView.alpha = 1
+    }
+
 }
 
 extension SFChatViewController: SFBulletinControllerDelegate {
@@ -300,3 +317,19 @@ extension SFChatViewController: SFBulletinControllerDelegate {
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

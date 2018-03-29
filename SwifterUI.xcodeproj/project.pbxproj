@@ -48,6 +48,8 @@
 		425AFDAE20300C700049B68B /* SFCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425AFDAD20300C700049B68B /* SFCollectionViewCell.swift */; };
 		42795F64202FB55300C3767F /* SFPopBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42795F63202FB55300C3767F /* SFPopBar.swift */; };
 		42834C0C20465964009CFE22 /* SFButtonSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42834C0B20465964009CFE22 /* SFButtonSection.swift */; };
+		42838206206DA49000039F66 /* SFImageZoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42838205206DA49000039F66 /* SFImageZoomViewController.swift */; };
+		42838208206DA4D200039F66 /* SFImageZoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42838207206DA4D200039F66 /* SFImageZoomView.swift */; };
 		429FD4911FED7EDC00FD7F10 /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429FD4901FED7EDC00FD7F10 /* UIImageView.swift */; };
 		429FD4931FED89C200FD7F10 /* SFAnimationCurve.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429FD4921FED89C200FD7F10 /* SFAnimationCurve.swift */; };
 		429FD4951FED89F300FD7F10 /* SFShakeAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429FD4941FED89F300FD7F10 /* SFShakeAnimation.swift */; };
@@ -75,8 +77,6 @@
 		42A42EC31FF1C13E002FE4A7 /* SFVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A42EC21FF1C13E002FE4A7 /* SFVideoView.swift */; };
 		42A67AC620411B3B00F2FF3E /* UIWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A67AC520411B3B00F2FF3E /* UIWindow.swift */; };
 		42A8CA6720608CB7004250A1 /* SFCollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A8CA6620608CB7004250A1 /* SFCollectionViewHeader.swift */; };
-		42AFAE39203A2246002CAB0F /* SFImageViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AFAE38203A2246002CAB0F /* SFImageViewer.swift */; };
-		42AFAE3B203A2271002CAB0F /* SFImageViewerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AFAE3A203A2271002CAB0F /* SFImageViewerController.swift */; };
 		42B253E31FEA04E90002C297 /* DispatchQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B253E21FEA04E90002C297 /* DispatchQueue.swift */; };
 		42B253E51FEA0E700002C297 /* ConstraintType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B253E41FEA0E700002C297 /* ConstraintType.swift */; };
 		42B7B27D203A611E004B5C6E /* SFScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B7B27C203A611E004B5C6E /* SFScrollView.swift */; };
@@ -176,6 +176,8 @@
 		425AFDAD20300C700049B68B /* SFCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFCollectionViewCell.swift; sourceTree = "<group>"; };
 		42795F63202FB55300C3767F /* SFPopBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFPopBar.swift; sourceTree = "<group>"; };
 		42834C0B20465964009CFE22 /* SFButtonSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFButtonSection.swift; sourceTree = "<group>"; };
+		42838205206DA49000039F66 /* SFImageZoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFImageZoomViewController.swift; sourceTree = "<group>"; };
+		42838207206DA4D200039F66 /* SFImageZoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFImageZoomView.swift; sourceTree = "<group>"; };
 		429FD4901FED7EDC00FD7F10 /* UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 		429FD4921FED89C200FD7F10 /* SFAnimationCurve.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFAnimationCurve.swift; sourceTree = "<group>"; };
 		429FD4941FED89F300FD7F10 /* SFShakeAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFShakeAnimation.swift; sourceTree = "<group>"; };
@@ -203,8 +205,6 @@
 		42A42EC21FF1C13E002FE4A7 /* SFVideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFVideoView.swift; sourceTree = "<group>"; };
 		42A67AC520411B3B00F2FF3E /* UIWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIWindow.swift; sourceTree = "<group>"; };
 		42A8CA6620608CB7004250A1 /* SFCollectionViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFCollectionViewHeader.swift; sourceTree = "<group>"; };
-		42AFAE38203A2246002CAB0F /* SFImageViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFImageViewer.swift; sourceTree = "<group>"; };
-		42AFAE3A203A2271002CAB0F /* SFImageViewerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFImageViewerController.swift; sourceTree = "<group>"; };
 		42B253E21FEA04E90002C297 /* DispatchQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchQueue.swift; sourceTree = "<group>"; };
 		42B253E41FEA0E700002C297 /* ConstraintType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstraintType.swift; sourceTree = "<group>"; };
 		42B7B27C203A611E004B5C6E /* SFScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFScrollView.swift; sourceTree = "<group>"; };
@@ -417,7 +417,7 @@
 				42A42EB21FF1AD8C002FE4A7 /* SFViewController.swift */,
 				42C701B02016834E00EBFBE2 /* SFPopViewController.swift */,
 				42DBF1A52037556F00F4BB6F /* SFBulletinController.swift */,
-				42AFAE3A203A2271002CAB0F /* SFImageViewerController.swift */,
+				42838205206DA49000039F66 /* SFImageZoomViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -443,10 +443,10 @@
 				42D34C66202F5FA3002B6FA6 /* SFTextSection.swift */,
 				42834C0B20465964009CFE22 /* SFButtonSection.swift */,
 				42DBF1A3203754E900F4BB6F /* SFBulletinView.swift */,
-				42AFAE38203A2246002CAB0F /* SFImageViewer.swift */,
 				424D5A682045ECF000C029E1 /* SFProfileImageView.swift */,
 				42C6724F205CD7C400DA4BCB /* SFPickerView.swift */,
 				42C67251205CD7DE00DA4BCB /* SFDatePicker.swift */,
+				42838207206DA4D200039F66 /* SFImageZoomView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -805,6 +805,7 @@
 				42A42EBF1FF1BC81002FE4A7 /* SFGradientReady.swift in Sources */,
 				424E2C75202378EA00F9A4E2 /* UITextView.swift in Sources */,
 				429FD4911FED7EDC00FD7F10 /* UIImageView.swift in Sources */,
+				42838206206DA49000039F66 /* SFImageZoomViewController.swift in Sources */,
 				42834C0C20465964009CFE22 /* SFButtonSection.swift in Sources */,
 				424BE0BB1FF45AD7005DE2AD /* UIFont.swift in Sources */,
 				429FD4931FED89C200FD7F10 /* SFAnimationCurve.swift in Sources */,
@@ -813,7 +814,6 @@
 				42A42EAB1FF1A9AB002FE4A7 /* SFColorStyle.swift in Sources */,
 				424E6C1E2028F06D00568F85 /* View.swift in Sources */,
 				42CDA9BD20361BDE0046791D /* SFChatBar.swift in Sources */,
-				42AFAE3B203A2271002CAB0F /* SFImageViewerController.swift in Sources */,
 				424BE0C11FF45B2D005DE2AD /* Date.swift in Sources */,
 				42C67250205CD7C400DA4BCB /* SFPickerView.swift in Sources */,
 				42446775202AC2BB00F59892 /* SFTextField.swift in Sources */,
@@ -825,6 +825,7 @@
 				42A8CA6720608CB7004250A1 /* SFCollectionViewHeader.swift in Sources */,
 				42FB9F9C202FC8AB006895F4 /* SFTableViewProfileCell.swift in Sources */,
 				42DBF1A62037556F00F4BB6F /* SFBulletinController.swift in Sources */,
+				42838208206DA4D200039F66 /* SFImageZoomView.swift in Sources */,
 				42CB6AFC203602870080EFB8 /* SFMessage.swift in Sources */,
 				42B8DEFE2040A00800B5770A /* SFSignupViewController.swift in Sources */,
 				42D34C67202F5FA3002B6FA6 /* SFTextSection.swift in Sources */,
@@ -850,7 +851,6 @@
 				429FD49D1FED8F0D00FD7F10 /* SFSqueezeAnimation.swift in Sources */,
 				42B253E31FEA04E90002C297 /* DispatchQueue.swift in Sources */,
 				424BE0C31FF45B42005DE2AD /* CGFloat.swift in Sources */,
-				42AFAE39203A2246002CAB0F /* SFImageViewer.swift in Sources */,
 				429FD4A51FED938400FD7F10 /* SFZoomAnimation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

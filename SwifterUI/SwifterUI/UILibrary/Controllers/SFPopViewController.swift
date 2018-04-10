@@ -31,11 +31,11 @@ open class SFPopViewController: SFViewController {
         self.view.addGestureRecognizer(panGesture)
     }
     
-    @objc open func dismissPop() {
+    @objc public final func dismissPop() {
         dismiss(animated: true, completion: nil)
     }
     
-    @objc open func dismiss(withPanGesture panGesture: UIPanGestureRecognizer) {
+    @objc public final func dismiss(withPanGesture panGesture: UIPanGestureRecognizer) {
         
         guard let window = UIApplication.shared.keyWindow else { fatalError() }
         let currentPoint = panGesture.location(in: window).y
@@ -49,7 +49,7 @@ open class SFPopViewController: SFViewController {
         } else if panGesture.state == .ended {
             if view.frame.origin.y < 80 {
                 UIView.animate(withDuration: 0.6, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0, options: [], animations: {
-                    self.view.frame.origin.y = 30
+                    self.view.frame.origin.y = UIApplication.shared.statusBarFrame.height + 10
                 }, completion: nil)
             } else {
                 dismiss(animated: true, completion: nil)

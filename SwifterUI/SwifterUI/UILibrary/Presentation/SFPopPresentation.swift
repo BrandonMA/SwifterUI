@@ -58,10 +58,6 @@ open class SFPopPresentation: UIPresentationController {
         blurView.clipEdges(useSafeArea: false)
         updateColors()
         
-        if #available(iOS 11.0, *) {
-            self.presentedView?.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
-        }
-        
         UIView.animate(withDuration: 0.6) {
             
             self.blurView.effect = mainController.colorStyle.getEffectStyle()

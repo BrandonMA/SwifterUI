@@ -12,7 +12,7 @@ public extension UIImage {
 
     // MARK: - Instance Methods
 
-    public func tint(color: UIColor, alpha: CGFloat) -> UIImage? {
+    public final func tint(color: UIColor, alpha: CGFloat) -> UIImage? {
         UIGraphicsBeginImageContextWithOptions(size, false, self.scale)
         guard let context = UIGraphicsGetCurrentContext() else { return nil }
         draw(at: CGPoint.zero, blendMode: CGBlendMode.normal, alpha: 1.0)
@@ -28,12 +28,6 @@ public extension UIImage {
         UIGraphicsEndImageContext()
 
         return tintedImage
-    }
-
-    public func tint(color: UIColor, alpha: CGFloat, handler: @escaping (UIImage?) -> ()) {
-        DispatchQueue.addAsyncTask(to: .background) {
-            handler(self.tint(color: color, alpha: alpha))
-        }
     }
 
 }

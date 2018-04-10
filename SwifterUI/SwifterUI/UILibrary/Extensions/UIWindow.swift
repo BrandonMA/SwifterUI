@@ -30,7 +30,7 @@ public extension UIWindow {
     // MARK: - Instance Methods
 
     @discardableResult
-    public func updateRootViewController(with viewController: UIViewController) -> Promise<Void> {
+    public final func updateRootViewController(with viewController: UIViewController) -> Promise<Void> {
         return Promise { seal in
             UIView.transition(with: self, duration: 0.6, options: .transitionCrossDissolve, animations: {
                 self.rootViewController = viewController
@@ -42,7 +42,7 @@ public extension UIWindow {
 
     // MARK: - Instance Properties
 
-    public var visibleViewController: UIViewController? {
+    public final var visibleViewController: UIViewController? {
         return UIWindow.getVisibleViewControllerFrom(self.rootViewController)
     }
 

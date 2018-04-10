@@ -57,7 +57,7 @@ open class SFTableViewChatCell: SFTableViewCell {
 
     open lazy var messageLabel: SFLabel = {
         let label = SFLabel(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
-        label.font = UIFont.systemFont(ofSize: 15)
+        label.font = UIFont.systemFont(ofSize: 17)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
         return label

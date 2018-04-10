@@ -12,9 +12,7 @@ public protocol SFBulletinControllerDelegate: class {
     
     // MARK: - Instance Methods
     
-    func bulletinController(_ bulletinController: SFBulletinController, retreivedValue: String?, index: Int?)
-    func bulletinController(_ bulletinController: SFBulletinController, didTouch button: UIButton)
-    
+    func bulletinController(_ bulletinController: SFBulletinController, retreivedValue: String?, index: Int?)    
 }
 
 extension SFBulletinControllerDelegate {
@@ -24,28 +22,25 @@ extension SFBulletinControllerDelegate {
     public func bulletinController(_ bulletinController: SFBulletinController, retreivedValue: String?, index: Int?) {
         
     }
-    public func bulletinController(_ bulletinController: SFBulletinController, didTouch button: UIButton) {
-    }
-    
 }
 
-open class SFBulletinController: SFViewController {
+open class SFBulletinController: SFViewController, SFInteractionViewController {
     
     // MARK: - Instance Properties
     
-    open weak var delegate: SFBulletinControllerDelegate? = nil
+    public final var mainView: UIView { return bulletinView.backgroundView }
+    public final lazy var animator: UIDynamicAnimator = UIDynamicAnimator(referenceView: view)
+    public final var snapping: UISnapBehavior?
     
-    open var pickerValues: [String] = []
-    open var buttons: [UIButton] = []
+    public final weak var delegate: SFBulletinControllerDelegate? = nil
     
-    open var backgroundView: SFBulletinView {
-        return self.view as! SFBulletinView
-    }
+    public final var pickerValues: [String] = []
+    public final var buttons: [SFButton] = []
     
-    open var useDatePicker: Bool = false
-    open var useButtons: Bool = false
+    public final var useDatePicker: Bool = false
+    public final var useButtons: Bool = false
     
-    open lazy var pickerView: SFPickerView = {
+    public final lazy var pickerView: SFPickerView = {
         let pickerView = SFPickerView(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         pickerView.translatesAutoresizingMaskIntoConstraints = false
         pickerView.dataSource = self
@@ -53,7 +48,7 @@ open class SFBulletinController: SFViewController {
         return pickerView
     }()
     
-    open lazy var datePicker: SFDatePicker = {
+    public final lazy var datePicker: SFDatePicker = {
         let datePicker = SFDatePicker(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         datePicker.timeZone = TimeZone.current
         datePicker.datePickerMode = .date
@@ -61,22 +56,21 @@ open class SFBulletinController: SFViewController {
         return datePicker
     }()
     
-    open var bulletinTitle: String = "Titulo" {
+    public final var bulletinTitle: String = "Titulo" {
         didSet {
-            backgroundView.titleLabel.text = bulletinTitle
+            bulletinView.titleLabel.text = bulletinTitle
         }
     }
     
-    private lazy var slideAnimation: SFSlideAnimation = {
-        let slideAnimation = SFSlideAnimation(with: backgroundView.backgroundView, direction: .bottom, type: .inside)
-        slideAnimation.duration = 0.6
-        slideAnimation.animationCurve = .easeOut
-        return slideAnimation
+    public final lazy var bulletinView: SFBulletinView = {
+        let picker = SFBulletinView(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle, middleView: useButtons ? nil : useDatePicker ? datePicker : pickerView, buttons: buttons)
+        picker.translatesAutoresizingMaskIntoConstraints = false
+        return picker
     }()
     
     // MARK: - Initializers
     
-    public required init(automaticallyAdjustsColorStyle: Bool = true) {
+    public override init(automaticallyAdjustsColorStyle: Bool = true) {
         super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle)
     }
     
@@ -87,7 +81,7 @@ open class SFBulletinController: SFViewController {
         useButtons = false
     }
     
-    public convenience init(date: Date, minDate: Date? = nil, maxDate: Date? = nil, automaticallyAdjustsColorStyle: Bool = true) {
+    public convenience init(date: Date = Date(), minDate: Date? = nil, maxDate: Date? = nil, automaticallyAdjustsColorStyle: Bool = true) {
         self.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle)
         useDatePicker = true
         useButtons = false
@@ -96,13 +90,13 @@ open class SFBulletinController: SFViewController {
         datePicker.maximumDate = maxDate
     }
     
-    public convenience init(buttons: [UIButton], automaticallyAdjustsColorStyle: Bool = true) {
+    public convenience init(buttons: [SFButton], automaticallyAdjustsColorStyle: Bool = true) {
         self.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle)
         self.buttons = buttons
         useDatePicker = false
         useButtons = true
         buttons.forEach { (button) in
-            button.addTarget(self, action: #selector(handleTouch(button:)), for: .touchUpInside)
+            button.addTarget(self, action: #selector(didTouch(button:)), for: .touchUpInside)
         }
     }
     
@@ -112,18 +106,28 @@ open class SFBulletinController: SFViewController {
     
     // MARK: - Instance Methods
     
-    open override func loadView() {
-        let picker = SFBulletinView(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle, middleView: useButtons ? nil : useDatePicker ? datePicker : pickerView, buttons: buttons)
-        picker.updateConstraintsIfNeeded() // Depending on how you present this view controller it may have wrong constraints so you must call this method
-        self.view = picker
+    open override func viewDidLoad() {
+        super.viewDidLoad()
+        view.addSubview(bulletinView)
+        bulletinView.closeButton.addTarget(self, action: #selector(closeButtonDidTouch), for: .touchUpInside)
+        bulletinView.doneButton.addTarget(self, action: #selector(doneButtonDidTouch), for: .touchUpInside)
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(dragView))
+        bulletinView.backgroundView.addGestureRecognizer(panGesture)
     }
     
-    open override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        backgroundView.closeButton.addTarget(self, action: #selector(closeButtonDidTouch), for: .touchUpInside)
-        backgroundView.doneButton.addTarget(self, action: #selector(doneButtonDidTouch), for: .touchUpInside)
-        slideAnimation.start()
-        updateColors()
+    open override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        bulletinView.clipTop(to: .top, useSafeArea: false)
+        bulletinView.clipEdges(exclude: [.top])
+        snapping = UISnapBehavior(item: bulletinView.backgroundView, snapTo: bulletinView.backgroundView.center)
+    }
+    
+    open override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let animation = SFScaleAnimation(with: bulletinView.backgroundView, type: .inside)
+        animation.duration = 0.7
+        animation.damping = 0.8
+        animation.start()
     }
     
     @objc private func closeButtonDidTouch() {
@@ -145,24 +149,24 @@ open class SFBulletinController: SFViewController {
         }
     }
     
-    @objc private func handleTouch(button: UIButton) {
-        returnToMainViewController {
-            self.delegate?.bulletinController(self, didTouch: button)
-        }
-    }
-    
-    @objc private func returnToMainViewController(completion: (() -> Void)? = nil) {
-        slideAnimation.type = .outside
-        slideAnimation.start()
-        DispatchQueue.delay(by: 0.3, dispatchLevel: .main) {
-            self.dismiss(animated: true, completion: completion)
-        }
+    @objc private func didTouch(button: SFButton) {
+        handleTouch(button: button)
     }
     
     open override func updateColors() {
         super.updateColors()
         pickerView.updateColors()
         datePicker.updateColors()
+    }
+    
+    open override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        guard let snapping = snapping else { return }
+        animator.removeBehavior(snapping)
+        super.viewWillTransition(to: size, with: coordinator)
+    }
+    
+    @objc private func dragView(recognizer: UIPanGestureRecognizer) {
+        moveView(recognizer: recognizer)
     }
     
 }

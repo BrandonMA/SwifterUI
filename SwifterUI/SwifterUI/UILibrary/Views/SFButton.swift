@@ -24,7 +24,7 @@ open class SFButton: UIButton, SFViewColorStyle {
     
     open var isTextPicker: Bool = false
     
-    open var addTouchAnimations: Bool = false {
+    public final var addTouchAnimations: Bool = false {
         didSet {
             if addTouchAnimations == true {
                 addTarget(self, action: #selector(touchDown(button:)), for: .touchDown)
@@ -38,12 +38,14 @@ open class SFButton: UIButton, SFViewColorStyle {
         }
     }
     
-    open lazy var rightImageView: UIImageView = {
+    public final lazy var rightImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
+    
+    open var actions: [() -> Void] = []
     
     // MARK: - Initializers
     
@@ -79,7 +81,7 @@ open class SFButton: UIButton, SFViewColorStyle {
         updateSubviewsColors()
     }
     
-    @objc open func touchDown(button: UIButton) {
+    @objc public final func touchDown(button: UIButton) {
         titleLabel?.alpha = 0.7
         let animation = SFScaleAnimation(with: button, type: .outside)
         animation.finalScaleX = 0.9
@@ -90,12 +92,15 @@ open class SFButton: UIButton, SFViewColorStyle {
         animation.start()
     }
     
-    @objc open func touchUp(button: UIButton) {
+    @objc public final func touchUp(button: UIButton) {
         UIView.animate(withDuration: 0.4) {
             self.titleLabel?.alpha = 1.0
             button.transform = .identity
         }
     }
     
+    public final func add(action: @escaping () -> Void) {
+        actions.append(action)
+    }
 }
 

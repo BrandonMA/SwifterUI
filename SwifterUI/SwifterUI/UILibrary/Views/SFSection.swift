@@ -12,7 +12,7 @@ open class SFSection: SFView {
     
     // MARK: - Instance Properties
     
-    open lazy var titleLabel: SFLabel = {
+    public final lazy var titleLabel: SFLabel = {
         let label = SFLabel(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         label.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -20,11 +20,12 @@ open class SFSection: SFView {
         return label
     }()
     
-    open lazy var bottomView: UIView = UIView()
+    open var bottomView: UIView
     
     // MARK: - Initializers
     
-    public override init(automaticallyAdjustsColorStyle: Bool = true, frame: CGRect = .zero) {
+    public init(automaticallyAdjustsColorStyle: Bool = true, frame: CGRect = .zero, bottomView: UIView) {
+        self.bottomView = bottomView
         super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, frame: frame)
         addSubview(titleLabel)
         addSubview(bottomView)

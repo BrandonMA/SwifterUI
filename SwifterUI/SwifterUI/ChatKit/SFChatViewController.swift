@@ -21,30 +21,16 @@ SFVideoPlayerDelegate {
 
     private var activeCell: SFTableViewChatCell?
 
-    open var chatView: SFChatView {
-        if let view = self.view as? SFChatView {
-            return view
-        } else {
-            fatalError()
-        }
-    }
+    public final lazy var chatView: SFChatView = {
+        let view = SFChatView(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle, frame: .zero)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
 
-    open lazy var chatBar: SFChatBar = {
+    public final lazy var chatBar: SFChatBar = {
         let chatBar = SFChatBar(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         chatBar.translatesAutoresizingMaskIntoConstraints = false
         return chatBar
-    }()
-
-    private lazy var photosButton: SFButton = {
-        let photosButton = SFButton()
-        photosButton.setTitle("Fotos y Videos", for: .normal)
-        return photosButton
-    }()
-
-    private lazy var cameraButton: SFButton = {
-        let photosButton = SFButton()
-        photosButton.setTitle("Camara", for: .normal)
-        return photosButton
     }()
 
     private lazy var filesButton: SFButton = {
@@ -73,12 +59,9 @@ SFVideoPlayerDelegate {
 
     // MARK: - Instance Methods
 
-    open override func loadView() {
-        self.view = SFChatView(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle, frame: .zero)
-    }
-
     override open func viewDidLoad() {
         super.viewDidLoad()
+        view.addSubview(chatView)
         chatView.tableView.delegate = self
         chatView.tableView.dataSource = self
         chatBar.sendButton.addTarget(self, action: #selector(sendButtonDidTouch), for: .touchUpInside)
@@ -87,6 +70,11 @@ SFVideoPlayerDelegate {
                                                selector: #selector(keyboardWillShow(notification:)),
                                                name: .UIKeyboardWillShow, object: nil)
         autorotate = false
+    }
+    
+    open override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        chatView.clipEdges()
     }
 
     override open func viewDidLayoutSubviews() {
@@ -122,22 +110,37 @@ SFVideoPlayerDelegate {
 
     // MARK: - Media Methods
 
-    @objc private func mediaButtonDidTouch() {
+    @objc private final func mediaButtonDidTouch() {
+        
+        let photosButton = SFButton()
+        photosButton.setTitle("Fotos y Videos", for: .normal)
+        photosButton.add {
+            self.showMediaPicker(sourceType: .photoLibrary)
+        }
+        
+        let cameraButton = SFButton()
+        cameraButton.setTitle("Camara", for: .normal)
+        cameraButton.add {
+            self.showMediaPicker(sourceType: .camera)
+        }
+        
         let viewController = SFBulletinController(buttons: [photosButton, cameraButton])
-        viewController.modalPresentationStyle = .overCurrentContext
-        viewController.modalTransitionStyle = .crossDissolve
         viewController.bulletinTitle = "Multimedia"
-        viewController.delegate = self
         present(viewController, animated: true, completion: nil)
     }
 
-    private func showMediaPicker(sourceType: UIImagePickerControllerSourceType) {
-        let imagePicker = UIImagePickerController()
-        imagePicker.sourceType = sourceType
-        imagePicker.allowsEditing = false
-        imagePicker.delegate = self
-        imagePicker.mediaTypes = [kUTTypeMovie as String, kUTTypeImage as String]
-        self.present(imagePicker, animated: true, completion: nil)
+    private final func showMediaPicker(sourceType: UIImagePickerControllerSourceType) {
+        DispatchQueue.addAsyncTask(to: .background) {
+            let imagePicker = UIImagePickerController()
+            imagePicker.sourceType = sourceType
+            imagePicker.allowsEditing = false
+            imagePicker.delegate = self
+            imagePicker.mediaTypes = [kUTTypeMovie as String, kUTTypeImage as String]
+            
+            DispatchQueue.addAsyncTask(to: .main, handler: {
+                self.present(imagePicker, animated: true, completion: nil)
+            })
+        }
     }
 
     // MARK: - Send Methods
@@ -146,7 +149,7 @@ SFVideoPlayerDelegate {
         return true
     }
 
-    @objc private func sendButtonDidTouch() {
+    @objc private final func sendButtonDidTouch() {
         if chatBar.textView.text != "" {
             let message = MessageType(senderIdentifier: "",
                                       text: chatBar.textView.text,
@@ -266,7 +269,7 @@ SFVideoPlayerDelegate {
                 cachedHeights[indexPath] = height
                 return height
             } else {
-                guard let size = message.text?.estimatedFrame(with: UIFont.systemFont(ofSize: 15),
+                guard let size = message.text?.estimatedFrame(with: UIFont.systemFont(ofSize: 17),
                                                               maxWidth: (self.view.bounds.width * 2/3) - 16)
                     else { return 0 }
                 let height = size.height + 33
@@ -303,25 +306,6 @@ extension SFChatViewController: SFTableViewChatCellDelegate {
     }
 
 }
-
-extension SFChatViewController: SFBulletinControllerDelegate {
-
-    // MARK: - Instance Methods
-
-    open func bulletinController(_ bulletinController: SFBulletinController, didTouch button: UIButton) {
-        if button == photosButton {
-            showMediaPicker(sourceType: .photoLibrary)
-        } else if button == cameraButton {
-            showMediaPicker(sourceType: .camera)
-        }
-    }
-
-}
-
-
-
-
-
 
 
 

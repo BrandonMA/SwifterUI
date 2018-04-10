@@ -19,21 +19,21 @@ open class SFChatBar: SFView {
         return CGSize(width: window.bounds.width, height: 0)
     }
 
-    open lazy var contentView: SFView = {
+    public final lazy var contentView: SFView = {
         let view = SFView(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
 
-    open lazy var textView: SFTextView = {
+    public final lazy var textView: SFTextView = {
         let textView = SFTextView(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         textView.translatesAutoresizingMaskIntoConstraints = false
-        textView.font = .systemFont(ofSize: 13)
+        textView.font = .systemFont(ofSize: 15)
         textView.layer.cornerRadius = 10
         return textView
     }()
 
-    open lazy var sendButton: SFButton = {
+    public final lazy var sendButton: SFButton = {
         let button = SFButton(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         button.setTitle("Enviar", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -42,7 +42,7 @@ open class SFChatBar: SFView {
         return button
     }()
 
-    open lazy var fileButton: SFButton = {
+    public final lazy var fileButton: SFButton = {
         let button = SFButton(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.useClearColor = true
@@ -68,29 +68,29 @@ open class SFChatBar: SFView {
     }
 
     // MARK: - Instance Methods
-
-    open override func layoutSubviews() {
-        super.layoutSubviews()
+    
+    open override func updateConstraints() {
         contentView.clipEdges(exclude: [.top])
         contentView.height(SFDimension(value: 49))
-
+        
         sendButton.clipEdges(margin: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 8),
                              exclude: [.left],
                              useSafeArea: false)
         sendButton.width(SFDimension(value: 58))
-
+        
         fileButton.clipEdges(margin: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0),
                              exclude: [.right, .left],
                              useSafeArea: false)
         fileButton.clipRight(to: .left, of: sendButton, margin: 8, useSafeArea: false)
         fileButton.width(SFDimension(value: 28))
-
+        
         textView.clipEdges(margin: UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 0),
                            exclude: [.right],
                            useSafeArea: false)
         textView.clipRight(to: .left, of: fileButton, margin: 8, useSafeArea: false)
-
+        
         clipTop(to: .top, of: contentView)
+        super.updateConstraints()
     }
 
 }

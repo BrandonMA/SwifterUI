@@ -69,6 +69,7 @@ open class SFProfileImageView: SFView {
         clipRight(to: .right, of: imageView)
         clipBottom(to: .bottom, of: closeButton)
         clipLeft(to: .left, of: imageView)
+        
         super.updateConstraints()
     }
     

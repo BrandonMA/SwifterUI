@@ -12,21 +12,22 @@ open class SFBulletinView: SFView {
     
     // MARK: - Instance Properties
     
-    private lazy var blurView: UIVisualEffectView = {
+    private final lazy var blurView: UIVisualEffectView = {
         let view = UIVisualEffectView()
         view.isUserInteractionEnabled = true
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    open lazy var backgroundView: SFView = {
+    public final lazy var backgroundView: SFView = {
         let view = SFView(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.layer.cornerRadius = 10
+        view.layer.cornerRadius = 16
+        view.addShadow(color: .black, offSet: CGSize(width: 0, height: 12), radius: 16, opacity: 0.15)
         return view
     }()
     
-    open lazy var closeButton: SFButton = {
+    public final lazy var closeButton: SFButton = {
         let button = SFButton(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         button.setImage(SFAssets.imageOfClose.withRenderingMode(.alwaysTemplate), for: .normal)
         button.useAlternativeTextColor = true
@@ -35,7 +36,7 @@ open class SFBulletinView: SFView {
         return button
     }()
     
-    open lazy var doneButton: SFButton = {
+    public final lazy var doneButton: SFButton = {
         let button = SFButton(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         button.useAlternativeTextColor = true
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -46,9 +47,9 @@ open class SFBulletinView: SFView {
         return button
     }()
     
-    open lazy var titleLabel: SFLabel = {
+    public final lazy var titleLabel: SFLabel = {
         let label = SFLabel(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
-        label.font = .boldSystemFont(ofSize: 17)
+        label.font = .boldSystemFont(ofSize: 23)
         label.text = "Titulo"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -56,11 +57,11 @@ open class SFBulletinView: SFView {
     
     open var middleView: UIView
     
-    private var buttons: [UIButton]
+    private var buttons: [SFButton] = []
     
     // MARK: - Initializers
     
-    public init(automaticallyAdjustsColorStyle: Bool = true, frame: CGRect = .zero, middleView: UIView? = nil, buttons: [UIButton] = []) {
+    public init(automaticallyAdjustsColorStyle: Bool = true, frame: CGRect = .zero, middleView: UIView? = nil, buttons: [SFButton] = []) {
         
         self.middleView = middleView ?? SFView(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle)
         self.buttons = buttons
@@ -80,11 +81,9 @@ open class SFBulletinView: SFView {
             self.middleView.translatesAutoresizingMaskIntoConstraints = false
             buttons.forEach({ (button) in
                 button.translatesAutoresizingMaskIntoConstraints = false
-                button.layer.cornerRadius = 10
+                button.layer.cornerRadius = 16
                 
-                if let sfbutton = button as? SFButton {
-                    sfbutton.addTouchAnimations = true
-                }
+                button.addTouchAnimations = true
                 
                 self.middleView.addSubview(button)
             })
@@ -103,11 +102,11 @@ open class SFBulletinView: SFView {
         
         blurView.clipEdges(useSafeArea: false)
         
-        middleView.clipRight(to: .right, margin: 8)
-        middleView.clipLeft(to: .left, margin: 8)
+        middleView.clipRight(to: .right, margin: 12)
+        middleView.clipLeft(to: .left, margin: 12)
         
         if buttons.count > 0 {
-            middleView.clipBottom(to: .bottom, margin: 8)
+            middleView.clipBottom(to: .bottom, margin: 12)
             for (index, button) in buttons.enumerated() {
                 button.clipRight(to: .right)
                 button.clipLeft(to: .left)
@@ -115,14 +114,14 @@ open class SFBulletinView: SFView {
                 if index == 0 {
                     button.clipBottom(to: .bottom)
                 } else {
-                    button.clipBottom(to: .top, of: buttons[index - 1], margin: 8)
+                    button.clipBottom(to: .top, of: buttons[index - 1], margin: 12)
                 }
                 if index == buttons.count - 1 {
                     middleView.clipTop(to: .top, of: button)
                 }
             }
         } else {
-            doneButton.clipEdges(margin: UIEdgeInsets(top: 0, left: 8, bottom: 8, right: 8), exclude: [.top])
+            doneButton.clipEdges(margin: UIEdgeInsets(top: 0, left: 12, bottom: 12, right: 12), exclude: [.top])
             doneButton.height(SFDimension(value: 48))
             middleView.clipBottom(to: .top, of: doneButton)
             middleView.height(SFDimension(value: 200))
@@ -130,14 +129,22 @@ open class SFBulletinView: SFView {
         
         closeButton.width(SFDimension(value: 32))
         closeButton.height(SFDimension(value: 32))
-        closeButton.clipBottom(to: .top, of: middleView, margin: 8)
-        closeButton.clipRight(to: .right, margin: 8)
+        closeButton.clipBottom(to: .top, of: middleView, margin: 12)
+        closeButton.clipRight(to: .right, margin: 12)
         
         titleLabel.center(axis: [.horizontal])
         titleLabel.center(axis: [.vertical], in: closeButton)
         
-        backgroundView.clipEdges(margin: UIEdgeInsets(top: 0, left: 12, bottom: 12, right: 12), exclude: [.top])
-        backgroundView.clipTop(to: .top, of: closeButton, margin: -8)
+        if useCompactInterface {
+            backgroundView.width(SFDimension(type: .fraction, value: 11/12))
+            backgroundView.clipCenterX(to: .centerX)
+        } else {
+            backgroundView.width(SFDimension(type: .fraction, value: 1/2))
+            backgroundView.clipCenterX(to: .centerX)
+        }
+        
+        backgroundView.clipBottom(to: .bottom, margin: 12)
+        backgroundView.clipTop(to: .top, of: closeButton, margin: -12)
         
         super.updateConstraints()
         

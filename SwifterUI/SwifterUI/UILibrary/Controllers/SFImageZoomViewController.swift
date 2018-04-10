@@ -10,7 +10,7 @@ import UIKit
 
 open class SFImageZoomViewController: SFViewController {
 
-    open lazy var imageZoomView: SFImageZoomView = {
+    public final lazy var imageZoomView: SFImageZoomView = {
         let view = SFImageZoomView()
         view.backgroundColor = .black
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -33,21 +33,19 @@ open class SFImageZoomViewController: SFViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    public required init(automaticallyAdjustsColorStyle: Bool) {
-        fatalError("init(automaticallyAdjustsColorStyle:) has not been implemented")
-    }
-
     open override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(imageZoomView)
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(zoomOut)))
-        statusBarIsHidden = true
         imageZoomView.contentSize = image.size
     }
 
     open override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        imageZoomView.clipEdges()
+        imageZoomView.clipTop(to: .top, useSafeArea: false)
+        imageZoomView.clipRight(to: .right)
+        imageZoomView.clipBottom(to: .bottom)
+        imageZoomView.clipLeft(to: .left)
     }
 
     open override func viewDidLayoutSubviews() {

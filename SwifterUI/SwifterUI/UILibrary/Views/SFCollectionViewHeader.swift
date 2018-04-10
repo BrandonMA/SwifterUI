@@ -8,12 +8,12 @@
 
 import UIKit
 
-open class SFCollectionViewHeader: SFCollectionViewCell {
+open class SFCollectionHeaderView: SFCollectionViewCell {
     
     // MARK: - Class Properties
     
     override open class var identifier: String {
-        return "SFCollectionViewHeader"
+        return "SFCollectionHeaderView"
     }
     
     // MARK: - Instance Properties

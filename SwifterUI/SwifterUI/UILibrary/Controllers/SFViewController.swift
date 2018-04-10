@@ -12,7 +12,7 @@ open class SFViewController: UIViewController, SFControllerColorStyle {
     
     // MARK: - Instance Properties
     
-    public final var currentColorStyle: SFColorStyle? = nil
+    open var currentColorStyle: SFColorStyle? = nil
     
     open var automaticallyAdjustsColorStyle: Bool = false {
         didSet {
@@ -50,7 +50,7 @@ open class SFViewController: UIViewController, SFControllerColorStyle {
     
     // MARK: - Initializers
     
-    public required init(automaticallyAdjustsColorStyle: Bool = true) {
+    public init(automaticallyAdjustsColorStyle: Bool = true) {
         self.automaticallyAdjustsColorStyle = automaticallyAdjustsColorStyle
         self.automaticallyTintNavigationBar = automaticallyAdjustsColorStyle
         super.init(nibName: nil, bundle: nil)
@@ -83,6 +83,26 @@ open class SFViewController: UIViewController, SFControllerColorStyle {
         if currentColorStyle != self.colorStyle || self.currentColorStyle == nil {
             updateColors()
         }
+    }
+    
+    open override func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil) {
+        
+        if viewControllerToPresent.isKind(of: SFBulletinController.self) || viewControllerToPresent.isKind(of: SFAlertViewController.self) {
+            viewControllerToPresent.modalPresentationStyle = .overFullScreen
+            viewControllerToPresent.modalTransitionStyle = .crossDissolve
+            super.present(viewControllerToPresent, animated: flag, completion: completion)
+            return
+        }
+        
+        if viewControllerToPresent.isKind(of: SFPopViewController.self) {
+            let manager = SFPresentationManager(animation: .pop)
+            viewControllerToPresent.transitioningDelegate = manager
+            viewControllerToPresent.modalPresentationStyle = .custom
+            super.present(viewControllerToPresent, animated: flag, completion: completion)
+            return
+        }
+        
+        super.present(viewControllerToPresent, animated: flag, completion: completion)
     }
     
     open func updateColors() {

@@ -39,7 +39,7 @@ open class SFCollectionView: UICollectionView, SFViewColorStyle {
             if numberOfSections >= 0 {
                 for i in 0...numberOfSections {
                     
-                    if let header = supplementaryView(forElementKind: UICollectionElementKindSectionHeader, at: IndexPath(row: 0, section: i)) as? SFCollectionViewHeader {
+                    if let header = supplementaryView(forElementKind: UICollectionElementKindSectionHeader, at: IndexPath(row: 0, section: i)) as? SFCollectionHeaderView {
                         header.updateColors()
                     }
                     

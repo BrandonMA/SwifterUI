@@ -12,7 +12,7 @@ public extension UIViewController {
 
     // MARK: - Instance Methods
 
-    public func showError(title: String? = nil, message: String? = nil) {
+    public final func showError(title: String? = nil, message: String? = nil) {
         let errorTitle = title ?? "Error"
         let errorMessage = message ?? "Ocurrio un problema, intente de nuevo por favor"
         let ok = "Entendido"

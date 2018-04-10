@@ -12,7 +12,7 @@ open class SFTextSection: SFSection {
     
     // MARK: - Instance Properties
     
-    public var textField: SFTextField {
+    public final var textField: SFTextField {
         return bottomView as! SFTextField
     }
     
@@ -24,15 +24,21 @@ open class SFTextSection: SFSection {
         }
     }
     
-    open override lazy var bottomView: UIView = {
-        let textField = SFTextField(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
+    // MARK: - Initializer
+    
+    public init(automaticallyAdjustsColorStyle: Bool = true, frame: CGRect = .zero) {
+        let textField = SFTextField(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle)
         textField.font = UIFont.systemFont(ofSize: 15)
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.layer.cornerRadius = 10
         textField.leftPadding = 8
         textField.rightPadding = 8
-        return textField
-    }()
+        super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, frame: frame, bottomView: textField)
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - Instance Methods
     

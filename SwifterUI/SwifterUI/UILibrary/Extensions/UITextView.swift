@@ -13,7 +13,7 @@ public extension UITextView {
     // MARK: - Instance Methods
 
     // Use this function to update height constraint automatically, just call it whenever the user trype something
-    public func updateHeightConstraint() {
+    public final func updateHeightConstraint() {
         let sizeThatFitsTextView = sizeThatFits(CGSize(width: frame.size.width, height: CGFloat(MAXFLOAT)))
         if frame.size.height < sizeThatFitsTextView.height {
             get(constraintType: .height)?.constant = sizeThatFitsTextView.height

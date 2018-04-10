@@ -24,7 +24,7 @@ public extension UIView {
 
     // MARK: - Getting and Removing Constraints
 
-    public func getAllConstraints() -> Constraints {
+    public final func getAllConstraints() -> Constraints {
 
         var constraints: Constraints = []
 
@@ -49,7 +49,7 @@ public extension UIView {
         return constraints
     }
 
-    public func removeAllConstraints() {
+    public final func removeAllConstraints() {
         guard let superview = superview else { return }
         let constraints = getAllConstraints()
         constraints.forEach { (constraint) in
@@ -58,7 +58,7 @@ public extension UIView {
         }
     }
 
-    public func get(constraintType: ConstraintType) -> Constraint? {
+    public final func get(constraintType: ConstraintType) -> Constraint? {
 
         for constraint in self.constraints {
             if let view = constraint.firstItem as? UIView {
@@ -85,7 +85,7 @@ public extension UIView {
         return nil
     }
 
-    public func remove(constraintType: ConstraintType) {
+    public final func remove(constraintType: ConstraintType) {
         guard let superview = superview else { fatalError() }
         if let oldConstraint = get(constraintType: constraintType) {
             removeConstraint(oldConstraint)
@@ -120,7 +120,7 @@ public extension UIView {
     }
 
     @discardableResult
-    public func height(_ height: SFDimension? = nil,
+    public final func height(_ height: SFDimension? = nil,
                        comparedTo view: UIView? = nil,
                        relation: ConstraintRelation = .equal) -> Constraint {
 
@@ -144,7 +144,7 @@ public extension UIView {
     }
 
     @discardableResult
-    public func width(_ width: SFDimension? = nil,
+    public final func width(_ width: SFDimension? = nil,
                       comparedTo view: UIView? = nil,
                       relation: ConstraintRelation = .equal) -> Constraint {
 
@@ -253,7 +253,7 @@ public extension UIView {
     }
 
     @discardableResult
-    public func clipCenterX(to edge: ConstraintEdge,
+    public final func clipCenterX(to edge: ConstraintEdge,
                             of view: UIView? = nil,
                             margin: CGFloat = 0,
                             relation: ConstraintRelation = .equal,
@@ -268,7 +268,7 @@ public extension UIView {
     }
 
     @discardableResult
-    public func clipCenterY(to edge: ConstraintEdge,
+    public final func clipCenterY(to edge: ConstraintEdge,
                             of view: UIView? = nil,
                             margin: CGFloat = 0,
                             relation: ConstraintRelation = .equal,
@@ -283,7 +283,7 @@ public extension UIView {
     }
 
     @discardableResult
-    public func clipTop(to edge: ConstraintEdge,
+    public final func clipTop(to edge: ConstraintEdge,
                         of view: UIView? = nil,
                         margin: CGFloat = 0,
                         relation: ConstraintRelation = .equal,
@@ -298,7 +298,7 @@ public extension UIView {
     }
 
     @discardableResult
-    public func clipRight(to edge: ConstraintEdge,
+    public final func clipRight(to edge: ConstraintEdge,
                           of view: UIView? = nil,
                           margin: CGFloat = 0,
                           relation: ConstraintRelation = .equal,
@@ -314,7 +314,7 @@ public extension UIView {
     }
 
     @discardableResult
-    public func clipBottom(to edge: ConstraintEdge,
+    public final func clipBottom(to edge: ConstraintEdge,
                            of view: UIView? = nil,
                            margin: CGFloat = 0,
                            relation: ConstraintRelation = .equal,
@@ -330,7 +330,7 @@ public extension UIView {
     }
 
     @discardableResult
-    public func clipLeft(to edge: ConstraintEdge,
+    public final func clipLeft(to edge: ConstraintEdge,
                          of view: UIView? = nil,
                          margin: CGFloat = 0,
                          relation: ConstraintRelation = .equal,
@@ -347,7 +347,7 @@ public extension UIView {
     // MARK: - Center
 
     @discardableResult
-    public func center(axis: [ConstraintAxis] = [.horizontal, .vertical],
+    public final func center(axis: [ConstraintAxis] = [.horizontal, .vertical],
                        in view: UIView? = nil,
                        offSet: CGPoint = .zero) -> [Constraint?] {
 
@@ -377,7 +377,7 @@ public extension UIView {
     // MARK: - Clip multiple edges
 
     @discardableResult
-    public func clipEdges(to view: UIView? = nil,
+    public final func clipEdges(to view: UIView? = nil,
                           margin: UIEdgeInsets = .zero,
                           exclude: [ConstraintEdge] = [],
                           relation: ConstraintRelation = .equal,

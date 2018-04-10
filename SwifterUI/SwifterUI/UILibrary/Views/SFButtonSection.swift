@@ -32,16 +32,22 @@ open class SFButtonSection: SFSection {
         return bottomView as! SFButton
     }
     
-    open override lazy var bottomView: UIView = {
-        let button = SFButton(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
+    // MARK: - Initializer
+    
+    public init(automaticallyAdjustsColorStyle: Bool = true, frame: CGRect = .zero) {
+        let button = SFButton(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle)
         button.rightImageView.image = SFAssets.imageOfArrowRight.withRenderingMode(.alwaysTemplate)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 10
         button.contentHorizontalAlignment = UIControlContentHorizontalAlignment.left
         button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 0)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 15)
-        return button
-    }()
+        super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, frame: frame, bottomView: button)
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - Instance Methods
     

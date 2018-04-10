@@ -12,7 +12,7 @@ public extension UITableView {
 
     // MARK: - Instance Methods
 
-    public func scrollToBottom(animated: Bool = true) {
+    public final func scrollToBottom(animated: Bool = true) {
         let lastSection = numberOfSections - 1
         if lastSection >= 0 {
             let lastRow = numberOfRows(inSection: lastSection) - 1

@@ -18,9 +18,18 @@ class View: SFView {
         return button
     }()
     
+    lazy var textView: SFTextScrollSection = {
+        let section = SFTextScrollSection(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
+        section.translatesAutoresizingMaskIntoConstraints = false
+        section.titleLabel.text = "Prueba"
+        section.textView.text = "dhsaldufhasliufhasdilufhadilusfhasiludhfliuasdhfiluasdhfuilasdhf liasudhflaisudfhasldiufhalisu aiudhfalsdiufhasdlif asiludfhaslidufhas liasdufasjfbasd.mnf asdlh clashvflasidfgasdlkf asdlhf as dfiabdfñiasdbfakns dflhas dy"
+        return section
+    }()
+    
     override init(automaticallyAdjustsColorStyle: Bool = true, frame: CGRect = .zero) {
         super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, frame: frame)
         addSubview(button)
+        addSubview(textView)
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -36,6 +45,10 @@ class View: SFView {
         button.center()
         button.height(SFDimension(value: 100))
         button.width(SFDimension(value: 100))
+        textView.clipLeft(to: .left)
+        textView.clipRight(to: .right)
+        textView.clipBottom(to: .top, of: button, margin: 16)
+        textView.height(SFDimension(value: 58))
         super.updateConstraints()
     }
     

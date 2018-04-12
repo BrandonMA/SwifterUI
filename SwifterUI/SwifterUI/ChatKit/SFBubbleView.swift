@@ -8,11 +8,11 @@
 
 import UIKit
 
-open class SFBubbleView: SFView {
+public final class SFBubbleView: SFView {
 
     // MARK: - Instance Methods
 
-    open override func updateColors() {
+    public final override func updateColors() {
         backgroundColor = useAlternativeColors ? colorStyle.getInteractiveColor() : colorStyle.getMainColor()
         updateSubviewsColors()
     }

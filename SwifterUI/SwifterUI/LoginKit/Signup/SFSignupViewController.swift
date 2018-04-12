@@ -31,10 +31,10 @@ open class SFSignupViewController: SFViewController {
     }
 
     @objc private func signUpButtonDidTouch() {
-        guard let name = signupView.nameSection.getText() else { return }
-        guard let lastName = signupView.lastNameSection.getText() else { return }
-        guard let email = signupView.mailSection.getText() else { return }
-        guard let password = signupView.passwordSection.getText() else { return }
+        guard let name = signupView.nameSection.text else { return }
+        guard let lastName = signupView.lastNameSection.text else { return }
+        guard let email = signupView.mailSection.text else { return }
+        guard let password = signupView.passwordSection.text else { return }
         signup(with: name, lastname: lastName, email: email, password: password)
     }
 

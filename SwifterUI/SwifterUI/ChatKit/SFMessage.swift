@@ -34,13 +34,7 @@ open class SFMessage: Codable {
 
     // MARK: - Initializers
 
-    public required init(senderIdentifier: String,
-                         text: String? = nil,
-                         image: UIImage? = nil,
-                         videoURL: URL? = nil,
-                         fileURL: URL? = nil,
-                         timestamp: Date,
-                         isMine: Bool) {
+    public required init(senderIdentifier: String, text: String? = nil, image: UIImage? = nil, videoURL: URL? = nil, fileURL: URL? = nil, timestamp: Date, isMine: Bool) {
         self.identifier = ""
         self.senderIdentifier = senderIdentifier
         self.text = text

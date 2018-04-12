@@ -33,8 +33,8 @@ open class SFLoginViewController: SFViewController {
     }
 
     @objc private func logInButtonDidTouch() {
-        guard let email = loginView.mailSection.getText() else { return }
-        guard let password = loginView.passwordSection.getText() else { return }
+        guard let email = loginView.mailSection.text else { return }
+        guard let password = loginView.passwordSection.text else { return }
         login(with: email, password: password)
     }
 

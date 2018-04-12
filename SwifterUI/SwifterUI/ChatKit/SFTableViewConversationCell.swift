@@ -26,14 +26,14 @@ open class SFTableViewConversationCell: SFTableViewCell {
         let imageView = UIImageView()
         imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.layer.cornerRadius = 20
+        imageView.layer.cornerRadius = 24
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
 
     open lazy var nameLabel: SFLabel = {
         let label = SFLabel(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
-        label.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
+        label.font = UIFont.systemFont(ofSize: 19, weight: .semibold)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
         return label
@@ -42,7 +42,7 @@ open class SFTableViewConversationCell: SFTableViewCell {
     open lazy var messageLabel: SFLabel = {
         let label = SFLabel(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         label.useAlternativeColors = true
-        label.font = UIFont.systemFont(ofSize: 13)
+        label.font = UIFont.systemFont(ofSize: 15)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -82,8 +82,8 @@ open class SFTableViewConversationCell: SFTableViewCell {
 
     open override func layoutSubviews() {
         super.layoutSubviews()
-        profileImageView.height(SFDimension(value: 40))
-        profileImageView.width(SFDimension(value: 40))
+        profileImageView.height(SFDimension(value: 48))
+        profileImageView.width(SFDimension(value: 48))
         profileImageView.clipLeft(to: .left, margin: 12)
         profileImageView.center(axis: [.vertical])
 

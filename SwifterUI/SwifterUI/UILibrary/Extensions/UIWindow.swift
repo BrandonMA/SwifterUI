@@ -12,7 +12,7 @@ import PromiseKit
 public extension UIWindow {
 
     // MARK: - Static Methods
-
+    
     public static func getVisibleViewControllerFrom(_ viewController: UIViewController?) -> UIViewController? {
         if let navigationController = viewController as? UINavigationController {
             return UIWindow.getVisibleViewControllerFrom(navigationController.visibleViewController)

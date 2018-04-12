@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		16208BB3E59F12DA0F39EDC2 /* Pods_SwifterUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B0230C9F419D0411D02E8AB /* Pods_SwifterUI.framework */; };
 		1FAA548F9B3DB61CF5B675FE /* Pods_SwifterUIUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C79BEACC89055D0892977B0E /* Pods_SwifterUIUITests.framework */; };
+		420AFCE52080189400D9D778 /* SFTextScrollSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420AFCE42080189400D9D778 /* SFTextScrollSection.swift */; };
+		420AFCE7208026CC00D9D778 /* SFStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420AFCE6208026CC00D9D778 /* SFStackView.swift */; };
 		4223C5171FE7A0C300A2E2F2 /* ConstraintRelation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4223C5161FE7A0C300A2E2F2 /* ConstraintRelation.swift */; };
 		42289AE2203481A30095FF5C /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42289AE1203481A30095FF5C /* String.swift */; };
 		42289AE4203481C70095FF5C /* UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42289AE3203481C70095FF5C /* UITableView.swift */; };
@@ -72,7 +74,6 @@
 		42A42EBA1FF1BA36002FE4A7 /* SFGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A42EB91FF1BA36002FE4A7 /* SFGradient.swift */; };
 		42A42EBC1FF1BA3A002FE4A7 /* SFGradientDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A42EBB1FF1BA39002FE4A7 /* SFGradientDirection.swift */; };
 		42A42EBF1FF1BC81002FE4A7 /* SFGradientReady.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A42EBE1FF1BC81002FE4A7 /* SFGradientReady.swift */; };
-		42A42EC11FF1C118002FE4A7 /* SFVideoPlayerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A42EC01FF1C118002FE4A7 /* SFVideoPlayerDelegate.swift */; };
 		42A42EC31FF1C13E002FE4A7 /* SFVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A42EC21FF1C13E002FE4A7 /* SFVideoView.swift */; };
 		42A67AC620411B3B00F2FF3E /* UIWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A67AC520411B3B00F2FF3E /* UIWindow.swift */; };
 		42A8CA6720608CB7004250A1 /* SFCollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A8CA6620608CB7004250A1 /* SFCollectionViewHeader.swift */; };
@@ -133,6 +134,8 @@
 		170AABA9ED1D1AF4C192523D /* Pods-SwifterUIUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwifterUIUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwifterUIUITests/Pods-SwifterUIUITests.release.xcconfig"; sourceTree = "<group>"; };
 		1A9CD7FA1F40C94061326184 /* Pods-SwifterUI.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwifterUI.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SwifterUI/Pods-SwifterUI.debug.xcconfig"; sourceTree = "<group>"; };
 		3B0230C9F419D0411D02E8AB /* Pods_SwifterUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwifterUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		420AFCE42080189400D9D778 /* SFTextScrollSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFTextScrollSection.swift; sourceTree = "<group>"; };
+		420AFCE6208026CC00D9D778 /* SFStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFStackView.swift; sourceTree = "<group>"; };
 		4223C5161FE7A0C300A2E2F2 /* ConstraintRelation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstraintRelation.swift; sourceTree = "<group>"; };
 		42289AE1203481A30095FF5C /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		42289AE3203481C70095FF5C /* UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableView.swift; sourceTree = "<group>"; };
@@ -202,7 +205,6 @@
 		42A42EB91FF1BA36002FE4A7 /* SFGradient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFGradient.swift; sourceTree = "<group>"; };
 		42A42EBB1FF1BA39002FE4A7 /* SFGradientDirection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFGradientDirection.swift; sourceTree = "<group>"; };
 		42A42EBE1FF1BC81002FE4A7 /* SFGradientReady.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFGradientReady.swift; sourceTree = "<group>"; };
-		42A42EC01FF1C118002FE4A7 /* SFVideoPlayerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFVideoPlayerDelegate.swift; sourceTree = "<group>"; };
 		42A42EC21FF1C13E002FE4A7 /* SFVideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFVideoView.swift; sourceTree = "<group>"; };
 		42A67AC520411B3B00F2FF3E /* UIWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIWindow.swift; sourceTree = "<group>"; };
 		42A8CA6620608CB7004250A1 /* SFCollectionViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFCollectionViewHeader.swift; sourceTree = "<group>"; };
@@ -431,6 +433,7 @@
 			isa = PBXGroup;
 			children = (
 				42A42EB41FF1B295002FE4A7 /* SFView.swift */,
+				420AFCE6208026CC00D9D778 /* SFStackView.swift */,
 				42B7B27C203A611E004B5C6E /* SFScrollView.swift */,
 				42D34C74202FAF10002B6FA6 /* SFPopView.swift */,
 				42795F63202FB55300C3767F /* SFPopBar.swift */,
@@ -447,6 +450,7 @@
 				42D34C6C202F6ECE002B6FA6 /* SFSection.swift */,
 				42D34C66202F5FA3002B6FA6 /* SFTextSection.swift */,
 				42834C0B20465964009CFE22 /* SFButtonSection.swift */,
+				420AFCE42080189400D9D778 /* SFTextScrollSection.swift */,
 				42DBF1A3203754E900F4BB6F /* SFBulletinView.swift */,
 				42F3877F207B16AC00DAD4BC /* SFAlertView.swift */,
 				424D5A682045ECF000C029E1 /* SFProfileImageView.swift */,
@@ -470,7 +474,6 @@
 		42A499F32022A64F00131324 /* SFVideo */ = {
 			isa = PBXGroup;
 			children = (
-				42A42EC01FF1C118002FE4A7 /* SFVideoPlayerDelegate.swift */,
 				42A42EC21FF1C13E002FE4A7 /* SFVideoView.swift */,
 			);
 			path = SFVideo;
@@ -794,7 +797,6 @@
 				423AAC281FE76B57009D6C39 /* SFDimension.swift in Sources */,
 				42C2E17D20422DCA00087B3C /* UIViewController.swift in Sources */,
 				424BE0BF1FF45B18005DE2AD /* UIColor.swift in Sources */,
-				42A42EC11FF1C118002FE4A7 /* SFVideoPlayerDelegate.swift in Sources */,
 				42BFCFC420537CA700111E17 /* Array.swift in Sources */,
 				42CB6AFE203603060080EFB8 /* SFTableViewChatCell.swift in Sources */,
 				42446779202AC83000F59892 /* SFButton.swift in Sources */,
@@ -814,11 +816,13 @@
 				424E2C75202378EA00F9A4E2 /* UITextView.swift in Sources */,
 				429FD4911FED7EDC00FD7F10 /* UIImageView.swift in Sources */,
 				42838206206DA49000039F66 /* SFImageZoomViewController.swift in Sources */,
+				420AFCE52080189400D9D778 /* SFTextScrollSection.swift in Sources */,
 				42834C0C20465964009CFE22 /* SFButtonSection.swift in Sources */,
 				424BE0BB1FF45AD7005DE2AD /* UIFont.swift in Sources */,
 				429FD4931FED89C200FD7F10 /* SFAnimationCurve.swift in Sources */,
 				42A42EA91FF1A95F002FE4A7 /* SFColorStyleProtocol.swift in Sources */,
 				42A1A86E1FEA2918009B888C /* Bool.swift in Sources */,
+				420AFCE7208026CC00D9D778 /* SFStackView.swift in Sources */,
 				42A42EAB1FF1A9AB002FE4A7 /* SFColorStyle.swift in Sources */,
 				42CDA9BD20361BDE0046791D /* SFChatBar.swift in Sources */,
 				424BE0C11FF45B2D005DE2AD /* Date.swift in Sources */,

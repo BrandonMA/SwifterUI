@@ -29,33 +29,33 @@ public extension SFTableViewChatCellDelegate {
 
 }
 
-open class SFTableViewChatCell: SFTableViewCell {
+public final class SFTableViewChatCell: SFTableViewCell {
 
     // MARK: - Class Properties
 
-    open override class var height: CGFloat {
+    public final override class var height: CGFloat {
         return 0
     }
 
-    open override class var identifier: String {
+    public final override class var identifier: String {
         return "SFTableViewChatCell"
     }
 
     // MARK: - Instance Properties
 
-    open weak var delegate: SFTableViewChatCellDelegate?
+    public final weak var delegate: SFTableViewChatCellDelegate?
 
-    open var isMine: Bool = false
-    open var width: CGFloat = 0
+    public final var isMine: Bool = false
+    public final var width: CGFloat = 0
 
-    open lazy var bubbleView: SFBubbleView = {
+    public final lazy var bubbleView: SFBubbleView = {
         let view = SFBubbleView(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 10
         return view
     }()
 
-    open lazy var messageLabel: SFLabel = {
+    public final lazy var messageLabel: SFLabel = {
         let label = SFLabel(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         label.font = UIFont.systemFont(ofSize: 17)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -63,7 +63,7 @@ open class SFTableViewChatCell: SFTableViewCell {
         return label
     }()
 
-    open lazy var messageImageView: UIImageView = {
+    public final lazy var messageImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -72,7 +72,7 @@ open class SFTableViewChatCell: SFTableViewCell {
         return imageView
     }()
 
-    open lazy var messageVideoView: SFVideoView = {
+    public final lazy var messageVideoView: SFVideoView = {
         let videoView = SFVideoView(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         videoView.translatesAutoresizingMaskIntoConstraints = false
         return videoView
@@ -95,7 +95,7 @@ open class SFTableViewChatCell: SFTableViewCell {
 
     // MARK: - Instance Methods
 
-    @objc open func didTouchImageView() {
+    @objc public final func didTouchImageView() {
         if messageImageView.superview == window {
             zoomOut()
         } else {
@@ -103,7 +103,7 @@ open class SFTableViewChatCell: SFTableViewCell {
         }
     }
 
-    open func zoomIn() {
+    public final func zoomIn() {
         guard let window = UIApplication.shared.keyWindow else { return }
         messageImageView.removeAllConstraints()
         messageImageView.frame = window.convert(messageImageView.bounds, from: messageImageView)
@@ -117,7 +117,7 @@ open class SFTableViewChatCell: SFTableViewCell {
         })
     }
 
-    open func zoomOut() {
+    public final func zoomOut() {
         UIView.animate(withDuration: 0.4, animations: {
             self.messageImageView.frame = self.initialFrame
         }, completion: { (_) in
@@ -127,13 +127,13 @@ open class SFTableViewChatCell: SFTableViewCell {
         })
     }
 
-    open override func prepareForReuse() {
+    public final override func prepareForReuse() {
         messageVideoView.removeFromSuperview()
         messageImageView.removeFromSuperview()
         super.prepareForReuse()
     }
 
-    open override func layoutSubviews() {
+    public final override func layoutSubviews() {
         super.layoutSubviews()
         bubbleView.remove(constraintType: .width)
         bubbleView.remove(constraintType: .left)
@@ -162,7 +162,7 @@ open class SFTableViewChatCell: SFTableViewCell {
         }
     }
 
-    open override func updateColors() {
+    public final override func updateColors() {
         if self.bubbleView.useAlternativeColors {
             messageLabel.automaticallyAdjustsColorStyle = false
             messageLabel.textColor = .white

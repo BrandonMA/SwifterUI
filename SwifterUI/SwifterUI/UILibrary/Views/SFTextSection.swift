@@ -8,7 +8,7 @@
 
 import UIKit
 
-open class SFTextSection: SFSection {
+public final class SFTextSection: SFSection {
     
     // MARK: - Instance Properties
     
@@ -16,11 +16,25 @@ open class SFTextSection: SFSection {
         return bottomView as! SFTextField
     }
     
-    open var usePickerMode: Bool = false {
+    public final var usePickerMode: Bool = false {
         didSet {
             if usePickerMode {
                 textField.rightImage = SFAssets.imageOfArrowRight.withRenderingMode(.alwaysTemplate)
             }
+        }
+    }
+    
+    public override final var text: String? {
+        guard let text = textField.text else {
+            SFWobbleAnimation(with: self).start()
+            return nil
+        }
+        
+        if text != "" {
+            return text
+        } else {
+            SFWobbleAnimation(with: self).start()
+            return nil
         }
     }
     
@@ -41,20 +55,6 @@ open class SFTextSection: SFSection {
     }
     
     // MARK: - Instance Methods
-    
-    open override func getText() -> String? {
-        guard let text = textField.text else {
-            SFWobbleAnimation(with: self).start()
-            return nil
-        }
-        
-        if text != "" {
-            return text
-        } else {
-            SFWobbleAnimation(with: self).start()
-            return nil
-        }
-    }
     
 }
 

@@ -8,11 +8,11 @@
 
 import UIKit
 
-open class SFButtonSection: SFSection {
+public final class SFButtonSection: SFSection {
     
     // MARK: - Instance Properties
     
-    open var placeholder: String = "" {
+    public final var placeholder: String = "" {
         didSet {
             button.useAlternativeTextColor = true
             button.setTitle(placeholder, for: .normal)
@@ -20,7 +20,7 @@ open class SFButtonSection: SFSection {
         }
     }
     
-    open var title: String = "" {
+    public final var title: String = "" {
         didSet {
             button.useAlternativeTextColor = false
             button.setTitle(title, for: .normal)
@@ -28,8 +28,17 @@ open class SFButtonSection: SFSection {
         }
     }
     
-    open var button: SFButton {
+    public final var button: SFButton {
         return bottomView as! SFButton
+    }
+    
+    public override final var text: String? {
+        if title != "" {
+            return title
+        } else {
+            SFWobbleAnimation(with: self).start()
+            return nil
+        }
     }
     
     // MARK: - Initializer
@@ -50,17 +59,6 @@ open class SFButtonSection: SFSection {
     }
     
     // MARK: - Instance Methods
-    
-    open override func getText() -> String? {
-        
-        if title != "" {
-            return title
-        } else {
-            SFWobbleAnimation(with: self).start()
-            return nil
-        }
-    }
-    
 }
 
 

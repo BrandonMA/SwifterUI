@@ -17,18 +17,32 @@ open class SFSection: SFView {
         label.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
+        label.numberOfLines = 1
         return label
     }()
     
+    private lazy var stackView: SFStackView = {
+        let stack = SFStackView(arrangedSubviews: [titleLabel, bottomView])
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.spacing = 8
+        stack.axis = .vertical
+        return stack
+    }()
+    
     open var bottomView: UIView
+    
+    open var text: String? {
+        return nil
+    }
     
     // MARK: - Initializers
     
     public init(automaticallyAdjustsColorStyle: Bool = true, frame: CGRect = .zero, bottomView: UIView) {
         self.bottomView = bottomView
         super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, frame: frame)
-        addSubview(titleLabel)
-        addSubview(bottomView)
+        addSubview(stackView)
+        titleLabel.setContentHuggingPriority(.init(251), for: .vertical)
+        bottomView.setContentHuggingPriority(.init(250), for: .vertical)
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -38,21 +52,13 @@ open class SFSection: SFView {
     // MARK: - Instance Methods
     
     open override func updateConstraints() {
-        titleLabel.clipEdges(exclude: [.bottom])
-        bottomView.height(SFDimension(value: 34))
-        bottomView.clipEdges(exclude: [.top, .bottom])
-        bottomView.clipTop(to: .bottom, of: titleLabel, margin: 8)
-        clipBottom(to: .bottom, of: bottomView)
+        stackView.clipEdges()
         super.updateConstraints()
     }
     
     open override func updateColors() {
         backgroundColor = .clear
         updateSubviewsColors()
-    }
-    
-    open func getText() -> String? {
-        return nil
     }
 }
 

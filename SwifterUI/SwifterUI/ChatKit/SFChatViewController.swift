@@ -9,13 +9,7 @@
 import UIKit
 import MobileCoreServices
 
-open class SFChatViewController<MessageType: SFMessage>:
-    SFViewController,
-    UITableViewDataSource,
-    UITableViewDelegate,
-    UIImagePickerControllerDelegate,
-    UINavigationControllerDelegate,
-SFVideoPlayerDelegate {
+open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, SFVideoPlayerDelegate {
 
     // MARK: - Instance Properties
 

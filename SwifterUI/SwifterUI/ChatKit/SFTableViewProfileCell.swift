@@ -32,7 +32,7 @@ open class SFTableViewProfileCell: SFTableViewCell {
 
     open lazy var nameLabel: SFLabel = {
         let label = SFLabel(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
-        label.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
+        label.font = UIFont.systemFont(ofSize: 19, weight: .semibold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()

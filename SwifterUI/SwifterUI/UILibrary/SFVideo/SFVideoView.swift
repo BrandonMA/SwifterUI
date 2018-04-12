@@ -9,13 +9,31 @@
 import UIKit
 import AVKit
 
-open class SFVideoView: SFView {
+public protocol SFVideoPlayerDelegate: class {
+    
+    // MARK: - Instance Methods
+    
+    func prepare(mediaController: UIViewController)
+}
+
+public extension SFVideoPlayerDelegate where Self: UIViewController {
+    
+    // MARK: - Instance Methods
+    
+    public func prepare(mediaController: UIViewController) {
+        mediaController.didMove(toParentViewController: self)
+        self.addChildViewController(mediaController)
+    }
+}
+
+
+public final class SFVideoView: SFView {
 
     // MARK: - Instance Properties
 
-    open var videoView: UIView? = nil
+    public final var videoView: UIView? = nil
 
-    open var url: URL? = nil {
+    public final var url: URL? = nil {
         didSet {
             DispatchQueue.addAsyncTask(to: .background) {
                 guard let url = self.url else {
@@ -29,9 +47,9 @@ open class SFVideoView: SFView {
         }
     }
 
-    open var controller = AVPlayerViewController()
+    public final var controller = AVPlayerViewController()
 
-    open var player: AVPlayer? {
+    public final var player: AVPlayer? {
         didSet {
             DispatchQueue.addAsyncTask(to: .main) {
                 self.controller.player = self.player
@@ -40,7 +58,7 @@ open class SFVideoView: SFView {
         }
     }
 
-    open weak var delegate: SFVideoPlayerDelegate? = nil
+    public final weak var delegate: SFVideoPlayerDelegate? = nil
 
     public override init(automaticallyAdjustsColorStyle: Bool = true, frame: CGRect = .zero) {
         super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, frame: frame)
@@ -54,7 +72,7 @@ open class SFVideoView: SFView {
 
     // MARK: - Instance Methods
 
-    open func prepareVideoView() {
+    public final func prepareVideoView() {
         delegate?.prepare(mediaController: controller)
         videoView = controller.view
         addSubview(videoView!)

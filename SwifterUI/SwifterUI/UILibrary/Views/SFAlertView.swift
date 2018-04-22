@@ -53,6 +53,7 @@ open class SFAlertView: SFView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
         label.useAlternativeColors = true
+        label.numberOfLines = 0
         return label
     }()
     

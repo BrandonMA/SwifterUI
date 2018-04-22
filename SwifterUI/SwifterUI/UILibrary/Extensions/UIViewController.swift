@@ -15,11 +15,9 @@ public extension UIViewController {
     public final func showError(title: String? = nil, message: String? = nil) {
         let errorTitle = title ?? "Error"
         let errorMessage = message ?? "Ocurrio un problema, intente de nuevo por favor"
-        let ok = "Entendido"
-        let alert = UIAlertController(title: errorTitle,
-                                      message: errorMessage,
-                                      preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title: ok, style: .default, handler: nil))
-        self.present(alert, animated: true, completion: nil)
+        let button = SFButton()
+        button.setTitle("Entendido", for: .normal)
+        let alert = SFAlertViewController(title: errorTitle, message: errorMessage, buttons: [button])
+        self.present(alert, animated: true)
     }
 }

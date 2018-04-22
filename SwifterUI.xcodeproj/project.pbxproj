@@ -31,6 +31,7 @@
 		423AAC2A1FE770D5009D6C39 /* Constraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423AAC291FE770D5009D6C39 /* Constraint.swift */; };
 		423AAC2C1FE770E6009D6C39 /* Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423AAC2B1FE770E6009D6C39 /* Constraints.swift */; };
 		423F0B691FE9BD8300BF746C /* SFAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423F0B681FE9BD8300BF746C /* SFAnimation.swift */; };
+		424426CB208CC72000AAFCCC /* SFAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424426CA208CC71F00AAFCCC /* SFAssets.swift */; };
 		4244674F202A9FE900F59892 /* SFTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4244674E202A9FE900F59892 /* SFTableView.swift */; };
 		42446773202AC27F00F59892 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42446772202AC27F00F59892 /* UIView.swift */; };
 		42446775202AC2BB00F59892 /* SFTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42446774202AC2BB00F59892 /* SFTextField.swift */; };
@@ -90,7 +91,6 @@
 		42C67252205CD7DE00DA4BCB /* SFDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C67251205CD7DE00DA4BCB /* SFDatePicker.swift */; };
 		42C701B12016834E00EBFBE2 /* SFPopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C701B02016834E00EBFBE2 /* SFPopViewController.swift */; };
 		42C701B42016839500EBFBE2 /* SFPresentationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C701B32016839500EBFBE2 /* SFPresentationManager.swift */; };
-		42C7D683202FEAAE006B62A1 /* SFAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C7D682202FEAAE006B62A1 /* SFAssets.swift */; };
 		42CB47AF20371962008C4AE6 /* SFChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CB47AE20371962008C4AE6 /* SFChatView.swift */; };
 		42CB6AFC203602870080EFB8 /* SFMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CB6AFB203602870080EFB8 /* SFMessage.swift */; };
 		42CB6AFE203603060080EFB8 /* SFTableViewChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CB6AFD203603060080EFB8 /* SFTableViewChatCell.swift */; };
@@ -162,6 +162,7 @@
 		423AAC291FE770D5009D6C39 /* Constraint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constraint.swift; sourceTree = "<group>"; };
 		423AAC2B1FE770E6009D6C39 /* Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constraints.swift; sourceTree = "<group>"; };
 		423F0B681FE9BD8300BF746C /* SFAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFAnimation.swift; sourceTree = "<group>"; };
+		424426CA208CC71F00AAFCCC /* SFAssets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFAssets.swift; sourceTree = "<group>"; };
 		4244674E202A9FE900F59892 /* SFTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFTableView.swift; sourceTree = "<group>"; };
 		42446772202AC27F00F59892 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		42446774202AC2BB00F59892 /* SFTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFTextField.swift; sourceTree = "<group>"; };
@@ -221,7 +222,6 @@
 		42C67251205CD7DE00DA4BCB /* SFDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFDatePicker.swift; sourceTree = "<group>"; };
 		42C701B02016834E00EBFBE2 /* SFPopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFPopViewController.swift; sourceTree = "<group>"; };
 		42C701B32016839500EBFBE2 /* SFPresentationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFPresentationManager.swift; sourceTree = "<group>"; };
-		42C7D682202FEAAE006B62A1 /* SFAssets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFAssets.swift; sourceTree = "<group>"; };
 		42CB47AE20371962008C4AE6 /* SFChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFChatView.swift; sourceTree = "<group>"; };
 		42CB6AFB203602870080EFB8 /* SFMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFMessage.swift; sourceTree = "<group>"; };
 		42CB6AFD203603060080EFB8 /* SFTableViewChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFTableViewChatCell.swift; sourceTree = "<group>"; };
@@ -396,7 +396,7 @@
 		42A42EB61FF1B578002FE4A7 /* UILibrary */ = {
 			isa = PBXGroup;
 			children = (
-				42C7D682202FEAAE006B62A1 /* SFAssets.swift */,
+				424426CA208CC71F00AAFCCC /* SFAssets.swift */,
 				42A42EAC1FF1AB98002FE4A7 /* SFColors.swift */,
 				42A42EAA1FF1A9AB002FE4A7 /* SFColorStyle.swift */,
 				42A42EA81FF1A95F002FE4A7 /* SFColorStyleProtocol.swift */,
@@ -774,7 +774,6 @@
 				425AFDAE20300C700049B68B /* SFCollectionViewCell.swift in Sources */,
 				429FD4A71FED94C500FD7F10 /* SFScaleAnimation.swift in Sources */,
 				42A42EBC1FF1BA3A002FE4A7 /* SFGradientDirection.swift in Sources */,
-				42C7D683202FEAAE006B62A1 /* SFAssets.swift in Sources */,
 				42795F64202FB55300C3767F /* SFPopBar.swift in Sources */,
 				42A42EB51FF1B296002FE4A7 /* SFView.swift in Sources */,
 				429FD4951FED89F300FD7F10 /* SFShakeAnimation.swift in Sources */,
@@ -790,6 +789,7 @@
 				42A42EAF1FF1AC2A002FE4A7 /* SFControllerColorStyle.swift in Sources */,
 				424BE0BD1FF45AEA005DE2AD /* UIImage.swift in Sources */,
 				423AABF21FE7548F009D6C39 /* ViewController.swift in Sources */,
+				424426CB208CC72000AAFCCC /* SFAssets.swift in Sources */,
 				429FD49F1FED900100FD7F10 /* SFWobbleAnimation.swift in Sources */,
 				423AAC2C1FE770E6009D6C39 /* Constraints.swift in Sources */,
 				42A67AC620411B3B00F2FF3E /* UIWindow.swift in Sources */,

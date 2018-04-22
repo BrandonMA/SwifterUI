@@ -8,13 +8,17 @@
 
 import UIKit
 
-open class SFImageZoomView: UIScrollView {
+public final class SFImageZoomView: UIScrollView {
+    
+    // MARK: - Instance Properties
 
-    open lazy var imageView: UIImageView = {
+    public final lazy var imageView: UIImageView = {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    
+    // MARK: - Initializers
 
     public override init(frame: CGRect = .zero) {
         super.init(frame: frame)

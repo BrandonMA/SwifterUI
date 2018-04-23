@@ -81,10 +81,6 @@
 		42B253E31FEA04E90002C297 /* DispatchQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B253E21FEA04E90002C297 /* DispatchQueue.swift */; };
 		42B253E51FEA0E700002C297 /* ConstraintType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B253E41FEA0E700002C297 /* ConstraintType.swift */; };
 		42B7B27D203A611E004B5C6E /* SFScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B7B27C203A611E004B5C6E /* SFScrollView.swift */; };
-		42B8DEF820409F6000B5770A /* SFLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B8DEF720409F6000B5770A /* SFLoginViewController.swift */; };
-		42B8DEFA20409FA000B5770A /* SFLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B8DEF920409FA000B5770A /* SFLoginView.swift */; };
-		42B8DEFE2040A00800B5770A /* SFSignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B8DEFD2040A00800B5770A /* SFSignupViewController.swift */; };
-		42B8DF002040A02F00B5770A /* SFSignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B8DEFF2040A02F00B5770A /* SFSignupView.swift */; };
 		42BFCFC420537CA700111E17 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BFCFC320537CA700111E17 /* Array.swift */; };
 		42C2E17D20422DCA00087B3C /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C2E17C20422DCA00087B3C /* UIViewController.swift */; };
 		42C67250205CD7C400DA4BCB /* SFPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C6724F205CD7C400DA4BCB /* SFPickerView.swift */; };
@@ -97,6 +93,10 @@
 		42CB6B002036035C0080EFB8 /* SFTableViewConversationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CB6AFF2036035C0080EFB8 /* SFTableViewConversationCell.swift */; };
 		42CDA9BB20361BC50046791D /* SFChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CDA9BA20361BC50046791D /* SFChatViewController.swift */; };
 		42CDA9BD20361BDE0046791D /* SFChatBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CDA9BC20361BDE0046791D /* SFChatBar.swift */; };
+		42D13476208D436600EFB118 /* SFSignViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D13475208D436600EFB118 /* SFSignViewController.swift */; };
+		42D13478208D5F3000EFB118 /* SFSignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D13477208D5F3000EFB118 /* SFSignUpView.swift */; };
+		42D1347A208D5F4300EFB118 /* SFSignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D13479208D5F4300EFB118 /* SFSignInView.swift */; };
+		42D1347C208D5F5500EFB118 /* SFSignView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D1347B208D5F5500EFB118 /* SFSignView.swift */; };
 		42D34C65202F5F84002B6FA6 /* SFLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D34C64202F5F84002B6FA6 /* SFLabel.swift */; };
 		42D34C67202F5FA3002B6FA6 /* SFTextSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D34C66202F5FA3002B6FA6 /* SFTextSection.swift */; };
 		42D34C6D202F6ECE002B6FA6 /* SFSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D34C6C202F6ECE002B6FA6 /* SFSection.swift */; };
@@ -212,10 +212,6 @@
 		42B253E21FEA04E90002C297 /* DispatchQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchQueue.swift; sourceTree = "<group>"; };
 		42B253E41FEA0E700002C297 /* ConstraintType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstraintType.swift; sourceTree = "<group>"; };
 		42B7B27C203A611E004B5C6E /* SFScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFScrollView.swift; sourceTree = "<group>"; };
-		42B8DEF720409F6000B5770A /* SFLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFLoginViewController.swift; sourceTree = "<group>"; };
-		42B8DEF920409FA000B5770A /* SFLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFLoginView.swift; sourceTree = "<group>"; };
-		42B8DEFD2040A00800B5770A /* SFSignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFSignupViewController.swift; sourceTree = "<group>"; };
-		42B8DEFF2040A02F00B5770A /* SFSignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFSignupView.swift; sourceTree = "<group>"; };
 		42BFCFC320537CA700111E17 /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		42C2E17C20422DCA00087B3C /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		42C6724F205CD7C400DA4BCB /* SFPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFPickerView.swift; sourceTree = "<group>"; };
@@ -228,6 +224,10 @@
 		42CB6AFF2036035C0080EFB8 /* SFTableViewConversationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFTableViewConversationCell.swift; sourceTree = "<group>"; };
 		42CDA9BA20361BC50046791D /* SFChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFChatViewController.swift; sourceTree = "<group>"; };
 		42CDA9BC20361BDE0046791D /* SFChatBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFChatBar.swift; sourceTree = "<group>"; };
+		42D13475208D436600EFB118 /* SFSignViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFSignViewController.swift; sourceTree = "<group>"; };
+		42D13477208D5F3000EFB118 /* SFSignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFSignUpView.swift; sourceTree = "<group>"; };
+		42D13479208D5F4300EFB118 /* SFSignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFSignInView.swift; sourceTree = "<group>"; };
+		42D1347B208D5F5500EFB118 /* SFSignView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFSignView.swift; sourceTree = "<group>"; };
 		42D34C64202F5F84002B6FA6 /* SFLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFLabel.swift; sourceTree = "<group>"; };
 		42D34C66202F5FA3002B6FA6 /* SFTextSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFTextSection.swift; sourceTree = "<group>"; };
 		42D34C6C202F6ECE002B6FA6 /* SFSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFSection.swift; sourceTree = "<group>"; };
@@ -497,28 +497,12 @@
 		42B8DEF620409F1500B5770A /* LoginKit */ = {
 			isa = PBXGroup;
 			children = (
-				42B8DEFC20409FE100B5770A /* Signup */,
-				42B8DEFB20409FCC00B5770A /* Login */,
+				42D13475208D436600EFB118 /* SFSignViewController.swift */,
+				42D13477208D5F3000EFB118 /* SFSignUpView.swift */,
+				42D13479208D5F4300EFB118 /* SFSignInView.swift */,
+				42D1347B208D5F5500EFB118 /* SFSignView.swift */,
 			);
 			path = LoginKit;
-			sourceTree = "<group>";
-		};
-		42B8DEFB20409FCC00B5770A /* Login */ = {
-			isa = PBXGroup;
-			children = (
-				42B8DEF920409FA000B5770A /* SFLoginView.swift */,
-				42B8DEF720409F6000B5770A /* SFLoginViewController.swift */,
-			);
-			path = Login;
-			sourceTree = "<group>";
-		};
-		42B8DEFC20409FE100B5770A /* Signup */ = {
-			isa = PBXGroup;
-			children = (
-				42B8DEFF2040A02F00B5770A /* SFSignupView.swift */,
-				42B8DEFD2040A00800B5770A /* SFSignupViewController.swift */,
-			);
-			path = Signup;
 			sourceTree = "<group>";
 		};
 		42C701B22016838700EBFBE2 /* Presentation */ = {
@@ -783,6 +767,8 @@
 				4253D3C2203CDEE500507F88 /* SFTabBarController.swift in Sources */,
 				42E83BBD202B98F800A341C5 /* SFTableViewCell.swift in Sources */,
 				4230E8EC204CC42C003E5BCC /* SFBubbleView.swift in Sources */,
+				42D1347A208D5F4300EFB118 /* SFSignInView.swift in Sources */,
+				42D1347C208D5F5500EFB118 /* SFSignView.swift in Sources */,
 				42F38784207B2CA700DAD4BC /* SFInteractionViewController.swift in Sources */,
 				429FD49B1FED8E8900FD7F10 /* SFMorphAnimation.swift in Sources */,
 				42DBF1A4203754E900F4BB6F /* SFBulletinView.swift in Sources */,
@@ -827,26 +813,25 @@
 				42CDA9BD20361BDE0046791D /* SFChatBar.swift in Sources */,
 				424BE0C11FF45B2D005DE2AD /* Date.swift in Sources */,
 				42C67250205CD7C400DA4BCB /* SFPickerView.swift in Sources */,
+				42D13478208D5F3000EFB118 /* SFSignUpView.swift in Sources */,
 				42446775202AC2BB00F59892 /* SFTextField.swift in Sources */,
 				42C67252205CD7DE00DA4BCB /* SFDatePicker.swift in Sources */,
 				42D34C73202FABB3002B6FA6 /* SFNavigationController.swift in Sources */,
 				42D34C75202FAF10002B6FA6 /* SFPopView.swift in Sources */,
 				429FD4A11FED919A00FD7F10 /* SFFlipAnimation.swift in Sources */,
-				42B8DF002040A02F00B5770A /* SFSignupView.swift in Sources */,
 				42A8CA6720608CB7004250A1 /* SFCollectionViewHeader.swift in Sources */,
 				42FB9F9C202FC8AB006895F4 /* SFTableViewProfileCell.swift in Sources */,
 				42DBF1A62037556F00F4BB6F /* SFBulletinController.swift in Sources */,
 				42838208206DA4D200039F66 /* SFImageZoomView.swift in Sources */,
 				42CB6AFC203602870080EFB8 /* SFMessage.swift in Sources */,
-				42B8DEFE2040A00800B5770A /* SFSignupViewController.swift in Sources */,
 				42D34C67202F5FA3002B6FA6 /* SFTextSection.swift in Sources */,
-				42B8DEFA20409FA000B5770A /* SFLoginView.swift in Sources */,
 				42D34C65202F5F84002B6FA6 /* SFLabel.swift in Sources */,
 				42B7B27D203A611E004B5C6E /* SFScrollView.swift in Sources */,
 				423AAC261FE7678C009D6C39 /* ConstraintAxis.swift in Sources */,
 				42CB47AF20371962008C4AE6 /* SFChatView.swift in Sources */,
 				42289AE4203481C70095FF5C /* UITableView.swift in Sources */,
 				425AFDAC20300C580049B68B /* SFCollectionView.swift in Sources */,
+				42D13476208D436600EFB118 /* SFSignViewController.swift in Sources */,
 				42A42EC31FF1C13E002FE4A7 /* SFVideoView.swift in Sources */,
 				42A42EAD1FF1AB98002FE4A7 /* SFColors.swift in Sources */,
 				4244674F202A9FE900F59892 /* SFTableView.swift in Sources */,
@@ -854,7 +839,6 @@
 				423AAC201FE76727009D6C39 /* UIViewLayout.swift in Sources */,
 				424D5A692045ECF000C029E1 /* SFProfileImageView.swift in Sources */,
 				423AABF01FE7548F009D6C39 /* AppDelegate.swift in Sources */,
-				42B8DEF820409F6000B5770A /* SFLoginViewController.swift in Sources */,
 				42A42EB31FF1AD8C002FE4A7 /* SFViewController.swift in Sources */,
 				429FD4A91FED95A200FD7F10 /* SFFadeAnimation.swift in Sources */,
 				423F0B691FE9BD8300BF746C /* SFAnimation.swift in Sources */,

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PromiseKit
 
 open class SFShakeAnimation: SFAnimation {
     
@@ -17,18 +18,25 @@ open class SFShakeAnimation: SFAnimation {
         self.initialFrame = view.frame
     }
     
-    open override func start() {
-        guard let view = view else { return }
-        CATransaction.begin()
-        CATransaction.setCompletionBlock({ self.delegate?.finished(animation: self) })
-        let animation = CAKeyframeAnimation(keyPath: "position.x")
-        let modifier = 30 * force
-        animation.values = [initialFrame.midX, initialFrame.midX + modifier, initialFrame.midX, initialFrame.midX - modifier, initialFrame.midX + modifier, initialFrame.midX]
-        animation.keyTimes = [0, 0.2, 0.4, 0.6, 0.8, 1]
-        animation.timingFunction = animationCurve.getTimingFunction()
-        animation.duration = duration
-        animation.beginTime = CACurrentMediaTime() + CFTimeInterval(delay)
-        view.layer.add(animation, forKey: nil)
-        CATransaction.commit()
+    open override func start() -> Promise<Void> {
+        return Promise { seal in
+            guard let view = view else {
+                seal.reject(SFAnimationError.noParent)
+                return
+            }
+            CATransaction.begin()
+            CATransaction.setCompletionBlock({
+                seal.fulfill(())
+            })
+            let animation = CAKeyframeAnimation(keyPath: "position.x")
+            let modifier = 30 * force
+            animation.values = [initialFrame.midX, initialFrame.midX + modifier, initialFrame.midX, initialFrame.midX - modifier, initialFrame.midX + modifier, initialFrame.midX]
+            animation.keyTimes = [0, 0.2, 0.4, 0.6, 0.8, 1]
+            animation.timingFunction = animationCurve.getTimingFunction()
+            animation.duration = duration
+            animation.beginTime = CACurrentMediaTime() + CFTimeInterval(delay)
+            view.layer.add(animation, forKey: nil)
+            CATransaction.commit()
+        }
     }
 }

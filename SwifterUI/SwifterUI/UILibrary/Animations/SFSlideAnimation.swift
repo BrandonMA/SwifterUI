@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PromiseKit
 
 open class SFSlideAnimation: SFAnimation {
     
@@ -42,13 +43,18 @@ open class SFSlideAnimation: SFAnimation {
         
     }
     
-    open override func start() {
-        guard let view = self.view else { return }
-        view.frame = initialFrame
-        UIView.animate(withDuration: duration, delay: delay, usingSpringWithDamping: damping, initialSpringVelocity: velocity, options: [animationCurve.getAnimationOptions(), .allowUserInteraction], animations: {
-            view.frame = self.finalFrame
-        }, completion: { finished in
-            self.delegate?.finished(animation: self)
-        })
+    open override func start() -> Promise<Void> {
+        return Promise { seal in
+            guard let view = view else {
+                seal.reject(SFAnimationError.noParent)
+                return
+            }
+            view.frame = initialFrame
+            UIView.animate(withDuration: duration, delay: delay, usingSpringWithDamping: damping, initialSpringVelocity: velocity, options: [animationCurve.getAnimationOptions(), .allowUserInteraction], animations: {
+                view.frame = self.finalFrame
+            }, completion: { finished in
+                seal.fulfill(())
+            })
+        }
     }
 }

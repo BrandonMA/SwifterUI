@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import PromiseKit
 
-public protocol SFAnimationDelegate: class {
-    func finished(animation: SFAnimation)
+public enum SFAnimationError: Error {
+    case noParent
 }
 
 open class SFAnimation: NSObject {
@@ -31,7 +32,6 @@ open class SFAnimation: NSObject {
     // MARK: - Instance Properties
     
     public final weak var view: UIView?
-    public final weak var delegate: SFAnimationDelegate? = nil
     public final var direction: SFAnimationDirection { didSet { self.load() } }
     public final var type: SFAnimationType { didSet { self.load() } }
     public final var delay: TimeInterval = 0
@@ -67,8 +67,11 @@ open class SFAnimation: NSObject {
     }
     
     // start: All animations should be implemented here
-    open func start() {
-        
+    @discardableResult
+    open func start() -> Promise<Void> {
+        return Promise { seal in
+            seal.fulfill(())
+        }
     }
     
     public final func inverted() {

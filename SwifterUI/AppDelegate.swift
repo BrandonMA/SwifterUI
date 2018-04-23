@@ -18,14 +18,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         window = UIWindow(frame: UIScreen.main.bounds)
         
-        window?.rootViewController = SFViewController()
+        window?.rootViewController = SFSignViewController()
         
-        let url = URL(string: "https://infinitediaries.net/wp-content/uploads/2015/12/Swift_logo-hero-1000x400@2x.jpg")!
-        URLSession.shared.dataTask(.promise, with: url).compactMap{ UIImage(data: $0.data) }.done({ image in
-            DispatchQueue.addAsyncTask(to: .main, handler: {
-                self.window?.rootViewController = SFNavigationController(rootViewController: SFImageZoomViewController(with: image))
-            })
-        })
+//        let url = URL(string: "https://infinitediaries.net/wp-content/uploads/2015/12/Swift_logo-hero-1000x400@2x.jpg")!
+//        URLSession.shared.dataTask(.promise, with: url).compactMap{ UIImage(data: $0.data) }.done({ image in
+//            DispatchQueue.addAsyncTask(to: .main, handler: {
+//                self.window?.rootViewController = SFNavigationController(rootViewController: SFImageZoomViewController(with: image))
+//            })
+//        })
         window?.makeKeyAndVisible()
 
         return true

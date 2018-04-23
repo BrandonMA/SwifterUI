@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PromiseKit
 
 open class SFPopAnimation: SFAnimation {
     
@@ -17,17 +18,24 @@ open class SFPopAnimation: SFAnimation {
         self.finalScaleX = type == .outside ? force * 0.2 < 1 ? 1 - force * 0.2 : 0 : 1 + force * 0.2
     }
     
-    open override func start() {
-        guard let view = self.view else { return }
-        CATransaction.begin()
-        CATransaction.setCompletionBlock({ self.delegate?.finished(animation: self) })
-        let animation = CAKeyframeAnimation(keyPath: "transform.scale")
-        animation.values = [1, initialScaleX, finalScaleX, initialScaleX, 1]
-        animation.keyTimes = [0, 0.2, 0.4, 0.6, 0.8, 1]
-        animation.timingFunction = animationCurve.getTimingFunction()
-        animation.duration = self.duration
-        animation.beginTime = CACurrentMediaTime() + CFTimeInterval(delay)
-        view.layer.add(animation, forKey: nil)
-        CATransaction.commit()
+    open override func start() -> Promise<Void> {
+        return Promise { seal in
+            guard let view = view else {
+                seal.reject(SFAnimationError.noParent)
+                return
+            }
+            CATransaction.begin()
+            CATransaction.setCompletionBlock({
+                seal.fulfill(())
+            })
+            let animation = CAKeyframeAnimation(keyPath: "transform.scale")
+            animation.values = [1, initialScaleX, finalScaleX, initialScaleX, 1]
+            animation.keyTimes = [0, 0.2, 0.4, 0.6, 0.8, 1]
+            animation.timingFunction = animationCurve.getTimingFunction()
+            animation.duration = self.duration
+            animation.beginTime = CACurrentMediaTime() + CFTimeInterval(delay)
+            view.layer.add(animation, forKey: nil)
+            CATransaction.commit()
+        }
     }
 }

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PromiseKit
 
 open class SFZoomAnimation: SFAnimation {
     
@@ -24,13 +25,15 @@ open class SFZoomAnimation: SFAnimation {
         view.transform = CGAffineTransform(scaleX: initialScaleX, y: initialScaleY)
     }
     
-    open override func start() {
-        UIView.animate(withDuration: duration, delay: delay, usingSpringWithDamping: damping, initialSpringVelocity: velocity, options: [animationCurve.getAnimationOptions(), .allowUserInteraction], animations: {
-            self.view?.transform = CGAffineTransform(scaleX: self.finalScaleX, y: self.finalScaleY)
-            self.view?.alpha = self.finalAlpha
-        }, completion: { finished in
-            self.delegate?.finished(animation: self)
-        })
+    open override func start() -> Promise<Void> {
+        return Promise { seal in
+            UIView.animate(withDuration: duration, delay: delay, usingSpringWithDamping: damping, initialSpringVelocity: velocity, options: [animationCurve.getAnimationOptions(), .allowUserInteraction], animations: {
+                self.view?.transform = CGAffineTransform(scaleX: self.finalScaleX, y: self.finalScaleY)
+                self.view?.alpha = self.finalAlpha
+            }, completion: { finished in
+                seal.fulfill(())
+            })
+        }
     }
 }
 

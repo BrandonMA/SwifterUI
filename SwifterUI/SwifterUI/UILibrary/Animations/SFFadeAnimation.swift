@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PromiseKit
 
 open class SFFadeAnimation: SFAnimation {
     
@@ -17,12 +18,18 @@ open class SFFadeAnimation: SFAnimation {
         finalAlpha = self.type == .inside ? 1.0 : 0.0
     }
     
-    open override func start() {
-        guard let view = self.view else { return }
-        UIView.animate(withDuration: duration, delay: delay, usingSpringWithDamping: damping, initialSpringVelocity: velocity, options: [animationCurve.getAnimationOptions(), .allowUserInteraction], animations: {
-            view.alpha = self.finalAlpha
-        }, completion: { finished in
-            self.delegate?.finished(animation: self)
-        })
+    open override func start() -> Promise<Void> {
+        return Promise { seal in
+            guard let view = view else {
+                seal.reject(SFAnimationError.noParent)
+                return
+            }
+            view.frame = initialFrame
+            UIView.animate(withDuration: duration, delay: delay, usingSpringWithDamping: damping, initialSpringVelocity: velocity, options: [animationCurve.getAnimationOptions(), .allowUserInteraction], animations: {
+                view.alpha = self.finalAlpha
+            }, completion: { finished in
+                seal.fulfill(())
+            })
+        }
     }
 }

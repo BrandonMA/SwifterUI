@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PromiseKit
 
 open class SFRotationAnimation: SFAnimation {
     
@@ -21,19 +22,26 @@ open class SFRotationAnimation: SFAnimation {
         animationCurve = .easeOut
     }
     
-    open override func start() {
-        guard let view = self.view else { return }
-        CATransaction.begin()
-        CATransaction.setCompletionBlock({ self.delegate?.finished(animation: self) })
+    open override func start() -> Promise<Void> {
         
-        let animation = CABasicAnimation(keyPath: "transform.rotation")
-        animation.fromValue = 0
-        animation.toValue = Double.pi * 2
-        animation.duration = CFTimeInterval(duration)
-        animation.isAdditive = true
-        animation.beginTime = CACurrentMediaTime() + CFTimeInterval(delay)
-        animation.timingFunction = animationCurve.getTimingFunction()
-        view.layer.add(animation, forKey: nil)
-        CATransaction.commit()
+        return Promise { seal in
+            guard let view = view else {
+                seal.reject(SFAnimationError.noParent)
+                return
+            }
+            CATransaction.begin()
+            CATransaction.setCompletionBlock({
+                seal.fulfill(())
+            })
+            let animation = CABasicAnimation(keyPath: "transform.rotation")
+            animation.fromValue = 0
+            animation.toValue = Double.pi * 2
+            animation.duration = CFTimeInterval(duration)
+            animation.isAdditive = true
+            animation.beginTime = CACurrentMediaTime() + CFTimeInterval(delay)
+            animation.timingFunction = animationCurve.getTimingFunction()
+            view.layer.add(animation, forKey: nil)
+            CATransaction.commit()
+        }
     }
 }

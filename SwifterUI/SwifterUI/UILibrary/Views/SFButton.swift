@@ -84,8 +84,8 @@ open class SFButton: UIButton, SFViewColorStyle {
     @objc public final func touchDown(button: UIButton) {
         titleLabel?.alpha = 0.7
         let animation = SFScaleAnimation(with: button, type: .outside)
-        animation.finalScaleX = 0.9
-        animation.finalScaleY = 0.9
+        animation.finalScaleX = 0.95
+        animation.finalScaleY = 0.95
         animation.finalAlpha = 1.0
         animation.duration = 0.5
         animation.damping = 0.6

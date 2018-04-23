@@ -283,7 +283,7 @@ extension SFChatViewController: SFTableViewChatCellDelegate {
 
     public func didZoomIn(cell: SFTableViewChatCell) {
         guard let image = cell.messageImageView.image else { return }
-        let controller = SFImageZoomViewController(with: image)
+        let controller = SFNavigationController(rootViewController: SFImageZoomViewController(with: image))
         controller.modalPresentationStyle = .overFullScreen
         controller.modalTransitionStyle = .crossDissolve
         present(controller, animated: true) {

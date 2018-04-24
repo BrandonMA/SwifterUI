@@ -31,11 +31,6 @@ open class SFSignViewController: SFViewController {
         view.addSubview(signView)
         signView.signInButton.addTarget(self, action: #selector(didTouch(button:)), for: .touchUpInside)
         signView.signUpButton.addTarget(self, action: #selector(didTouch(button:)), for: .touchUpInside)
-        
-        if signView.imageView.image == nil {
-            signView.imageView.setImage(from: URL(string: "https://infinitediaries.net/wp-content/uploads/2015/12/Swift_logo-hero-1000x400@2x.jpg"))
-        }
-        
         signView.signUpView.signUpButton.addTarget(self, action: #selector(signUpButtonDidTouch), for: .touchUpInside)
         signView.signInView.signInButton.addTarget(self, action: #selector(logInButtonDidTouch), for: .touchUpInside)
         signView.facebookButton.addTarget(self, action: #selector(facebookButtonDidTouch), for: .touchUpInside)

@@ -8,7 +8,7 @@
 
 import UIKit
 
-public final class SFImageZoomView: UIScrollView {
+public final class SFImageZoomView: UIScrollView, SFViewColorStyle {
     
     // MARK: - Instance Properties
 
@@ -18,15 +18,29 @@ public final class SFImageZoomView: UIScrollView {
         return view
     }()
     
+    open var automaticallyAdjustsColorStyle: Bool = false
+    
+    open var useAlternativeColors: Bool = false
+    
     // MARK: - Initializers
-
-    public override init(frame: CGRect = .zero) {
+    
+    public init(automaticallyAdjustsColorStyle: Bool = true, frame: CGRect = .zero) {
+        self.automaticallyAdjustsColorStyle = automaticallyAdjustsColorStyle
         super.init(frame: frame)
+        updateColors()
         addSubview(imageView)
     }
-
+    
     public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    // MARK: - Instance Methods
+    
+    open func updateColors() {
+        backgroundColor = useAlternativeColors ? colorStyle.getAlternativeColor() : colorStyle.getMainColor()
+        updateSubviewsColors()
+    }
+    
 
 }

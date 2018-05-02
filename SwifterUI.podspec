@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'SwifterUI'
-  s.version          = '0.6.3'
+  s.version          = '0.6.4'
   s.summary          = 'UI Library'
  
   s.description      = 'This is a UI Library to improve development process'
@@ -22,6 +22,7 @@ Pod::Spec.new do |s|
     core.ios.deployment_target = '11.0'
     core.source_files = 'SwifterUI/SwifterUI/UILibrary/*', 'SwifterUI/SwifterUI/UILibrary/**/*'
     core.dependency 'PromiseKit', '~> 6.0'
+    core.dependency 'DeepDiff'
   end
 
   s.subspec 'ChatKit' do |chatkit|
@@ -36,6 +37,20 @@ Pod::Spec.new do |s|
     loginkit.ios.deployment_target = '11.0'
     loginkit.source_files  = 'SwifterUI/SwifterUI/LoginKit/**/*'
     loginkit.dependency 'SwifterUI/Core'
+  end
+
+  s.subspec 'FirebaseKit' do |firebaseKit|
+    loginkit.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.0' }
+    loginkit.ios.deployment_target = '11.0'
+    loginkit.source_files  = 'SwifterUI/SwifterUI/FirebaseKit/**/*'
+    loginkit.dependency 'FBSDKLoginKit'
+    loginkit.dependency 'CodableFirebase'
+    loginkit.dependency 'Firebase'
+    loginkit.dependency 'Firebase/Core'
+    loginkit.dependency 'Firebase/Messaging'
+    loginkit.dependency 'Firebase/Auth'
+    loginkit.dependency 'Firebase/Firestore'
+    loginkit.dependency 'Firebase/Storage'
   end
 
 end

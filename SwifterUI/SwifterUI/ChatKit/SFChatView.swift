@@ -15,7 +15,6 @@ open class SFChatView: SFView {
     open lazy var tableView: SFTableView = {
         let tableView = SFTableView(automaticallyAdjustsColorStyle: true, style: .plain)
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.register(SFTableViewChatCell.self, forCellReuseIdentifier: SFTableViewChatCell.identifier)
         tableView.separatorStyle = .none
         tableView.allowsSelection = false
         tableView.useAlternativeColors = true

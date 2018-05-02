@@ -22,6 +22,7 @@ open class SFRotationAnimation: SFAnimation {
         animationCurve = .easeOut
     }
     
+    @discardableResult
     open override func start() -> Promise<Void> {
         
         return Promise { seal in

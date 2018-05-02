@@ -18,6 +18,7 @@ open class SFFadeAnimation: SFAnimation {
         finalAlpha = self.type == .inside ? 1.0 : 0.0
     }
     
+    @discardableResult
     open override func start() -> Promise<Void> {
         return Promise { seal in
             guard let view = view else {

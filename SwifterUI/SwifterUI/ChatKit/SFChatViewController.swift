@@ -9,11 +9,13 @@
 import UIKit
 import MobileCoreServices
 
-open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, SFVideoPlayerDelegate {
+open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, SFVideoPlayerDelegate {
 
     // MARK: - Instance Properties
 
     private var activeCell: SFTableViewChatCell?
+    
+    let chatManager = SFTableManager<MessageType, SFTableViewChatCell>(data: [])
 
     public final lazy var chatView: SFChatView = {
         let view = SFChatView(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle, frame: .zero)
@@ -41,7 +43,6 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
         return true
     }
 
-    open var messages: [MessageType] = []
     private var cachedHeights: [IndexPath: CGFloat] = [:]
     private var cachedBubbleWidths: [IndexPath: CGFloat] = [:]
 
@@ -56,8 +57,11 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
     override open func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(chatView)
+        chatManager.configure(tableView: chatView.tableView)
         chatView.tableView.delegate = self
-        chatView.tableView.dataSource = self
+        chatManager.cellHandler = { (cell, model, indexPath) in
+            self.configure(cell: cell, message: model, indexPath: indexPath)
+        }
         chatBar.sendButton.addTarget(self, action: #selector(sendButtonDidTouch), for: .touchUpInside)
         chatBar.fileButton.addTarget(self, action: #selector(mediaButtonDidTouch), for: .touchUpInside)
         NotificationCenter.default.addObserver(self,
@@ -99,6 +103,35 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
             if chatView.tableView.isDragging == false {
                 chatView.tableView.scrollToBottom(animated: true)
             }
+        }
+    }
+    
+    func configure(cell: SFTableViewChatCell, message: MessageType, indexPath: IndexPath) {
+        cell.delegate = self
+        cell.messageLabel.text = message.text
+        cell.messageImageView.image = message.image
+        cell.messageVideoView.url = message.videoURL
+        cell.messageVideoView.delegate = self
+        cell.isUserInteractionEnabled = true
+        
+        if let width = cachedBubbleWidths[indexPath] {
+            cell.width = width
+        } else {
+            if message.image != nil || message.videoURL != nil || message.imageURL != nil {
+                cell.width = (chatView.tableView.bounds.width * 2/3)
+            } else {
+                cell.width = message.text?.estimatedFrame(with: cell.messageLabel.font, maxWidth: (chatView.tableView.bounds.width * 2/3) - 16).size.width ?? 0
+            }
+        }
+        
+        if message.isMine {
+            cell.bubbleView.useAlternativeColors = true
+            cell.isMine = true
+            cell.updateColors()
+        } else {
+            cell.bubbleView.useAlternativeColors = false
+            cell.isMine = false
+            cell.updateColors()
         }
     }
 
@@ -151,12 +184,10 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
                                       fileURL: nil,
                                       timestamp: Date(),
                                       isMine: true)
-            messages.append(message)
 
             if send(message: message) {
                 chatBar.textView.text = ""
-                let indexPath = IndexPath(row: chatView.tableView.numberOfRows(inSection: 0), section: 0)
-                chatView.tableView.updateRow(with: .insert, indexPath: indexPath, animation: .right)
+                chatManager.insert(item: message, animation: message.isMine ? .right : .left)
                 chatView.tableView.scrollToBottom()
             }
         }
@@ -189,60 +220,11 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
 
         picker.dismiss(animated: true, completion: {
             guard let message = optionalMessage else { return }
-            self.messages.append(message)
             if self.send(message: message) {
-                let indexPath = IndexPath(row: self.chatView.tableView.numberOfRows(inSection: 0), section: 0)
-                self.chatView.tableView.updateRow(with: .insert, indexPath: indexPath, animation: .right)
+                self.chatManager.insert(item: message, animation: message.isMine ? .right : .left)
                 self.chatView.tableView.scrollToBottom()
             }
         })
-    }
-
-    // MARK: - UITableViewDataSource
-
-    open func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-
-    open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return messages.count
-    }
-
-    open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: SFTableViewChatCell.identifier,
-                                                       for: indexPath)
-            as? SFTableViewChatCell else { return UITableViewCell() }
-
-        let message = messages[indexPath.row]
-        cell.delegate = self
-        cell.messageLabel.text = message.text
-        cell.messageImageView.image = message.image
-        cell.messageVideoView.url = message.videoURL
-        cell.messageVideoView.delegate = self
-        cell.isUserInteractionEnabled = true
-
-        if let width = cachedBubbleWidths[indexPath] {
-            cell.width = width
-        } else {
-            if message.image != nil || message.videoURL != nil || message.imageURL != nil {
-                cell.width = (tableView.bounds.width * 2/3)
-            } else {
-                cell.width = message.text?.estimatedFrame(with: cell.messageLabel.font,
-                                                          maxWidth: (tableView.bounds.width * 2/3) - 16).size.width ?? 0
-            }
-        }
-
-        if message.isMine {
-            cell.bubbleView.useAlternativeColors = true
-            cell.isMine = true
-            cell.updateColors()
-        } else {
-            cell.bubbleView.useAlternativeColors = false
-            cell.isMine = false
-            cell.updateColors()
-        }
-
-        return cell
     }
 
     // MARK: - UITableViewDelegate
@@ -250,7 +232,7 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
     open func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         guard let height = cachedHeights[indexPath] else {
 
-            let message = messages[indexPath.row]
+            let message = chatManager.getItem(at: indexPath)
 
             if let image = message.image {
                 let height = ((tableView.bounds.width * 2/3) / (image.size.width / image.size.height)) + 33

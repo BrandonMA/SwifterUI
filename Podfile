@@ -10,6 +10,16 @@ target 'SwifterUI' do
   # Pods for SwifterUI
 
   pod 'PromiseKit', '~> 6.0'
+  pod 'DeepDiff'
+  pod 'FBSDKLoginKit'
+  pod 'CodableFirebase'
+  pod 'Firebase'
+  pod 'Firebase/Core'
+  pod 'Firebase/Messaging'
+  pod 'Firebase/Auth'
+  pod 'Firebase/Firestore'
+  pod 'Firebase/Storage'
+
   
   target 'SwifterUITests' do
     inherit! :search_paths

@@ -22,6 +22,7 @@ open class SFWobbleAnimation: SFAnimation {
         animationCurve = .easeOut
     }
     
+    @discardableResult
     open override func start() -> Promise<Void> {
         return Promise { seal in
             guard let view = view else {

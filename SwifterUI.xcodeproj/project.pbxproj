@@ -31,6 +31,12 @@
 		423AAC2A1FE770D5009D6C39 /* Constraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423AAC291FE770D5009D6C39 /* Constraint.swift */; };
 		423AAC2C1FE770E6009D6C39 /* Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423AAC2B1FE770E6009D6C39 /* Constraints.swift */; };
 		423F0B691FE9BD8300BF746C /* SFAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423F0B681FE9BD8300BF746C /* SFAnimation.swift */; };
+		42437D34209A0B85003E144D /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42437D2F209A0B81003E144D /* Auth.swift */; };
+		42437D35209A0B85003E144D /* CollectionReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42437D30209A0B82003E144D /* CollectionReference.swift */; };
+		42437D36209A0B85003E144D /* DocumentReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42437D31209A0B83003E144D /* DocumentReference.swift */; };
+		42437D37209A0B85003E144D /* FirebaseObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42437D32209A0B84003E144D /* FirebaseObject.swift */; };
+		42437D38209A0B85003E144D /* StorageReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42437D33209A0B85003E144D /* StorageReference.swift */; };
+		42437D3A209A0ED8003E144D /* FacebookLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42437D39209A0ED8003E144D /* FacebookLogin.swift */; };
 		424426CB208CC72000AAFCCC /* SFAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424426CA208CC71F00AAFCCC /* SFAssets.swift */; };
 		4244674F202A9FE900F59892 /* SFTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4244674E202A9FE900F59892 /* SFTableView.swift */; };
 		42446773202AC27F00F59892 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42446772202AC27F00F59892 /* UIView.swift */; };
@@ -52,6 +58,7 @@
 		42834C0C20465964009CFE22 /* SFButtonSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42834C0B20465964009CFE22 /* SFButtonSection.swift */; };
 		42838206206DA49000039F66 /* SFImageZoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42838205206DA49000039F66 /* SFImageZoomViewController.swift */; };
 		42838208206DA4D200039F66 /* SFImageZoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42838207206DA4D200039F66 /* SFImageZoomView.swift */; };
+		42933BF42097D2AB00ED7175 /* SFTableManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42933BF32097D2AB00ED7175 /* SFTableManager.swift */; };
 		429FD4911FED7EDC00FD7F10 /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429FD4901FED7EDC00FD7F10 /* UIImageView.swift */; };
 		429FD4931FED89C200FD7F10 /* SFAnimationCurve.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429FD4921FED89C200FD7F10 /* SFAnimationCurve.swift */; };
 		429FD4951FED89F300FD7F10 /* SFShakeAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429FD4941FED89F300FD7F10 /* SFShakeAnimation.swift */; };
@@ -162,6 +169,12 @@
 		423AAC291FE770D5009D6C39 /* Constraint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constraint.swift; sourceTree = "<group>"; };
 		423AAC2B1FE770E6009D6C39 /* Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constraints.swift; sourceTree = "<group>"; };
 		423F0B681FE9BD8300BF746C /* SFAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFAnimation.swift; sourceTree = "<group>"; };
+		42437D2F209A0B81003E144D /* Auth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
+		42437D30209A0B82003E144D /* CollectionReference.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionReference.swift; sourceTree = "<group>"; };
+		42437D31209A0B83003E144D /* DocumentReference.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentReference.swift; sourceTree = "<group>"; };
+		42437D32209A0B84003E144D /* FirebaseObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseObject.swift; sourceTree = "<group>"; };
+		42437D33209A0B85003E144D /* StorageReference.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageReference.swift; sourceTree = "<group>"; };
+		42437D39209A0ED8003E144D /* FacebookLogin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookLogin.swift; sourceTree = "<group>"; };
 		424426CA208CC71F00AAFCCC /* SFAssets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFAssets.swift; sourceTree = "<group>"; };
 		4244674E202A9FE900F59892 /* SFTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFTableView.swift; sourceTree = "<group>"; };
 		42446772202AC27F00F59892 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
@@ -183,6 +196,7 @@
 		42834C0B20465964009CFE22 /* SFButtonSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFButtonSection.swift; sourceTree = "<group>"; };
 		42838205206DA49000039F66 /* SFImageZoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFImageZoomViewController.swift; sourceTree = "<group>"; };
 		42838207206DA4D200039F66 /* SFImageZoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFImageZoomView.swift; sourceTree = "<group>"; };
+		42933BF32097D2AB00ED7175 /* SFTableManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFTableManager.swift; sourceTree = "<group>"; };
 		429FD4901FED7EDC00FD7F10 /* UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 		429FD4921FED89C200FD7F10 /* SFAnimationCurve.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFAnimationCurve.swift; sourceTree = "<group>"; };
 		429FD4941FED89F300FD7F10 /* SFShakeAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFShakeAnimation.swift; sourceTree = "<group>"; };
@@ -344,6 +358,7 @@
 		423AAC1E1FE76718009D6C39 /* SwifterUI */ = {
 			isa = PBXGroup;
 			children = (
+				42CCE8412098DAFA00D4D8BE /* FirebaseKit */,
 				42CB6AFA2036027C0080EFB8 /* ChatKit */,
 				42B8DEF620409F1500B5770A /* LoginKit */,
 				42A42EB61FF1B578002FE4A7 /* UILibrary */,
@@ -402,6 +417,7 @@
 				42A42EA81FF1A95F002FE4A7 /* SFColorStyleProtocol.swift */,
 				42A42EAE1FF1AC2A002FE4A7 /* SFControllerColorStyle.swift */,
 				42A42EB01FF1AC36002FE4A7 /* SFViewColorStyle.swift */,
+				42933BF32097D2AB00ED7175 /* SFTableManager.swift */,
 				424BE0C41FF45B9C005DE2AD /* Extensions */,
 				42B253E61FEA0E820002C297 /* Layout */,
 				42A42EBD1FF1BA3F002FE4A7 /* SFGradient */,
@@ -528,6 +544,19 @@
 				42CDA9BA20361BC50046791D /* SFChatViewController.swift */,
 			);
 			path = ChatKit;
+			sourceTree = "<group>";
+		};
+		42CCE8412098DAFA00D4D8BE /* FirebaseKit */ = {
+			isa = PBXGroup;
+			children = (
+				42437D39209A0ED8003E144D /* FacebookLogin.swift */,
+				42437D2F209A0B81003E144D /* Auth.swift */,
+				42437D30209A0B82003E144D /* CollectionReference.swift */,
+				42437D31209A0B83003E144D /* DocumentReference.swift */,
+				42437D32209A0B84003E144D /* FirebaseObject.swift */,
+				42437D33209A0B85003E144D /* StorageReference.swift */,
+			);
+			path = FirebaseKit;
 			sourceTree = "<group>";
 		};
 		B448E1DF1B7B136145C67B66 /* Frameworks */ = {
@@ -680,11 +709,41 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-SwifterUI/Pods-SwifterUI-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework",
+				"${BUILT_PRODUCTS_DIR}/CodableFirebase/CodableFirebase.framework",
+				"${BUILT_PRODUCTS_DIR}/DeepDiff/DeepDiff.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC/GRPCClient.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-ProtoRPC/ProtoRPC.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-RxLibrary/RxLibrary.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CodableFirebase.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DeepDiff.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GRPCClient.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ProtoRPC.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxLibrary.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -760,6 +819,7 @@
 				42A42EBC1FF1BA3A002FE4A7 /* SFGradientDirection.swift in Sources */,
 				42795F64202FB55300C3767F /* SFPopBar.swift in Sources */,
 				42A42EB51FF1B296002FE4A7 /* SFView.swift in Sources */,
+				42437D35209A0B85003E144D /* CollectionReference.swift in Sources */,
 				429FD4951FED89F300FD7F10 /* SFShakeAnimation.swift in Sources */,
 				4230E8EA204CC1DA003E5BCC /* SFNotificationIndicator.swift in Sources */,
 				42446777202AC57700F59892 /* SFTextView.swift in Sources */,
@@ -776,6 +836,7 @@
 				424BE0BD1FF45AEA005DE2AD /* UIImage.swift in Sources */,
 				423AABF21FE7548F009D6C39 /* ViewController.swift in Sources */,
 				424426CB208CC72000AAFCCC /* SFAssets.swift in Sources */,
+				42437D38209A0B85003E144D /* StorageReference.swift in Sources */,
 				429FD49F1FED900100FD7F10 /* SFWobbleAnimation.swift in Sources */,
 				423AAC2C1FE770E6009D6C39 /* Constraints.swift in Sources */,
 				42A67AC620411B3B00F2FF3E /* UIWindow.swift in Sources */,
@@ -787,6 +848,7 @@
 				42CB6AFE203603060080EFB8 /* SFTableViewChatCell.swift in Sources */,
 				42446779202AC83000F59892 /* SFButton.swift in Sources */,
 				42A42EBA1FF1BA36002FE4A7 /* SFGradient.swift in Sources */,
+				42933BF42097D2AB00ED7175 /* SFTableManager.swift in Sources */,
 				429FD4971FED8D5200FD7F10 /* SFPopAnimation.swift in Sources */,
 				42D34C6D202F6ECE002B6FA6 /* SFSection.swift in Sources */,
 				4223C5171FE7A0C300A2E2F2 /* ConstraintRelation.swift in Sources */,
@@ -798,17 +860,20 @@
 				42B253E51FEA0E700002C297 /* ConstraintType.swift in Sources */,
 				4230E8E8204CBF79003E5BCC /* SFTableHeaderView.swift in Sources */,
 				42A42EBF1FF1BC81002FE4A7 /* SFGradientReady.swift in Sources */,
+				42437D36209A0B85003E144D /* DocumentReference.swift in Sources */,
 				42F38782207B16D200DAD4BC /* SFAlertViewController.swift in Sources */,
 				424E2C75202378EA00F9A4E2 /* UITextView.swift in Sources */,
 				429FD4911FED7EDC00FD7F10 /* UIImageView.swift in Sources */,
 				42838206206DA49000039F66 /* SFImageZoomViewController.swift in Sources */,
 				420AFCE52080189400D9D778 /* SFTextScrollSection.swift in Sources */,
+				42437D37209A0B85003E144D /* FirebaseObject.swift in Sources */,
 				42834C0C20465964009CFE22 /* SFButtonSection.swift in Sources */,
 				424BE0BB1FF45AD7005DE2AD /* UIFont.swift in Sources */,
 				429FD4931FED89C200FD7F10 /* SFAnimationCurve.swift in Sources */,
 				42A42EA91FF1A95F002FE4A7 /* SFColorStyleProtocol.swift in Sources */,
 				42A1A86E1FEA2918009B888C /* Bool.swift in Sources */,
 				420AFCE7208026CC00D9D778 /* SFStackView.swift in Sources */,
+				42437D3A209A0ED8003E144D /* FacebookLogin.swift in Sources */,
 				42A42EAB1FF1A9AB002FE4A7 /* SFColorStyle.swift in Sources */,
 				42CDA9BD20361BDE0046791D /* SFChatBar.swift in Sources */,
 				424BE0C11FF45B2D005DE2AD /* Date.swift in Sources */,
@@ -832,6 +897,7 @@
 				42289AE4203481C70095FF5C /* UITableView.swift in Sources */,
 				425AFDAC20300C580049B68B /* SFCollectionView.swift in Sources */,
 				42D13476208D436600EFB118 /* SFSignViewController.swift in Sources */,
+				42437D34209A0B85003E144D /* Auth.swift in Sources */,
 				42A42EC31FF1C13E002FE4A7 /* SFVideoView.swift in Sources */,
 				42A42EAD1FF1AB98002FE4A7 /* SFColors.swift in Sources */,
 				4244674F202A9FE900F59892 /* SFTableView.swift in Sources */,

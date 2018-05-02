@@ -18,6 +18,7 @@ open class SFPopAnimation: SFAnimation {
         self.finalScaleX = type == .outside ? force * 0.2 < 1 ? 1 - force * 0.2 : 0 : 1 + force * 0.2
     }
     
+    @discardableResult
     open override func start() -> Promise<Void> {
         return Promise { seal in
             guard let view = view else {

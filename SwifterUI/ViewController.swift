@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import DeepDiff
 
 class View: SFView {
     
@@ -56,44 +57,33 @@ class View: SFView {
 
 class ViewController: SFViewController {
     
-    lazy var mainView: View = {
-        let view = View(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
+    lazy var tableView: SFTableView = {
+        let view = SFTableView(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle, style: .grouped)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    
+    let tableManager = SFTableManager<String, SFTableViewCell>(data: [["Prueba 1"]])
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(mainView)
-        mainView.button.addTarget(self, action: #selector(presentBulletin), for: .touchUpInside)
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+        view.addSubview(tableView)
+        tableManager.configure(tableView: tableView)
+        tableManager.cellHandler = { (cell, model, indexPath) in
+            cell.textLabel?.text = model
+        }
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        mainView.clipEdges()
+        tableView.clipEdges()
     }
     
-    @objc func presentBulletin() {
-//        let popViewController = SFPopViewController(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
-//        let manager = SFPresentationManager(animation: .pop)
-//        popViewController.transitioningDelegate = manager
-//        popViewController.modalPresentationStyle = .custom
-//        present(popViewController, animated: true, completion: nil)
-        let button = SFButton(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
-        button.setTitle("Boton", for: .normal)
-        button.add {
-            print("Hi")
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        DispatchQueue.delay(by: 2, dispatchLevel: .main) {
+            self.tableManager.update(data: [["Prueba 1", "Prueba 2"], ["Prueba 1", "Prueba 2", "Prueba 3"], ["Prueba 1", "Prueba 2", "Prueba 3"], ["Prueba 1", "Prueba 2", "Prueba 3"], ["Prueba 1", "Prueba 2", "Prueba 3"], ["Prueba 1", "Prueba 2", "Prueba 3"]], animation: .left)
         }
-        let controller = SFAlertViewController(title: "Hola", message: "Este es el mensaje", buttons: [button])
-        present(controller, animated: true)
-//        let controller = SFBulletinController(buttons: [button])
-//        present(controller, animated: true, completion: nil)
-//        let controller = SFPopViewController()
-//        present(controller, animated: true, completion: nil)
     }
 }
 

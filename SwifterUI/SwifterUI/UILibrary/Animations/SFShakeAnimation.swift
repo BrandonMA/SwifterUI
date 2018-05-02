@@ -18,6 +18,7 @@ open class SFShakeAnimation: SFAnimation {
         self.initialFrame = view.frame
     }
     
+    @discardableResult
     open override func start() -> Promise<Void> {
         return Promise { seal in
             guard let view = view else {

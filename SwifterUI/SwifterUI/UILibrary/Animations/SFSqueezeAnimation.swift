@@ -13,6 +13,7 @@ open class SFSqueezeAnimation: SFAnimation {
     
     // MARK: - Instance Methods
     
+    @discardableResult
     open override func start() -> Promise<Void> {
         return Promise { seal in
             guard let view = view else {

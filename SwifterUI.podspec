@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'SwifterUI'
-  s.version          = '0.6.15'
+  s.version          = '0.6.16'
   s.summary          = 'UI Library'
  
   s.description      = 'This is a UI Library to improve development process'
@@ -17,8 +17,7 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '11.0'
   s.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.0' }
   s.source_files = 'SwifterUI/SwifterUI/**/*', 'SwifterUI/SwifterUI/**/**/*'
-  s.dependency 'PromiseKit', '~> 6.0'
-  s.dependency 'DeepDiff'
+  
   s.dependency 'PromiseKit', '~> 6.0'
   s.dependency 'DeepDiff'
   s.dependency 'CodableFirebase'
@@ -27,5 +26,11 @@ Pod::Spec.new do |s|
   s.dependency 'Firebase/Auth'
   s.dependency 'Firebase/Firestore'
   s.dependency 'Firebase/Storage'
+
   s.xcconfig = { 'SWIFT_INCLUDE_PATHS' => '$(PODS_ROOT)/Firebase/Core/Sources' }
+
+  s.pod_target_xcconfig = {
+    'FRAMEWORK_SEARCH_PATHS' => '$(inherited) $(PODS_ROOT)/Firebase $(PODS_ROOT)/FirebaseCore/Frameworks $(PODS_ROOT)/FirebaseRemoteConfig/Frameworks $(PODS_ROOT)/FirebaseInstanceID/Frameworks $(PODS_ROOT)/FirebaseAnalytics/Frameworks $(PODS_ROOT)/FirebaseABTesting/Frameworks'
+  }
+  
 end

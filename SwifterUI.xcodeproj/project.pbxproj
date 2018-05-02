@@ -31,11 +31,6 @@
 		423AAC2A1FE770D5009D6C39 /* Constraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423AAC291FE770D5009D6C39 /* Constraint.swift */; };
 		423AAC2C1FE770E6009D6C39 /* Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423AAC2B1FE770E6009D6C39 /* Constraints.swift */; };
 		423F0B691FE9BD8300BF746C /* SFAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423F0B681FE9BD8300BF746C /* SFAnimation.swift */; };
-		42437D34209A0B85003E144D /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42437D2F209A0B81003E144D /* Auth.swift */; };
-		42437D35209A0B85003E144D /* CollectionReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42437D30209A0B82003E144D /* CollectionReference.swift */; };
-		42437D36209A0B85003E144D /* DocumentReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42437D31209A0B83003E144D /* DocumentReference.swift */; };
-		42437D37209A0B85003E144D /* FirebaseObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42437D32209A0B84003E144D /* FirebaseObject.swift */; };
-		42437D38209A0B85003E144D /* StorageReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42437D33209A0B85003E144D /* StorageReference.swift */; };
 		424426CB208CC72000AAFCCC /* SFAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424426CA208CC71F00AAFCCC /* SFAssets.swift */; };
 		4244674F202A9FE900F59892 /* SFTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4244674E202A9FE900F59892 /* SFTableView.swift */; };
 		42446773202AC27F00F59892 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42446772202AC27F00F59892 /* UIView.swift */; };
@@ -168,11 +163,6 @@
 		423AAC291FE770D5009D6C39 /* Constraint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constraint.swift; sourceTree = "<group>"; };
 		423AAC2B1FE770E6009D6C39 /* Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constraints.swift; sourceTree = "<group>"; };
 		423F0B681FE9BD8300BF746C /* SFAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFAnimation.swift; sourceTree = "<group>"; };
-		42437D2F209A0B81003E144D /* Auth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
-		42437D30209A0B82003E144D /* CollectionReference.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionReference.swift; sourceTree = "<group>"; };
-		42437D31209A0B83003E144D /* DocumentReference.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentReference.swift; sourceTree = "<group>"; };
-		42437D32209A0B84003E144D /* FirebaseObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseObject.swift; sourceTree = "<group>"; };
-		42437D33209A0B85003E144D /* StorageReference.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageReference.swift; sourceTree = "<group>"; };
 		424426CA208CC71F00AAFCCC /* SFAssets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFAssets.swift; sourceTree = "<group>"; };
 		4244674E202A9FE900F59892 /* SFTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFTableView.swift; sourceTree = "<group>"; };
 		42446772202AC27F00F59892 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
@@ -356,7 +346,6 @@
 		423AAC1E1FE76718009D6C39 /* SwifterUI */ = {
 			isa = PBXGroup;
 			children = (
-				42CCE8412098DAFA00D4D8BE /* FirebaseKit */,
 				42CB6AFA2036027C0080EFB8 /* ChatKit */,
 				42B8DEF620409F1500B5770A /* LoginKit */,
 				42A42EB61FF1B578002FE4A7 /* UILibrary */,
@@ -542,18 +531,6 @@
 				42CDA9BA20361BC50046791D /* SFChatViewController.swift */,
 			);
 			path = ChatKit;
-			sourceTree = "<group>";
-		};
-		42CCE8412098DAFA00D4D8BE /* FirebaseKit */ = {
-			isa = PBXGroup;
-			children = (
-				42437D2F209A0B81003E144D /* Auth.swift */,
-				42437D30209A0B82003E144D /* CollectionReference.swift */,
-				42437D31209A0B83003E144D /* DocumentReference.swift */,
-				42437D32209A0B84003E144D /* FirebaseObject.swift */,
-				42437D33209A0B85003E144D /* StorageReference.swift */,
-			);
-			path = FirebaseKit;
 			sourceTree = "<group>";
 		};
 		B448E1DF1B7B136145C67B66 /* Frameworks */ = {
@@ -816,7 +793,6 @@
 				42A42EBC1FF1BA3A002FE4A7 /* SFGradientDirection.swift in Sources */,
 				42795F64202FB55300C3767F /* SFPopBar.swift in Sources */,
 				42A42EB51FF1B296002FE4A7 /* SFView.swift in Sources */,
-				42437D35209A0B85003E144D /* CollectionReference.swift in Sources */,
 				429FD4951FED89F300FD7F10 /* SFShakeAnimation.swift in Sources */,
 				4230E8EA204CC1DA003E5BCC /* SFNotificationIndicator.swift in Sources */,
 				42446777202AC57700F59892 /* SFTextView.swift in Sources */,
@@ -833,7 +809,6 @@
 				424BE0BD1FF45AEA005DE2AD /* UIImage.swift in Sources */,
 				423AABF21FE7548F009D6C39 /* ViewController.swift in Sources */,
 				424426CB208CC72000AAFCCC /* SFAssets.swift in Sources */,
-				42437D38209A0B85003E144D /* StorageReference.swift in Sources */,
 				429FD49F1FED900100FD7F10 /* SFWobbleAnimation.swift in Sources */,
 				423AAC2C1FE770E6009D6C39 /* Constraints.swift in Sources */,
 				42A67AC620411B3B00F2FF3E /* UIWindow.swift in Sources */,
@@ -857,13 +832,11 @@
 				42B253E51FEA0E700002C297 /* ConstraintType.swift in Sources */,
 				4230E8E8204CBF79003E5BCC /* SFTableHeaderView.swift in Sources */,
 				42A42EBF1FF1BC81002FE4A7 /* SFGradientReady.swift in Sources */,
-				42437D36209A0B85003E144D /* DocumentReference.swift in Sources */,
 				42F38782207B16D200DAD4BC /* SFAlertViewController.swift in Sources */,
 				424E2C75202378EA00F9A4E2 /* UITextView.swift in Sources */,
 				429FD4911FED7EDC00FD7F10 /* UIImageView.swift in Sources */,
 				42838206206DA49000039F66 /* SFImageZoomViewController.swift in Sources */,
 				420AFCE52080189400D9D778 /* SFTextScrollSection.swift in Sources */,
-				42437D37209A0B85003E144D /* FirebaseObject.swift in Sources */,
 				42834C0C20465964009CFE22 /* SFButtonSection.swift in Sources */,
 				424BE0BB1FF45AD7005DE2AD /* UIFont.swift in Sources */,
 				429FD4931FED89C200FD7F10 /* SFAnimationCurve.swift in Sources */,
@@ -893,7 +866,6 @@
 				42289AE4203481C70095FF5C /* UITableView.swift in Sources */,
 				425AFDAC20300C580049B68B /* SFCollectionView.swift in Sources */,
 				42D13476208D436600EFB118 /* SFSignViewController.swift in Sources */,
-				42437D34209A0B85003E144D /* Auth.swift in Sources */,
 				42A42EC31FF1C13E002FE4A7 /* SFVideoView.swift in Sources */,
 				42A42EAD1FF1AB98002FE4A7 /* SFColors.swift in Sources */,
 				4244674F202A9FE900F59892 /* SFTableView.swift in Sources */,

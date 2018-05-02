@@ -15,7 +15,6 @@ target 'SwifterUI' do
   pod 'CodableFirebase'
   pod 'Firebase'
   pod 'Firebase/Core'
-  pod 'Firebase/Messaging'
   pod 'Firebase/Auth'
   pod 'Firebase/Firestore'
   pod 'Firebase/Storage'

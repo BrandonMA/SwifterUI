@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'SwifterUI'
-  s.version          = '0.6.11'
+  s.version          = '0.6.12'
   s.summary          = 'UI Library'
  
   s.description      = 'This is a UI Library to improve development process'
@@ -18,45 +18,17 @@ Pod::Spec.new do |s|
   s.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.0' }
   s.static_framework = true
 
-  s.pod_target_xcconfig = {
-    "OTHER_LDFLAGS" => '$(inherited) -framework "FirebaseCore" -framework "FirebaseMessaging"',
-    "CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES" => 'YES',
-    "FRAMEWORK_SEARCH_PATHS" => '$(inherited) "${PODS_ROOT}/FirebaseCore/Frameworks" "${PODS_ROOT}/FirebaseMessaging/Frameworks"'
-}
-
-  s.subspec 'Core' do |core|
-    core.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.0' }
-    core.ios.deployment_target = '11.0'
-    core.source_files = 'SwifterUI/SwifterUI/UILibrary/*', 'SwifterUI/SwifterUI/UILibrary/**/*'
-    core.dependency 'PromiseKit', '~> 6.0'
-    core.dependency 'DeepDiff'
-  end
-
-  s.subspec 'ChatKit' do |chatkit|
-    chatkit.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.0' }
-    chatkit.ios.deployment_target = '11.0'
-    chatkit.source_files  = 'SwifterUI/SwifterUI/ChatKit/*'
-    chatkit.dependency 'SwifterUI/Core'
-  end
-
-  s.subspec 'LoginKit' do |loginkit|
-    loginkit.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.0' }
-    loginkit.ios.deployment_target = '11.0'
-    loginkit.source_files  = 'SwifterUI/SwifterUI/LoginKit/**/*'
-    loginkit.dependency 'SwifterUI/Core'
-  end
-
-  s.subspec 'FirebaseKit' do |firebaseKit|
-    firebaseKit.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.0' }
-    firebaseKit.ios.deployment_target = '11.0'
-    firebaseKit.source_files  = 'SwifterUI/SwifterUI/FirebaseKit/**/*'
-    firebaseKit.dependency 'SwifterUI/Core'
-    firebaseKit.dependency 'CodableFirebase'
-    firebaseKit.dependency 'Firebase'
-    firebaseKit.dependency 'Firebase/Core'
-    firebaseKit.dependency 'Firebase/Auth'
-    firebaseKit.dependency 'Firebase/Firestore'
-    firebaseKit.dependency 'Firebase/Storage'
-  end
+  s.source_files = 'SwifterUI/SwifterUI/**/*', 'SwifterUI/SwifterUI/**/**/*'
+  s.dependency 'PromiseKit', '~> 6.0'
+  s.dependency 'DeepDiff'
+  s.dependency 'PromiseKit', '~> 6.0'
+  s.dependency 'DeepDiff'
+  s.dependency 'SwifterUI/Core'
+  s.dependency 'CodableFirebase'
+  s.dependency 'Firebase'
+  s.dependency 'Firebase/Core'
+  s.dependency 'Firebase/Auth'
+  s.dependency 'Firebase/Firestore'
+  s.dependency 'Firebase/Storage'
 
 end

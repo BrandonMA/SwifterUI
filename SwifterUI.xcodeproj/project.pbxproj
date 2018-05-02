@@ -36,7 +36,6 @@
 		42437D36209A0B85003E144D /* DocumentReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42437D31209A0B83003E144D /* DocumentReference.swift */; };
 		42437D37209A0B85003E144D /* FirebaseObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42437D32209A0B84003E144D /* FirebaseObject.swift */; };
 		42437D38209A0B85003E144D /* StorageReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42437D33209A0B85003E144D /* StorageReference.swift */; };
-		42437D3A209A0ED8003E144D /* FacebookLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42437D39209A0ED8003E144D /* FacebookLogin.swift */; };
 		424426CB208CC72000AAFCCC /* SFAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424426CA208CC71F00AAFCCC /* SFAssets.swift */; };
 		4244674F202A9FE900F59892 /* SFTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4244674E202A9FE900F59892 /* SFTableView.swift */; };
 		42446773202AC27F00F59892 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42446772202AC27F00F59892 /* UIView.swift */; };
@@ -174,7 +173,6 @@
 		42437D31209A0B83003E144D /* DocumentReference.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentReference.swift; sourceTree = "<group>"; };
 		42437D32209A0B84003E144D /* FirebaseObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseObject.swift; sourceTree = "<group>"; };
 		42437D33209A0B85003E144D /* StorageReference.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageReference.swift; sourceTree = "<group>"; };
-		42437D39209A0ED8003E144D /* FacebookLogin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookLogin.swift; sourceTree = "<group>"; };
 		424426CA208CC71F00AAFCCC /* SFAssets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFAssets.swift; sourceTree = "<group>"; };
 		4244674E202A9FE900F59892 /* SFTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFTableView.swift; sourceTree = "<group>"; };
 		42446772202AC27F00F59892 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
@@ -549,7 +547,6 @@
 		42CCE8412098DAFA00D4D8BE /* FirebaseKit */ = {
 			isa = PBXGroup;
 			children = (
-				42437D39209A0ED8003E144D /* FacebookLogin.swift */,
 				42437D2F209A0B81003E144D /* Auth.swift */,
 				42437D30209A0B82003E144D /* CollectionReference.swift */,
 				42437D31209A0B83003E144D /* DocumentReference.swift */,
@@ -873,7 +870,6 @@
 				42A42EA91FF1A95F002FE4A7 /* SFColorStyleProtocol.swift in Sources */,
 				42A1A86E1FEA2918009B888C /* Bool.swift in Sources */,
 				420AFCE7208026CC00D9D778 /* SFStackView.swift in Sources */,
-				42437D3A209A0ED8003E144D /* FacebookLogin.swift in Sources */,
 				42A42EAB1FF1A9AB002FE4A7 /* SFColorStyle.swift in Sources */,
 				42CDA9BD20361BDE0046791D /* SFChatBar.swift in Sources */,
 				424BE0C11FF45B2D005DE2AD /* Date.swift in Sources */,

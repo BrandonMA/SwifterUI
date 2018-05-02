@@ -28,9 +28,6 @@ PODS:
   - Firebase/Firestore (4.13.0):
     - Firebase/Core
     - FirebaseFirestore (= 0.11.0)
-  - Firebase/Messaging (4.13.0):
-    - Firebase/Core
-    - FirebaseMessaging (= 2.2.0)
   - Firebase/Storage (4.13.0):
     - Firebase/Core
     - FirebaseStorage (= 2.2.0)
@@ -53,12 +50,6 @@ PODS:
     - Protobuf (~> 3.5)
   - FirebaseInstanceID (2.0.10):
     - FirebaseCore (~> 4.0)
-  - FirebaseMessaging (2.2.0):
-    - FirebaseAnalytics (~> 4.1)
-    - FirebaseCore (~> 4.0)
-    - FirebaseInstanceID (~> 2.0)
-    - GoogleToolboxForMac/Logger (~> 2.1)
-    - Protobuf (~> 3.5)
   - FirebaseStorage (2.2.0):
     - FirebaseAnalytics (~> 4.1)
     - FirebaseCore (~> 4.0)
@@ -66,8 +57,6 @@ PODS:
   - GoogleToolboxForMac/DebugUtils (2.1.4):
     - GoogleToolboxForMac/Defines (= 2.1.4)
   - GoogleToolboxForMac/Defines (2.1.4)
-  - GoogleToolboxForMac/Logger (2.1.4):
-    - GoogleToolboxForMac/Defines (= 2.1.4)
   - "GoogleToolboxForMac/NSData+zlib (2.1.4)":
     - GoogleToolboxForMac/Defines (= 2.1.4)
   - "GoogleToolboxForMac/NSDictionary+URLArguments (2.1.4)":
@@ -120,7 +109,6 @@ DEPENDENCIES:
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Firestore
-  - Firebase/Messaging
   - Firebase/Storage
   - PromiseKit (~> 6.0)
 
@@ -138,7 +126,6 @@ SPEC REPOS:
     - FirebaseCore
     - FirebaseFirestore
     - FirebaseInstanceID
-    - FirebaseMessaging
     - FirebaseStorage
     - GoogleToolboxForMac
     - gRPC
@@ -164,7 +151,6 @@ SPEC CHECKSUMS:
   FirebaseCore: 90cb1c53d69b556f112a1bf72b5fcfaad7650790
   FirebaseFirestore: e92a096ce80c7b4b905d4e9d41dbd944adc9d2a5
   FirebaseInstanceID: 8d20d890d65c917f9f7d9950b6e10a760ad34321
-  FirebaseMessaging: 75cdb862e86c30e0913a2ff307e48d49357c5b73
   FirebaseStorage: 0c223481c8f89ed300cf1239ddd2d9833622c65f
   GoogleToolboxForMac: 91c824d21e85b31c2aae9bb011c5027c9b4e738f
   gRPC: 70703dc9ba31c72341fc7f37745cc1c379edee96
@@ -177,6 +163,6 @@ SPEC CHECKSUMS:
   PromiseKit: a26828b0a8d5874960dfdb575b57a70790ec36f1
   Protobuf: 8a9838fba8dae3389230e1b7f8c104aa32389c03
 
-PODFILE CHECKSUM: ee479823d4f82315408a8bcdc439cf609118aedc
+PODFILE CHECKSUM: 142044c039aafef8aa2e74e011fc256c098de330
 
 COCOAPODS: 1.5.0

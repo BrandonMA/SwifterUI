@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'SwifterUI'
-  s.version          = '0.6.4'
+  s.version          = '0.6.5'
   s.summary          = 'UI Library'
  
   s.description      = 'This is a UI Library to improve development process'
@@ -40,17 +40,18 @@ Pod::Spec.new do |s|
   end
 
   s.subspec 'FirebaseKit' do |firebaseKit|
-    loginkit.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.0' }
-    loginkit.ios.deployment_target = '11.0'
-    loginkit.source_files  = 'SwifterUI/SwifterUI/FirebaseKit/**/*'
-    loginkit.dependency 'FBSDKLoginKit'
-    loginkit.dependency 'CodableFirebase'
-    loginkit.dependency 'Firebase'
-    loginkit.dependency 'Firebase/Core'
-    loginkit.dependency 'Firebase/Messaging'
-    loginkit.dependency 'Firebase/Auth'
-    loginkit.dependency 'Firebase/Firestore'
-    loginkit.dependency 'Firebase/Storage'
+    firebaseKit.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.0' }
+    firebaseKit.ios.deployment_target = '11.0'
+    firebaseKit.source_files  = 'SwifterUI/SwifterUI/FirebaseKit/**/*'
+    firebaseKit.dependency 'PromiseKit', '~> 6.0'
+    firebaseKit.dependency 'FBSDKLoginKit'
+    firebaseKit.dependency 'CodableFirebase'
+    firebaseKit.dependency 'Firebase'
+    firebaseKit.dependency 'Firebase/Core'
+    firebaseKit.dependency 'Firebase/Messaging'
+    firebaseKit.dependency 'Firebase/Auth'
+    firebaseKit.dependency 'Firebase/Firestore'
+    firebaseKit.dependency 'Firebase/Storage'
   end
 
 end

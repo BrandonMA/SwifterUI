@@ -7,7 +7,7 @@
 //
 
 import PromiseKit
-import Firebase
+import FirebaseAuth
 
 public extension Auth {
     

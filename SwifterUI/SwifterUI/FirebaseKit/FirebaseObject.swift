@@ -6,7 +6,7 @@
 //  Copyright © 2018 Brandon Maldonado Alonso. All rights reserved.
 //
 
-import Firebase
+import FirebaseFirestore
 import CodableFirebase
 import PromiseKit
 

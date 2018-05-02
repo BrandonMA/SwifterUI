@@ -7,7 +7,7 @@
 //
 
 import PromiseKit
-import Firebase
+import FirebaseStorage
 
 public extension StorageReference {
     

@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'SwifterUI'
-  s.version          = '0.6.7'
+  s.version          = '0.6.8'
   s.summary          = 'UI Library'
  
   s.description      = 'This is a UI Library to improve development process'
@@ -40,16 +40,17 @@ Pod::Spec.new do |s|
   end
 
   s.subspec 'FirebaseKit' do |firebaseKit|
+    firebaseKit.static_framework = true
     firebaseKit.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.0' }
     firebaseKit.ios.deployment_target = '11.0'
     firebaseKit.source_files  = 'SwifterUI/SwifterUI/FirebaseKit/**/*'
     firebaseKit.dependency 'PromiseKit', '~> 6.0'
     firebaseKit.dependency 'CodableFirebase'
     firebaseKit.dependency 'Firebase'
-    firebaseKit.dependency 'FirebaseCore', :git => 'https://github.com/firebase/firebase-ios-sdk.git', :tag => '4.11.0'
-    firebaseKit.dependency 'FirebaseAuth', :git => 'https://github.com/firebase/firebase-ios-sdk.git', :tag => '4.11.0'
-    firebaseKit.dependency 'FirebaseFirestore', :git => 'https://github.com/firebase/firebase-ios-sdk.git', :tag => '4.11.0'
-    firebaseKit.dependency 'FirebaseStorage', :git => 'https://github.com/firebase/firebase-ios-sdk.git', :tag => '4.11.0'
+    firebaseKit.dependency 'FirebaseCore'
+    firebaseKit.dependency 'FirebaseAuth'
+    firebaseKit.dependency 'FirebaseFirestore'
+    firebaseKit.dependency 'FirebaseStorage'
   end
 
 end

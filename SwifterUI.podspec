@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'SwifterUI'
-  s.version          = '0.6.21'
+  s.version          = '0.6.22'
   s.summary          = 'UI Library'
  
   s.description      = 'This is a UI Library to improve development process'
@@ -26,9 +26,6 @@ Pod::Spec.new do |s|
   s.dependency 'Firebase/Storage'
 
   s.pod_target_xcconfig = {
-    "OTHER_LDFLAGS" => '$(inherited) -framework "FirebaseCore" -framework "FirebaseAuth" -framework "FirebaseFirestore" -framework "FirebaseStorage"',
-    "CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES" => 'YES',
-    "FRAMEWORK_SEARCH_PATHS" => '$(inherited) "${PODS_ROOT}/FirebaseCore/Frameworks" "${PODS_ROOT}/FirebaseAuth/Frameworks" "${PODS_ROOT}/FirebaseFirestore/Frameworks" "${PODS_ROOT}/FirebaseStorage/Frameworks"',
     'SWIFT_VERSION' => '4.0'
   }
 

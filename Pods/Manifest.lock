@@ -17,8 +17,6 @@ PODS:
     - Bolts (~> 1.7)
   - FBSDKLoginKit (4.32.0):
     - FBSDKCoreKit
-  - Firebase (4.13.0):
-    - Firebase/Core (= 4.13.0)
   - Firebase/Auth (4.13.0):
     - Firebase/Core
     - FirebaseAuth (= 4.6.1)
@@ -105,7 +103,6 @@ DEPENDENCIES:
   - CodableFirebase
   - DeepDiff
   - FBSDKLoginKit
-  - Firebase
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Firestore
@@ -163,6 +160,6 @@ SPEC CHECKSUMS:
   PromiseKit: a26828b0a8d5874960dfdb575b57a70790ec36f1
   Protobuf: 8a9838fba8dae3389230e1b7f8c104aa32389c03
 
-PODFILE CHECKSUM: 142044c039aafef8aa2e74e011fc256c098de330
+PODFILE CHECKSUM: 6c653759a4507a40977fa9b7ee90c3bcbc2007dc
 
 COCOAPODS: 1.5.0

@@ -13,7 +13,6 @@ target 'SwifterUI' do
   pod 'DeepDiff'
   pod 'FBSDKLoginKit'
   pod 'CodableFirebase'
-  pod 'Firebase'
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
   pod 'Firebase/Firestore'

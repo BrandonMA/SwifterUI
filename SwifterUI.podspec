@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'SwifterUI'
-  s.version          = '0.6.8'
+  s.version          = '0.6.9'
   s.summary          = 'UI Library'
  
   s.description      = 'This is a UI Library to improve development process'
@@ -16,6 +16,7 @@ Pod::Spec.new do |s|
 
   s.ios.deployment_target = '11.0'
   s.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.0' }
+  s.static_framework = true
 
   s.subspec 'Core' do |core|
     core.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.0' }
@@ -40,7 +41,6 @@ Pod::Spec.new do |s|
   end
 
   s.subspec 'FirebaseKit' do |firebaseKit|
-    firebaseKit.static_framework = true
     firebaseKit.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.0' }
     firebaseKit.ios.deployment_target = '11.0'
     firebaseKit.source_files  = 'SwifterUI/SwifterUI/FirebaseKit/**/*'

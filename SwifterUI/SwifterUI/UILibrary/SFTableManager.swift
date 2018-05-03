@@ -61,14 +61,18 @@ open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell>: NSObj
     
     open func update(dataSections: [SFTableSection<DataModel>], animation: UITableViewRowAnimation = .fade) {
         for (index, section) in dataSections.enumerated() {
-            update(tableSection: section, index: index, animation: animation)
+            DispatchQueue.addAsyncTask(to: .main) {
+                self.update(tableSection: section, index: index, animation: animation)
+            }
         }
     }
     
     open func update(data: [[DataModel]], animation: UITableViewRowAnimation = .fade) {
         for (index, section) in data.enumerated() {
-            let tableSection = SFTableSection<DataModel>(content: section, identifier: "")
-            update(tableSection: tableSection, index: index, animation: animation)
+            DispatchQueue.addAsyncTask(to: .main) {
+                let tableSection = SFTableSection<DataModel>(content: section, identifier: "")
+                self.update(tableSection: tableSection, index: index, animation: animation)
+            }
         }
     }
     

@@ -12,16 +12,7 @@ public protocol SFBulletinControllerDelegate: class {
     
     // MARK: - Instance Methods
     
-    func bulletinController(_ bulletinController: SFBulletinController, retreivedValue: String?, index: Int?)    
-}
-
-extension SFBulletinControllerDelegate {
-    
-    // MARK: - Instance Methods
-    
-    public func bulletinController(_ bulletinController: SFBulletinController, retreivedValue: String?, index: Int?) {
-        
-    }
+    func bulletinController(_ bulletinController: SFBulletinController, retreivedValue: Any?, index: Int?)
 }
 
 open class SFBulletinController: SFViewController, SFInteractionViewController {
@@ -139,10 +130,7 @@ open class SFBulletinController: SFViewController, SFInteractionViewController {
         returnToMainViewController()
         if buttons.count == 0 {
             if useDatePicker {
-                let formatter = DateFormatter()
-                formatter.dateFormat = "dd/MM/yyyy"
-                formatter.timeZone = TimeZone.current
-                delegate?.bulletinController(self, retreivedValue: formatter.string(from: datePicker.date), index: nil)
+                delegate?.bulletinController(self, retreivedValue: datePicker.date, index: nil)
             } else {
                 delegate?.bulletinController(self, retreivedValue: pickerValues[pickerView.selectedRow(inComponent: 0)], index: pickerView.selectedRow(inComponent: 0))
             }

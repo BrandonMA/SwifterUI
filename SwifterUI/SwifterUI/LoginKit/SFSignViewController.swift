@@ -34,6 +34,7 @@ open class SFSignViewController: SFViewController {
         signView.signUpView.signUpButton.addTarget(self, action: #selector(signUpButtonDidTouch), for: .touchUpInside)
         signView.signInView.signInButton.addTarget(self, action: #selector(logInButtonDidTouch), for: .touchUpInside)
         signView.facebookButton.addTarget(self, action: #selector(facebookButtonDidTouch), for: .touchUpInside)
+        setColorsForState()
     }
     
     open override func viewWillLayoutSubviews() {
@@ -63,10 +64,10 @@ open class SFSignViewController: SFViewController {
             let inAnimation = SFScaleAnimation(with: self.signView.signInView, type: .inside)
             inAnimation.duration = 0.6
             return inAnimation.start()
-        }.done({
-        }).catch({ error in
-            self.showError()
-        })
+            }.done({
+            }).catch({ error in
+                self.showError()
+            })
     }
     
     private func showSignUp() {
@@ -81,10 +82,10 @@ open class SFSignViewController: SFViewController {
             let inAnimation = SFScaleAnimation(with: self.signView.signUpView, type: .inside)
             inAnimation.duration = 0.6
             return inAnimation.start()
-        }.done({
-        }).catch({ error in
-            self.showError()
-        })
+            }.done({
+            }).catch({ error in
+                self.showError()
+            })
     }
     
     private func setColorsForState() {
@@ -113,10 +114,10 @@ open class SFSignViewController: SFViewController {
     @objc private func logInButtonDidTouch() {
         guard let email = signView.signInView.mailSection.text else { return }
         guard let password = signView.signInView.passwordSection.text else { return }
-        login(with: email, password: password)
+        signin(with: email, password: password)
     }
     
-    open func login(with email: String, password: String) {
+    open func signin(with email: String, password: String) {
     }
     
     @objc open func facebookButtonDidTouch() {

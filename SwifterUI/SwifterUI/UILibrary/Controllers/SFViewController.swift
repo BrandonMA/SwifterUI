@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MobileCoreServices
 
 open class SFViewController: UIViewController, SFControllerColorStyle {
     
@@ -125,3 +126,13 @@ open class SFViewController: UIViewController, SFControllerColorStyle {
     }
 }
 
+public extension UIImagePickerControllerDelegate where Self: SFViewController & UINavigationControllerDelegate {
+    public func showMediaPicker(sourceType: UIImagePickerControllerSourceType, mediaTypes: [String] = [kUTTypeImage as String]) {
+        let imagePicker = UIImagePickerController()
+        imagePicker.sourceType = sourceType
+        imagePicker.allowsEditing = false
+        imagePicker.delegate = self
+        imagePicker.mediaTypes = mediaTypes
+        self.present(imagePicker, animated: true, completion: nil)
+    }
+}

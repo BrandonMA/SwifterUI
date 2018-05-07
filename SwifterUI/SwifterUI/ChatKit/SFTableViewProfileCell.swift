@@ -38,12 +38,21 @@ open class SFTableViewProfileCell: SFTableViewCell {
         return label
     }()
     
+    private lazy var stackView: SFStackView = {
+        let stackView = SFStackView(arrangedSubviews: [profileImageView, nameLabel])
+        stackView.axis = .horizontal
+        stackView.alignment = .fill
+        stackView.distribution = .fill
+        stackView.spacing = 16
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
+    
     // MARK: - Initializers
     
     public override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        contentView.addSubview(profileImageView)
-        contentView.addSubview(nameLabel)
+        contentView.addSubview(stackView)
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -54,12 +63,8 @@ open class SFTableViewProfileCell: SFTableViewCell {
     
     open override func layoutSubviews() {
         super.layoutSubviews()
-        profileImageView.height(SFDimension(value: 36))
+        stackView.clipEdges(margin: UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16))
         profileImageView.width(SFDimension(value: 36))
-        profileImageView.clipLeft(to: .left, margin: 12)
-        profileImageView.center(axis: [.vertical])
-        nameLabel.center(axis: [.vertical])
-        nameLabel.clipLeft(to: .right, of: profileImageView, margin: 12)
     }
     
 }

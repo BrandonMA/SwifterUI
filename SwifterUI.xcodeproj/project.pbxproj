@@ -55,6 +55,7 @@
 		42834C0C20465964009CFE22 /* SFButtonSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42834C0B20465964009CFE22 /* SFButtonSection.swift */; };
 		42838206206DA49000039F66 /* SFImageZoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42838205206DA49000039F66 /* SFImageZoomViewController.swift */; };
 		42838208206DA4D200039F66 /* SFImageZoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42838207206DA4D200039F66 /* SFImageZoomView.swift */; };
+		4286042C20A0D27C00D785FC /* SFCollectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4286042B20A0D27C00D785FC /* SFCollectionManager.swift */; };
 		42933BF42097D2AB00ED7175 /* SFTableManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42933BF32097D2AB00ED7175 /* SFTableManager.swift */; };
 		429FD4911FED7EDC00FD7F10 /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429FD4901FED7EDC00FD7F10 /* UIImageView.swift */; };
 		429FD4931FED89C200FD7F10 /* SFAnimationCurve.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429FD4921FED89C200FD7F10 /* SFAnimationCurve.swift */; };
@@ -190,6 +191,7 @@
 		42834C0B20465964009CFE22 /* SFButtonSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFButtonSection.swift; sourceTree = "<group>"; };
 		42838205206DA49000039F66 /* SFImageZoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFImageZoomViewController.swift; sourceTree = "<group>"; };
 		42838207206DA4D200039F66 /* SFImageZoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFImageZoomView.swift; sourceTree = "<group>"; };
+		4286042B20A0D27C00D785FC /* SFCollectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFCollectionManager.swift; sourceTree = "<group>"; };
 		42933BF32097D2AB00ED7175 /* SFTableManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFTableManager.swift; sourceTree = "<group>"; };
 		429FD4901FED7EDC00FD7F10 /* UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 		429FD4921FED89C200FD7F10 /* SFAnimationCurve.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFAnimationCurve.swift; sourceTree = "<group>"; };
@@ -411,6 +413,7 @@
 				42A42EAE1FF1AC2A002FE4A7 /* SFControllerColorStyle.swift */,
 				42A42EB01FF1AC36002FE4A7 /* SFViewColorStyle.swift */,
 				42933BF32097D2AB00ED7175 /* SFTableManager.swift */,
+				4286042B20A0D27C00D785FC /* SFCollectionManager.swift */,
 				424BE0C41FF45B9C005DE2AD /* Extensions */,
 				42B253E61FEA0E820002C297 /* Layout */,
 				42A42EBD1FF1BA3F002FE4A7 /* SFGradient */,
@@ -824,6 +827,7 @@
 				423AAC2C1FE770E6009D6C39 /* Constraints.swift in Sources */,
 				42A67AC620411B3B00F2FF3E /* UIWindow.swift in Sources */,
 				4230E8EE204CD3BA003E5BCC /* SFRotationAnimation.swift in Sources */,
+				4286042C20A0D27C00D785FC /* SFCollectionManager.swift in Sources */,
 				423AAC281FE76B57009D6C39 /* SFDimension.swift in Sources */,
 				42C2E17D20422DCA00087B3C /* UIViewController.swift in Sources */,
 				424BE0BF1FF45B18005DE2AD /* UIColor.swift in Sources */,

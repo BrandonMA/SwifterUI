@@ -11,7 +11,7 @@ import PromiseKit
 
 public extension UIImage {
     
-    public func download(from url: URL?) -> Promise<UIImage> {
+    public static func download(from url: URL?) -> Promise<UIImage> {
         return Promise { seal in
             guard let url = url else { return }
             URLSession.shared.dataTask(.promise, with: url).compactMap{ UIImage(data: $0.data) }.done({ image in

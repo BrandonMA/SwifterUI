@@ -52,5 +52,25 @@ open class SFPageView: SFScrollView {
         viewsStackView.clipEdges(exclude: [.bottom])
         contentView.clipBottom(to: .bottom, of: viewsStackView)
     }
-    
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

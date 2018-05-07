@@ -10,7 +10,7 @@ import UIKit
 import PromiseKit
 import DeepDiff
 
-public struct SFTableSection<DataModel: Hashable> {
+public struct SFDataSection<DataModel: Hashable> {
     
     public var content: [DataModel]
     public var identifier: String
@@ -25,7 +25,7 @@ open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell>: NSObj
     
     // MARK: - Instance Properties
     
-    private var data: [SFTableSection<DataModel>] = [SFTableSection<DataModel>()]
+    private var data: [SFDataSection<DataModel>] = [SFDataSection<DataModel>()]
     public weak var tableView: SFTableView?
     
     public var lastSectionIndex: Int {
@@ -40,7 +40,7 @@ open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell>: NSObj
     
     // MARK: - Initializers
     
-    public init(dataSections: [SFTableSection<DataModel>] = []) {
+    public init(dataSections: [SFDataSection<DataModel>] = []) {
         super.init()
         update(dataSections: dataSections)
     }
@@ -59,10 +59,10 @@ open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell>: NSObj
         tableView.rowHeight = CellType.height
     }
     
-    open func update(dataSections: [SFTableSection<DataModel>], animation: UITableViewRowAnimation = .fade) {
+    open func update(dataSections: [SFDataSection<DataModel>], animation: UITableViewRowAnimation = .fade) {
         for (index, section) in dataSections.enumerated() {
             DispatchQueue.addAsyncTask(to: .main) {
-                self.update(tableSection: section, index: index, animation: animation)
+                self.update(dataSection: section, index: index, animation: animation)
             }
         }
     }
@@ -70,28 +70,28 @@ open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell>: NSObj
     open func update(data: [[DataModel]], animation: UITableViewRowAnimation = .fade) {
         for (index, section) in data.enumerated() {
             DispatchQueue.addAsyncTask(to: .main) {
-                let tableSection = SFTableSection<DataModel>(content: section, identifier: "")
-                self.update(tableSection: tableSection, index: index, animation: animation)
+                let dataSection = SFDataSection<DataModel>(content: section, identifier: "")
+                self.update(dataSection: dataSection, index: index, animation: animation)
             }
         }
     }
     
-    private func update(tableSection: SFTableSection<DataModel>, index: Int, animation: UITableViewRowAnimation = .fade) {
+    private func update(dataSection: SFDataSection<DataModel>, index: Int, animation: UITableViewRowAnimation = .fade) {
         if self.data.count > index {
-            let oldTableSection = self.data[index]
-            let changes = diff(old: oldTableSection.content, new: tableSection.content)
-            self.data[index] = tableSection
+            let olddataSection = self.data[index]
+            let changes = diff(old: olddataSection.content, new: dataSection.content)
+            self.data[index] = dataSection
             self.tableView?.reload(changes: changes, section: index, insertionAnimation: animation, deletionAnimation: animation, replacementAnimation: animation, completion: { (_) in
             })
         } else {
-            insert(section: tableSection, index: index)
+            insert(section: dataSection, index: index)
         }
     }
     
     // MARK: - Sections
     
     @discardableResult
-    open func insert(section: SFTableSection<DataModel>, index: Int, animation: UITableViewRowAnimation = .fade) -> Guarantee<Void> {
+    open func insert(section: SFDataSection<DataModel>, index: Int, animation: UITableViewRowAnimation = .fade) -> Guarantee<Void> {
         return Guarantee { seal in
             self.data.append(section)
             self.tableView?.beginUpdates()
@@ -110,10 +110,10 @@ open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell>: NSObj
         }
     }
     
-    // TODO: incomplete
     @discardableResult
     open func deleteSection(index: Int, animation: UITableViewRowAnimation = .fade) -> Guarantee<Void> {
         return Guarantee { seal in
+            self.data.remove(at: index)
             self.tableView?.beginUpdates()
             self.tableView?.deleteSections(IndexSet(integer: index), with: animation)
             self.tableView?.endUpdates()
@@ -142,7 +142,7 @@ open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell>: NSObj
         return Guarantee { seal in
             let indexPath = indexPath ?? self.lastIndex
             if indexPath.section > self.lastSectionIndex {
-                self.data.insert(SFTableSection<DataModel>(), at: self.lastSectionIndex)
+                self.data.insert(SFDataSection<DataModel>(), at: self.lastSectionIndex)
             }
             self.data[indexPath.section].content.insert(item, at: indexPath.row)
             

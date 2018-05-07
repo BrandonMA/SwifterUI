@@ -53,6 +53,7 @@ open class SFPageBar: SFScrollView {
             button.translatesAutoresizingMaskIntoConstraints = false
             button.useClearColor = true
             button.titleLabel?.alpha = selectedIndex == index ? 1 : 0.7
+            button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
             buttonStackView.addArrangedSubview(button)
             return button
         })

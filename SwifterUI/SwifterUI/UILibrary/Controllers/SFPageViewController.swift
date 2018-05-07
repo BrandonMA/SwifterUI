@@ -61,25 +61,21 @@ open class SFPageViewController: SFViewController {
     open override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         pageBar.clipEdges(exclude: [.bottom])
-        pageBar.height(SFDimension(value: 48))
+        pageBar.height(SFDimension(value: 36))
         pageView.clipTop(to: .bottom, of: pageBar)
-        pageView.clipLeft(to: .left)
-        pageView.clipRight(to: .right)
-        pageView.clipBottom(to: .bottom)
+        pageView.clipEdges(exclude: [.top])
     }
     
 }
 
 extension SFPageViewController: UIScrollViewDelegate {
-    
-    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView == pageView {
-            var newIndex = floor(scrollView.contentOffset.x / scrollView.bounds.width)
+    public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        var newIndex = floor(scrollView.contentOffset.x / scrollView.bounds.width)
+        if Int(newIndex) != pageBar.selectedIndex {
             newIndex = newIndex < 0 ? 0 : newIndex
             pageBar.select(index: Int(newIndex))
         }
     }
-    
 }
 
 extension SFPageViewController: SFPageBarDelegate {

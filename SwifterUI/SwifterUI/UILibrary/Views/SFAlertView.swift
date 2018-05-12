@@ -12,10 +12,12 @@ open class SFAlertView: SFView {
     
     // MARK: - Instance Properties
     
-    private final lazy var blurView: UIVisualEffectView = {
-        let view = UIVisualEffectView()
+    private final lazy var shadowView: UIView = {
+        let view = UIView()
         view.isUserInteractionEnabled = true
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.alpha = 0.5
+        view.backgroundColor = .black
         return view
     }()
     
@@ -67,7 +69,7 @@ open class SFAlertView: SFView {
         titleLabel.text = title
         messageLabel.text = message
         
-        addSubview(blurView)
+        addSubview(shadowView)
         addSubview(backgroundView)
         
         backgroundView.addSubview(contentView)
@@ -91,7 +93,7 @@ open class SFAlertView: SFView {
     
     open override func updateConstraints() {
         
-        blurView.clipEdges(useSafeArea: false)
+        shadowView.clipEdges(useSafeArea: false)
         
         if useCompactInterface {
             backgroundView.width(SFDimension(type: .fraction, value: 11/12))
@@ -133,7 +135,6 @@ open class SFAlertView: SFView {
     
     open override func updateColors() {
         backgroundColor = .clear
-        blurView.effect = colorStyle.getEffectStyle()
         buttons.forEach { (button) in
             button.addShadow(color: colorStyle.getSeparatorColor(), offSet: CGSize(width: 0, height: -1), radius: 0, opacity: 1)
         }

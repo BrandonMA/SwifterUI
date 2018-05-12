@@ -12,10 +12,12 @@ open class SFPopPresentation: UIPresentationController {
     
     // MARK: - Instance Properties
     
-    lazy var blurView: UIVisualEffectView = {
-        let view = UIVisualEffectView()
+    lazy var shadowView: UIView = {
+        let view = UIView()
         view.isUserInteractionEnabled = true
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.alpha = 0
+        view.backgroundColor = .black
         return view
     }()
     
@@ -33,13 +35,10 @@ open class SFPopPresentation: UIPresentationController {
     // MARK: - Instance Methods
     
     @objc private func updateColors() {
-        if let presentingController = self.presentingViewController as? SFControllerColorStyle {
-            guard let window = UIApplication.shared.keyWindow else { fatalError() }
-            UIView.animate(withDuration: 0.6, animations: {
-                self.blurView.effect = presentingController.colorStyle.getEffectStyle()
-                window.backgroundColor = .black
-            })
-        }
+        guard let window = UIApplication.shared.keyWindow else { fatalError() }
+        UIView.animate(withDuration: 0.6, animations: {
+            window.backgroundColor = .black
+        })
     }
     
     override open func presentationTransitionWillBegin() {
@@ -48,19 +47,19 @@ open class SFPopPresentation: UIPresentationController {
         
         if let controller = presentingViewController as? UINavigationController {
             if let view = controller.viewIfLoaded {
-                view.addSubview(blurView)
+                view.addSubview(shadowView)
             }
         } else {
-            presentingViewController.view.addSubview(blurView)
+            presentingViewController.view.addSubview(shadowView)
         }
         
         presentingViewController.view.layer.masksToBounds = true
-        blurView.clipEdges(useSafeArea: false)
+        shadowView.clipEdges(useSafeArea: false)
         updateColors()
         
         UIView.animate(withDuration: 0.6) {
             
-            self.blurView.effect = mainController.colorStyle.getEffectStyle()
+            self.shadowView.alpha = 0.5
             
             if (self.presentedView?.useCompactInterface)! {
                 self.presentingViewController.view.frame.size.height -= UIApplication.shared.statusBarFrame.height * 2
@@ -94,7 +93,7 @@ open class SFPopPresentation: UIPresentationController {
         
         UIView.animate(withDuration: 0.6, animations: {
             
-            self.blurView.effect = nil
+            self.shadowView.alpha = 0
             
             if let tabBar = mainController as? SFTabBarController {
                 if var child = tabBar.selectedViewController as? SFControllerColorStyle {
@@ -115,7 +114,7 @@ open class SFPopPresentation: UIPresentationController {
             }
             
         }, completion: { finished in
-            self.blurView.removeFromSuperview()
+            self.shadowView.removeFromSuperview()
         })
         
     }

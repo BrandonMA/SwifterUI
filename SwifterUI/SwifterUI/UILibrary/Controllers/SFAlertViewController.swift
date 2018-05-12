@@ -54,8 +54,9 @@ open class SFAlertViewController: SFViewController, SFInteractionViewController 
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let animation = SFScaleAnimation(with: alertView.backgroundView, type: .inside)
-        animation.duration = 0.7
-        animation.damping = 0.8
+        animation.duration = 1.0
+        animation.damping = 0.7
+        animation.velocity = 0.8
         animation.start()
         updateColors()
     }
@@ -72,6 +73,15 @@ open class SFAlertViewController: SFViewController, SFInteractionViewController 
     
     @objc private func dragView(recognizer: UIPanGestureRecognizer) {
         moveView(recognizer: recognizer)
+    }
+    
+    open override func updateColors() {
+        super.updateColors()
+        DispatchQueue.addAsyncTask(to: .main) {
+            UIView.animate(withDuration: 0.6, animations: {
+                self.view.backgroundColor = .clear
+            })
+        }
     }
     
 }

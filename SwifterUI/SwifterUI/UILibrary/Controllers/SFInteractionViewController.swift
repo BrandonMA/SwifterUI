@@ -35,8 +35,9 @@ extension SFInteractionViewController where Self: UIViewController {
     
     public func returnToMainViewController(completion: (() -> Void)? = nil) {
         let animation = SFScaleAnimation(with: mainView, type: .outside)
-        animation.duration = 0.7
-        animation.damping = 0.8
+        animation.duration = 1.0
+        animation.damping = 0.7
+        animation.velocity = 0.8
         animation.start()
         DispatchQueue.delay(by: 0.35, dispatchLevel: .main) {
             self.dismiss(animated: true, completion: completion)

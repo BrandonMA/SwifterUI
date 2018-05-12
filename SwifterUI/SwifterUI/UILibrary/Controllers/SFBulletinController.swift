@@ -12,7 +12,16 @@ public protocol SFBulletinControllerDelegate: class {
     
     // MARK: - Instance Methods
     
-    func bulletinController(_ bulletinController: SFBulletinController, retreivedValue: Any?, index: Int?)
+    func bulletinController(_ bulletinController: SFBulletinController, retreivedValue: String?, index: Int?)
+}
+
+extension SFBulletinControllerDelegate {
+    
+    // MARK: - Instance Methods
+    
+    public func bulletinController(_ bulletinController: SFBulletinController, retreivedValue: String?, index: Int?) {
+        
+    }
 }
 
 open class SFBulletinController: SFViewController, SFInteractionViewController {
@@ -116,8 +125,9 @@ open class SFBulletinController: SFViewController, SFInteractionViewController {
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let animation = SFScaleAnimation(with: bulletinView.backgroundView, type: .inside)
-        animation.duration = 0.7
-        animation.damping = 0.8
+        animation.duration = 1.0
+        animation.damping = 0.7
+        animation.velocity = 0.8
         animation.start()
     }
     
@@ -130,7 +140,10 @@ open class SFBulletinController: SFViewController, SFInteractionViewController {
         returnToMainViewController()
         if buttons.count == 0 {
             if useDatePicker {
-                delegate?.bulletinController(self, retreivedValue: datePicker.date, index: nil)
+                let formatter = DateFormatter()
+                formatter.dateFormat = "dd/MM/yyyy"
+                formatter.timeZone = TimeZone.current
+                delegate?.bulletinController(self, retreivedValue: formatter.string(from: datePicker.date), index: nil)
             } else {
                 delegate?.bulletinController(self, retreivedValue: pickerValues[pickerView.selectedRow(inComponent: 0)], index: pickerView.selectedRow(inComponent: 0))
             }
@@ -143,8 +156,13 @@ open class SFBulletinController: SFViewController, SFInteractionViewController {
     
     open override func updateColors() {
         super.updateColors()
-        pickerView.updateColors()
-        datePicker.updateColors()
+        DispatchQueue.addAsyncTask(to: .main) {
+            UIView.animate(withDuration: 0.6, animations: {
+                self.view.backgroundColor = .clear
+                self.pickerView.updateColors()
+                self.datePicker.updateColors()
+            })
+        }
     }
     
     open override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {

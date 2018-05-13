@@ -15,7 +15,7 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
 
     private var activeCell: SFTableViewChatCell?
     
-    let chatManager = SFTableManager<MessageType, SFTableViewChatCell>(data: [])
+    public let chatManager = SFTableManager<MessageType, SFTableViewChatCell>(data: [])
 
     public final lazy var chatView: SFChatView = {
         let view = SFChatView(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle, frame: .zero)
@@ -55,6 +55,9 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
     // MARK: - Instance Methods
 
     override open func viewDidLoad() {
+        if let view = view as? SFView {
+            view.useAlternativeColors = true
+        }
         super.viewDidLoad()
         view.addSubview(chatView)
         chatManager.configure(tableView: chatView.tableView)
@@ -74,7 +77,7 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
         super.viewWillLayoutSubviews()
         chatView.clipEdges()
     }
-
+    
     override open func viewDidLayoutSubviews() {
         cachedHeights.removeAll()
         cachedBubbleWidths.removeAll()
@@ -187,8 +190,9 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
 
             if send(message: message) {
                 chatBar.textView.text = ""
-                chatManager.insert(item: message, animation: message.isMine ? .right : .left)
-                chatView.tableView.scrollToBottom()
+                chatManager.insert(item: message, animation: message.isMine ? .right : .left).done {
+                    self.chatView.tableView.scrollToBottom()
+                }
             }
         }
     }
@@ -221,8 +225,9 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
         picker.dismiss(animated: true, completion: {
             guard let message = optionalMessage else { return }
             if self.send(message: message) {
-                self.chatManager.insert(item: message, animation: message.isMine ? .right : .left)
-                self.chatView.tableView.scrollToBottom()
+                self.chatManager.insert(item: message, animation: message.isMine ? .right : .left).done {
+                    self.chatView.tableView.scrollToBottom()
+                }
             }
         })
     }
@@ -278,7 +283,10 @@ extension SFChatViewController: SFTableViewChatCellDelegate {
     }
 
     public func didZoomOut(cell: SFTableViewChatCell) {
-        cell.messageImageView.alpha = 1
+        UIView.animate(withDuration: 0.3, animations: {
+            cell.messageImageView.alpha = 1
+        }) { (finished) in
+        }
     }
 
 }

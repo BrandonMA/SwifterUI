@@ -182,7 +182,6 @@ open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell>: NSObj
     @discardableResult
     open func reloadItem(from indexPath: IndexPath, animation: UITableViewRowAnimation = .fade) -> Guarantee<Void> {
         return Guarantee { seal in
-            self.data[indexPath.section].content.remove(at: indexPath.item)
             self.tableView?.beginUpdates()
             self.tableView?.reloadRows(at: [indexPath], with: animation)
             self.tableView?.endUpdates()

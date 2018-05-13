@@ -65,9 +65,8 @@ public final class SFImageZoomViewController: SFViewController {
 
     open override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        centerImage(with: minimumZoomScale)
-        imageZoomView.zoomScale = minimumZoomScale
         imageZoomView.minimumZoomScale = minimumZoomScale
+        imageZoomView.zoomScale = minimumZoomScale
     }
     
     private func centerImage(with scale: CGFloat) {
@@ -101,7 +100,7 @@ public final class SFImageZoomViewController: SFViewController {
 
 extension SFImageZoomViewController: UIScrollViewDelegate {
     
-    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    public func scrollViewDidZoom(_ scrollView: UIScrollView) {
         centerImage(with: scrollView.zoomScale)
         hideNavigationBarIfNeeded()
     }

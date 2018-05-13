@@ -180,7 +180,6 @@ open class SFCollectionManager<DataModel: Hashable, CellType: SFCollectionViewCe
     @discardableResult
     open func reloadItem(from indexPath: IndexPath) -> Guarantee<Void> {
         return Guarantee { seal in
-            self.data[indexPath.section].content.remove(at: indexPath.item)
             self.collectionView?.performBatchUpdates({
                 self.collectionView?.reloadItems(at: [indexPath])
             }, completion: { (_) in

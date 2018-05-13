@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let chat = SFSignViewController()
         chat.title = "Chat"
         let pageController = SFPageViewController(viewControllers: [login, chat])
-        window?.rootViewController = pageController
+        window?.rootViewController = SFChatViewController()
         window?.makeKeyAndVisible()
 
         return true

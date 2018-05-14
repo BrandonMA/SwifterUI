@@ -64,9 +64,9 @@ open class SFSignInView: SFView {
     
     open override func updateConstraints() {
         contentStack.clipEdges()
-        mailSection.height(SFDimension(value: 58))
-        passwordSection.height(SFDimension(value: 58))
-        signInButton.height(SFDimension(value: 44))
+        mailSection.height(SFDimension(value: 64))
+        passwordSection.height(SFDimension(value: 64))
+        signInButton.height(SFDimension(value: 52))
         super.updateConstraints()
     }
 }

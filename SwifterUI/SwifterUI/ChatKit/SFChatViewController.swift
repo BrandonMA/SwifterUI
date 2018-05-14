@@ -288,7 +288,6 @@ extension SFChatViewController: SFTableViewChatCellDelegate {
         }) { (finished) in
         }
     }
-
 }
 
 

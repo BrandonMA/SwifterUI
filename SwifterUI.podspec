@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'SwifterUI'
-  s.version          = '0.6.30'
+  s.version          = '0.6.31'
   s.summary          = 'UI Library'
  
   s.description      = 'This is a UI Library to improve development process'

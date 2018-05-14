@@ -25,7 +25,7 @@ open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell>: NSObj
     
     // MARK: - Instance Properties
     
-    private var data: [SFDataSection<DataModel>] = [SFDataSection<DataModel>()]
+    public var data: [SFDataSection<DataModel>] = [SFDataSection<DataModel>()]
     public weak var tableView: SFTableView?
     
     public var lastSectionIndex: Int {

@@ -85,11 +85,11 @@ open class SFSignUpView: SFView {
     
     open override func updateConstraints() {
         contentStack.clipEdges()
-        nameSection.height(SFDimension(value: 58))
-        lastNameSection.height(SFDimension(value: 58))
-        mailSection.height(SFDimension(value: 58))
-        passwordSection.height(SFDimension(value: 58))
-        signUpButton.height(SFDimension(value: 44))
+        nameSection.height(SFDimension(value: 64))
+        lastNameSection.height(SFDimension(value: 64))
+        mailSection.height(SFDimension(value: 64))
+        passwordSection.height(SFDimension(value: 64))
+        signUpButton.height(SFDimension(value: 52))
         super.updateConstraints()
     }
 }

@@ -98,7 +98,7 @@ open class SFSignView: SFScrollView {
         contentStack.clipEdges(margin: UIEdgeInsets(top: 16, left: 16, bottom: 0, right: 16), exclude: [.bottom])
         imageView.height(SFDimension(value: 160))
         labelsStack.height(SFDimension(value: 32))
-        facebookButton.height(SFDimension(value: 44))
+        facebookButton.height(SFDimension(value: 52))
         contentView.clipBottom(to: .bottom, of: contentStack, margin: -16)
     }
 }

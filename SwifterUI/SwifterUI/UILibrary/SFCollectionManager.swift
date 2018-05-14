@@ -14,7 +14,7 @@ open class SFCollectionManager<DataModel: Hashable, CellType: SFCollectionViewCe
     
     // MARK: - Instance Properties
     
-    private var data: [SFDataSection<DataModel>] = [SFDataSection<DataModel>()]
+    public var data: [SFDataSection<DataModel>] = [SFDataSection<DataModel>()]
     public weak var collectionView: SFCollectionView?
     
     public var lastSectionIndex: Int {

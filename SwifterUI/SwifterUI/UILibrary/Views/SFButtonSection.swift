@@ -32,6 +32,12 @@ public final class SFButtonSection: SFSection {
         return bottomView as! SFButton
     }
     
+    public override var useAlternativeColors: Bool {
+        didSet {
+            button.isTextPicker = useAlternativeColors
+        }
+    }
+    
     public override final var text: String? {
         if title != "" {
             return title

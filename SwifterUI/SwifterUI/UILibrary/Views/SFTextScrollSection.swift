@@ -16,6 +16,12 @@ public final class SFTextScrollSection: SFSection {
         return bottomView as! SFTextView
     }
     
+    public override var useAlternativeColors: Bool {
+        didSet {
+            textView.useAlternativeColors = useAlternativeColors
+        }
+    }
+    
     public override final var text: String? {
         guard let text = textView.text else {
             SFWobbleAnimation(with: self).start()

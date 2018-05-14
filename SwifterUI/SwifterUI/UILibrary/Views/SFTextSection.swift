@@ -24,6 +24,12 @@ public final class SFTextSection: SFSection {
         }
     }
     
+    public override var useAlternativeColors: Bool {
+        didSet {
+            textField.useAlternativeColors = useAlternativeColors
+        }
+    }
+    
     public override final var text: String? {
         guard let text = textField.text else {
             SFWobbleAnimation(with: self).start()

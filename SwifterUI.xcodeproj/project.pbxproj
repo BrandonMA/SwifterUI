@@ -51,6 +51,7 @@
 		4253D3C2203CDEE500507F88 /* SFTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4253D3C1203CDEE500507F88 /* SFTabBarController.swift */; };
 		425AFDAC20300C580049B68B /* SFCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425AFDAB20300C580049B68B /* SFCollectionView.swift */; };
 		425AFDAE20300C700049B68B /* SFCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425AFDAD20300C700049B68B /* SFCollectionViewCell.swift */; };
+		426FA08520AB8FE800809280 /* SFPDFViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426FA08420AB8FE800809280 /* SFPDFViewController.swift */; };
 		42795F64202FB55300C3767F /* SFPopBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42795F63202FB55300C3767F /* SFPopBar.swift */; };
 		42834C0C20465964009CFE22 /* SFButtonSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42834C0B20465964009CFE22 /* SFButtonSection.swift */; };
 		42838206206DA49000039F66 /* SFImageZoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42838205206DA49000039F66 /* SFImageZoomViewController.swift */; };
@@ -187,6 +188,7 @@
 		4253D3C1203CDEE500507F88 /* SFTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFTabBarController.swift; sourceTree = "<group>"; };
 		425AFDAB20300C580049B68B /* SFCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFCollectionView.swift; sourceTree = "<group>"; };
 		425AFDAD20300C700049B68B /* SFCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFCollectionViewCell.swift; sourceTree = "<group>"; };
+		426FA08420AB8FE800809280 /* SFPDFViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFPDFViewController.swift; sourceTree = "<group>"; };
 		42795F63202FB55300C3767F /* SFPopBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFPopBar.swift; sourceTree = "<group>"; };
 		42834C0B20465964009CFE22 /* SFButtonSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFButtonSection.swift; sourceTree = "<group>"; };
 		42838205206DA49000039F66 /* SFImageZoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFImageZoomViewController.swift; sourceTree = "<group>"; };
@@ -438,6 +440,7 @@
 				42F38781207B16D200DAD4BC /* SFAlertViewController.swift */,
 				42838205206DA49000039F66 /* SFImageZoomViewController.swift */,
 				4211D872209C9D9F00C89FAC /* SFPageViewController.swift */,
+				426FA08420AB8FE800809280 /* SFPDFViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -851,6 +854,7 @@
 			files = (
 				42A42EB11FF1AC37002FE4A7 /* SFViewColorStyle.swift in Sources */,
 				423AAC2A1FE770D5009D6C39 /* Constraint.swift in Sources */,
+				426FA08520AB8FE800809280 /* SFPDFViewController.swift in Sources */,
 				423AAC241FE76763009D6C39 /* ConstraintEdge.swift in Sources */,
 				425AFDAE20300C700049B68B /* SFCollectionViewCell.swift in Sources */,
 				429FD4A71FED94C500FD7F10 /* SFScaleAnimation.swift in Sources */,

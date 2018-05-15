@@ -24,6 +24,7 @@ open class SFPDFViewController: SFViewController {
     open override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(pdfView)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: SFAssets.imageOfShareIcon, style: .done, target: self, action: #selector(shareButtonDidTouch))
     }
     
     open override func viewWillLayoutSubviews() {
@@ -31,4 +32,13 @@ open class SFPDFViewController: SFViewController {
         pdfView.clipEdges()
     }
     
+    @objc public final func shareButtonDidTouch() {
+        // set up activity view controller
+        guard let document = pdfView.document else { return }
+        let documents = [document]
+        let activityViewController = UIActivityViewController(activityItems: documents, applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = self.view // so that iPads won't crash
+        // present the view controller
+        self.present(activityViewController, animated: true, completion: nil)
+    }
 }

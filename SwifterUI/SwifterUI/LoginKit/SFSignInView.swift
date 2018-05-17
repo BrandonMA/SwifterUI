@@ -41,8 +41,17 @@ open class SFSignInView: SFView {
         return button
     }()
     
+    open lazy var passwordResetButton: SFButton = {
+        let button = SFButton(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
+        button.setTitle("Cambiar contraseña", for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.layer.cornerRadius = 10
+        button.addTouchAnimations = true
+        return button
+    }()
+    
     private lazy var contentStack: SFStackView = {
-        let stack = SFStackView(arrangedSubviews: [mailSection, passwordSection, signInButton])
+        let stack = SFStackView(arrangedSubviews: [mailSection, passwordSection, signInButton, passwordResetButton])
         stack.axis = .vertical
         stack.spacing = 16
         stack.translatesAutoresizingMaskIntoConstraints = false

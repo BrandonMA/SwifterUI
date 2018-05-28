@@ -16,7 +16,7 @@ public struct SFColors {
     static public let black: UIColor = UIColor(hex: "000000")
     static public let separatorWhite: UIColor = UIColor(hex: "E2E2E4")
     static public let separatorBlack: UIColor = UIColor(hex: "2B2B2D")
-    static public let alternativeWhite: UIColor = UIColor(hex: "F3F3F3")
+    static public let alternativeWhite: UIColor = UIColor(hex: "F7F7F7")
     static public let alternativeBlack: UIColor = UIColor(hex: "1A1A1A")
     static public let contrastWhite: UIColor = UIColor(hex: "E8E8E8")
     static public let contrastBlack: UIColor = UIColor(hex: "0F0F0F")

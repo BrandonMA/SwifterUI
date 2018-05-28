@@ -1,14 +1,14 @@
 //
-//  SFCollectionViewHeader.swift
+//  SFTableHeaderView.swift
 //  SwifterUI
 //
-//  Created by brandon maldonado alonso on 19/03/18.
+//  Created by brandon maldonado alonso on 04/03/18.
 //  Copyright © 2018 Brandon Maldonado Alonso. All rights reserved.
 //
 
 import UIKit
 
-open class SFCollectionViewHeaderFooterView: UICollectionReusableView, SFViewColorStyle {
+open class SFTableViewHeaderFooterView: UITableViewHeaderFooterView, SFViewColorStyle {
     
     // MARK: - Class Properties
     
@@ -17,7 +17,7 @@ open class SFCollectionViewHeaderFooterView: UICollectionReusableView, SFViewCol
     }
     
     open class var identifier: String {
-        return "SFCollectionHeaderView"
+        return "SFTableHeaderView"
     }
     
     // MARK: - Instance Properties
@@ -36,9 +36,9 @@ open class SFCollectionViewHeaderFooterView: UICollectionReusableView, SFViewCol
     
     // MARK: - Initializers
     
-    public override init(frame: CGRect) {
-        super.init(frame: frame)
-        addSubview(titleLabel)
+    public override init(reuseIdentifier: String?) {
+        super.init(reuseIdentifier: reuseIdentifier)
+        contentView.addSubview(titleLabel)
         updateColors()
     }
     
@@ -52,56 +52,44 @@ open class SFCollectionViewHeaderFooterView: UICollectionReusableView, SFViewCol
         super.layoutSubviews()
         titleLabel.clipEdges(margin: UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20))
     }
-
+    
     open func updateColors() {
-        backgroundColor = .clear
+        if backgroundView != nil && backgroundView?.backgroundColor != nil {
+            backgroundView?.backgroundColor = colorStyle.getAlternativeColor()
+        }
+        titleLabel.textColor = colorStyle.getPlaceholderColor()
         updateSubviewsColors()
     }
     
-}
-
-open class SFCollectionViewHeaderView: SFCollectionViewHeaderFooterView {
-    
-    // MARK: - Class Properties
-    
-    open override class var identifier: String {
-        return "SFCollectionViewHeaderView"
-    }
-    
-}
-
-open class SFCollectionViewFooterView: SFCollectionViewHeaderFooterView {
-    
-    // MARK: - Class Properties
-    
-    open override class var identifier: String {
-        return "SFCollectionViewFooterView"
+    public func updateSubviewsColors() {
+        for view in self.contentView.subviews {
+            if let subview = view as? SFViewColorStyle {
+                if subview.automaticallyAdjustsColorStyle == true {
+                    subview.updateColors()
+                }
+            }
+        }
     }
     
 }
 
 
+open class SFTableViewHeaderView: SFTableViewHeaderFooterView {
+    
+    // MARK: - Class Properties
+    
+    open override class var identifier: String {
+        return "SFTableViewHeaderView"
+    }
+    
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+open class SFTableViewFooterView: SFTableViewHeaderFooterView {
+    
+    // MARK: - Class Properties
+    
+    open override class var identifier: String {
+        return "SFTableViewFooterView"
+    }
+    
+}

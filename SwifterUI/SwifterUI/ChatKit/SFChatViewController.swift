@@ -15,7 +15,7 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
 
     private var activeCell: SFTableViewChatCell?
     
-    public let chatManager = SFTableManager<MessageType, SFTableViewChatCell>(data: [])
+    public let chatManager = SFTableManager<MessageType, SFTableViewChatCell, SFTableViewHeaderView, SFTableViewFooterView>(data: [])
 
     public final lazy var chatView: SFChatView = {
         let view = SFChatView(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle, frame: .zero)
@@ -60,11 +60,10 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
         }
         super.viewDidLoad()
         view.addSubview(chatView)
-        chatManager.configure(tableView: chatView.tableView)
-        chatView.tableView.delegate = self
-        chatManager.cellHandler = { (cell, model, indexPath) in
-            self.configure(cell: cell, message: model, indexPath: indexPath)
+        chatManager.configure(tableView: chatView.tableView) { (cell, message, index) in
+            self.configure(cell: cell, message: message, indexPath: index)
         }
+        chatView.tableView.delegate = self
         chatBar.sendButton.addTarget(self, action: #selector(sendButtonDidTouch), for: .touchUpInside)
         chatBar.fileButton.addTarget(self, action: #selector(mediaButtonDidTouch), for: .touchUpInside)
         NotificationCenter.default.addObserver(self,

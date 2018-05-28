@@ -75,6 +75,7 @@ open class SFSignInView: SFView {
         contentStack.clipEdges()
         mailSection.height(SFDimension(value: 64))
         passwordSection.height(SFDimension(value: 64))
+        passwordResetButton.height(SFDimension(value: 52))
         signInButton.height(SFDimension(value: 52))
         super.updateConstraints()
     }

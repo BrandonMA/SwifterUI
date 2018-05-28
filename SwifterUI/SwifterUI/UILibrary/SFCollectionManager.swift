@@ -10,9 +10,17 @@ import UIKit
 import DeepDiff
 import PromiseKit
 
-open class SFCollectionManager<DataModel: Hashable, CellType: SFCollectionViewCell>: NSObject, UICollectionViewDataSource {
+public protocol SFCollectionManagerDelegate: class {
+    func didSelectItem<DataModel: Hashable>(at indexPath: IndexPath, collectionView: SFCollectionView, item: DataModel)
+}
+
+open class SFCollectionManager<DataModel: Hashable, CellType: SFCollectionViewCell, HeaderType: SFCollectionViewHeaderView, FooterType: SFCollectionViewFooterView>: NSObject, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    public typealias SFCollectionManagerItemStyler = ((CellType, DataModel, IndexPath) -> ())
     
     // MARK: - Instance Properties
+    
+    weak var delegate: SFCollectionManagerDelegate?
     
     public var data: [SFDataSection<DataModel>] = [SFDataSection<DataModel>()]
     public weak var collectionView: SFCollectionView?
@@ -25,8 +33,10 @@ open class SFCollectionManager<DataModel: Hashable, CellType: SFCollectionViewCe
         return data[lastSectionIndex].content.count == 0 ? IndexPath(row: 0, section: lastSectionIndex) : IndexPath(row: data[lastSectionIndex].content.count, section: lastSectionIndex)
     }
     
-    open var cellHandler: ((CellType, DataModel, IndexPath) -> ())? = nil
-    
+    open var itemStyler: ((CellType, DataModel, IndexPath) -> ())?
+    open var headerStyle: ((HeaderType, SFDataSection<DataModel>, Int) -> ())?
+    open var footerStyle: ((FooterType, SFDataSection<DataModel>, Int) -> ())?
+
     // MARK: - Initializers
     
     public init(dataSections: [SFDataSection<DataModel>] = []) {
@@ -41,26 +51,28 @@ open class SFCollectionManager<DataModel: Hashable, CellType: SFCollectionViewCe
     
     // MARK: - Instace Methods
     
-    open func configure(collectionView: SFCollectionView) {
+    open func configure(collectionView: SFCollectionView, itemStyler: SFCollectionManagerItemStyler?) {
+        self.itemStyler = itemStyler
         self.collectionView = collectionView
         collectionView.dataSource = self
+        collectionView.delegate = self
         collectionView.register(CellType.self, forCellWithReuseIdentifier: CellType.identifier)
+        collectionView.register(HeaderType.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: HeaderType.identifier)
+        collectionView.register(FooterType.self, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: FooterType.identifier)
     }
+    
+    // MARK: - Update Methods
     
     open func update(dataSections: [SFDataSection<DataModel>]) {
         for (index, section) in dataSections.enumerated() {
-            DispatchQueue.addAsyncTask(to: .main) {
-                self.update(dataSection: section, index: index)
-            }
+            self.update(dataSection: section, index: index)
         }
     }
     
     open func update(data: [[DataModel]]) {
         for (index, section) in data.enumerated() {
-            DispatchQueue.addAsyncTask(to: .main) {
-                let dataSection = SFDataSection<DataModel>(content: section, identifier: "")
-                self.update(dataSection: dataSection, index: index)
-            }
+            let dataSection = SFDataSection<DataModel>(content: section, identifier: "")
+            self.update(dataSection: dataSection, index: index)
         }
     }
 
@@ -70,7 +82,6 @@ open class SFCollectionManager<DataModel: Hashable, CellType: SFCollectionViewCe
             let changes = diff(old: olddataSection.content, new: dataSection.content)
             self.data[index] = dataSection
             self.collectionView?.reload(changes: changes, section: index, completion: { (_) in
-                
             })
         } else {
             insert(section: dataSection, index: index)
@@ -188,7 +199,7 @@ open class SFCollectionManager<DataModel: Hashable, CellType: SFCollectionViewCe
         }
     }
     
-    // MARK: - UIcollectionViewDataSource
+    // MARK: - UICollectionViewDataSource
     
     public func numberOfSections(in collectionView: UICollectionView) -> Int {
         return data.count
@@ -200,7 +211,61 @@ open class SFCollectionManager<DataModel: Hashable, CellType: SFCollectionViewCe
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CellType.identifier, for: indexPath) as? CellType else { return UICollectionViewCell() }
-        cellHandler?(cell, data[indexPath.section].content[indexPath.row], indexPath)
+        itemStyler?(cell, data[indexPath.section].content[indexPath.row], indexPath)
         return cell
     }
+    
+    public func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        switch kind {
+        case UICollectionElementKindSectionHeader:
+            guard let reusableView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: HeaderType.identifier, for: indexPath) as? HeaderType else { return UICollectionReusableView() }
+            reusableView.updateColors()
+            headerStyle?(reusableView, data[indexPath.section], indexPath.section)
+            return reusableView
+        case UICollectionElementKindSectionFooter:
+            guard let reusableView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: FooterType.identifier, for: indexPath) as? FooterType else { return UICollectionReusableView() }
+            footerStyle?(reusableView, data[indexPath.section], indexPath.section)
+            return reusableView
+        default: return UICollectionReusableView()
+        }
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, willDisplaySupplementaryView view: UICollectionReusableView, forElementKind elementKind: String, at indexPath: IndexPath) {
+        let view = view as? SFViewColorStyle
+        view?.updateColors()
+    }
+    
+    // MARK: - UICollectionViewDelegate
+    
+    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let collectionView = collectionView as? SFCollectionView else { return }
+        let item = data[indexPath.section].content[indexPath.row]
+        delegate?.didSelectItem(at: indexPath, collectionView: collectionView, item: item)
+    }
+    
+    // MARK: - UICollectionViewDelegateFlowLayout
+    
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: collectionView.bounds.width, height: HeaderType.height)
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        return CGSize(width: collectionView.bounds.width, height: FooterType.height)
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -8,7 +8,7 @@
 
 import UIKit
 
-open class SFPageViewController: SFViewController {
+open class SFPageSectionsViewController: SFViewController {
     
     // MARK: - Instance Properties
     
@@ -68,7 +68,7 @@ open class SFPageViewController: SFViewController {
     
 }
 
-extension SFPageViewController: UIScrollViewDelegate {
+extension SFPageSectionsViewController: UIScrollViewDelegate {
     public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         var newIndex = floor(scrollView.contentOffset.x / scrollView.bounds.width)
         if Int(newIndex) != pageBar.selectedIndex {
@@ -78,7 +78,7 @@ extension SFPageViewController: UIScrollViewDelegate {
     }
 }
 
-extension SFPageViewController: SFPageBarDelegate {
+extension SFPageSectionsViewController: SFPageBarDelegate {
     public func didSelect(index: Int) {
         let offSet = pageView.bounds.width * CGFloat(index)
         pageView.setContentOffset(CGPoint(x: offSet, y: 0), animated: true)

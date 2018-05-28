@@ -10,20 +10,17 @@ import UIKit
 import PromiseKit
 import DeepDiff
 
-public struct SFDataSection<DataModel: Hashable> {
-    
-    public var content: [DataModel]
-    public var identifier: String
-    
-    public init(content: [DataModel] = [], identifier: String = "") {
-        self.content = content
-        self.identifier = identifier
-    }
+public protocol SFTableManagerDelegate: class {
+    func didSelectRow<DataModel: Hashable>(at indexPath: IndexPath, tableView: SFTableView, item: DataModel)
 }
 
-open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell>: NSObject, UITableViewDataSource {
+open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell, HeaderType: SFTableViewHeaderView, FooterType: SFTableViewFooterView>: NSObject, UITableViewDataSource, UITableViewDelegate {
+    
+    public typealias SFTableManagerItemStyler = ((CellType, DataModel, IndexPath) -> ())
     
     // MARK: - Instance Properties
+    
+    public weak var delegate: SFTableManagerDelegate?
     
     public var data: [SFDataSection<DataModel>] = [SFDataSection<DataModel>()]
     public weak var tableView: SFTableView?
@@ -36,7 +33,9 @@ open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell>: NSObj
         return data[lastSectionIndex].content.count == 0 ? IndexPath(row: 0, section: lastSectionIndex) : IndexPath(row: data[lastSectionIndex].content.count, section: lastSectionIndex)
     }
     
-    open var cellHandler: ((CellType, DataModel, IndexPath) -> ())? = nil
+    open var cellStyler: ((CellType, DataModel, IndexPath) -> ())?
+    open var headerStyle: ((HeaderType, SFDataSection<DataModel>, Int) -> ())?
+    open var footerStyle: ((FooterType, SFDataSection<DataModel>, Int) -> ())?
     
     // MARK: - Initializers
     
@@ -52,39 +51,61 @@ open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell>: NSObj
     
     // MARK: - Instace Methods
     
-    open func configure(tableView: SFTableView) {
+    open func configure(tableView: SFTableView, cellStyler: SFTableManagerItemStyler?) {
+        self.cellStyler = cellStyler
         self.tableView = tableView
         tableView.dataSource = self
+        tableView.delegate = self
         tableView.register(CellType.self, forCellReuseIdentifier: CellType.identifier)
         tableView.rowHeight = CellType.height
+        tableView.sectionHeaderHeight = HeaderType.height
+        tableView.sectionFooterHeight = FooterType.height
+        tableView.register(HeaderType.self, forHeaderFooterViewReuseIdentifier: HeaderType.identifier)
+        tableView.register(FooterType.self, forHeaderFooterViewReuseIdentifier: FooterType.identifier)
     }
     
-    open func update(dataSections: [SFDataSection<DataModel>], animation: UITableViewRowAnimation = .fade) {
-        for (index, section) in dataSections.enumerated() {
-            DispatchQueue.addAsyncTask(to: .main) {
-                self.update(dataSection: section, index: index, animation: animation)
+    // MARK: - Update Methods
+    
+    @discardableResult
+    open func update(dataSections: [SFDataSection<DataModel>], animation: UITableViewRowAnimation = .fade) -> Guarantee<Void> {
+        return Guarantee { seal in
+            for (index, section) in dataSections.enumerated() {
+                update(dataSection: section, index: index, animation: animation).done {
+                    if index == dataSections.count - 1 {
+                        seal(())
+                    }
+                }
             }
         }
     }
     
-    open func update(data: [[DataModel]], animation: UITableViewRowAnimation = .fade) {
-        for (index, section) in data.enumerated() {
-            DispatchQueue.addAsyncTask(to: .main) {
+    @discardableResult
+    open func update(data: [[DataModel]], animation: UITableViewRowAnimation = .fade) -> Guarantee<Void> {
+        return Guarantee { seal in
+            for (index, section) in data.enumerated() {
                 let dataSection = SFDataSection<DataModel>(content: section, identifier: "")
-                self.update(dataSection: dataSection, index: index, animation: animation)
+                update(dataSection: dataSection, index: index, animation: animation).done {
+                    if index == data.count - 1 {
+                        seal(())
+                    }
+                }
             }
         }
     }
     
-    private func update(dataSection: SFDataSection<DataModel>, index: Int, animation: UITableViewRowAnimation = .fade) {
+    @discardableResult
+    open func update(dataSection: SFDataSection<DataModel>, index: Int, animation: UITableViewRowAnimation = .fade) -> Guarantee<Void> {
         if self.data.count > index {
-            let olddataSection = self.data[index]
-            let changes = diff(old: olddataSection.content, new: dataSection.content)
-            self.data[index] = dataSection
-            self.tableView?.reload(changes: changes, section: index, insertionAnimation: animation, deletionAnimation: animation, replacementAnimation: animation, completion: { (_) in
-            })
+            return Guarantee { seal in
+                let olddataSection = self.data[index]
+                let changes = diff(old: olddataSection.content, new: dataSection.content)
+                self.data[index] = dataSection
+                self.tableView?.reload(changes: changes, section: index, insertionAnimation: animation, deletionAnimation: animation, replacementAnimation: animation, completion: { (_) in
+                    seal(())
+                })
+            }
         } else {
-            insert(section: dataSection, index: index)
+            return insert(section: dataSection, index: index)
         }
     }
     
@@ -201,7 +222,78 @@ open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell>: NSObj
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CellType.identifier, for: indexPath) as? CellType else { return UITableViewCell() }
-        cellHandler?(cell, data[indexPath.section].content[indexPath.row], indexPath)
+        cellStyler?(cell, data[indexPath.section].content[indexPath.row], indexPath)
         return cell
     }
+    
+    // MARK: - UITableViewDelegate
+    
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let tableView = tableView as? SFTableView else { return }
+        let item = data[indexPath.section].content[indexPath.row]
+        delegate?.didSelectRow(at: indexPath, tableView: tableView, item: item)
+    }
+    
+    public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return HeaderType.height
+    }
+    
+    public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: HeaderType.identifier) as? HeaderType else { return nil }
+        headerStyle?(view, data[section], section)
+        view.updateColors()
+        return view
+    }
+    
+    public func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return FooterType.height
+    }
+    
+    public func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        guard let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: FooterType.identifier) as? FooterType else { return nil }
+        footerStyle?(view, data[section], section)
+        view.updateColors()
+        return view
+    }
+    
+    public func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        let view = view as? HeaderType
+        view?.updateColors()
+    }
+    
+    public func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
+        let view = view as? FooterType
+        view?.updateColors()
+    }
+    
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

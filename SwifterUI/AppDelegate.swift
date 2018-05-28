@@ -21,8 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         login.title = "Login"
         let chat = SFSignViewController()
         chat.title = "Chat"
-        let pageController = SFPageViewController(viewControllers: [login, chat])
-        window?.rootViewController = pageController
+        let pageController = SFPageSectionsViewController(viewControllers: [login, chat])
+        window?.rootViewController = ViewController()
         window?.makeKeyAndVisible()
 
         return true

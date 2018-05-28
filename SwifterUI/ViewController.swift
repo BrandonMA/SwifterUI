@@ -8,7 +8,7 @@
 
 import UIKit
 import DeepDiff
-
+import PromiseKit
 class View: SFView {
     
     lazy var button: SFButton = {
@@ -69,7 +69,6 @@ class ViewController: SFViewController {
         layout.minimumLineSpacing = 32
         layout.minimumInteritemSpacing = 32
         layout.scrollDirection = .vertical
-        layout.sectionInset = UIEdgeInsets(top: 32, left: 0, bottom: 0, right: 0)
         return layout
     }()
     
@@ -79,20 +78,42 @@ class ViewController: SFViewController {
         return collectionView
     }()
     
-    let tableManager = SFTableManager<String, SFTableViewCell>(data: [["Prueba 1"]])
-    let collectionManager = SFCollectionManager<String, SFCollectionViewCell>(data: [["Prueba 1"]])
+    let tableManager = SFTableManager<String, SFTableViewCell, SFTableViewHeaderView, SFTableViewFooterView>(data: [["Prueba 1", "Prueba 2", "Prueba 3", "Prueba 1", "Prueba 2", "Prueba 3", "Prueba 4"]])
+    let collectionManager = SFCollectionManager<String, SFCollectionViewCell, SFCollectionViewHeaderView, SFCollectionViewFooterView>(data: [["Prueba 1", "Prueba 2", "Prueba 3", "Prueba 4"]])
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(tableView)
         view.addSubview(collectionView)
-        collectionManager.configure(collectionView: collectionView)
-        collectionManager.cellHandler = { (cell, model, indexPath) in
-            cell.addShadow(color: .black, offSet: CGSize(width: 10, height: 10), radius: 10, opacity: 0.20)
+        
+        collectionManager.configure(collectionView: collectionView) { (cell, model, indexPath) in
+            cell.addShadow(color: .black, offSet: CGSize(width: 0, height: 5), radius: 10, opacity: 0.05)
         }
-        tableManager.configure(tableView: tableView)
-        tableManager.cellHandler = { (cell, model, indexPath) in
+        
+        collectionManager.headerStyle = {(headerView, section, index) in
+            headerView.titleLabel.text = "Header"
+        }
+        
+        collectionManager.footerStyle = { (footerView, section, index)in
+            footerView.titleLabel.text = "Footer"
+        }
+        
+        tableManager.configure(tableView: tableView) { (cell, model, indexPath) in
             cell.textLabel?.text = model
+        }
+        
+        tableManager.headerStyle = { (headerView, section, index) in
+            headerView.titleLabel.text = "Header"
+        }
+        
+        tableManager.footerStyle = { (footerView, section, index) in
+            footerView.titleLabel.text = "Footer"
+        }
+        
+        guard let url = URL(string: "https://firebasestorage.googleapis.com/v0/b/whatsdoc-2d2d8.appspot.com/o/Documents%2FfpdgUHEh0qeCqWaKS62W.pdf?alt=media&token=75f5265a-0c52-4a4a-9097-9f689436c6fc") else { return }
+        URLSession.shared.dataTask(.promise, with: url).done { (data, response) in
+            let controller = SFNavigationController(rootViewController: SFPDFViewController(data: data))
+            self.present(controller, animated: true)
         }
     }
     
@@ -106,12 +127,6 @@ class ViewController: SFViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        DispatchQueue.delay(by: 2, dispatchLevel: .main) {
-            
-            self.tableManager.update(data: [["Prueba 1", "Prueba 2"], ["Prueba 1", "Prueba 2", "Prueba 3"], ["Prueba 1", "Prueba 2", "Prueba 3"], ["Prueba 1", "Prueba 2", "Prueba 3"], ["Prueba 1", "Prueba 2", "Prueba 3"], ["Prueba 1", "Prueba 2", "Prueba 3"]], animation: .left)
-            
-            self.collectionManager.update(data: [["Prueba 1", "Prueba 2"], ["Prueba 1", "Prueba 2", "Prueba 3"], ["Prueba 1", "Prueba 2", "Prueba 3"], ["Prueba 1", "Prueba 2", "Prueba 3"], ["Prueba 1", "Prueba 2", "Prueba 3"], ["Prueba 1", "Prueba 2", "Prueba 3"]])
-        }
     }
 }
 

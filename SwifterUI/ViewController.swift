@@ -78,7 +78,7 @@ class ViewController: SFViewController {
         return collectionView
     }()
     
-    let tableManager = SFTableManager<String, SFTableViewCell, SFTableViewHeaderView, SFTableViewFooterView>(data: [["Prueba 1", "Prueba 2", "Prueba 3", "Prueba 1", "Prueba 2", "Prueba 3", "Prueba 4"]])
+    let tableManager = SFTableManager<String, SFTableViewCell, SFTableViewHeaderView, SFTableViewFooterView>(data: [["Prueba 1", "Prueba 2", "Prueba 3", "Prueba 1", "Prueba 2", "Prueba 3", "Prueba 4"], ["Prueba 1", "Prueba 2", "Prueba 3", "Prueba 1", "Prueba 2", "Prueba 3", "Prueba 4"]])
     let collectionManager = SFCollectionManager<String, SFCollectionViewCell, SFCollectionViewHeaderView, SFCollectionViewFooterView>(data: [["Prueba 1", "Prueba 2", "Prueba 3", "Prueba 4"]])
 
     override func viewDidLoad() {
@@ -110,10 +110,15 @@ class ViewController: SFViewController {
             footerView.titleLabel.text = "Footer"
         }
         
-        guard let url = URL(string: "https://firebasestorage.googleapis.com/v0/b/whatsdoc-2d2d8.appspot.com/o/Documents%2FfpdgUHEh0qeCqWaKS62W.pdf?alt=media&token=75f5265a-0c52-4a4a-9097-9f689436c6fc") else { return }
+        guard let url = URL(string: "https://img.deusm.com/informationweek/2015/09/1322066/Swift_logo.png") else { return }
         URLSession.shared.dataTask(.promise, with: url).done { (data, response) in
-            let controller = SFNavigationController(rootViewController: SFPDFViewController(data: data))
-            self.present(controller, animated: true)
+            DispatchQueue.delay(by: 1, dispatchLevel: .main, handler: {
+                let image = UIImage(data: data)
+                let controller = SFImageZoomViewController(with: image!)
+                self.navigationController?.pushViewController(controller, animated: true)
+            })
+        }.catch { (error) in
+            self.showError(message: error.localizedDescription)
         }
     }
     
@@ -129,9 +134,6 @@ class ViewController: SFViewController {
         super.viewDidAppear(animated)
     }
 }
-
-
-
 
 
 

@@ -12,15 +12,26 @@ public protocol SFControllerColorStyle: SFColorStyleProtocol {
 
     // MARK: - Instance Properties
 
-    // statusBarStyle: This enables preferredStatusBarStyle changes on the go, without needing to
+    /**
+     This enables preferredStatusBarStyle changes on the go, without needing to override on each view controller
+     */
     var statusBarStyle: UIStatusBarStyle { get set }
 
+    /**
+     Enable navigation bar color handling
+     */
     var automaticallyTintNavigationBar: Bool { get set }
 
     // MARK: - Instance Methods
 
+    /**
+     Call updateColors and start a listener for brightness changes
+     */
     func checkColorStyle()
 
+    /**
+     Start a listener for brightness changes
+     */
     func checkColorStyleListener()
 
 }

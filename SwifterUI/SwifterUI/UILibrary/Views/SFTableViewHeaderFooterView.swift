@@ -50,12 +50,12 @@ open class SFTableViewHeaderFooterView: UITableViewHeaderFooterView, SFViewColor
     
     open override func layoutSubviews() {
         super.layoutSubviews()
-        titleLabel.clipEdges(margin: UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20))
+        titleLabel.clipEdges(margin: UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16))
     }
     
     open func updateColors() {
         if backgroundView != nil && backgroundView?.backgroundColor != nil {
-            backgroundView?.backgroundColor = colorStyle.getAlternativeColor()
+            backgroundView?.backgroundColor = colorStyle.getMainColor()
         }
         titleLabel.textColor = colorStyle.getPlaceholderColor()
         updateSubviewsColors()

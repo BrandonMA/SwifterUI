@@ -246,11 +246,11 @@ open class SFCollectionManager<DataModel: Hashable, CellType: SFCollectionViewCe
     // MARK: - UICollectionViewDelegateFlowLayout
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: collectionView.bounds.width, height: HeaderType.height)
+        return headerStyle == nil ? .zero : CGSize(width: collectionView.bounds.width, height: HeaderType.height)
     }
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        return CGSize(width: collectionView.bounds.width, height: FooterType.height)
+        return footerStyle == nil ? .zero : CGSize(width: collectionView.bounds.width, height: FooterType.height)
     }
 }
 

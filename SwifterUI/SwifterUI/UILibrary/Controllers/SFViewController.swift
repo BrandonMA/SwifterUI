@@ -72,6 +72,21 @@ open class SFViewController: UIViewController, SFControllerColorStyle {
         self.view = SFView(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
     }
     
+    open override func viewDidLoad() {
+        super.viewDidLoad()
+        if let navigationController = self.navigationController {
+            prepare(navigationController: navigationController)
+        }
+    }
+    
+    /**
+     Called after viewDidLoad() is completed
+     - Parameters:
+        - navigationController: Current UINavigationController if it is not nil in self.
+     */
+    open func prepare(navigationController: UINavigationController) {
+    }
+    
     public final func checkColorStyleListener() {
         if self.automaticallyAdjustsColorStyle == true {
             NotificationCenter.default.addObserver(self, selector: #selector(handleBrightnessChange), name: .UIScreenBrightnessDidChange, object: nil)

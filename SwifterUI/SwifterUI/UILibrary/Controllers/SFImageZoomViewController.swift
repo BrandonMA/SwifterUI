@@ -49,10 +49,16 @@ public final class SFImageZoomViewController: SFViewController {
     open override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(imageZoomView)
-        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(zoomOut)))
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(imageDidTap)))
         imageZoomView.contentSize = image.size
-        statusBarIsHidden = true
+    }
+    
+    public override func prepare(navigationController: UINavigationController) {
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: SFAssets.imageOfShareIcon, style: .done, target: self, action: #selector(shareButtonDidTouch))
+        
+        if navigationController.viewControllers.first == self {
+            navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(hideController))
+        }
     }
 
     open override func viewWillLayoutSubviews() {
@@ -78,12 +84,21 @@ public final class SFImageZoomViewController: SFViewController {
     private func hideNavigationBarIfNeeded() {
         if imageZoomView.zoomScale != minimumZoomScale {
             navigationController?.setNavigationBarHidden(true, animated: true)
+            statusBarIsHidden = true
         } else {
             navigationController?.setNavigationBarHidden(false, animated: true)
+            statusBarIsHidden = false
         }
     }
     
-    @objc public final func zoomOut() {
+    @objc final func imageDidTap() {
+        guard let navigationController = self.navigationController else { return }
+        let hidden = !navigationController.navigationBar.isHidden
+        navigationController.setNavigationBarHidden(hidden, animated: true)
+        statusBarIsHidden = hidden
+    }
+    
+    @objc final func hideController() {
         dismiss(animated: true, completion: nil)
     }
     

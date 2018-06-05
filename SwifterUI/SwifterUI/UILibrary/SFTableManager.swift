@@ -58,8 +58,13 @@ open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell, Header
         tableView.delegate = self
         tableView.register(CellType.self, forCellReuseIdentifier: CellType.identifier)
         tableView.rowHeight = CellType.height
-        tableView.sectionHeaderHeight = HeaderType.height
-        tableView.sectionFooterHeight = FooterType.height
+        
+        if tableView.style == .grouped {
+            tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: CGFloat.leastNonzeroMagnitude, height: CGFloat.leastNonzeroMagnitude))
+            tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: CGFloat.leastNonzeroMagnitude, height: CGFloat.leastNonzeroMagnitude))
+            tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: -20, right: 0)
+        }
+        
         tableView.register(HeaderType.self, forHeaderFooterViewReuseIdentifier: HeaderType.identifier)
         tableView.register(FooterType.self, forHeaderFooterViewReuseIdentifier: FooterType.identifier)
     }
@@ -235,25 +240,33 @@ open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell, Header
     }
     
     public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return HeaderType.height
+        return headerStyle == nil ? CGFloat.leastNonzeroMagnitude : HeaderType.height
     }
     
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: HeaderType.identifier) as? HeaderType else { return nil }
-        headerStyle?(view, data[section], section)
-        view.updateColors()
-        return view
+        if let headerStyle = headerStyle {
+            guard let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: HeaderType.identifier) as? HeaderType else { return nil }
+            headerStyle(view, data[section], section)
+            view.updateColors()
+            return view
+        } else {
+            return nil
+        }
     }
     
     public func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return FooterType.height
+        return footerStyle == nil ? CGFloat.leastNonzeroMagnitude : FooterType.height
     }
     
     public func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        guard let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: FooterType.identifier) as? FooterType else { return nil }
-        footerStyle?(view, data[section], section)
-        view.updateColors()
-        return view
+        if let footerStyle = footerStyle {
+            guard let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: FooterType.identifier) as? FooterType else { return nil }
+            footerStyle(view, data[section], section)
+            view.updateColors()
+            return view
+        } else {
+            return nil
+        }
     }
     
     public func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {

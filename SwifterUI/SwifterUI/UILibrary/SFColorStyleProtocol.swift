@@ -8,22 +8,38 @@
 
 import UIKit
 
-// minimumBrighness: Global variable to indicate minimum level of brightness for dark mode
+/**
+ Indicate minimum level of brightness for dark mode
+ */
 public var minimumBrighness: CGFloat = 0.30
 
+/**
+ SFColorStyleProtocol is adopted by an object that is capable of adapting it's color depending on current brightness
+ */
 public protocol SFColorStyleProtocol {
 
     // MARK: - Instance Properties
 
-    // automaticallyAdjustsColorStyle: This property enables automatic change between light and dark mode
+    /**
+     Enables automatic change between light and dark mode
+     */
     var automaticallyAdjustsColorStyle: Bool { get set }
-
+    
+    /**
+     Represent current color palette that must be used
+     */
     var colorStyle: SFColorStyle { get }
 
     // MARK: - Instance Methods
 
+    /**
+     Update current color depending on colorStyle
+     */
     func updateColors()
 
+    /**
+     Call updateColors for all subviews
+     */
     func updateSubviewsColors()
 }
 

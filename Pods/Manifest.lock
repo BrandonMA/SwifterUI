@@ -1,13 +1,13 @@
 PODS:
   - DeepDiff (1.2.0)
-  - PromiseKit (6.2.7):
-    - PromiseKit/CorePromise (= 6.2.7)
-    - PromiseKit/Foundation (= 6.2.7)
-    - PromiseKit/UIKit (= 6.2.7)
-  - PromiseKit/CorePromise (6.2.7)
-  - PromiseKit/Foundation (6.2.7):
+  - PromiseKit (6.2.8):
+    - PromiseKit/CorePromise (= 6.2.8)
+    - PromiseKit/Foundation (= 6.2.8)
+    - PromiseKit/UIKit (= 6.2.8)
+  - PromiseKit/CorePromise (6.2.8)
+  - PromiseKit/Foundation (6.2.8):
     - PromiseKit/CorePromise
-  - PromiseKit/UIKit (6.2.7):
+  - PromiseKit/UIKit (6.2.8):
     - PromiseKit/CorePromise
 
 DEPENDENCIES:
@@ -21,7 +21,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   DeepDiff: 0ee83ac6942d441f677c22e981548c6e0937f2b6
-  PromiseKit: 12b9d87748b170714247d8b2677146ca57e488f2
+  PromiseKit: 6788ce1a0ed5448b83d4aaf56b9fc49fb7647d32
 
 PODFILE CHECKSUM: d8790c0f4b45a158eddc2cd06ed2367413bc0a7f
 

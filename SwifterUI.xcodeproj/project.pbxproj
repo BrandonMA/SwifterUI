@@ -96,7 +96,6 @@
 		42C67252205CD7DE00DA4BCB /* SFDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C67251205CD7DE00DA4BCB /* SFDatePicker.swift */; };
 		42C701B12016834E00EBFBE2 /* SFPopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C701B02016834E00EBFBE2 /* SFPopViewController.swift */; };
 		42C701B42016839500EBFBE2 /* SFPresentationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C701B32016839500EBFBE2 /* SFPresentationManager.swift */; };
-		42CB47AF20371962008C4AE6 /* SFChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CB47AE20371962008C4AE6 /* SFChatView.swift */; };
 		42CB6AFC203602870080EFB8 /* SFMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CB6AFB203602870080EFB8 /* SFMessage.swift */; };
 		42CB6AFE203603060080EFB8 /* SFTableViewChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CB6AFD203603060080EFB8 /* SFTableViewChatCell.swift */; };
 		42CB6B002036035C0080EFB8 /* SFTableViewConversationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CB6AFF2036035C0080EFB8 /* SFTableViewConversationCell.swift */; };
@@ -237,7 +236,6 @@
 		42C67251205CD7DE00DA4BCB /* SFDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFDatePicker.swift; sourceTree = "<group>"; };
 		42C701B02016834E00EBFBE2 /* SFPopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFPopViewController.swift; sourceTree = "<group>"; };
 		42C701B32016839500EBFBE2 /* SFPresentationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFPresentationManager.swift; sourceTree = "<group>"; };
-		42CB47AE20371962008C4AE6 /* SFChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFChatView.swift; sourceTree = "<group>"; };
 		42CB6AFB203602870080EFB8 /* SFMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFMessage.swift; sourceTree = "<group>"; };
 		42CB6AFD203603060080EFB8 /* SFTableViewChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFTableViewChatCell.swift; sourceTree = "<group>"; };
 		42CB6AFF2036035C0080EFB8 /* SFTableViewConversationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFTableViewConversationCell.swift; sourceTree = "<group>"; };
@@ -562,7 +560,6 @@
 				4230E8EB204CC42C003E5BCC /* SFBubbleView.swift */,
 				42CB6AFD203603060080EFB8 /* SFTableViewChatCell.swift */,
 				42CDA9BC20361BDE0046791D /* SFChatBar.swift */,
-				42CB47AE20371962008C4AE6 /* SFChatView.swift */,
 				42CDA9BA20361BC50046791D /* SFChatViewController.swift */,
 			);
 			path = ChatKit;
@@ -878,7 +875,6 @@
 				42D34C65202F5F84002B6FA6 /* SFLabel.swift in Sources */,
 				42B7B27D203A611E004B5C6E /* SFScrollView.swift in Sources */,
 				423AAC261FE7678C009D6C39 /* ConstraintAxis.swift in Sources */,
-				42CB47AF20371962008C4AE6 /* SFChatView.swift in Sources */,
 				42289AE4203481C70095FF5C /* UITableView.swift in Sources */,
 				425AFDAC20300C580049B68B /* SFCollectionView.swift in Sources */,
 				42D13476208D436600EFB118 /* SFSignViewController.swift in Sources */,

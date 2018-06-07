@@ -14,6 +14,7 @@ public protocol SFVideoPlayerDelegate: class {
     // MARK: - Instance Methods
     
     func prepare(mediaController: UIViewController)
+    
 }
 
 public extension SFVideoPlayerDelegate where Self: UIViewController {
@@ -51,8 +52,9 @@ public final class SFVideoView: SFView {
 
     public final var player: AVPlayer? {
         didSet {
+            self.player?.automaticallyWaitsToMinimizeStalling = false
+            self.controller.player = self.player
             DispatchQueue.addAsyncTask(to: .main) {
-                self.controller.player = self.player
                 self.prepareVideoView()
             }
         }

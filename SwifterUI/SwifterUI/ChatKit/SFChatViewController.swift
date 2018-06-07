@@ -17,10 +17,14 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
     
     public let chatManager = SFTableManager<MessageType, SFTableViewChatCell, SFTableViewHeaderView, SFTableViewFooterView>(data: [])
 
-    public final lazy var chatView: SFChatView = {
-        let view = SFChatView(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle, frame: .zero)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
+    public final lazy var chatView: SFTableView = {
+        let tableView = SFTableView(automaticallyAdjustsColorStyle: true, style: .plain)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.separatorStyle = .none
+        tableView.allowsSelection = false
+        tableView.useAlternativeColors = true
+        tableView.keyboardDismissMode = .interactive
+        return tableView
     }()
 
     public final lazy var chatBar: SFChatBar = {
@@ -60,10 +64,10 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
         }
         super.viewDidLoad()
         view.addSubview(chatView)
-        chatManager.configure(tableView: chatView.tableView) { (cell, message, index) in
+        chatManager.configure(tableView: chatView) { (cell, message, index) in
             self.configure(cell: cell, message: message, indexPath: index)
         }
-        chatView.tableView.delegate = self
+        chatView.delegate = self
         chatBar.sendButton.addTarget(self, action: #selector(sendButtonDidTouch), for: .touchUpInside)
         chatBar.fileButton.addTarget(self, action: #selector(mediaButtonDidTouch), for: .touchUpInside)
         NotificationCenter.default.addObserver(self,
@@ -81,7 +85,7 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
         cachedHeights.removeAll()
         cachedBubbleWidths.removeAll()
         super.viewDidLayoutSubviews()
-        chatView.tableView.scrollToBottom(animated: false)
+        chatView.scrollToBottom(animated: false)
     }
 
     open override func viewWillAppear(_ animated: Bool) {
@@ -100,10 +104,10 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
         if let keyboardFrame: NSValue = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardRectangle = keyboardFrame.cgRectValue
             let keyboardHeight = keyboardRectangle.height
-            chatView.tableView.contentInset.bottom = keyboardHeight
-            chatView.tableView.scrollIndicatorInsets.bottom = keyboardHeight
-            if chatView.tableView.isDragging == false {
-                chatView.tableView.scrollToBottom(animated: true)
+            chatView.contentInset.bottom = keyboardHeight
+            chatView.scrollIndicatorInsets.bottom = keyboardHeight
+            if chatView.isDragging == false {
+                chatView.scrollToBottom(animated: true)
             }
         }
     }
@@ -120,9 +124,9 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
             cell.width = width
         } else {
             if message.image != nil || message.videoURL != nil || message.imageURL != nil {
-                cell.width = (chatView.tableView.bounds.width * 2/3)
+                cell.width = (chatView.bounds.width * 2/3)
             } else {
-                cell.width = message.text?.estimatedFrame(with: cell.messageLabel.font, maxWidth: (chatView.tableView.bounds.width * 2/3) - 16).size.width ?? 0
+                cell.width = message.text?.estimatedFrame(with: cell.messageLabel.font, maxWidth: (chatView.bounds.width * 2/3) - 16).size.width ?? 0
             }
         }
         
@@ -190,7 +194,7 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
             if send(message: message) {
                 chatBar.textView.text = ""
                 chatManager.insert(item: message, animation: message.isMine ? .right : .left).done {
-                    self.chatView.tableView.scrollToBottom()
+                    self.chatView.scrollToBottom()
                 }
             }
         }
@@ -225,7 +229,7 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
             guard let message = optionalMessage else { return }
             if self.send(message: message) {
                 self.chatManager.insert(item: message, animation: message.isMine ? .right : .left).done {
-                    self.chatView.tableView.scrollToBottom()
+                    self.chatView.scrollToBottom()
                 }
             }
         })

@@ -24,8 +24,9 @@ public final class SFImageZoomView: UIScrollView, SFViewColorStyle {
     
     // MARK: - Initializers
     
-    public init(automaticallyAdjustsColorStyle: Bool = true, frame: CGRect = .zero) {
+    public init(automaticallyAdjustsColorStyle: Bool = true, useAlternativeColors: Bool = false, frame: CGRect = .zero) {
         self.automaticallyAdjustsColorStyle = automaticallyAdjustsColorStyle
+        self.useAlternativeColors = useAlternativeColors
         super.init(frame: frame)
         updateColors()
         addSubview(imageView)

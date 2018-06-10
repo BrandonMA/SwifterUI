@@ -37,9 +37,9 @@ open class SFSection: SFView {
     
     // MARK: - Initializers
     
-    public init(automaticallyAdjustsColorStyle: Bool = true, frame: CGRect = .zero, bottomView: UIView) {
+    public init(automaticallyAdjustsColorStyle: Bool = true, useAlternativeColors: Bool = false, frame: CGRect = .zero, bottomView: UIView) {
         self.bottomView = bottomView
-        super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, frame: frame)
+        super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, useAlternativeColors: useAlternativeColors, frame: frame)
         addSubview(stackView)
         titleLabel.setContentHuggingPriority(.init(251), for: .vertical)
         bottomView.setContentHuggingPriority(.init(250), for: .vertical)

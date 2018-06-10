@@ -38,13 +38,13 @@ public final class SFTextScrollSection: SFSection {
     
     // MARK: - Initializer
     
-    public init(automaticallyAdjustsColorStyle: Bool = true, frame: CGRect = .zero) {
-        let textView = SFTextView(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle)
+    public init(automaticallyAdjustsColorStyle: Bool = true, useAlternativeColors: Bool = false, frame: CGRect = .zero) {
+        let textView = SFTextView(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, useAlternativeColors: useAlternativeColors, frame: frame)
         textView.font = UIFont.systemFont(ofSize: 15)
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.layer.cornerRadius = 10
         textView.textContainerInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
-        super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, frame: frame, bottomView: textView)
+        super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, useAlternativeColors: useAlternativeColors, frame: frame, bottomView: textView)
     }
     
     required public init?(coder aDecoder: NSCoder) {

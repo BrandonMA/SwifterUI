@@ -55,8 +55,8 @@ open class SFChatBar: SFView {
 
     // MARK: - Initializers
 
-    public override init(automaticallyAdjustsColorStyle: Bool, frame: CGRect = .zero) {
-        super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, frame: frame)
+    public override init(automaticallyAdjustsColorStyle: Bool, useAlternativeColors: Bool = false, frame: CGRect = .zero) {
+        super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, useAlternativeColors: useAlternativeColors, frame: frame)
         addSubview(contentView)
         contentView.addSubview(textView)
         contentView.addSubview(sendButton)

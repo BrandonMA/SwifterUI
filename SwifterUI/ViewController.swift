@@ -9,6 +9,7 @@
 import UIKit
 import DeepDiff
 import PromiseKit
+
 class View: SFView {
     
     lazy var button: SFButton = {
@@ -27,8 +28,8 @@ class View: SFView {
         return section
     }()
     
-    override init(automaticallyAdjustsColorStyle: Bool = true, frame: CGRect = .zero) {
-        super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, frame: frame)
+    public override init(automaticallyAdjustsColorStyle: Bool = true, useAlternativeColors: Bool = false, frame: CGRect = .zero) {
+        super.init(automaticallyAdjustsColorStyle: useAlternativeColors, useAlternativeColors: useAlternativeColors, frame: frame)
         addSubview(button)
         addSubview(textView)
     }

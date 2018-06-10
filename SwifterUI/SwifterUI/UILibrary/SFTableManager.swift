@@ -12,6 +12,12 @@ import DeepDiff
 
 public protocol SFTableManagerDelegate: class {
     func didSelectRow<DataModel: Hashable>(at indexPath: IndexPath, tableView: SFTableView, item: DataModel)
+    func heightForRow(at indexPath: IndexPath, tableView: SFTableView) -> CGFloat?
+}
+
+public extension SFTableManagerDelegate {
+    public func didSelectRow<DataModel: Hashable>(at indexPath: IndexPath, tableView: SFTableView, item: DataModel) {}
+    public func heightForRow(at indexPath: IndexPath, tableView: SFTableView) -> CGFloat? { return nil }
 }
 
 open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell, HeaderType: SFTableViewHeaderView, FooterType: SFTableViewFooterView>: NSObject, UITableViewDataSource, UITableViewDelegate {
@@ -41,12 +47,12 @@ open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell, Header
     
     public init(dataSections: [SFDataSection<DataModel>] = []) {
         super.init()
-        update(dataSections: dataSections)
+        update(dataSections: dataSections, animation: .automatic)
     }
     
     public init(data: [[DataModel]] = []) {
         super.init()
-        update(data: data)
+        update(data: data, animation: .automatic)
     }
     
     // MARK: - Instace Methods
@@ -54,10 +60,13 @@ open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell, Header
     open func configure(tableView: SFTableView, cellStyler: SFTableManagerItemStyler?) {
         self.cellStyler = cellStyler
         self.tableView = tableView
+        
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(CellType.self, forCellReuseIdentifier: CellType.identifier)
         tableView.rowHeight = CellType.height
+        tableView.sectionHeaderHeight = headerStyle == nil ? 0.0 : HeaderType.height
+        tableView.sectionFooterHeight = footerStyle == nil ? 0.0 : FooterType.height
         
         if tableView.style == .grouped {
             tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: CGFloat.leastNonzeroMagnitude, height: CGFloat.leastNonzeroMagnitude))
@@ -72,7 +81,7 @@ open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell, Header
     // MARK: - Update Methods
     
     @discardableResult
-    open func update(dataSections: [SFDataSection<DataModel>], animation: UITableViewRowAnimation = .fade) -> Guarantee<Void> {
+    open func update(dataSections: [SFDataSection<DataModel>], animation: UITableViewRowAnimation = .automatic) -> Guarantee<Void> {
         return Guarantee { seal in
             for (index, section) in dataSections.enumerated() {
                 update(dataSection: section, index: index, animation: animation).done {
@@ -85,7 +94,7 @@ open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell, Header
     }
     
     @discardableResult
-    open func update(data: [[DataModel]], animation: UITableViewRowAnimation = .fade) -> Guarantee<Void> {
+    open func update(data: [[DataModel]], animation: UITableViewRowAnimation = .automatic) -> Guarantee<Void> {
         return Guarantee { seal in
             for (index, section) in data.enumerated() {
                 let dataSection = SFDataSection<DataModel>(content: section, identifier: "")
@@ -99,7 +108,7 @@ open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell, Header
     }
     
     @discardableResult
-    open func update(dataSection: SFDataSection<DataModel>, index: Int, animation: UITableViewRowAnimation = .fade) -> Guarantee<Void> {
+    open func update(dataSection: SFDataSection<DataModel>, index: Int, animation: UITableViewRowAnimation = .automatic) -> Guarantee<Void> {
         if self.data.count > index {
             return Guarantee { seal in
                 let olddataSection = self.data[index]
@@ -117,7 +126,7 @@ open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell, Header
     // MARK: - Sections
     
     @discardableResult
-    open func insert(section: SFDataSection<DataModel>, index: Int, animation: UITableViewRowAnimation = .fade) -> Guarantee<Void> {
+    open func insert(section: SFDataSection<DataModel>, index: Int, animation: UITableViewRowAnimation = .automatic) -> Guarantee<Void> {
         return Guarantee { seal in
             self.data.append(section)
             self.tableView?.beginUpdates()
@@ -137,7 +146,7 @@ open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell, Header
     }
     
     @discardableResult
-    open func deleteSection(index: Int, animation: UITableViewRowAnimation = .fade) -> Guarantee<Void> {
+    open func deleteSection(index: Int, animation: UITableViewRowAnimation = .automatic) -> Guarantee<Void> {
         return Guarantee { seal in
             self.data.remove(at: index)
             self.tableView?.beginUpdates()
@@ -148,7 +157,7 @@ open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell, Header
     }
     
     @discardableResult
-    open func reloadSection(index: Int, animation: UITableViewRowAnimation = .fade) -> Guarantee<Void> {
+    open func reloadSection(index: Int, animation: UITableViewRowAnimation = .automatic) -> Guarantee<Void> {
         return Guarantee { seal in
             self.tableView?.beginUpdates()
             self.tableView?.reloadSections(IndexSet(integer: index), with: animation)
@@ -164,7 +173,7 @@ open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell, Header
     }
     
     @discardableResult
-    open func insert(item: DataModel, indexPath: IndexPath? = nil, animation: UITableViewRowAnimation = .fade) -> Guarantee<Void> {
+    open func insert(item: DataModel, indexPath: IndexPath? = nil, animation: UITableViewRowAnimation = .automatic) -> Guarantee<Void> {
         return Guarantee { seal in
             let indexPath = indexPath ?? self.lastIndex
             if indexPath.section > self.lastSectionIndex {
@@ -195,7 +204,7 @@ open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell, Header
     }
     
     @discardableResult
-    open func removeItem(from indexPath: IndexPath, animation: UITableViewRowAnimation = .fade) -> Guarantee<Void> {
+    open func removeItem(from indexPath: IndexPath, animation: UITableViewRowAnimation = .automatic) -> Guarantee<Void> {
         return Guarantee { seal in
             self.data[indexPath.section].content.remove(at: indexPath.item)
             self.tableView?.beginUpdates()
@@ -206,7 +215,7 @@ open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell, Header
     }
     
     @discardableResult
-    open func reloadItem(from indexPath: IndexPath, animation: UITableViewRowAnimation = .fade) -> Guarantee<Void> {
+    open func reloadItem(from indexPath: IndexPath, animation: UITableViewRowAnimation = .automatic) -> Guarantee<Void> {
         return Guarantee { seal in
             self.tableView?.beginUpdates()
             self.tableView?.reloadRows(at: [indexPath], with: animation)
@@ -239,8 +248,13 @@ open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell, Header
         delegate?.didSelectRow(at: indexPath, tableView: tableView, item: item)
     }
     
+    public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        guard let tableView = self.tableView else { return 0 }
+        return delegate?.heightForRow(at: indexPath, tableView: tableView) ?? tableView.rowHeight
+    }
+    
     public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return headerStyle == nil ? CGFloat.leastNonzeroMagnitude : HeaderType.height
+        return headerStyle == nil ? 0.0 : HeaderType.height
     }
     
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -255,7 +269,7 @@ open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell, Header
     }
     
     public func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return footerStyle == nil ? CGFloat.leastNonzeroMagnitude : FooterType.height
+        return footerStyle == nil ? 0.0 : FooterType.height
     }
     
     public func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {

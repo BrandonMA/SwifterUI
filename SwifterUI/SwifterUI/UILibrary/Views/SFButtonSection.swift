@@ -49,15 +49,15 @@ public final class SFButtonSection: SFSection {
     
     // MARK: - Initializer
     
-    public init(automaticallyAdjustsColorStyle: Bool = true, frame: CGRect = .zero) {
-        let button = SFButton(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle)
+    public init(automaticallyAdjustsColorStyle: Bool = true, useAlternativeColors: Bool = false, frame: CGRect = .zero) {
+        let button = SFButton(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, useAlternativeColors: useAlternativeColors, frame: frame)
         button.rightImageView.image = SFAssets.imageOfArrowRight.withRenderingMode(.alwaysTemplate)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 10
         button.contentHorizontalAlignment = UIControlContentHorizontalAlignment.left
         button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 0)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 15)
-        super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, frame: frame, bottomView: button)
+        super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, useAlternativeColors: useAlternativeColors, frame: frame, bottomView: button)
     }
     
     required public init?(coder aDecoder: NSCoder) {

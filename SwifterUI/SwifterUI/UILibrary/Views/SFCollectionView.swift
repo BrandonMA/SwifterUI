@@ -18,8 +18,9 @@ open class SFCollectionView: UICollectionView, SFViewColorStyle {
     
     // MARK: - Initializers
     
-    public init(automaticallyAdjustsColorStyle: Bool = true, frame: CGRect = .zero, collectionViewLayout: UICollectionViewLayout) {
+    public init(automaticallyAdjustsColorStyle: Bool = true, useAlternativeColors: Bool = false, frame: CGRect = .zero, collectionViewLayout: UICollectionViewLayout) {
         self.automaticallyAdjustsColorStyle = automaticallyAdjustsColorStyle
+        self.useAlternativeColors = useAlternativeColors
         super.init(frame: frame, collectionViewLayout: collectionViewLayout)
         updateColors()
     }

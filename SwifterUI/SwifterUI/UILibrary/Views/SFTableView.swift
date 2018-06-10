@@ -25,8 +25,9 @@ open class SFTableView: UITableView, SFViewColorStyle {
     
     // MARK: - Initializers
     
-    public init(automaticallyAdjustsColorStyle: Bool = true, frame: CGRect = .zero, style: UITableViewStyle = .plain) {
+    public init(automaticallyAdjustsColorStyle: Bool = true, useAlternativeColors: Bool = false, frame: CGRect = .zero, style: UITableViewStyle = .plain) {
         self.automaticallyAdjustsColorStyle = automaticallyAdjustsColorStyle
+        self.useAlternativeColors = useAlternativeColors
         super.init(frame: frame, style: style)
         updateColors()
     }
@@ -61,7 +62,7 @@ open class SFTableView: UITableView, SFViewColorStyle {
             let numberOfSections = self.numberOfSections - 1
             if numberOfSections >= 0 {
                 for i in 0...numberOfSections {
-                                        
+                    
                     if let headerView = headerView(forSection: i) as? SFViewColorStyle {
                         headerView.updateColors()
                     }

@@ -46,14 +46,14 @@ public final class SFTextSection: SFSection {
     
     // MARK: - Initializer
     
-    public init(automaticallyAdjustsColorStyle: Bool = true, frame: CGRect = .zero) {
-        let textField = SFTextField(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle)
+    public init(automaticallyAdjustsColorStyle: Bool = true, useAlternativeColors: Bool = false, frame: CGRect = .zero) {
+        let textField = SFTextField(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, useAlternativeColors: useAlternativeColors, frame: frame)
         textField.font = UIFont.systemFont(ofSize: 15)
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.layer.cornerRadius = 10
         textField.leftPadding = 8
         textField.rightPadding = 8
-        super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, frame: frame, bottomView: textField)
+        super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, useAlternativeColors: useAlternativeColors, frame: frame, bottomView: textField)
     }
     
     required public init?(coder aDecoder: NSCoder) {

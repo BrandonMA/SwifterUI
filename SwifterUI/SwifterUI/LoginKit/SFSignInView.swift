@@ -60,8 +60,8 @@ open class SFSignInView: SFView {
     
     // MARK: - Initializers
     
-    public override init(automaticallyAdjustsColorStyle: Bool = true, frame: CGRect = .zero) {
-        super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, frame: frame)
+    public override init(automaticallyAdjustsColorStyle: Bool = true, useAlternativeColors: Bool = false, frame: CGRect = .zero) {
+        super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, useAlternativeColors: useAlternativeColors, frame: frame)
         addSubview(contentStack)
     }
     

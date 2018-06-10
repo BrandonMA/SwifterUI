@@ -10,70 +10,80 @@ import UIKit
 import MobileCoreServices
 
 open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, SFVideoPlayerDelegate {
-
+    
     // MARK: - Instance Properties
-
+    
     private var activeCell: SFTableViewChatCell?
     
-    public let chatManager = SFTableManager<MessageType, SFTableViewChatCell, SFTableViewHeaderView, SFTableViewFooterView>(data: [])
-
+    public var chatManager: SFTableManager<MessageType, SFTableViewChatCell, SFTableViewHeaderView, SFTableViewFooterView>
+    
     public final lazy var chatView: SFTableView = {
-        let tableView = SFTableView(automaticallyAdjustsColorStyle: true, style: .plain)
+        let tableView = SFTableView(automaticallyAdjustsColorStyle: true, useAlternativeColors: true, style: .plain)
+        tableView.useAlternativeColors = true
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.separatorStyle = .none
         tableView.allowsSelection = false
-        tableView.useAlternativeColors = true
         tableView.keyboardDismissMode = .interactive
         return tableView
     }()
-
+    
     public final lazy var chatBar: SFChatBar = {
         let chatBar = SFChatBar(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         chatBar.translatesAutoresizingMaskIntoConstraints = false
         return chatBar
     }()
-
+    
     private lazy var filesButton: SFButton = {
         let filesButton = SFButton()
         filesButton.setTitle("Archivos", for: .normal)
         return filesButton
     }()
-
+    
     open override var inputAccessoryView: UIView? {
         return chatBar
     }
-
+    
     open override var canBecomeFirstResponder: Bool {
         return true
     }
-
+    
     private var cachedHeights: [IndexPath: CGFloat] = [:]
     private var cachedBubbleWidths: [IndexPath: CGFloat] = [:]
-
+    
     // MARK: - Initializers
-
+    
+    public init(messages: [MessageType], automaticallyAdjustsColorStyle: Bool) {
+        chatManager = SFTableManager<MessageType, SFTableViewChatCell, SFTableViewHeaderView, SFTableViewFooterView>(data: [messages])
+        super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle)
+        chatManager.delegate = self
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
-
+    
     // MARK: - Instance Methods
-
+    
     override open func viewDidLoad() {
-        if let view = view as? SFView {
-            view.useAlternativeColors = true
-        }
+        
         super.viewDidLoad()
+        
         view.addSubview(chatView)
-        chatManager.configure(tableView: chatView) { (cell, message, index) in
-            self.configure(cell: cell, message: message, indexPath: index)
-        }
-        chatView.delegate = self
+        
         chatBar.sendButton.addTarget(self, action: #selector(sendButtonDidTouch), for: .touchUpInside)
         chatBar.fileButton.addTarget(self, action: #selector(mediaButtonDidTouch), for: .touchUpInside)
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(keyboardWillShow(notification:)),
                                                name: .UIKeyboardWillShow, object: nil)
         autorotate = false
+        
+        chatManager.configure(tableView: chatView) { (cell, message, index) in
+            self.configure(cell: cell, message: message, indexPath: index)
+        }
     }
     
     open override func viewWillLayoutSubviews() {
@@ -87,27 +97,28 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
         super.viewDidLayoutSubviews()
         chatView.scrollToBottom(animated: false)
     }
-
+    
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationItem.largeTitleDisplayMode = .never
     }
-
+    
     open override func updateColors() {
         super.updateColors()
         if let view = inputAccessoryView as? SFViewColorStyle {
             view.updateColors()
         }
     }
-
+    
     @objc private func keyboardWillShow(notification: NSNotification) {
         if let keyboardFrame: NSValue = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardRectangle = keyboardFrame.cgRectValue
             let keyboardHeight = keyboardRectangle.height
             chatView.contentInset.bottom = keyboardHeight
             chatView.scrollIndicatorInsets.bottom = keyboardHeight
+            
             if chatView.isDragging == false {
-                chatView.scrollToBottom(animated: true)
+                chatView.scrollToBottom()
             }
         }
     }
@@ -139,10 +150,11 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
             cell.isMine = false
             cell.updateColors()
         }
+        
     }
-
+    
     // MARK: - Media Methods
-
+    
     @objc private final func mediaButtonDidTouch() {
         
         let photosButton = SFButton()
@@ -161,27 +173,13 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
         viewController.bulletinTitle = "Multimedia"
         present(viewController, animated: true, completion: nil)
     }
-
-    private final func showMediaPicker(sourceType: UIImagePickerControllerSourceType) {
-        DispatchQueue.addAsyncTask(to: .background) {
-            let imagePicker = UIImagePickerController()
-            imagePicker.sourceType = sourceType
-            imagePicker.allowsEditing = false
-            imagePicker.delegate = self
-            imagePicker.mediaTypes = [kUTTypeMovie as String, kUTTypeImage as String]
-            
-            DispatchQueue.addAsyncTask(to: .main, handler: {
-                self.present(imagePicker, animated: true, completion: nil)
-            })
-        }
-    }
-
+    
     // MARK: - Send Methods
-
+    
     open func send(message: MessageType) -> Bool {
         return true
     }
-
+    
     @objc private final func sendButtonDidTouch() {
         if chatBar.textView.text != "" {
             let message = MessageType(senderIdentifier: "",
@@ -190,7 +188,7 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
                                       fileURL: nil,
                                       timestamp: Date(),
                                       isMine: true)
-
+            
             if send(message: message) {
                 chatBar.textView.text = ""
                 chatManager.insert(item: message, animation: message.isMine ? .right : .left).done {
@@ -199,14 +197,14 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
             }
         }
     }
-
+    
     // MARK: - UIImagePickerControllerDelegate
-
+    
     open func imagePickerController(_ picker: UIImagePickerController,
                                     didFinishPickingMediaWithInfo info: [String: Any]) {
-
+        
         var optionalMessage: MessageType? = nil
-
+        
         if let originalImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
             optionalMessage = MessageType(senderIdentifier: "",
                                           text: nil,
@@ -224,7 +222,7 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
                                           timestamp: Date(),
                                           isMine: true)
         }
-
+        
         picker.dismiss(animated: true, completion: {
             guard let message = optionalMessage else { return }
             if self.send(message: message) {
@@ -234,14 +232,15 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
             }
         })
     }
+    
+}
 
-    // MARK: - UITableViewDelegate
-
-    open func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+extension SFChatViewController: SFTableManagerDelegate {
+    public func heightForRow(at indexPath: IndexPath, tableView: SFTableView) -> CGFloat? {
         guard let height = cachedHeights[indexPath] else {
-
+            
             let message = chatManager.getItem(at: indexPath)
-
+            
             if let image = message.image {
                 let height = ((tableView.bounds.width * 2/3) / (image.size.width / image.size.height)) + 33
                 cachedHeights[indexPath] = height
@@ -260,36 +259,19 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
                 cachedHeights[indexPath] = height
                 return height
             }
-
+            
         }
         return height
     }
-
 }
 
 extension SFChatViewController: SFTableViewChatCellDelegate {
-
+    
     // MARK: - Instance Methods
-
-    public func didZoomIn(cell: SFTableViewChatCell) {
+    
+    public func didSelectImageView(cell: SFTableViewChatCell) {
         guard let image = cell.messageImageView.image else { return }
-        let controller = SFNavigationController(rootViewController: SFImageZoomViewController(with: image))
-        controller.modalPresentationStyle = .overFullScreen
-        controller.modalTransitionStyle = .crossDissolve
-        present(controller, animated: true) {
-            UIView.animate(.promise, duration: 0.1, animations: {
-                cell.messageImageView.alpha = 0
-            }).done({ _ in
-                cell.zoomOut()
-            })
-        }
-    }
-
-    public func didZoomOut(cell: SFTableViewChatCell) {
-        UIView.animate(withDuration: 0.3, animations: {
-            cell.messageImageView.alpha = 1
-        }) { (finished) in
-        }
+        navigationController?.pushViewController(SFImageZoomViewController(with: image), animated: true)
     }
 }
 

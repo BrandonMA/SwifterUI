@@ -63,9 +63,11 @@ open class SFAlertView: SFView {
     
     // MARK: - Initializers
     
-    public init(automaticallyAdjustsColorStyle: Bool = true, frame: CGRect = .zero, title: String, message: String, buttons: [SFButton]) {
+    public init(automaticallyAdjustsColorStyle: Bool = true, useAlternativeColors: Bool = false, frame: CGRect = .zero, title: String, message: String, buttons: [SFButton]) {
         self.buttons = buttons
-        super.init()
+        
+        super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, useAlternativeColors: useAlternativeColors, frame: frame)
+        
         titleLabel.text = title
         messageLabel.text = message
         
@@ -75,6 +77,7 @@ open class SFAlertView: SFView {
         backgroundView.addSubview(contentView)
         contentView.addSubview(titleLabel)
         contentView.addSubview(messageLabel)
+        
         if buttons.count > 0 {
             buttons.forEach({ (button) in
                 button.translatesAutoresizingMaskIntoConstraints = false
@@ -83,6 +86,8 @@ open class SFAlertView: SFView {
                 contentView.addSubview(button)
             })
         }
+        
+        updateColors()
     }
     
     required public init?(coder aDecoder: NSCoder) {

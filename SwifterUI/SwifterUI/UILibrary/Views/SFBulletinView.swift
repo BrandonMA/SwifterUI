@@ -63,12 +63,12 @@ open class SFBulletinView: SFView {
     
     // MARK: - Initializers
     
-    public init(automaticallyAdjustsColorStyle: Bool = true, frame: CGRect = .zero, middleView: UIView? = nil, buttons: [SFButton] = []) {
+    public init(automaticallyAdjustsColorStyle: Bool = true, useAlternativeColors: Bool = false, frame: CGRect = .zero, middleView: UIView? = nil, buttons: [SFButton] = []) {
         
         self.middleView = middleView ?? SFView(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle)
         self.buttons = buttons
         
-        super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, frame: frame)
+        super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, useAlternativeColors: useAlternativeColors, frame: frame)
         
         isOpaque = false
         

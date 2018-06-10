@@ -62,8 +62,8 @@ public final class SFVideoView: SFView {
 
     public final weak var delegate: SFVideoPlayerDelegate? = nil
 
-    public override init(automaticallyAdjustsColorStyle: Bool = true, frame: CGRect = .zero) {
-        super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, frame: frame)
+    public override init(automaticallyAdjustsColorStyle: Bool = true, useAlternativeColors: Bool = false, frame: CGRect = .zero) {
+        super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, useAlternativeColors: useAlternativeColors, frame: frame)
         controller.allowsPictureInPicturePlayback = true
         controller.entersFullScreenWhenPlaybackBegins = true
     }

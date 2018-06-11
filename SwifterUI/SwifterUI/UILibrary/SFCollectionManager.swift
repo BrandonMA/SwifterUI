@@ -20,7 +20,7 @@ open class SFCollectionManager<DataModel: Hashable, CellType: SFCollectionViewCe
     
     // MARK: - Instance Properties
     
-    weak var delegate: SFCollectionManagerDelegate?
+    public weak var delegate: SFCollectionManagerDelegate?
     
     public var data: [SFDataSection<DataModel>] = [SFDataSection<DataModel>()]
     public weak var collectionView: SFCollectionView?

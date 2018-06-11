@@ -45,7 +45,7 @@ open class SFScrollView: UIScrollView, SFViewColorStyle {
     open var scrollVertically: Bool = true
     
     open lazy var contentView: SFView = {
-        let view = SFView(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
+        let view = SFView(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle, useAlternativeColors: self.useAlternativeColors)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()

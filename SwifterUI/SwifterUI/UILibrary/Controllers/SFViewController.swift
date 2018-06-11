@@ -72,17 +72,17 @@ open class SFViewController: UIViewController, SFControllerColorStyle {
         self.view = SFView(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
     }
     
-    open override func viewDidLoad() {
-        super.viewDidLoad()
+    open override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         if let navigationController = self.navigationController {
             prepare(navigationController: navigationController)
         }
     }
     
     /**
-     Called after viewDidLoad() is completed
+     Called after viewWillAppear() is completed
      - Parameters:
-        - navigationController: Current UINavigationController if it is not nil in self.
+     - navigationController: Current UINavigationController if it is not nil.
      */
     open func prepare(navigationController: UINavigationController) {
     }

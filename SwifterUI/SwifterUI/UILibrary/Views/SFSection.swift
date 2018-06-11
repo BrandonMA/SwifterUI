@@ -13,7 +13,7 @@ open class SFSection: SFView {
     // MARK: - Instance Properties
     
     public final lazy var titleLabel: SFLabel = {
-        let label = SFLabel(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle, useAlternativeColors: self.useAlternativeColors)
+        let label = SFLabel(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         label.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left

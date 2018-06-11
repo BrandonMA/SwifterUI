@@ -31,11 +31,10 @@ open class SFProfileImageView: SFView {
     }()
     
     open lazy var closeButton: SFButton = {
-        let button = SFButton(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
+        let button = SFButton(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle, useAlternativeColors: true)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 22
         button.setImage(SFAssets.imageOfCancelIcon, for: .normal)
-        button.useAlternativeColors = true
         button.addShadow(color: .black, offSet: CGSize(width: 0, height: 2), radius: 6, opacity: 0.05)
         button.addTouchAnimations = true
         return button
@@ -74,9 +73,10 @@ open class SFProfileImageView: SFView {
     }
     
     open override func updateColors() {
-        super.updateColors()
+        backgroundColor = .clear
         imageView.backgroundColor = useAlternativeColors ? colorStyle.getTextEntryColor() : colorStyle.getAlternativeColor()
         imageView.tintColor = colorStyle.getPlaceholderColor()
+        updateSubviewsColors()
     }
     
     open func removeImage() {

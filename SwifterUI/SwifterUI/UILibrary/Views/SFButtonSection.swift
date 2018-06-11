@@ -51,6 +51,7 @@ public final class SFButtonSection: SFSection {
     
     public init(automaticallyAdjustsColorStyle: Bool = true, useAlternativeColors: Bool = false, frame: CGRect = .zero) {
         let button = SFButton(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, useAlternativeColors: useAlternativeColors, frame: frame)
+        button.isTextPicker = true
         button.rightImageView.image = SFAssets.imageOfArrowRight.withRenderingMode(.alwaysTemplate)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 10

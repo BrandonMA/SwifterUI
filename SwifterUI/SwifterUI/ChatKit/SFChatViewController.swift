@@ -95,7 +95,9 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
         cachedHeights.removeAll()
         cachedBubbleWidths.removeAll()
         super.viewDidLayoutSubviews()
-        chatView.scrollToBottom(animated: false)
+        DispatchQueue.main.async {
+            self.chatView.scrollToBottom(animated: false)
+        }
     }
     
     open override func viewWillAppear(_ animated: Bool) {
@@ -118,7 +120,9 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
             chatView.scrollIndicatorInsets.bottom = keyboardHeight
             
             if chatView.isDragging == false {
-                chatView.scrollToBottom()
+                DispatchQueue.main.async {
+                    self.chatView.scrollToBottom(animated: false)
+                }
             }
         }
     }

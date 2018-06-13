@@ -21,11 +21,15 @@ open class SFPageBar: SFScrollView {
     open lazy var buttons: [SFButton] = []
     open weak var barDelegate: SFPageBarDelegate?
     open var buttonsTintColor: UIColor?
+    open var useAlternativeButtonsColor: Bool = false
+    open var useAdaptingWidth: Bool = true
+    open var useNavigationLikeBackground: Bool = false
     
     open lazy var buttonStackView: SFStackView = {
         let stackView = SFStackView(arrangedSubviews: buttons)
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.alignment = .fill
+        stackView.distribution = .fillEqually
         stackView.axis = .horizontal
         stackView.spacing = 16
         return stackView
@@ -37,7 +41,7 @@ open class SFPageBar: SFScrollView {
         super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, useAlternativeColors: useAlternativeColors, frame: frame)
         contentView.addSubview(buttonStackView)
         showsHorizontalScrollIndicator = false
-        contentView.backgroundColor = .clear
+        clipsToBounds = false
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -56,6 +60,7 @@ open class SFPageBar: SFScrollView {
             button.useClearColor = true
             button.titleLabel?.alpha = selectedIndex == index ? 1 : 0.5
             button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
+            button.addTouchAnimations = true
             buttonStackView.addArrangedSubview(button)
             return button
         })
@@ -64,6 +69,9 @@ open class SFPageBar: SFScrollView {
     open override func layoutIfBoundsChanged() {
         super.layoutIfBoundsChanged()
         buttonStackView.clipEdges(margin: UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16))
+        if !useAdaptingWidth {
+            contentView.width(SFDimension(type: .fraction, value: 1))
+        }
         contentView.clipBottom(to: .bottom, of: buttonStackView)
     }
     
@@ -80,6 +88,9 @@ open class SFPageBar: SFScrollView {
     open func select(index: Int) {
         selectedIndex = index
         buttons.enumerated().forEach { (index, button) in
+            if self.selectedIndex == index && useAdaptingWidth {
+                setContentOffset(CGPoint(x: button.frame.origin.x, y: 0), animated: true)
+            }
             UIView.animate(withDuration: 0.4, animations: {
                 button.titleLabel?.alpha = self.selectedIndex == index ? 1 : 0.5
             })
@@ -88,10 +99,10 @@ open class SFPageBar: SFScrollView {
     
     open override func updateColors() {
         
-        updateSubviewsColors()
+        super.updateColors()
         
         buttons.forEach({
-            if useAlternativeColors {
+            if useAlternativeButtonsColor {
                 $0.setTitleColor(colorStyle.getTextColor(), for: .normal)
             }
             
@@ -100,10 +111,19 @@ open class SFPageBar: SFScrollView {
                 $0.setTitleColor(buttonsTintColor, for: .normal)
             }
         })
-        
         backgroundColor = .clear
         
-        contentView.backgroundColor = .clear
+        if useNavigationLikeBackground {
+            contentView.backgroundColor = colorStyle == .light ? UIColor(hex: "F9F9F9").withAlphaComponent(1) : UIColor(hex: "141414").withAlphaComponent(1)
+            if colorStyle == .light {
+                addShadow(color: .black, offSet: CGSize(width: 0, height: 0.5), radius: 0, opacity: 0.2)
+            } else {
+                addShadow(color: .white, offSet: CGSize(width: 0, height: 1), radius: 0, opacity: 0.16)
+            }
+        } else {
+            contentView.backgroundColor = .clear
+        }
+        
     }
 }
 

@@ -111,16 +111,16 @@ class ViewController: SFViewController {
             footerView.titleLabel.text = "Footer"
         }
         
-        guard let url = URL(string: "https://img.deusm.com/informationweek/2015/09/1322066/Swift_logo.png") else { return }
-        URLSession.shared.dataTask(.promise, with: url).done { (data, response) in
-            DispatchQueue.delay(by: 1, dispatchLevel: .main, handler: {
-                let image = UIImage(data: data)
-                let controller = SFImageZoomViewController(with: image!)
-                self.navigationController?.pushViewController(controller, animated: true)
-            })
-        }.catch { (error) in
-            self.showError(message: error.localizedDescription)
-        }
+//        guard let url = URL(string: "https://img.deusm.com/informationweek/2015/09/1322066/Swift_logo.png") else { return }
+//        URLSession.shared.dataTask(.promise, with: url).done { (data, response) in
+//            DispatchQueue.delay(by: 1, dispatchLevel: .main, handler: {
+//                let image = UIImage(data: data)
+//                let controller = SFImageZoomViewController(with: image!)
+//                self.navigationController?.pushViewController(controller, animated: true)
+//            })
+//        }.catch { (error) in
+//            self.showError(message: error.localizedDescription)
+//        }
     }
     
     override func viewWillLayoutSubviews() {

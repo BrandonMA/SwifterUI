@@ -33,7 +33,7 @@ open class SFPageSectionsViewController: SFPageViewController {
     
     open override func viewWillLayoutSubviews() {
         pageBar.clipEdges(exclude: [.bottom])
-        pageBar.height(SFDimension(value: 36))
+        pageBar.height(SFDimension(value: 44))
         pageView.clipTop(to: .bottom, of: pageBar)
         pageView.clipEdges(exclude: [.top])
     }

@@ -73,7 +73,6 @@ open class SFViewController: UIViewController, SFControllerColorStyle {
     }
     
     open override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         if let navigationController = self.navigationController {
             prepare(navigationController: navigationController)
         }

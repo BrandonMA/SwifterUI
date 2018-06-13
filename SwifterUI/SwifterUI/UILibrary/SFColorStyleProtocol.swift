@@ -11,7 +11,7 @@ import UIKit
 /**
  Indicate minimum level of brightness for dark mode
  */
-public var minimumBrighness: CGFloat = 0.30
+public var minimumBrighness: CGFloat = 0.3
 
 /**
  SFColorStyleProtocol is adopted by an object that is capable of adapting it's color depending on current brightness
@@ -48,7 +48,7 @@ public extension SFColorStyleProtocol {
     // MARK: - Instance Properties
 
     public var colorStyle: SFColorStyle {
-        return UIScreen.main.brightness > minimumBrighness ? .light : .dark
+        return UIScreen.main.brightness >= minimumBrighness ? .light : .dark
     }
 
 }

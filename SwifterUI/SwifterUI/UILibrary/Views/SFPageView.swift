@@ -41,7 +41,6 @@ open class SFPageView: SFScrollView {
         self.views = views
         views.enumerated().forEach { (index, view) in
             view.translatesAutoresizingMaskIntoConstraints = false
-            view.backgroundColor = index % 2 == 0 ? UIColor.red : UIColor.blue
             viewsStackView.addArrangedSubview(view)
             view.width(SFDimension(type: .fraction, value: 1), comparedTo: self)
         }

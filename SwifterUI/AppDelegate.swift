@@ -17,12 +17,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                      didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
         window = UIWindow(frame: UIScreen.main.bounds)
-//        let login = SFSignViewController()
-//        login.title = "Login"
-//        let chat = SFSignViewController()
-//        chat.title = "Chat"
-//        let pageController = SFPageSectionsViewController(viewControllers: [login, chat])
-        window?.rootViewController = SFNavigationController(rootViewController: ViewController())
+        let login = SFSignViewController()
+        login.title = "Login"
+        let chat = SFSignViewController()
+        chat.title = "Chat"
+        let pageController = SFPageSectionsViewController(viewControllers: [login, chat])
+//        pageController.pageBar.buttonsTintColor = .red
+//        pageController.pageBar.useAlternativeColors = true
+        window?.rootViewController = SFNavigationController(rootViewController: pageController)
         window?.makeKeyAndVisible()
 
         return true

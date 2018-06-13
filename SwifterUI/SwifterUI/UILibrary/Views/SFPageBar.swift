@@ -20,6 +20,7 @@ open class SFPageBar: SFScrollView {
     open var selectedIndex = 0
     open lazy var buttons: [SFButton] = []
     open weak var barDelegate: SFPageBarDelegate?
+    open var buttonsTintColor: UIColor?
     
     open lazy var buttonStackView: SFStackView = {
         let stackView = SFStackView(arrangedSubviews: buttons)
@@ -36,6 +37,7 @@ open class SFPageBar: SFScrollView {
         super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, useAlternativeColors: useAlternativeColors, frame: frame)
         contentView.addSubview(buttonStackView)
         showsHorizontalScrollIndicator = false
+        contentView.backgroundColor = .clear
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -52,7 +54,7 @@ open class SFPageBar: SFScrollView {
             button.setTitle(title, for: .normal)
             button.translatesAutoresizingMaskIntoConstraints = false
             button.useClearColor = true
-            button.titleLabel?.alpha = selectedIndex == index ? 1 : 0.7
+            button.titleLabel?.alpha = selectedIndex == index ? 1 : 0.5
             button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
             buttonStackView.addArrangedSubview(button)
             return button
@@ -79,8 +81,41 @@ open class SFPageBar: SFScrollView {
         selectedIndex = index
         buttons.enumerated().forEach { (index, button) in
             UIView.animate(withDuration: 0.4, animations: {
-                button.titleLabel?.alpha = self.selectedIndex == index ? 1 : 0.7
+                button.titleLabel?.alpha = self.selectedIndex == index ? 1 : 0.5
             })
         }
     }
+    
+    open override func updateColors() {
+        
+        updateSubviewsColors()
+        
+        buttons.forEach({
+            if useAlternativeColors {
+                $0.setTitleColor(colorStyle.getTextColor(), for: .normal)
+            }
+            
+            if let buttonsTintColor = buttonsTintColor {
+                $0.setTextColor = false
+                $0.setTitleColor(buttonsTintColor, for: .normal)
+            }
+        })
+        
+        backgroundColor = .clear
+        
+        contentView.backgroundColor = .clear
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

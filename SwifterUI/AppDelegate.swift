@@ -26,6 +26,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         let pageController = SFPageSectionsViewController(viewControllers: controllers)
+//        pageController.pageBar.buttonsTintColor = .red
+        pageController.pageBar.useAdaptingWidth = false
+        pageController.pageBar.useNavigationLikeBackground = true
         window?.rootViewController = SFNavigationController(rootViewController: pageController)
         window?.makeKeyAndVisible()
 

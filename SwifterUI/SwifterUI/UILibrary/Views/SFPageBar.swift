@@ -58,6 +58,7 @@ open class SFPageBar: SFScrollView {
             button.setTitle(title, for: .normal)
             button.translatesAutoresizingMaskIntoConstraints = false
             button.useClearColor = true
+            button.useAlternativeTextColor = selectedIndex == index ? false : true
             button.titleLabel?.alpha = selectedIndex == index ? 1 : 0.5
             button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
             button.addTouchAnimations = true
@@ -92,14 +93,16 @@ open class SFPageBar: SFScrollView {
                 setContentOffset(CGPoint(x: button.frame.origin.x, y: 0), animated: true)
             }
             UIView.animate(withDuration: 0.4, animations: {
+                button.useAlternativeTextColor = self.selectedIndex == index ? false : true
                 button.titleLabel?.alpha = self.selectedIndex == index ? 1 : 0.5
+                self.updateColors()
             })
         }
     }
     
     open override func updateColors() {
         
-        super.updateColors()
+        contentView.updateSubviewsColors()
         
         buttons.forEach({
             if useAlternativeButtonsColor {

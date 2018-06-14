@@ -14,7 +14,6 @@ public final class SFImageZoomViewController: SFViewController {
 
     public final lazy var imageZoomView: SFImageZoomView = {
         let view = SFImageZoomView()
-        view.backgroundColor = .black
         view.translatesAutoresizingMaskIntoConstraints = false
         view.minimumZoomScale = 0
         view.maximumZoomScale = 10
@@ -72,7 +71,9 @@ public final class SFImageZoomViewController: SFViewController {
     open override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         imageZoomView.minimumZoomScale = minimumZoomScale
-        imageZoomView.zoomScale = minimumZoomScale
+        if imageZoomView.zoomScale == 1 {
+            imageZoomView.zoomScale = minimumZoomScale
+        }
     }
     
     private func centerImage(with scale: CGFloat) {

@@ -63,28 +63,74 @@ open class SFCollectionManager<DataModel: Hashable, CellType: SFCollectionViewCe
     
     // MARK: - Update Methods
     
-    open func update(dataSections: [SFDataSection<DataModel>]) {
-        for (index, section) in dataSections.enumerated() {
-            self.update(dataSection: section, index: index)
+    @discardableResult
+    open func update(dataSections: [SFDataSection<DataModel>]) -> Guarantee<Void> {
+        
+        return Guarantee { seal in
+            if dataSections.count == 0 {
+                update(dataSection: SFDataSection<DataModel>(), index: 0).done {
+                    self.reloadSection(index: 0)
+                    seal(())
+                }
+            }
+            
+            for (index, section) in dataSections.enumerated() {
+                let numberOfRowsBeforeUpdate = self.collectionView?.numberOfItems(inSection: index)
+                self.update(dataSection: section, index: index).done {
+                    
+                    if numberOfRowsBeforeUpdate == 0 {
+                        self.reloadSection(index: index)
+                    }
+                    
+                    if index == dataSections.count - 1 {
+                        seal(())
+                    }
+                }
+            }
         }
     }
     
-    open func update(data: [[DataModel]]) {
-        for (index, section) in data.enumerated() {
-            let dataSection = SFDataSection<DataModel>(content: section, identifier: "")
-            self.update(dataSection: dataSection, index: index)
+    @discardableResult
+    open func update(data: [[DataModel]]) -> Guarantee<Void> {
+        return Guarantee { seal in
+            
+            if data.count == 0 {
+                update(dataSection: SFDataSection<DataModel>(), index: 0).done {
+                    self.reloadSection(index: 0)
+                    seal(())
+                }
+            }
+            
+            for (index, section) in data.enumerated() {
+                let numberOfRowsBeforeUpdate = self.collectionView?.numberOfItems(inSection: index)
+                let dataSection = SFDataSection<DataModel>(content: section, identifier: "")
+                self.update(dataSection: dataSection, index: index).done {
+                    
+                    if numberOfRowsBeforeUpdate == 0 {
+                        self.reloadSection(index: index)
+                    }
+                    
+                    if index == data.count - 1 {
+                        seal(())
+                    }
+                }
+            }
         }
     }
 
-    private func update(dataSection: SFDataSection<DataModel>, index: Int) {
+    @discardableResult
+    private func update(dataSection: SFDataSection<DataModel>, index: Int) -> Guarantee<Void> {
         if self.data.count > index {
-            let olddataSection = self.data[index]
-            let changes = diff(old: olddataSection.content, new: dataSection.content)
-            self.data[index] = dataSection
-            self.collectionView?.reload(changes: changes, section: index, completion: { (_) in
-            })
+            return Guarantee { seal in
+                let olddataSection = self.data[index]
+                let changes = diff(old: olddataSection.content, new: dataSection.content)
+                self.data[index] = dataSection
+                self.collectionView?.reload(changes: changes, section: index, completion: { (_) in
+                    seal(())
+                })
+            }
         } else {
-            insert(section: dataSection, index: index)
+            return insert(section: dataSection, index: index)
         }
     }
 

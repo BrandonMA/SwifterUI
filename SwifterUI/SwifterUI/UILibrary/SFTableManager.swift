@@ -83,8 +83,24 @@ open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell, Header
     @discardableResult
     open func update(dataSections: [SFDataSection<DataModel>], animation: UITableViewRowAnimation = .automatic) -> Guarantee<Void> {
         return Guarantee { seal in
-            for (index, section) in dataSections.enumerated() {
-                update(dataSection: section, index: index, animation: animation).done {
+            
+            if dataSections.count == 0 {
+                update(dataSection: SFDataSection<DataModel>(), index: 0, animation: .automatic).done {
+                    self.reloadSection(index: 0)
+                    seal(())
+                }
+            }
+            
+            for (index, dataSection) in dataSections.enumerated() {
+                
+                let numberOfRowsBeforeUpdate = self.tableView?.numberOfRows(inSection: index)
+                
+                update(dataSection: dataSection, index: index, animation: animation).done {
+                    
+                    if numberOfRowsBeforeUpdate == 0 {
+                        self.reloadSection(index: index)
+                    }
+                    
                     if index == dataSections.count - 1 {
                         seal(())
                     }
@@ -96,9 +112,23 @@ open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell, Header
     @discardableResult
     open func update(data: [[DataModel]], animation: UITableViewRowAnimation = .automatic) -> Guarantee<Void> {
         return Guarantee { seal in
+            
+            if data.count == 0 {
+                update(dataSection: SFDataSection<DataModel>(), index: 0, animation: .automatic).done {
+                    self.reloadSection(index: 0)
+                    seal(())
+                }
+            }
+            
             for (index, section) in data.enumerated() {
+                let numberOfRowsBeforeUpdate = self.tableView?.numberOfRows(inSection: index)
                 let dataSection = SFDataSection<DataModel>(content: section, identifier: "")
                 update(dataSection: dataSection, index: index, animation: animation).done {
+                    
+                    if numberOfRowsBeforeUpdate == 0 {
+                        self.reloadSection(index: index)
+                    }
+                    
                     if index == data.count - 1 {
                         seal(())
                     }

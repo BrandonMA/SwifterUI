@@ -47,11 +47,14 @@ open class SFPageSectionsViewController: SFPageViewController {
 }
 
 extension SFPageSectionsViewController: UIScrollViewDelegate {
-    public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        var newIndex = floor(scrollView.contentOffset.x / scrollView.bounds.width)
-        if Int(newIndex) != pageBar.selectedIndex {
-            newIndex = newIndex < 0 ? 0 : newIndex
-            pageBar.select(index: Int(newIndex))
+    
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset.x > 0 {
+            var newIndex = round(scrollView.contentOffset.x / scrollView.bounds.width)
+            if Int(newIndex) != pageBar.selectedIndex {
+                newIndex = newIndex < 0 ? 0 : newIndex
+                pageBar.select(index: Int(newIndex))
+            }
         }
     }
 }

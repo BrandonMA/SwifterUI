@@ -22,7 +22,6 @@ open class SFProfileImageView: SFView {
     open lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.layer.cornerRadius = 64
         imageView.image = SFAssets.imageOfBigPlus.withRenderingMode(.alwaysTemplate)
         imageView.contentMode = .center
         imageView.isUserInteractionEnabled = true
@@ -54,11 +53,14 @@ open class SFProfileImageView: SFView {
     
     // MARK: - Instance Methods
     
-    open override func updateConstraints() {
+    open override func layoutSubviews() {
+        super.layoutSubviews()
+        
         imageView.clipTop(to: .top)
         imageView.clipCenterX(to: .centerX)
         imageView.width(SFDimension(value: 128))
         imageView.height(SFDimension(value: 128))
+        imageView.layer.cornerRadius = 64
         
         closeButton.clipCenterX(to: .centerX)
         closeButton.clipCenterY(to: .bottom, of: imageView)
@@ -68,8 +70,6 @@ open class SFProfileImageView: SFView {
         clipRight(to: .right, of: imageView)
         clipBottom(to: .bottom, of: closeButton)
         clipLeft(to: .left, of: imageView)
-        
-        super.updateConstraints()
     }
     
     open override func updateColors() {

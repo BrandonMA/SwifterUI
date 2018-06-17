@@ -9,7 +9,7 @@
 import UIKit
 import MobileCoreServices
 
-open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, SFVideoPlayerDelegate {
+open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, SFVideoPlayerDelegate, SFTableViewChatCellDelegate {
     
     // MARK: - Instance Properties
     
@@ -237,6 +237,13 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
         })
     }
     
+    // MARK: - SFTableViewChatCellDelegate
+    
+    open func didSelectImageView(cell: SFTableViewChatCell) {
+        guard let image = cell.messageImageView.image else { return }
+        navigationController?.pushViewController(SFImageZoomViewController(with: image), animated: true)
+    }
+    
 }
 
 extension SFChatViewController: SFTableManagerDelegate {
@@ -268,18 +275,6 @@ extension SFChatViewController: SFTableManagerDelegate {
         return height
     }
 }
-
-extension SFChatViewController: SFTableViewChatCellDelegate {
-    
-    // MARK: - Instance Methods
-    
-    public func didSelectImageView(cell: SFTableViewChatCell) {
-        guard let image = cell.messageImageView.image else { return }
-        navigationController?.pushViewController(SFImageZoomViewController(with: image), animated: true)
-    }
-}
-
-
 
 
 

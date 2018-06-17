@@ -75,7 +75,6 @@ open class SFNavigationController: UINavigationController, SFControllerColorStyl
     
     open override func viewDidLoad() {
         super.viewDidLoad()
-        delegate = self
         edgeSwipeGestureRecognizer = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(handleSwipe(_:)))
         edgeSwipeGestureRecognizer!.edges = .left
         view.addGestureRecognizer(edgeSwipeGestureRecognizer!)

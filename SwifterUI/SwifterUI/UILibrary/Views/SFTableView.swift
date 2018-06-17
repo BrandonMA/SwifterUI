@@ -29,6 +29,7 @@ open class SFTableView: UITableView, SFViewColorStyle {
         self.automaticallyAdjustsColorStyle = automaticallyAdjustsColorStyle
         self.useAlternativeColors = useAlternativeColors
         super.init(frame: frame, style: style)
+        backgroundColor = .clear
         updateColors()
     }
     
@@ -52,8 +53,8 @@ open class SFTableView: UITableView, SFViewColorStyle {
     }
     
     open func updateColors() {
-        reloadData()
         backgroundColor = useAlternativeColors ? colorStyle.getAlternativeColor() : colorStyle.getMainColor()
+        reloadData()
         separatorColor = colorStyle.getSeparatorColor()
         updateSubviewsColors()
         

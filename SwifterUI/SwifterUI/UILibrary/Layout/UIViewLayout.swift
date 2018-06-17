@@ -86,7 +86,7 @@ public extension UIView {
     }
 
     public final func remove(constraintType: ConstraintType) {
-        guard let superview = superview else { fatalError() }
+        guard let superview = superview else { return }
         if let oldConstraint = get(constraintType: constraintType) {
             removeConstraint(oldConstraint)
             superview.removeConstraint(oldConstraint)
@@ -228,7 +228,7 @@ public extension UIView {
 
         guard let anchorView = getAnchorView(view: view) else {
             print("\(self) You didn't set a relative view or superview isn't available")
-            fatalError()
+            return nil
         }
         switch edge {
         case .right:

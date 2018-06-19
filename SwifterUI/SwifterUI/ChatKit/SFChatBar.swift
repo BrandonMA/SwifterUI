@@ -9,22 +9,22 @@
 import UIKit
 
 open class SFChatBar: SFView {
-
+    
     // MARK: - Instance Properties
-
+    
     // You must override intrinsicContentSize for auto layout to work properly,
     // if you don't height constraint is not going to work automatically
     open override var intrinsicContentSize: CGSize {
         guard let window = UIApplication.shared.keyWindow else { fatalError() }
         return CGSize(width: window.bounds.width, height: 0)
     }
-
+    
     public final lazy var contentView: SFView = {
         let view = SFView(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-
+    
     public final lazy var textView: SFTextView = {
         let textView = SFTextView(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         textView.translatesAutoresizingMaskIntoConstraints = false
@@ -32,29 +32,27 @@ open class SFChatBar: SFView {
         textView.layer.cornerRadius = 10
         return textView
     }()
-
+    
     public final lazy var sendButton: SFButton = {
         let button = SFButton(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         button.setTitle("Enviar", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.useClearColor = true
         button.addTouchAnimations = true
         return button
     }()
-
+    
     public final lazy var fileButton: SFButton = {
         let button = SFButton(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.useClearColor = true
         button.setImage(SFAssets.imageOfPlus.withRenderingMode(.alwaysTemplate), for: .normal)
         button.imageView?.contentMode = .center
         button.useAlternativeTextColor = true
         button.addTouchAnimations = true
         return button
     }()
-
+    
     // MARK: - Initializers
-
+    
     public override init(automaticallyAdjustsColorStyle: Bool, useAlternativeColors: Bool = false, frame: CGRect = .zero) {
         super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, useAlternativeColors: useAlternativeColors, frame: frame)
         addSubview(contentView)
@@ -62,11 +60,11 @@ open class SFChatBar: SFView {
         contentView.addSubview(sendButton)
         contentView.addSubview(fileButton)
     }
-
+    
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     // MARK: - Instance Methods
     
     open override func updateConstraints() {
@@ -92,5 +90,5 @@ open class SFChatBar: SFView {
         clipTop(to: .top, of: contentView)
         super.updateConstraints()
     }
-
+    
 }

@@ -47,6 +47,7 @@ public final class SFTableViewChatCell: SFTableViewCell {
         label.font = UIFont.systemFont(ofSize: 17)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
+        label.useClearBackground = true
         return label
     }()
     

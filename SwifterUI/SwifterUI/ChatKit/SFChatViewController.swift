@@ -92,8 +92,8 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
     }
     
     override open func viewDidLayoutSubviews() {
-        cachedHeights.removeAll()
-        cachedBubbleWidths.removeAll()
+//        cachedHeights.removeAll()
+//        cachedBubbleWidths.removeAll()
         super.viewDidLayoutSubviews()
         DispatchQueue.main.async {
             self.chatView.scrollToBottom(animated: false)

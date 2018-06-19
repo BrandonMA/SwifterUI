@@ -16,6 +16,8 @@ open class SFLabel: UILabel, SFViewColorStyle {
     
     open var useAlternativeColors: Bool = false
     
+    open var useClearBackground: Bool = false
+    
     // MARK: - Initializers
     
     public init(automaticallyAdjustsColorStyle: Bool = true, useAlternativeColors: Bool = false, frame: CGRect = .zero) {
@@ -31,6 +33,15 @@ open class SFLabel: UILabel, SFViewColorStyle {
     // MARK: - Instance Methods
     
     open func updateColors() {
+        if useClearBackground == false {
+            if let superview = superview as? SFViewColorStyle {
+                backgroundColor = superview.useAlternativeColors ? colorStyle.getAlternativeColor() : colorStyle.getMainColor()
+            } else {
+                backgroundColor = colorStyle.getMainColor()
+            }
+        } else {
+            backgroundColor = .clear
+        }
         textColor = useAlternativeColors ? colorStyle.getPlaceholderColor() : colorStyle.getTextColor()
         updateSubviewsColors()
     }

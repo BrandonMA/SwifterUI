@@ -61,7 +61,6 @@ open class SFPageBar: SFScrollView {
             button.addTarget(self, action: #selector(didTouch(sfbutton:)), for: .touchUpInside)
             button.setTitle(title, for: .normal)
             button.translatesAutoresizingMaskIntoConstraints = false
-            button.useClearColor = true
             button.useAlternativeTextColor = selectedIndex == index ? false : true
             button.titleLabel?.alpha = selectedIndex == index ? 1 : 0.5
             button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)

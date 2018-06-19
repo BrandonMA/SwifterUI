@@ -20,7 +20,7 @@ open class SFButton: UIButton, SFViewColorStyle {
     
     open var useAlternativeTextColor: Bool = false
     
-    open var useClearColor: Bool = false
+    open var useClearBackground: Bool = false
     
     open var isTextPicker: Bool = false
     
@@ -69,7 +69,11 @@ open class SFButton: UIButton, SFViewColorStyle {
     }
     
     open func updateColors() {
-        backgroundColor = isTextPicker ? colorStyle.getTextEntryColor() : useClearColor ? .clear : useAlternativeColors ? colorStyle.getMainColor() : colorStyle.getAlternativeColor()
+        
+        backgroundColor = isTextPicker ? colorStyle.getTextEntryColor() : useClearBackground ? .clear : useAlternativeColors ? colorStyle.getAlternativeColor() : colorStyle.getMainColor()
+        
+        titleLabel?.backgroundColor = backgroundColor
+        
         if setTextColor {
             if useAlternativeTextColor {
                 tintColor = colorStyle.getPlaceholderColor()

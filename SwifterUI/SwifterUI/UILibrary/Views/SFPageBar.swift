@@ -65,6 +65,7 @@ open class SFPageBar: SFScrollView {
             button.titleLabel?.alpha = selectedIndex == index ? 1 : 0.5
             button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
             button.addTouchAnimations = true
+            button.useAlternativeColors = useAlternativeColors
             buttonStackView.addArrangedSubview(button)
             return button
         })

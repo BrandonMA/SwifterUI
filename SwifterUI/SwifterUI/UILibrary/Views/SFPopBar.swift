@@ -37,7 +37,6 @@ open class SFPopBar: SFView {
     open lazy var rightButton: SFButton = {
         let button = SFButton(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.useAlternativeColors = true
         button.contentHorizontalAlignment = .right
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         button.addTouchAnimations = true

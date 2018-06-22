@@ -35,6 +35,7 @@ open class SFBulletinView: SFView {
         button.useAlternativeTextColor = true
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 16
+        button.useAlternativeColors = true
         return button
     }()
     
@@ -46,6 +47,7 @@ open class SFBulletinView: SFView {
         button.setTitle("Listo", for: .normal)
         button.titleLabel?.font = .boldSystemFont(ofSize: 17)
         button.addTouchAnimations = true
+        button.useAlternativeColors = true
         return button
     }()
     

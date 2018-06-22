@@ -365,9 +365,9 @@
 		423AAC1E1FE76718009D6C39 /* SwifterUI */ = {
 			isa = PBXGroup;
 			children = (
+				42A42EB61FF1B578002FE4A7 /* UILibrary */,
 				42CB6AFA2036027C0080EFB8 /* ChatKit */,
 				42B8DEF620409F1500B5770A /* LoginKit */,
-				42A42EB61FF1B578002FE4A7 /* UILibrary */,
 			);
 			path = SwifterUI;
 			sourceTree = "<group>";
@@ -417,6 +417,7 @@
 		42A42EB61FF1B578002FE4A7 /* UILibrary */ = {
 			isa = PBXGroup;
 			children = (
+				42B253E61FEA0E820002C297 /* Layout */,
 				424426CA208CC71F00AAFCCC /* SFAssets.swift */,
 				42A42EAC1FF1AB98002FE4A7 /* SFColors.swift */,
 				42A42EAA1FF1A9AB002FE4A7 /* SFColorStyle.swift */,
@@ -427,7 +428,6 @@
 				42933BF32097D2AB00ED7175 /* SFTableManager.swift */,
 				4286042B20A0D27C00D785FC /* SFCollectionManager.swift */,
 				424BE0C41FF45B9C005DE2AD /* Extensions */,
-				42B253E61FEA0E820002C297 /* Layout */,
 				42A42EBD1FF1BA3F002FE4A7 /* SFGradient */,
 				42AE237C20BD05D400314B92 /* AnimationControllers */,
 				429FD4AA1FED960800FD7F10 /* Animations */,

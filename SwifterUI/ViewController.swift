@@ -110,22 +110,6 @@ class ViewController: SFViewController {
         tableManager.footerStyle = { (footerView, section, index) in
             footerView.titleLabel.text = "Footer"
         }
-        
-        var images: [UIImage] = []
-        var imageControllers: [SFImageZoomViewController] = []
-        guard let url = URL(string: "https://img.deusm.com/informationweek/2015/09/1322066/Swift_logo.png") else { return }
-        URLSession.shared.dataTask(.promise, with: url).done { (data, response) in
-            let image = UIImage(data: data)
-            images.append(image!)
-//            let controller = SFImageZoomViewController(with: image!)
-//            self.navigationController?.pushViewController(controller, animated: true)
-            var controllers: [SFImageZoomViewController] = []
-            for i in 0...10 {
-                let controller = SFImageZoomViewController(with: image!)
-                controllers.append(controller)
-            }
-            self.navigationController?.pushViewController(SFPageViewController(viewControllers: controllers), animated: true)
-        }
     }
     
     override func viewWillLayoutSubviews() {

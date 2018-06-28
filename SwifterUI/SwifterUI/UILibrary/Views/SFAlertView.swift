@@ -87,7 +87,9 @@ open class SFAlertView: SFView {
             })
         }
         
-        updateColors()
+        if automaticallyAdjustsColorStyle {
+            updateColors()
+        }
     }
     
     required public init?(coder aDecoder: NSCoder) {

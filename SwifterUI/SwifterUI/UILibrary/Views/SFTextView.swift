@@ -22,7 +22,10 @@ open class SFTextView: UITextView, SFViewColorStyle {
         self.automaticallyAdjustsColorStyle = automaticallyAdjustsColorStyle
         self.useAlternativeColors = useAlternativeColors
         super.init(frame: frame, textContainer: nil)
-        backgroundColor = .clear
+        
+        if automaticallyAdjustsColorStyle {
+            updateColors()
+        }
     }
     
     required public init?(coder aDecoder: NSCoder) {

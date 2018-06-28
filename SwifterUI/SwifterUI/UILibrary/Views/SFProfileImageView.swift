@@ -45,6 +45,10 @@ open class SFProfileImageView: SFView {
         super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, useAlternativeColors: useAlternativeColors, frame: frame)
         addSubview(imageView)
         addSubview(closeButton)
+        
+        if automaticallyAdjustsColorStyle {
+            updateColors()
+        }
     }
     
     public required init?(coder aDecoder: NSCoder) {
@@ -53,8 +57,7 @@ open class SFProfileImageView: SFView {
     
     // MARK: - Instance Methods
     
-    open override func layoutSubviews() {
-        super.layoutSubviews()
+    open override func updateConstraints() {
         
         imageView.clipTop(to: .top)
         imageView.clipCenterX(to: .centerX)
@@ -70,6 +73,8 @@ open class SFProfileImageView: SFView {
         clipRight(to: .right, of: imageView)
         clipBottom(to: .bottom, of: closeButton)
         clipLeft(to: .left, of: imageView)
+        
+        super.updateConstraints()
     }
     
     open override func updateColors() {

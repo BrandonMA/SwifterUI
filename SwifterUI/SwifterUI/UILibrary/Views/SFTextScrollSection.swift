@@ -45,6 +45,10 @@ public final class SFTextScrollSection: SFSection {
         textView.layer.cornerRadius = 10
         textView.textContainerInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
         super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, useAlternativeColors: useAlternativeColors, frame: frame, bottomView: textView)
+        
+        if automaticallyAdjustsColorStyle {
+            updateColors()
+        }
     }
     
     required public init?(coder aDecoder: NSCoder) {

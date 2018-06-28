@@ -43,6 +43,10 @@ open class SFSection: SFView {
         addSubview(stackView)
         titleLabel.setContentHuggingPriority(.init(251), for: .vertical)
         bottomView.setContentHuggingPriority(.init(250), for: .vertical)
+        
+        if automaticallyAdjustsColorStyle {
+            updateColors()
+        }
     }
     
     required public init?(coder aDecoder: NSCoder) {

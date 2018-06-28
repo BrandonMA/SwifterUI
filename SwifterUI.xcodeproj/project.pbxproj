@@ -113,6 +113,7 @@
 		42D71B0920D0FF380079EFCE /* SFPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D71B0820D0FF380079EFCE /* SFPageViewController.swift */; };
 		42DBF1A4203754E900F4BB6F /* SFBulletinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42DBF1A3203754E900F4BB6F /* SFBulletinView.swift */; };
 		42DBF1A62037556F00F4BB6F /* SFBulletinController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42DBF1A52037556F00F4BB6F /* SFBulletinController.swift */; };
+		42E7C53820E59540001E56AA /* SFTabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E7C53720E59540001E56AA /* SFTabBarItem.swift */; };
 		42E83BBD202B98F800A341C5 /* SFTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E83BBC202B98F800A341C5 /* SFTableViewCell.swift */; };
 		42F38780207B16AC00DAD4BC /* SFAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F3877F207B16AC00DAD4BC /* SFAlertView.swift */; };
 		42F38782207B16D200DAD4BC /* SFAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F38781207B16D200DAD4BC /* SFAlertViewController.swift */; };
@@ -254,6 +255,7 @@
 		42D71B0820D0FF380079EFCE /* SFPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFPageViewController.swift; sourceTree = "<group>"; };
 		42DBF1A3203754E900F4BB6F /* SFBulletinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFBulletinView.swift; sourceTree = "<group>"; };
 		42DBF1A52037556F00F4BB6F /* SFBulletinController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFBulletinController.swift; sourceTree = "<group>"; };
+		42E7C53720E59540001E56AA /* SFTabBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFTabBarItem.swift; sourceTree = "<group>"; };
 		42E83BBC202B98F800A341C5 /* SFTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFTableViewCell.swift; sourceTree = "<group>"; };
 		42F3877F207B16AC00DAD4BC /* SFAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFAlertView.swift; sourceTree = "<group>"; };
 		42F38781207B16D200DAD4BC /* SFAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFAlertViewController.swift; sourceTree = "<group>"; };
@@ -460,6 +462,7 @@
 		42A42EB81FF1B6C3002FE4A7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				42E7C53720E59540001E56AA /* SFTabBarItem.swift */,
 				42A42EB41FF1B295002FE4A7 /* SFView.swift */,
 				420AFCE6208026CC00D9D778 /* SFStackView.swift */,
 				42B7B27C203A611E004B5C6E /* SFScrollView.swift */,
@@ -834,6 +837,7 @@
 				42CB6AFE203603060080EFB8 /* SFTableViewChatCell.swift in Sources */,
 				42446779202AC83000F59892 /* SFButton.swift in Sources */,
 				42A42EBA1FF1BA36002FE4A7 /* SFGradient.swift in Sources */,
+				42E7C53820E59540001E56AA /* SFTabBarItem.swift in Sources */,
 				42933BF42097D2AB00ED7175 /* SFTableManager.swift in Sources */,
 				429FD4971FED8D5200FD7F10 /* SFPopAnimation.swift in Sources */,
 				42D34C6D202F6ECE002B6FA6 /* SFSection.swift in Sources */,

@@ -22,6 +22,10 @@ open class SFLabel: UILabel, SFViewColorStyle {
         self.automaticallyAdjustsColorStyle = automaticallyAdjustsColorStyle
         self.useAlternativeColors = useAlternativeColors
         super.init(frame: frame)
+        
+        if automaticallyAdjustsColorStyle {
+            updateColors()
+        }
     }
     
     required public init?(coder aDecoder: NSCoder) {

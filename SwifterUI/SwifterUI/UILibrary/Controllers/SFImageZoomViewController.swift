@@ -63,9 +63,7 @@ public final class SFImageZoomViewController: SFViewController {
     open override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         imageZoomView.clipTop(to: .top, useSafeArea: false)
-        imageZoomView.clipRight(to: .right)
-        imageZoomView.clipBottom(to: .bottom)
-        imageZoomView.clipLeft(to: .left)
+        imageZoomView.clipEdges(exclude: [.top])
     }
 
     open override func viewDidLayoutSubviews() {

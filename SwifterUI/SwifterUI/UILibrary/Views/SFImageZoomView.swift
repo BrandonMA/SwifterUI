@@ -28,8 +28,11 @@ public final class SFImageZoomView: UIScrollView, SFViewColorStyle {
         self.automaticallyAdjustsColorStyle = automaticallyAdjustsColorStyle
         self.useAlternativeColors = useAlternativeColors
         super.init(frame: frame)
-        updateColors()
         addSubview(imageView)
+        
+        if automaticallyAdjustsColorStyle {
+            updateColors()
+        }
     }
     
     public required init?(coder aDecoder: NSCoder) {

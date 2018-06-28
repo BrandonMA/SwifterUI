@@ -72,8 +72,6 @@ open class SFBulletinView: SFView {
         
         super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, useAlternativeColors: useAlternativeColors, frame: frame)
         
-        isOpaque = false
-        
         addSubview(shadowView)
         addSubview(backgroundView)
         
@@ -86,9 +84,8 @@ open class SFBulletinView: SFView {
             buttons.forEach({ (button) in
                 button.translatesAutoresizingMaskIntoConstraints = false
                 button.layer.cornerRadius = 16
-                
+                button.useAlternativeColors = true
                 button.addTouchAnimations = true
-                
                 self.middleView.addSubview(button)
             })
         } else {

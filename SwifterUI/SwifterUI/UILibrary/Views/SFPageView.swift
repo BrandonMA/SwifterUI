@@ -29,6 +29,10 @@ open class SFPageView: SFScrollView {
         contentView.addSubview(viewsStackView)
         isPagingEnabled = true
         showsHorizontalScrollIndicator = false
+        
+        if automaticallyAdjustsColorStyle {
+            updateColors()
+        }
     }
     
     required public init?(coder aDecoder: NSCoder) {

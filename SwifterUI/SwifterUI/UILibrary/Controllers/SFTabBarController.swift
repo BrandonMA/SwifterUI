@@ -8,22 +8,6 @@
 
 import UIKit
 
-open class SFTabBarItem: UITabBarItem {
-    
-    public enum SFTabBarAnimation {
-        case none
-        case shake
-        case morph
-        case squeeze
-        case wobble
-        case flip
-        case rotate
-    }
-    
-    open var animation: SFTabBarAnimation = .none
-    
-}
-
 open class SFTabBarController: UITabBarController, SFControllerColorStyle {
     
     // MARK: - Instance Properties
@@ -83,18 +67,7 @@ open class SFTabBarController: UITabBarController, SFControllerColorStyle {
     
     open override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         guard let item = item as? SFTabBarItem else { return }
-        if let view = item.value(forKey: "view") as? UIView {
-            let imageView = view.subviews[0]
-            switch item.animation {
-            case .none: return
-            case .shake: SFShakeAnimation(with: imageView).start()
-            case .morph: SFMorphAnimation(with: imageView).start()
-            case .squeeze: SFSqueezeAnimation(with: imageView).start()
-            case .wobble: SFWobbleAnimation(with: imageView).start()
-            case .flip: SFFlipAnimation(with: imageView).start()
-            case .rotate: SFRotationAnimation(with: imageView).start()
-            }
-        }
+        item.startAnimation()
     }
     
     open func checkColorStyleListener() {

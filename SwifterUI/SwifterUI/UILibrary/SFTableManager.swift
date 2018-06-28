@@ -20,7 +20,7 @@ public extension SFTableManagerDelegate {
     public func heightForRow(at indexPath: IndexPath, tableView: SFTableView) -> CGFloat? { return nil }
 }
 
-open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell, HeaderType: SFTableViewHeaderView, FooterType: SFTableViewFooterView>: NSObject, UITableViewDataSource, UITableViewDelegate {
+open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell, HeaderType: SFTableViewHeaderView, FooterType: SFTableViewFooterView>: NSObject, UITableViewDataSource, UITableViewDelegate, UITableViewDataSourcePrefetching {
     
     public typealias SFTableManagerItemStyler = ((CellType, DataModel, IndexPath) -> ())
     
@@ -39,7 +39,14 @@ open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell, Header
         return data[lastSectionIndex].content.count == 0 ? IndexPath(row: 0, section: lastSectionIndex) : IndexPath(row: data[lastSectionIndex].content.count, section: lastSectionIndex)
     }
     
+    /**
+     Use this to style a cell with colors and less demaning tasks.
+     */
     open var cellStyler: ((CellType, DataModel, IndexPath) -> ())?
+    /**
+     Add any prefetch calculations or tasks that could be done on the background.
+     */
+    open var prefetchStyler: ((DataModel, IndexPath) -> ())?
     open var headerStyle: ((HeaderType, SFDataSection<DataModel>, Int) -> ())?
     open var footerStyle: ((FooterType, SFDataSection<DataModel>, Int) -> ())?
     
@@ -58,10 +65,12 @@ open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell, Header
     // MARK: - Instace Methods
     
     open func configure(tableView: SFTableView, cellStyler: SFTableManagerItemStyler?) {
+        
         self.cellStyler = cellStyler
         self.tableView = tableView
         
         tableView.dataSource = self
+        tableView.prefetchDataSource = self
         tableView.delegate = self
         tableView.register(CellType.self, forCellReuseIdentifier: CellType.identifier)
         tableView.rowHeight = CellType.height
@@ -323,6 +332,13 @@ open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell, Header
         view?.updateColors()
     }
     
+    // MARK: - UITableViewDataSourcePrefetching
+    
+    public func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        indexPaths.forEach { (indexPath) in
+            prefetchStyler?(data[indexPath.section].content[indexPath.row], indexPath)
+        }
+    }
 }
 
 

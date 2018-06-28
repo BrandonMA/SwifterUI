@@ -84,6 +84,14 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
         chatManager.configure(tableView: chatView) { (cell, message, index) in
             self.configure(cell: cell, message: message, indexPath: index)
         }
+        
+        chatManager.prefetchStyler = { (message, index) in
+            if message.image != nil || message.videoURL != nil || message.imageURL != nil {
+                self.cachedBubbleWidths[index] = (self.chatView.bounds.width * 2/3)
+            } else {
+                self.cachedBubbleWidths[index] = message.text?.estimatedFrame(with: UIFont.systemFont(ofSize: 17), maxWidth: (self.chatView.bounds.width * 2/3) - 16).size.width ?? 0
+            }
+        }
     }
     
     open override func viewWillLayoutSubviews() {
@@ -92,8 +100,6 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
     }
     
     override open func viewDidLayoutSubviews() {
-//        cachedHeights.removeAll()
-//        cachedBubbleWidths.removeAll()
         super.viewDidLayoutSubviews()
         DispatchQueue.main.async {
             self.chatView.scrollToBottom(animated: false)

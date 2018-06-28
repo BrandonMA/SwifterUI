@@ -46,6 +46,10 @@ open class SFPageBar: SFScrollView {
         contentView.addSubview(buttonStackView)
         showsHorizontalScrollIndicator = false
         clipsToBounds = false
+        
+        if automaticallyAdjustsColorStyle {
+            updateColors()
+        }
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -96,9 +100,10 @@ open class SFPageBar: SFScrollView {
             if self.selectedIndex == index && useAdaptingWidth {
                 setContentOffset(CGPoint(x: button.frame.origin.x, y: 0), animated: true)
             }
+            
             UIView.animate(withDuration: 0.3, animations: {
-                button.useAlternativeTextColor = self.selectedIndex == index ? false : true
                 button.titleLabel?.alpha = self.selectedIndex == index ? 1 : 0.5
+                button.useAlternativeTextColor = self.selectedIndex == index ? false : true
                 self.updateColors()
             })
         }

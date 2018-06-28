@@ -30,7 +30,10 @@ open class SFTableView: UITableView, SFViewColorStyle {
         self.useAlternativeColors = useAlternativeColors
         super.init(frame: frame, style: style)
         backgroundColor = .clear
-        updateColors()
+        
+        if automaticallyAdjustsColorStyle {
+            updateColors()
+        }
     }
     
     required public init?(coder aDecoder: NSCoder) {

@@ -54,6 +54,10 @@ open class SFButton: UIButton, SFViewColorStyle {
         self.useAlternativeColors = useAlternativeColors
         super.init(frame: frame)
         addSubview(rightImageView)
+        
+        if automaticallyAdjustsColorStyle {
+            updateColors()
+        }
     }
     
     required public init?(coder aDecoder: NSCoder) {

@@ -54,6 +54,10 @@ public final class SFTextSection: SFSection {
         textField.leftPadding = 8
         textField.rightPadding = 8
         super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, useAlternativeColors: useAlternativeColors, frame: frame, bottomView: textField)
+        
+        if automaticallyAdjustsColorStyle {
+            updateColors()
+        }
     }
     
     required public init?(coder aDecoder: NSCoder) {

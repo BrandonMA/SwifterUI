@@ -13,6 +13,7 @@ open class SFPageSectionsViewController: SFPageViewController {
     // MARK: - Instance Properties
     
     open var titles: [String] = []
+    private var isSelecting: Bool = false
     
     open lazy var pageBar: SFPageBar = {
         let view = SFPageBar(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
@@ -48,10 +49,14 @@ open class SFPageSectionsViewController: SFPageViewController {
 
 extension SFPageSectionsViewController: UIScrollViewDelegate {
     
+    public func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        isSelecting = false
+    }
+    
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView.contentOffset.x > 0 {
-            var newIndex = round(scrollView.contentOffset.x / scrollView.bounds.width)
-            if Int(newIndex) != pageBar.selectedIndex {
+        if scrollView.contentOffset.x > 0 && isSelecting == false {
+            var newIndex = Int(round(scrollView.contentOffset.x / scrollView.bounds.width))
+            if newIndex != pageBar.selectedIndex {
                 newIndex = newIndex < 0 ? 0 : newIndex
                 pageBar.select(index: Int(newIndex))
             }
@@ -61,6 +66,7 @@ extension SFPageSectionsViewController: UIScrollViewDelegate {
 
 extension SFPageSectionsViewController: SFPageBarDelegate {
     public func didSelect(index: Int) {
+        isSelecting = true
         let offSet = pageView.bounds.width * CGFloat(index)
         pageView.setContentOffset(CGPoint(x: offSet, y: 0), animated: true)
     }

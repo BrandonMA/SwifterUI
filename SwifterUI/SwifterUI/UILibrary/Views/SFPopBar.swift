@@ -50,6 +50,10 @@ open class SFPopBar: SFView {
         addSubview(dismissButton)
         addSubview(titleLabel)
         addSubview(rightButton)
+        
+        if automaticallyAdjustsColorStyle {
+            updateColors()
+        }
     }
     
     required public init?(coder aDecoder: NSCoder) {

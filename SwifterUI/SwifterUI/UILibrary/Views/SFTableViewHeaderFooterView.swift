@@ -39,7 +39,10 @@ open class SFTableViewHeaderFooterView: UITableViewHeaderFooterView, SFViewColor
     public override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         contentView.addSubview(titleLabel)
-        updateColors()
+        
+        if automaticallyAdjustsColorStyle {
+            updateColors()
+        }
     }
     
     required public init?(coder aDecoder: NSCoder) {

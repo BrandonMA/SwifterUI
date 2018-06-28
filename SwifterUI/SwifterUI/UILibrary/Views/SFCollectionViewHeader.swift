@@ -39,7 +39,10 @@ open class SFCollectionViewHeaderFooterView: UICollectionReusableView, SFViewCol
     public override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(titleLabel)
-        updateColors()
+        
+        if automaticallyAdjustsColorStyle {
+            updateColors()
+        }
     }
     
     required public init?(coder aDecoder: NSCoder) {

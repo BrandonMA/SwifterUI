@@ -14,7 +14,7 @@ public protocol SFCollectionManagerDelegate: class {
     func didSelectItem<DataModel: Hashable>(at indexPath: IndexPath, collectionView: SFCollectionView, item: DataModel)
 }
 
-open class SFCollectionManager<DataModel: Hashable, CellType: SFCollectionViewCell, HeaderType: SFCollectionViewHeaderView, FooterType: SFCollectionViewFooterView>: NSObject, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+open class SFCollectionManager<DataModel: Hashable, CellType: SFCollectionViewCell, HeaderType: SFCollectionViewHeaderView, FooterType: SFCollectionViewFooterView>: NSObject, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDataSourcePrefetching {
     
     public typealias SFCollectionManagerItemStyler = ((CellType, DataModel, IndexPath) -> ())
     
@@ -34,6 +34,7 @@ open class SFCollectionManager<DataModel: Hashable, CellType: SFCollectionViewCe
     }
     
     open var itemStyler: ((CellType, DataModel, IndexPath) -> ())?
+    open var prefetchStyler: ((DataModel, IndexPath) -> ())?
     open var headerStyle: ((HeaderType, SFDataSection<DataModel>, Int) -> ())?
     open var footerStyle: ((FooterType, SFDataSection<DataModel>, Int) -> ())?
 
@@ -56,9 +57,14 @@ open class SFCollectionManager<DataModel: Hashable, CellType: SFCollectionViewCe
         self.collectionView = collectionView
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.register(CellType.self, forCellWithReuseIdentifier: CellType.identifier)
-        collectionView.register(HeaderType.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: HeaderType.identifier)
-        collectionView.register(FooterType.self, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: FooterType.identifier)
+        collectionView.prefetchDataSource = self
+        registerViews()
+    }
+    
+    private final func registerViews() {
+        collectionView?.register(CellType.self, forCellWithReuseIdentifier: CellType.identifier)
+        collectionView?.register(HeaderType.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: HeaderType.identifier)
+        collectionView?.register(FooterType.self, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: FooterType.identifier)
     }
     
     // MARK: - Update Methods
@@ -297,6 +303,14 @@ open class SFCollectionManager<DataModel: Hashable, CellType: SFCollectionViewCe
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
         return footerStyle == nil ? .zero : CGSize(width: collectionView.bounds.width, height: FooterType.height)
+    }
+    
+    // MARK: - UICollectionViewDataSourcePrefetching
+    
+    public func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+        indexPaths.forEach { (indexPath) in
+            prefetchStyler?(data[indexPath.section].content[indexPath.row], indexPath)
+        }
     }
 }
 

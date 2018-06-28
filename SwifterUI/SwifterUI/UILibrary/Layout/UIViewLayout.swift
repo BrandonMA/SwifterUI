@@ -15,7 +15,7 @@ public extension UIView {
     /**
      Return view passed or superview if they are not nil, throw if there is no anchor view.
      */
-    private func getAnchorView(view: UIView?) -> UIView? {
+    private func getAnchorView(_ view: UIView?) -> UIView? {
         if let view = view {
             return view
         } else if let superview = superview {
@@ -114,21 +114,21 @@ public extension UIView {
      Set the size of a view depending child anchor, parent anchor, dimension and relation.
      */
     @discardableResult
-    private func size(childAnchor: NSLayoutDimension,
-                      parentAnchor: NSLayoutDimension,
+    private func setSize(for childAnchor: NSLayoutDimension,
+                      comparedTo parentAnchor: NSLayoutDimension,
                       dimension: SFDimension,
                       relation: ConstraintRelation,
-                      offset: CGFloat) -> Constraint {
+                      margin: CGFloat) -> Constraint {
         
         switch dimension.type {
             
         case .fraction:
             switch relation {
-            case .equal: return childAnchor.constraint(equalTo: parentAnchor, multiplier: dimension.value, constant: offset)
+            case .equal: return childAnchor.constraint(equalTo: parentAnchor, multiplier: dimension.value, constant: margin)
             case .greater: return childAnchor.constraint(greaterThanOrEqualTo: parentAnchor,
                                                          multiplier: dimension.value,
-                                                         constant: offset)
-            case .less: return childAnchor.constraint(lessThanOrEqualTo: parentAnchor, multiplier: dimension.value, constant: offset)
+                                                         constant: margin)
+            case .less: return childAnchor.constraint(lessThanOrEqualTo: parentAnchor, multiplier: dimension.value, constant: margin)
             }
         case .point:
             switch relation {
@@ -144,9 +144,9 @@ public extension UIView {
     public final func height(_ height: SFDimension? = nil,
                              comparedTo view: UIView? = nil,
                              relation: ConstraintRelation = .equal,
-                             offset: CGFloat = 0.0) -> Constraint? {
+                             margin: CGFloat = 0.0) -> Constraint? {
         
-        guard let anchorView = getAnchorView(view: view) else {
+        guard let anchorView = getAnchorView(view) else {
             print("\(self) You didn't set a relative view or superview isn't available")
             return nil
         }
@@ -154,11 +154,11 @@ public extension UIView {
         let heightConstraint: Constraint
         
         if let height = height {
-            heightConstraint = size(childAnchor: heightAnchor,
-                                    parentAnchor: anchorView.heightAnchor,
+            heightConstraint = setSize(for: heightAnchor,
+                                    comparedTo: anchorView.heightAnchor,
                                     dimension: height,
                                     relation: relation,
-                                    offset: offset)
+                                    margin: margin)
         } else {
             heightConstraint = heightAnchor.constraint(equalTo: anchorView.heightAnchor, multiplier: 1)
         }
@@ -171,9 +171,9 @@ public extension UIView {
     public final func width(_ width: SFDimension? = nil,
                             comparedTo view: UIView? = nil,
                             relation: ConstraintRelation = .equal,
-                            offset: CGFloat = 0.0) -> Constraint? {
+                            margin: CGFloat = 0.0) -> Constraint? {
         
-        guard let anchorView = getAnchorView(view: view) else {
+        guard let anchorView = getAnchorView(view) else {
             print("\(self) You didn't set a relative view or superview isn't available")
             return nil
         }
@@ -181,11 +181,11 @@ public extension UIView {
         let widthConstraint: Constraint
         
         if let width = width {
-            widthConstraint = size(childAnchor: widthAnchor,
-                                   parentAnchor: anchorView.widthAnchor,
+            widthConstraint = setSize(for: widthAnchor,
+                                   comparedTo: anchorView.widthAnchor,
                                    dimension: width,
                                    relation: relation,
-                                   offset: offset)
+                                   margin: margin)
         } else {
             widthConstraint = widthAnchor.constraint(equalTo: anchorView.widthAnchor, multiplier: 1)
         }
@@ -219,7 +219,7 @@ public extension UIView {
                                  relation: ConstraintRelation = .equal,
                                  useSafeArea: Bool) -> Constraint? {
         
-        guard let anchorView = getAnchorView(view: view) else {
+        guard let anchorView = getAnchorView(view) else {
             print("\(self) You didn't set a relative view or superview isn't available")
             return nil
         }
@@ -254,7 +254,7 @@ public extension UIView {
                                  relation: ConstraintRelation = .equal,
                                  useSafeArea: Bool) -> Constraint? {
         
-        guard let anchorView = getAnchorView(view: view) else {
+        guard let anchorView = getAnchorView(view) else {
             print("\(self) You didn't set a relative view or superview isn't available")
             return nil
         }
@@ -377,9 +377,9 @@ public extension UIView {
     @discardableResult
     public final func center(axis: [ConstraintAxis] = [.horizontal, .vertical],
                              in view: UIView? = nil,
-                             offSet: CGPoint = .zero) -> [Constraint?] {
+                             margin: CGPoint = .zero) -> [Constraint?] {
         
-        guard let anchorView = getAnchorView(view: view) else {
+        guard let anchorView = getAnchorView(view) else {
             fatalError("You didn't set a relative view or superview isn't available")
         }
         var constraints: [Constraint?] = []
@@ -387,14 +387,14 @@ public extension UIView {
         if axis.contains(.horizontal) {
             constraints.append(clipCenterX(to: .centerX,
                                            of: anchorView,
-                                           margin: offSet.x,
+                                           margin: margin.x,
                                            relation: .equal,
                                            useSafeArea: false))
         }
         if axis.contains(.vertical) {
             constraints.append(clipCenterY(to: .centerY,
                                            of: anchorView,
-                                           margin: offSet.y,
+                                           margin: margin.y,
                                            relation: .equal,
                                            useSafeArea: false))
         }
@@ -406,8 +406,8 @@ public extension UIView {
     
     @discardableResult
     public final func clipEdges(to view: UIView? = nil,
-                                margin: UIEdgeInsets = .zero,
                                 exclude: [ConstraintEdge] = [],
+                                margin: UIEdgeInsets = .zero,
                                 relation: ConstraintRelation = .equal,
                                 useSafeArea: Bool = true) -> [Constraint?] {
         

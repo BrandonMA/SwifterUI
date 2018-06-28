@@ -70,7 +70,6 @@
 		429FD4A51FED938400FD7F10 /* SFZoomAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429FD4A41FED938400FD7F10 /* SFZoomAnimation.swift */; };
 		429FD4A71FED94C500FD7F10 /* SFScaleAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429FD4A61FED94C500FD7F10 /* SFScaleAnimation.swift */; };
 		429FD4A91FED95A200FD7F10 /* SFFadeAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429FD4A81FED95A200FD7F10 /* SFFadeAnimation.swift */; };
-		42A1A86E1FEA2918009B888C /* Bool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A1A86D1FEA2918009B888C /* Bool.swift */; };
 		42A42EA91FF1A95F002FE4A7 /* SFColorStyleProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A42EA81FF1A95F002FE4A7 /* SFColorStyleProtocol.swift */; };
 		42A42EAB1FF1A9AB002FE4A7 /* SFColorStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A42EAA1FF1A9AB002FE4A7 /* SFColorStyle.swift */; };
 		42A42EAD1FF1AB98002FE4A7 /* SFColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A42EAC1FF1AB98002FE4A7 /* SFColors.swift */; };
@@ -212,7 +211,6 @@
 		429FD4A41FED938400FD7F10 /* SFZoomAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFZoomAnimation.swift; sourceTree = "<group>"; };
 		429FD4A61FED94C500FD7F10 /* SFScaleAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFScaleAnimation.swift; sourceTree = "<group>"; };
 		429FD4A81FED95A200FD7F10 /* SFFadeAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFFadeAnimation.swift; sourceTree = "<group>"; };
-		42A1A86D1FEA2918009B888C /* Bool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bool.swift; sourceTree = "<group>"; };
 		42A42EA81FF1A95F002FE4A7 /* SFColorStyleProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFColorStyleProtocol.swift; sourceTree = "<group>"; };
 		42A42EAA1FF1A9AB002FE4A7 /* SFColorStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFColorStyle.swift; sourceTree = "<group>"; };
 		42A42EAC1FF1AB98002FE4A7 /* SFColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFColors.swift; sourceTree = "<group>"; };
@@ -385,7 +383,6 @@
 				424BE0BE1FF45B17005DE2AD /* UIColor.swift */,
 				424BE0BA1FF45AD7005DE2AD /* UIFont.swift */,
 				42B253E21FEA04E90002C297 /* DispatchQueue.swift */,
-				42A1A86D1FEA2918009B888C /* Bool.swift */,
 				429FD4901FED7EDC00FD7F10 /* UIImageView.swift */,
 				424E2C74202378EA00F9A4E2 /* UITextView.swift */,
 				42289AE1203481A30095FF5C /* String.swift */,
@@ -859,7 +856,6 @@
 				424BE0BB1FF45AD7005DE2AD /* UIFont.swift in Sources */,
 				429FD4931FED89C200FD7F10 /* SFAnimationCurve.swift in Sources */,
 				42A42EA91FF1A95F002FE4A7 /* SFColorStyleProtocol.swift in Sources */,
-				42A1A86E1FEA2918009B888C /* Bool.swift in Sources */,
 				420AFCE7208026CC00D9D778 /* SFStackView.swift in Sources */,
 				42A42EAB1FF1A9AB002FE4A7 /* SFColorStyle.swift in Sources */,
 				42CDA9BD20361BDE0046791D /* SFChatBar.swift in Sources */,

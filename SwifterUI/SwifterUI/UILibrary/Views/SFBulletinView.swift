@@ -122,7 +122,7 @@ open class SFBulletinView: SFView {
                 }
             }
         } else {
-            doneButton.clipEdges(margin: UIEdgeInsets(top: 0, left: 12, bottom: 12, right: 12), exclude: [.top])
+            doneButton.clipEdges(exclude: [.top], margin: UIEdgeInsets(top: 0, left: 12, bottom: 12, right: 12))
             doneButton.height(SFDimension(value: 48))
             middleView.clipBottom(to: .top, of: doneButton)
             middleView.height(SFDimension(value: 200))

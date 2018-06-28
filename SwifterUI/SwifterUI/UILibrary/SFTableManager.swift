@@ -65,26 +65,31 @@ open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell, Header
     // MARK: - Instace Methods
     
     open func configure(tableView: SFTableView, cellStyler: SFTableManagerItemStyler?) {
-        
         self.cellStyler = cellStyler
         self.tableView = tableView
-        
         tableView.dataSource = self
         tableView.prefetchDataSource = self
         tableView.delegate = self
-        tableView.register(CellType.self, forCellReuseIdentifier: CellType.identifier)
-        tableView.rowHeight = CellType.height
-        tableView.sectionHeaderHeight = headerStyle == nil ? 0.0 : HeaderType.height
-        tableView.sectionFooterHeight = footerStyle == nil ? 0.0 : FooterType.height
+        registerViews()
+        registerHeightForViews()
+    }
+    
+    private final func registerViews() {
+        tableView?.register(CellType.self, forCellReuseIdentifier: CellType.identifier)
+        tableView?.register(HeaderType.self, forHeaderFooterViewReuseIdentifier: HeaderType.identifier)
+        tableView?.register(FooterType.self, forHeaderFooterViewReuseIdentifier: FooterType.identifier)
+    }
+    
+    private final func registerHeightForViews() {
+        tableView?.rowHeight = CellType.height
+        tableView?.sectionHeaderHeight = headerStyle == nil ? 0.0 : HeaderType.height
+        tableView?.sectionFooterHeight = footerStyle == nil ? 0.0 : FooterType.height
         
-        if tableView.style == .grouped {
-            tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: CGFloat.leastNonzeroMagnitude, height: CGFloat.leastNonzeroMagnitude))
-            tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: CGFloat.leastNonzeroMagnitude, height: CGFloat.leastNonzeroMagnitude))
-            tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: -20, right: 0)
+        if tableView?.style == .grouped {
+            tableView?.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: CGFloat.leastNonzeroMagnitude, height: CGFloat.leastNonzeroMagnitude))
+            tableView?.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: CGFloat.leastNonzeroMagnitude, height: CGFloat.leastNonzeroMagnitude))
+            tableView?.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: -20, right: 0)
         }
-        
-        tableView.register(HeaderType.self, forHeaderFooterViewReuseIdentifier: HeaderType.identifier)
-        tableView.register(FooterType.self, forHeaderFooterViewReuseIdentifier: FooterType.identifier)
     }
     
     // MARK: - Update Methods

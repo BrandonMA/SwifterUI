@@ -141,7 +141,7 @@ open class SFViewController: UIViewController, SFControllerColorStyle {
 }
 
 public extension UIImagePickerControllerDelegate where Self: SFViewController & UINavigationControllerDelegate {
-    public func showMediaPicker(sourceType: UIImagePickerControllerSourceType, mediaTypes: [String] = [kUTTypeImage as String]) {
+    public func showMediaPicker(sourceType: UIImagePickerControllerSourceType, mediaTypes: [String] = [kUTTypeImage as String, kUTTypeMovie as String]) {
         let imagePicker = UIImagePickerController()
         imagePicker.sourceType = sourceType
         imagePicker.allowsEditing = false

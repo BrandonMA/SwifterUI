@@ -71,19 +71,19 @@ open class SFChatBar: SFView {
         contentView.clipEdges(exclude: [.top])
         contentView.height(SFDimension(value: 49))
         
-        sendButton.clipEdges(margin: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 8),
-                             exclude: [.left],
+        sendButton.clipEdges(exclude: [.left],
+                             margin: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 8),
                              useSafeArea: false)
         sendButton.width(SFDimension(value: 58))
         
-        fileButton.clipEdges(margin: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0),
-                             exclude: [.right, .left],
+        fileButton.clipEdges(exclude: [.right, .left],
+                             margin: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0),
                              useSafeArea: false)
         fileButton.clipRight(to: .left, of: sendButton, margin: 8, useSafeArea: false)
         fileButton.width(SFDimension(value: 28))
         
-        textView.clipEdges(margin: UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 0),
-                           exclude: [.right],
+        textView.clipEdges(exclude: [.right],
+                           margin: UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 0),
                            useSafeArea: false)
         textView.clipRight(to: .left, of: fileButton, margin: 8, useSafeArea: false)
         

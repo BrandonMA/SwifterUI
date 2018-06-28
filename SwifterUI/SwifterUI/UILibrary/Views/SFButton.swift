@@ -67,7 +67,7 @@ open class SFButton: UIButton, SFViewColorStyle {
     // MARK: - Instance Methods
     
     open override func updateConstraints() {
-        rightImageView.clipEdges(margin: UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8), exclude: [.left], useSafeArea: false)
+        rightImageView.clipEdges(exclude: [.left], margin: UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8), useSafeArea: false)
         rightImageView.width(SFDimension(value: 14))
         super.updateConstraints()
     }

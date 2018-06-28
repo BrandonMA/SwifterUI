@@ -79,19 +79,21 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(keyboardWillShow(notification:)),
                                                name: .UIKeyboardWillShow, object: nil)
-        autorotate = false
         
-        chatManager.configure(tableView: chatView) { (cell, message, index) in
+        chatManager.configure(tableView: chatView) { [unowned self] (cell, message, index) in
             self.configure(cell: cell, message: message, indexPath: index)
         }
         
-        chatManager.prefetchStyler = { (message, index) in
-            if message.image != nil || message.videoURL != nil || message.imageURL != nil {
-                self.cachedBubbleWidths[index] = (self.chatView.bounds.width * 2/3)
-            } else {
-                self.cachedBubbleWidths[index] = message.text?.estimatedFrame(with: UIFont.systemFont(ofSize: 17), maxWidth: (self.chatView.bounds.width * 2/3) - 16).size.width ?? 0
-            }
+        chatManager.prefetchStyler = { [unowned self] (message, index) in
+            self.calculateWidth(for: message, indexPath: index)
         }
+    }
+    
+    open override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        cachedBubbleWidths.removeAll()
+        cachedHeights.removeAll()
+        super.viewWillTransition(to: size, with: coordinator)
+        chatView.reloadData()
     }
     
     open override func viewWillLayoutSubviews() {
@@ -133,6 +135,14 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
         }
     }
     
+    func calculateWidth(for message: MessageType, indexPath: IndexPath) {
+        if message.image != nil || message.videoURL != nil || message.imageURL != nil {
+            self.cachedBubbleWidths[indexPath] = (self.chatView.bounds.width * 2/3)
+        } else {
+            self.cachedBubbleWidths[indexPath] = message.text?.estimatedFrame(with: UIFont.systemFont(ofSize: 17), maxWidth: (self.chatView.bounds.width * 2/3) - 16).size.width ?? 0
+        }
+    }
+    
     func configure(cell: SFTableViewChatCell, message: MessageType, indexPath: IndexPath) {
         cell.delegate = self
         cell.messageLabel.text = message.text
@@ -141,15 +151,11 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
         cell.messageVideoView.delegate = self
         cell.isUserInteractionEnabled = true
         
-        if let width = cachedBubbleWidths[indexPath] {
-            cell.width = width
-        } else {
-            if message.image != nil || message.videoURL != nil || message.imageURL != nil {
-                cell.width = (chatView.bounds.width * 2/3)
-            } else {
-                cell.width = message.text?.estimatedFrame(with: cell.messageLabel.font, maxWidth: (chatView.bounds.width * 2/3) - 16).size.width ?? 0
-            }
+        if cachedBubbleWidths[indexPath] == nil {
+            calculateWidth(for: message, indexPath: indexPath)
         }
+        
+        cell.width = cachedBubbleWidths[indexPath] ?? 0
         
         if message.isMine {
             cell.bubbleView.useAlternativeColors = true

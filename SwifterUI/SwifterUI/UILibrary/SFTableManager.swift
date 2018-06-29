@@ -47,8 +47,8 @@ open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell, Header
      Add any prefetch calculations or tasks that could be done on the background.
      */
     open var prefetchStyler: ((DataModel, IndexPath) -> ())?
-    open var headerStyle: ((HeaderType, SFDataSection<DataModel>, Int) -> ())?
-    open var footerStyle: ((FooterType, SFDataSection<DataModel>, Int) -> ())?
+    open var headerStyler: ((HeaderType, SFDataSection<DataModel>, Int) -> ())?
+    open var footerStyler: ((FooterType, SFDataSection<DataModel>, Int) -> ())?
     
     // MARK: - Initializers
     
@@ -82,8 +82,8 @@ open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell, Header
     
     private final func registerHeightForViews() {
         tableView?.rowHeight = CellType.height
-        tableView?.sectionHeaderHeight = headerStyle == nil ? 0.0 : HeaderType.height
-        tableView?.sectionFooterHeight = footerStyle == nil ? 0.0 : FooterType.height
+        tableView?.sectionHeaderHeight = headerStyler == nil ? 0.0 : HeaderType.height
+        tableView?.sectionFooterHeight = footerStyler == nil ? 0.0 : FooterType.height
         
         if tableView?.style == .grouped {
             tableView?.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: CGFloat.leastNonzeroMagnitude, height: CGFloat.leastNonzeroMagnitude))
@@ -298,11 +298,11 @@ open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell, Header
     }
     
     public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return headerStyle == nil ? 0.0 : HeaderType.height
+        return headerStyler == nil ? 0.0 : HeaderType.height
     }
     
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if let headerStyle = headerStyle {
+        if let headerStyle = headerStyler {
             guard let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: HeaderType.identifier) as? HeaderType else { return nil }
             headerStyle(view, data[section], section)
             view.updateColors()
@@ -313,11 +313,11 @@ open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell, Header
     }
     
     public func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return footerStyle == nil ? 0.0 : FooterType.height
+        return footerStyler == nil ? 0.0 : FooterType.height
     }
     
     public func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        if let footerStyle = footerStyle {
+        if let footerStyle = footerStyler {
             guard let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: FooterType.identifier) as? FooterType else { return nil }
             footerStyle(view, data[section], section)
             view.updateColors()

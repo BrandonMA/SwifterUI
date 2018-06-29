@@ -12,11 +12,10 @@ public extension Date {
 
     // MARK: - Static Methods
 
-    public static func today(with format: String) -> String {
-        let date = Date()
+    static public func date(from string: String, with format: String) -> Date? {
         let formatter = DateFormatter()
         formatter.dateFormat = format
-        return formatter.string(from: date)
+        return formatter.date(from: string)
     }
 
     // MARK: - Instance Methods

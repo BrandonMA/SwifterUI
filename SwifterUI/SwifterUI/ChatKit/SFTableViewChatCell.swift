@@ -39,6 +39,7 @@ public final class SFTableViewChatCell: SFTableViewCell {
         let view = SFBubbleView(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 10
+        view.clipsToBounds = true
         return view
     }()
     
@@ -52,7 +53,7 @@ public final class SFTableViewChatCell: SFTableViewCell {
     
     public final lazy var messageImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTouchImageView)))
         imageView.isUserInteractionEnabled = true
@@ -86,30 +87,6 @@ public final class SFTableViewChatCell: SFTableViewCell {
         delegate?.didSelectImageView(cell: self)
     }
     
-    //    public final func zoomIn() {
-    //                guard let window = UIApplication.shared.keyWindow else { return }
-    //                messageImageView.removeAllConstraints()
-    //                messageImageView.frame = window.convert(messageImageView.bounds, from: messageImageView)
-    //                initialFrame = messageImageView.frame
-    //                window.addSubview(messageImageView)
-    //                messageImageView.clipEdges()
-    //                UIView.animate(withDuration: 0.4, animations: {
-    //                    window.layoutIfNeeded()
-    //                }, completion: { (_) in
-    //                    self.delegate?.didZoomIn(cell: self)
-    //                })
-    //    }
-    
-    //        public final func zoomOut() {
-    //            UIView.animate(withDuration: 0.4, animations: {
-    //                self.messageImageView.frame = self.initialFrame
-    //            }, completion: { (_) in
-    //                self.delegate?.didZoomOut(cell: self)
-    //                self.messageImageView.removeAllConstraints()
-    //                self.layoutSubviews()
-    //            })
-    //        }
-    
     public final override func prepareForReuse() {
         messageVideoView.removeFromSuperview()
         messageImageView.removeFromSuperview()
@@ -137,11 +114,11 @@ public final class SFTableViewChatCell: SFTableViewCell {
         
         if messageImageView.image != nil {
             bubbleView.addSubview(messageImageView)
-            messageImageView.clipEdges(margin: UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8))
+            messageImageView.clipEdges()
         } else if messageVideoView.url != nil {
             bubbleView.addSubview(messageVideoView)
             messageVideoView.prepareVideoView()
-            messageVideoView.clipEdges(margin: UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8))
+            messageVideoView.clipEdges()
         }
     }
     

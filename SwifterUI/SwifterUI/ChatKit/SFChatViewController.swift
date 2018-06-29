@@ -11,14 +11,39 @@ import MobileCoreServices
 
 open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, SFVideoPlayerDelegate, SFTableViewChatCellDelegate {
     
+    // MARK: - Static Methods
+    
+    static open func orderMessages(_ messages: [MessageType]) -> [SFDataSection<MessageType>] {
+        var sections: [SFDataSection<MessageType>] = []
+        
+        for message in messages {
+            if let index = sections.index(where: { $0.identifier == message.timestamp.string(with: "EEEE dd MMM yyyy") }) {
+                sections[index].content.append(message)
+            } else {
+                let section = SFDataSection<MessageType>(content: [message], identifier: message.timestamp.string(with: "EEEE dd MMM yyyy"))
+                sections.append(section)
+            }
+        }
+        
+        sections = sections.sorted(by: { (current, next) -> Bool in
+            guard let currentDate = Date.date(from: current.identifier, with: "EEEE dd MMM yyyy") else { return false }
+            guard let nextDate = Date.date(from: next.identifier, with: "EEEE dd MMM yyyy") else { return false }
+            return currentDate < nextDate
+        })
+        
+        return sections
+    }
+    
     // MARK: - Instance Properties
     
     private var activeCell: SFTableViewChatCell?
     
     public var chatManager: SFTableManager<MessageType, SFTableViewChatCell, SFTableViewHeaderView, SFTableViewFooterView>
     
+    public var messages: [MessageType] = []
+    
     public final lazy var chatView: SFTableView = {
-        let tableView = SFTableView(automaticallyAdjustsColorStyle: true, useAlternativeColors: true, style: .plain)
+        let tableView = SFTableView(automaticallyAdjustsColorStyle: true, useAlternativeColors: true, style: .grouped)
         tableView.useAlternativeColors = true
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.separatorStyle = .none
@@ -48,14 +73,15 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
     }
     
     private var cachedHeights: [IndexPath: CGFloat] = [:]
-    private var cachedBubbleWidths: [IndexPath: CGFloat] = [:]
+    private var cachedWidths: [IndexPath: CGFloat] = [:]
     
     // MARK: - Initializers
     
     public init(messages: [MessageType], automaticallyAdjustsColorStyle: Bool) {
-        chatManager = SFTableManager<MessageType, SFTableViewChatCell, SFTableViewHeaderView, SFTableViewFooterView>(data: [messages])
+        chatManager = SFTableManager<MessageType, SFTableViewChatCell, SFTableViewHeaderView, SFTableViewFooterView>(dataSections: SFChatViewController.orderMessages(messages))
         super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle)
         chatManager.delegate = self
+        self.messages = messages
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -87,10 +113,19 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
         chatManager.prefetchStyler = { [unowned self] (message, index) in
             self.calculateWidth(for: message, indexPath: index)
         }
+        
+        chatManager.headerStyler = {  (view, section, index) in
+            view.titleLabel.text = section.identifier
+            view.titleLabel.textAlignment = .center
+            view.titleLabel.font = UIFont.boldSystemFont(ofSize: 13)
+            view.titleLabel.useAlternativeColors = false
+            view.useAlternativeColors = true
+        }
+        
     }
     
     open override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        cachedBubbleWidths.removeAll()
+        cachedWidths.removeAll()
         cachedHeights.removeAll()
         super.viewWillTransition(to: size, with: coordinator)
         chatView.reloadData()
@@ -103,9 +138,7 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
     
     override open func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        DispatchQueue.main.async {
-            self.chatView.scrollToBottom(animated: false)
-        }
+        self.chatView.scrollToBottom(animated: false)
     }
     
     open override func viewWillAppear(_ animated: Bool) {
@@ -127,19 +160,17 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
             chatView.contentInset.bottom = keyboardHeight
             chatView.scrollIndicatorInsets.bottom = keyboardHeight
             
-            if chatView.isDragging == false {
-                DispatchQueue.main.async {
-                    self.chatView.scrollToBottom(animated: false)
-                }
+            if chatView.isDragging == false && chatView.contentOffset.y != -64 {
+                self.chatView.scrollToBottom(animated: false)
             }
         }
     }
     
     func calculateWidth(for message: MessageType, indexPath: IndexPath) {
         if message.image != nil || message.videoURL != nil || message.imageURL != nil {
-            self.cachedBubbleWidths[indexPath] = (self.chatView.bounds.width * 2/3)
+            self.cachedWidths[indexPath] = (self.chatView.bounds.width * 2/3)
         } else {
-            self.cachedBubbleWidths[indexPath] = message.text?.estimatedFrame(with: UIFont.systemFont(ofSize: 17), maxWidth: (self.chatView.bounds.width * 2/3) - 16).size.width ?? 0
+            self.cachedWidths[indexPath] = message.text?.estimatedFrame(with: UIFont.systemFont(ofSize: 17), maxWidth: (self.chatView.bounds.width * 2/3) - 16).size.width ?? 0
         }
     }
     
@@ -151,11 +182,11 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
         cell.messageVideoView.delegate = self
         cell.isUserInteractionEnabled = true
         
-        if cachedBubbleWidths[indexPath] == nil {
+        if cachedWidths[indexPath] == nil {
             calculateWidth(for: message, indexPath: indexPath)
         }
         
-        cell.width = cachedBubbleWidths[indexPath] ?? 0
+        cell.width = cachedWidths[indexPath] ?? 0
         
         if message.isMine {
             cell.bubbleView.useAlternativeColors = true
@@ -207,8 +238,24 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
             
             if send(message: message) {
                 chatBar.textView.text = ""
-                chatManager.insert(item: message, animation: message.isMine ? .right : .left).done {
-                    self.chatView.scrollToBottom()
+                addNewMessages([message])
+            }
+        }
+    }
+    
+    public func addNewMessages(_ newMessages: [MessageType]) {
+        for message in newMessages {
+            if let lastMessage = messages.last {
+                if lastMessage.timestamp.string(with: "EEEE dd MMM yyyy") != message.timestamp.string(with: "EEEE dd MMM yyyy") {
+                    messages.append(message)
+                    chatManager.update(dataSections: SFChatViewController.orderMessages(messages), animation: .bottom).done {
+                        self.chatView.scrollToBottom()
+                    }
+                } else {
+                    messages.append(message)
+                    chatManager.insert(item: message, animation: message.isMine ? .right : .left).done {
+                        self.chatView.scrollToBottom()
+                    }
                 }
             }
         }
@@ -242,9 +289,7 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
         picker.dismiss(animated: true, completion: {
             guard let message = optionalMessage else { return }
             if self.send(message: message) {
-                self.chatManager.insert(item: message, animation: message.isMine ? .right : .left).done {
-                    self.chatView.scrollToBottom()
-                }
+                self.addNewMessages([message])
             }
         })
     }
@@ -287,6 +332,7 @@ extension SFChatViewController: SFTableManagerDelegate {
         return height
     }
 }
+
 
 
 

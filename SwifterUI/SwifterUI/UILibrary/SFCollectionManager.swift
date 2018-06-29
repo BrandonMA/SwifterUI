@@ -35,8 +35,8 @@ open class SFCollectionManager<DataModel: Hashable, CellType: SFCollectionViewCe
     
     open var itemStyler: ((CellType, DataModel, IndexPath) -> ())?
     open var prefetchStyler: ((DataModel, IndexPath) -> ())?
-    open var headerStyle: ((HeaderType, SFDataSection<DataModel>, Int) -> ())?
-    open var footerStyle: ((FooterType, SFDataSection<DataModel>, Int) -> ())?
+    open var headerStyler: ((HeaderType, SFDataSection<DataModel>, Int) -> ())?
+    open var footerStyler: ((FooterType, SFDataSection<DataModel>, Int) -> ())?
 
     // MARK: - Initializers
     
@@ -272,11 +272,11 @@ open class SFCollectionManager<DataModel: Hashable, CellType: SFCollectionViewCe
         case UICollectionElementKindSectionHeader:
             guard let reusableView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: HeaderType.identifier, for: indexPath) as? HeaderType else { return UICollectionReusableView() }
             reusableView.updateColors()
-            headerStyle?(reusableView, data[indexPath.section], indexPath.section)
+            headerStyler?(reusableView, data[indexPath.section], indexPath.section)
             return reusableView
         case UICollectionElementKindSectionFooter:
             guard let reusableView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: FooterType.identifier, for: indexPath) as? FooterType else { return UICollectionReusableView() }
-            footerStyle?(reusableView, data[indexPath.section], indexPath.section)
+            footerStyler?(reusableView, data[indexPath.section], indexPath.section)
             return reusableView
         default: return UICollectionReusableView()
         }
@@ -298,11 +298,11 @@ open class SFCollectionManager<DataModel: Hashable, CellType: SFCollectionViewCe
     // MARK: - UICollectionViewDelegateFlowLayout
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return headerStyle == nil ? .zero : CGSize(width: collectionView.bounds.width, height: HeaderType.height)
+        return headerStyler == nil ? .zero : CGSize(width: collectionView.bounds.width, height: HeaderType.height)
     }
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        return footerStyle == nil ? .zero : CGSize(width: collectionView.bounds.width, height: FooterType.height)
+        return footerStyler == nil ? .zero : CGSize(width: collectionView.bounds.width, height: FooterType.height)
     }
     
     // MARK: - UICollectionViewDataSourcePrefetching

@@ -91,11 +91,11 @@ class ViewController: SFViewController {
             cell.addShadow(color: .black, offSet: CGSize(width: 0, height: 5), radius: 10, opacity: 0.05)
         }
         
-        collectionManager.headerStyle = {(headerView, section, index) in
+        collectionManager.headerStyler = {(headerView, section, index) in
             headerView.titleLabel.text = "Header"
         }
         
-        collectionManager.footerStyle = { (footerView, section, index)in
+        collectionManager.footerStyler = { (footerView, section, index)in
             footerView.titleLabel.text = "Footer"
         }
         
@@ -103,11 +103,11 @@ class ViewController: SFViewController {
             cell.textLabel?.text = model
         }
         
-        tableManager.headerStyle = { (headerView, section, index) in
+        tableManager.headerStyler = { (headerView, section, index) in
             headerView.titleLabel.text = "Header"
         }
         
-        tableManager.footerStyle = { (footerView, section, index) in
+        tableManager.footerStyler = { (footerView, section, index) in
             footerView.titleLabel.text = "Footer"
         }
     }

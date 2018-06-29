@@ -72,6 +72,13 @@ open class SFViewController: UIViewController, SFControllerColorStyle {
         self.view = SFView(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
     }
     
+    open override func viewDidLoad() {
+        super.viewDidLoad()
+        if automaticallyAdjustsColorStyle {
+            updateColors()
+        }
+    }
+    
     open override func viewWillAppear(_ animated: Bool) {
         if let navigationController = self.navigationController {
             prepare(navigationController: navigationController)
@@ -122,20 +129,16 @@ open class SFViewController: UIViewController, SFControllerColorStyle {
     
     open func updateColors() {
         DispatchQueue.addAsyncTask(to: .main) {
-            UIView.animate(withDuration: 0.6, animations: {
-                
-                self.updateSubviewsColors()
-                
-                if self.automaticallyTintNavigationBar == true {
-                    self.updateNavItem()
-                    self.statusBarStyle = self.colorStyle.getStatusBarStyle()
-                }
-                
-                self.setNeedsStatusBarAppearanceUpdate()
-                
-                self.currentColorStyle = self.colorStyle
-                
-            })
+            self.updateSubviewsColors()
+            
+            if self.automaticallyTintNavigationBar == true {
+                self.updateNavItem()
+                self.statusBarStyle = self.colorStyle.getStatusBarStyle()
+            }
+            
+            self.setNeedsStatusBarAppearanceUpdate()
+            
+            self.currentColorStyle = self.colorStyle
         }
     }
 }

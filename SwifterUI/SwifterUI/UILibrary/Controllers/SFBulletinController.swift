@@ -157,11 +157,9 @@ open class SFBulletinController: SFViewController, SFInteractionViewController {
     open override func updateColors() {
         super.updateColors()
         DispatchQueue.addAsyncTask(to: .main) {
-            UIView.animate(withDuration: 0.6, animations: {
-                self.view.backgroundColor = .clear
-                self.pickerView.updateColors()
-                self.datePicker.updateColors()
-            })
+            self.view.backgroundColor = .clear
+            self.pickerView.updateColors()
+            self.datePicker.updateColors()
         }
     }
     

@@ -85,7 +85,7 @@ open class SFTabBarController: UITabBarController, SFControllerColorStyle {
     }
     
     open func updateColors() {
-        UIView.animate(withDuration: 0.6) {
+        DispatchQueue.addAsyncTask(to: .main) {
             self.tabBar.tintColor = self.colorStyle.getInteractiveColor()
             self.tabBar.barStyle = self.colorStyle.getBarStyle()
             

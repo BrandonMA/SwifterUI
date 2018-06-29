@@ -96,7 +96,7 @@ open class SFNavigationController: UINavigationController, SFControllerColorStyl
     
     open func updateColors() {
         
-        UIView.animate(withDuration: 0.6) {
+        DispatchQueue.addAsyncTask(to: .main) {
             
             self.navigationBar.barStyle = self.colorStyle.getBarStyle()
             self.navigationBar.tintColor = self.colorStyle.getInteractiveColor()

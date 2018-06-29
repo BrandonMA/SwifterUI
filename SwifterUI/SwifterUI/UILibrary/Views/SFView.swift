@@ -22,7 +22,6 @@ open class SFView: UIView, SFViewColorStyle {
         self.automaticallyAdjustsColorStyle = automaticallyAdjustsColorStyle
         self.useAlternativeColors = useAlternativeColors
         super.init(frame: frame)
-        
         if automaticallyAdjustsColorStyle {
             updateColors()
         }

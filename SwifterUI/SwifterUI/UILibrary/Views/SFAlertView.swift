@@ -81,7 +81,6 @@ open class SFAlertView: SFView {
         if buttons.count > 0 {
             buttons.forEach({ (button) in
                 button.translatesAutoresizingMaskIntoConstraints = false
-                button.useAlternativeColors = true
                 button.addTouchAnimations = true
                 contentView.addSubview(button)
             })

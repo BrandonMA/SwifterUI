@@ -175,13 +175,13 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
         
         let photosButton = SFButton()
         photosButton.setTitle("Fotos y Videos", for: .normal)
-        photosButton.add {
+        photosButton.addTouchAction {
             self.showMediaPicker(sourceType: .photoLibrary)
         }
         
         let cameraButton = SFButton()
-        cameraButton.setTitle("Camara", for: .normal)
-        cameraButton.add {
+        cameraButton.title = "Camara"
+        cameraButton.addTouchAction { [unowned self] in
             self.showMediaPicker(sourceType: .camera)
         }
         

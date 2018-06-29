@@ -44,12 +44,11 @@ open class SFPageBar: SFScrollView {
     public override init(automaticallyAdjustsColorStyle: Bool = true, useAlternativeColors: Bool = false, frame: CGRect = .zero) {
         super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, useAlternativeColors: useAlternativeColors, frame: frame)
         contentView.addSubview(buttonStackView)
-        showsHorizontalScrollIndicator = false
-        clipsToBounds = false
-        
         if automaticallyAdjustsColorStyle {
             updateColors()
         }
+        showsHorizontalScrollIndicator = false
+        clipsToBounds = false
     }
     
     required public init?(coder aDecoder: NSCoder) {

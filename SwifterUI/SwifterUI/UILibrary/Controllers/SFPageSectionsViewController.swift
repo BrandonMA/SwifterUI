@@ -25,11 +25,15 @@ open class SFPageSectionsViewController: SFPageViewController {
     
     // MARK: - Instance Methods
     
+    open override func loadView() {
+        super.loadView()
+        pageBar.configure(with: titles)
+    }
+    
     open override func viewDidLoad() {
         super.viewDidLoad()
         pageView.delegate = self
         view.addSubview(pageBar)
-        pageBar.configure(with: titles)
     }
     
     open override func viewWillLayoutSubviews() {

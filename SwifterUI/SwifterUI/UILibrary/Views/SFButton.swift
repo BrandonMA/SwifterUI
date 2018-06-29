@@ -45,7 +45,22 @@ open class SFButton: UIButton, SFViewColorStyle {
         return imageView
     }()
     
-    open var actions: [() -> Void] = []
+    public var actions: [() -> Void] = [] {
+        didSet {
+            
+        }
+    }
+    
+    /**
+     Easy way to set title for SFButton
+     */
+    open var title: String? {
+        get {
+            return title(for: .normal)
+        } set {
+            return setTitle(newValue, for: .normal)
+        }
+    }
     
     // MARK: - Initializers
     
@@ -54,10 +69,10 @@ open class SFButton: UIButton, SFViewColorStyle {
         self.useAlternativeColors = useAlternativeColors
         super.init(frame: frame)
         addSubview(rightImageView)
-        
         if automaticallyAdjustsColorStyle {
             updateColors()
         }
+        addTarget(self, action: #selector(didTouch), for: .touchUpInside)
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -108,8 +123,26 @@ open class SFButton: UIButton, SFViewColorStyle {
         }
     }
     
-    public final func add(action: @escaping () -> Void) {
+    public final func addTouchAction(action: @escaping () -> Void) {
         actions.append(action)
     }
+    
+    @objc public final func didTouch() {
+        actions.forEach { $0() }
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

@@ -75,7 +75,18 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
     
     private var cachedHeights: [IndexPath: CGFloat] = [:]
     private var cachedWidths: [IndexPath: CGFloat] = [:]
+    
     private var isWaitingForPopViewController: Bool = false
+    
+    private lazy var zoomImageView: UIImageView = {
+        let zoomImageView = UIImageView()
+        zoomImageView.contentMode = .scaleAspectFit
+        zoomImageView.layer.cornerRadius = 10
+        return zoomImageView
+    }()
+    
+    private weak var currentZoomCell: SFTableViewChatCell?
+    private lazy var initialFrameForZooming: CGRect = .zero
     
     // MARK: - Initializers
     
@@ -163,7 +174,13 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
             chatView.scrollIndicatorInsets.bottom = keyboardHeight
             
             if chatView.isDragging == false && chatView.contentOffset.y != -64 {
-                if !isWaitingForPopViewController { self.chatView.scrollToBottom(animated: false) }
+                if !isWaitingForPopViewController {
+                    self.chatView.scrollToBottom(animated: false)
+                } else {
+                    if zoomImageView.superview != nil {
+                        zoomOut()
+                    }
+                }
             }
         }
     }
@@ -301,8 +318,27 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
     open func didSelectImageView(cell: SFTableViewChatCell) {
         guard let image = cell.messageImageView.image else { return }
         isWaitingForPopViewController = true
-        let zoomViewController = SFImageZoomViewController(with: image)
-        navigationController?.pushViewController(zoomViewController, animated: true)
+        zoomImageView.image = image
+        initialFrameForZooming = view.convert(cell.bubbleView.bounds, from: cell.messageImageView)
+        zoomImageView.frame = initialFrameForZooming
+        view.addSubview(zoomImageView)
+        cell.bubbleView.alpha = 0.0
+        currentZoomCell = cell
+        UIView.animate(withDuration: 0.3, animations: {
+            self.zoomImageView.frame = self.view.bounds
+        }) { [unowned self] (_) in
+            let zoomViewController = SFImageZoomViewController(with: image)
+            self.navigationController?.pushViewController(zoomViewController, animated: true)
+        }
+    }
+    
+    private func zoomOut() {
+        UIView.animate(withDuration: 0.3, animations: {
+            self.zoomImageView.frame = self.initialFrameForZooming
+        }) { (_) in
+            self.currentZoomCell?.bubbleView.alpha = 1.0
+            self.zoomImageView.removeFromSuperview()
+        }
     }
     
 }

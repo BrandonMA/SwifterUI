@@ -27,7 +27,6 @@ open class SFPageBar: SFScrollView {
             buttonStackView.distribution = useAdaptingWidth ? .fill : .fillEqually
         }
     }
-    open var useNavigationLikeBackground: Bool = false
     
     open lazy var buttonStackView: SFStackView = {
         let stackView = SFStackView(arrangedSubviews: buttons)
@@ -113,6 +112,7 @@ open class SFPageBar: SFScrollView {
         super.updateColors()
         
         buttons.forEach({
+            
             if useAlternativeButtonsColor {
                 $0.setTitleColor(colorStyle.getTextColor(), for: .normal)
             }
@@ -122,15 +122,6 @@ open class SFPageBar: SFScrollView {
                 $0.setTitleColor(buttonsTintColor, for: .normal)
             }
         })
-        
-        if useNavigationLikeBackground {
-            contentView.backgroundColor = colorStyle == .light ? UIColor(hex: "F9F9F9").withAlphaComponent(1) : UIColor(hex: "141414").withAlphaComponent(1)
-            if colorStyle == .light {
-                addShadow(color: .black, offSet: CGSize(width: 0, height: 0.5), radius: 0, opacity: 0.2)
-            } else {
-                addShadow(color: .white, offSet: CGSize(width: 0, height: 1), radius: 0, opacity: 0.16)
-            }
-        }
     }
 }
 

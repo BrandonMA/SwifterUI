@@ -1,5 +1,6 @@
 PODS:
   - DeepDiff (1.2.0)
+  - Hero (1.2.0)
   - PromiseKit (6.2.8):
     - PromiseKit/CorePromise (= 6.2.8)
     - PromiseKit/Foundation (= 6.2.8)
@@ -12,17 +13,20 @@ PODS:
 
 DEPENDENCIES:
   - DeepDiff
+  - Hero (~> 1.2)
   - PromiseKit (~> 6.0)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - DeepDiff
+    - Hero
     - PromiseKit
 
 SPEC CHECKSUMS:
   DeepDiff: 0ee83ac6942d441f677c22e981548c6e0937f2b6
+  Hero: 33dadf2cd1c98af71e213dcbc2902e6e03622a4e
   PromiseKit: 6788ce1a0ed5448b83d4aaf56b9fc49fb7647d32
 
-PODFILE CHECKSUM: d8790c0f4b45a158eddc2cd06ed2367413bc0a7f
+PODFILE CHECKSUM: b1918b7bc17e788c912125a16ea6732613b11c45
 
 COCOAPODS: 1.5.3

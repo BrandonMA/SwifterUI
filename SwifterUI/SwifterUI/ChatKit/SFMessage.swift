@@ -8,14 +8,14 @@
 
 import UIKit
 
-public protocol SFMessage: Codable, Hashable {
+public protocol SFMessage: Hashable {
     
     // MARK: - Instance Properties
     
     var identifier: String { get set }
     var senderIdentifier: String { get set }
     var text: String? { get set }
-    var imageURL: String? { get set }
+    var imageURL: URL? { get set }
     var image: UIImage? { get set }
     var videoURL: URL? { get set }
     var fileURL: URL? { get set }

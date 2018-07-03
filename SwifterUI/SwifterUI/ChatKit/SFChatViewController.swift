@@ -8,6 +8,7 @@
 
 import UIKit
 import MobileCoreServices
+import Hero
 
 open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, SFVideoPlayerDelegate, SFTableViewChatCellDelegate {
     
@@ -17,6 +18,7 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
         var sections: [SFDataSection<MessageType>] = []
         
         for message in messages {
+            
             if let index = sections.index(where: { $0.identifier == message.timestamp.string(with: "EEEE dd MMM yyyy") }) {
                 sections[index].content.append(message)
             } else {
@@ -74,6 +76,7 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
     
     private var cachedHeights: [IndexPath: CGFloat] = [:]
     private var cachedWidths: [IndexPath: CGFloat] = [:]
+    private var isWaitingForPopViewController: Bool = false
     
     // MARK: - Initializers
     
@@ -138,7 +141,7 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
     
     override open func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        self.chatView.scrollToBottom(animated: false)
+        if !isWaitingForPopViewController { self.chatView.scrollToBottom(animated: false) }
     }
     
     open override func viewWillAppear(_ animated: Bool) {
@@ -161,7 +164,8 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
             chatView.scrollIndicatorInsets.bottom = keyboardHeight
             
             if chatView.isDragging == false && chatView.contentOffset.y != -64 {
-                self.chatView.scrollToBottom(animated: false)
+                print(isWaitingForPopViewController)
+                if !isWaitingForPopViewController { self.chatView.scrollToBottom(animated: false) }
             }
         }
     }
@@ -297,14 +301,21 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
     // MARK: - SFTableViewChatCellDelegate
     
     open func didSelectImageView(cell: SFTableViewChatCell) {
+        cell.imageView?.hero.id = "chatImageView"
         guard let image = cell.messageImageView.image else { return }
-        navigationController?.pushViewController(SFImageZoomViewController(with: image), animated: true)
+        isWaitingForPopViewController = true
+        let zoomViewController = SFImageZoomViewController(with: image)
+        zoomViewController.imageZoomView.imageView.hero.id = "chatImageView"
+        zoomViewController.hero.isEnabled = true
+        navigationController?.hero.isEnabled = true
+        navigationController?.pushViewController(zoomViewController, animated: true)
     }
     
 }
 
 extension SFChatViewController: SFTableManagerDelegate {
     public func heightForRow(at indexPath: IndexPath, tableView: SFTableView) -> CGFloat? {
+        
         guard let height = cachedHeights[indexPath] else {
             
             let message = chatManager.getItem(at: indexPath)

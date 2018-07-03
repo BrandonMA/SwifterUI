@@ -11,7 +11,6 @@ target 'SwifterUI' do
 
   pod 'PromiseKit', '~> 6.0'
   pod 'DeepDiff'
-  pod 'Hero', '~> 1.2'
   
   target 'SwifterUITests' do
     inherit! :search_paths

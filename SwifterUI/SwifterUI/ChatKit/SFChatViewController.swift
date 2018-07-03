@@ -8,7 +8,6 @@
 
 import UIKit
 import MobileCoreServices
-import Hero
 
 open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, SFVideoPlayerDelegate, SFTableViewChatCellDelegate {
     
@@ -164,7 +163,6 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
             chatView.scrollIndicatorInsets.bottom = keyboardHeight
             
             if chatView.isDragging == false && chatView.contentOffset.y != -64 {
-                print(isWaitingForPopViewController)
                 if !isWaitingForPopViewController { self.chatView.scrollToBottom(animated: false) }
             }
         }
@@ -301,13 +299,9 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
     // MARK: - SFTableViewChatCellDelegate
     
     open func didSelectImageView(cell: SFTableViewChatCell) {
-        cell.imageView?.hero.id = "chatImageView"
         guard let image = cell.messageImageView.image else { return }
         isWaitingForPopViewController = true
         let zoomViewController = SFImageZoomViewController(with: image)
-        zoomViewController.imageZoomView.imageView.hero.id = "chatImageView"
-        zoomViewController.hero.isEnabled = true
-        navigationController?.hero.isEnabled = true
         navigationController?.pushViewController(zoomViewController, animated: true)
     }
     

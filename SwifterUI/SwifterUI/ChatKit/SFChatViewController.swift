@@ -276,6 +276,11 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
                         self.chatView.scrollToBottom()
                     }
                 }
+            } else {
+                messages.append(message)
+                chatManager.update(dataSections: SFChatViewController.orderMessages(messages), animation: .bottom).done {
+                    self.chatView.scrollToBottom()
+                }
             }
         }
     }

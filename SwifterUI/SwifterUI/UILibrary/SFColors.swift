@@ -12,9 +12,9 @@ import UIKit
  Main colors hand picked to work well on iOS
  */
 public struct SFColors {
-
+    
     // MARK: - Static Properties
-
+    
     /**
      HexCode: FFFFFF
      */
@@ -53,7 +53,7 @@ public struct SFColors {
     /**
      HexCode: 0F0F0F
      */
-    static public let contrastBlack: UIColor = UIColor(hex: "0F0F0F")
+    static public let contrastBlack: UIColor = UIColor(hex: "242424")
     
     /**
      HexCode: F0F0F0
@@ -63,12 +63,12 @@ public struct SFColors {
     /**
      HexCode: "CCCCCC"
      */
-    static public let lightGray: UIColor = UIColor(hex: "CCCCCC")
+    static public let lightGray: UIColor = UIColor(hex: "808080")
     
     /**
      HexCode: 999999
      */
-    static public let darkGray: UIColor = UIColor(hex: "999999")
+    static public let darkGray: UIColor = UIColor(hex: "B3B3B3")
     
     /**
      HexCode: FF941A
@@ -79,7 +79,7 @@ public struct SFColors {
      HexCode: 0088FF
      */
     static public let blue: UIColor = UIColor(hex: "0088FF")
-
+    
 }
 
 

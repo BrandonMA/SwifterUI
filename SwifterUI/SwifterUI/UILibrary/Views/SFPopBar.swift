@@ -40,11 +40,12 @@ open class SFPopBar: SFView {
         button.contentHorizontalAlignment = .right
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         button.addTouchAnimations = true
+        button.useClearBackground = true
         return button
     }()
     
     // MARK: - Initializers
-
+    
     public override init(automaticallyAdjustsColorStyle: Bool = true, useAlternativeColors: Bool = false, frame: CGRect = .zero) {
         super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, useAlternativeColors: useAlternativeColors, frame: frame)
         addSubview(dismissButton)

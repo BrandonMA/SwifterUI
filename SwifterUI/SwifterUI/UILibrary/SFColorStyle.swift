@@ -9,17 +9,17 @@
 import UIKit
 
 /**
-  The SFColorStyle is an enum representation of a theme where you can get multiple colors depending on the value.
+ The SFColorStyle is an enum representation of a theme where you can get multiple colors depending on the value.
  */
 public enum SFColorStyle: Int {
-
+    
     case light
     case dark
-
+    
     // MARK: - Instance Methods
-
+    
     // MARK: - Styles
-
+    
     /**
      - returns: Corresponding color of an UINavigationBar depending on the current color style.
      */
@@ -29,7 +29,7 @@ public enum SFColorStyle: Int {
         case .dark: return .black
         }
     }
-
+    
     /**
      - returns: Corresponding color of an UIActivityIndicatorView depending on the current color style.
      */
@@ -39,7 +39,7 @@ public enum SFColorStyle: Int {
         case .dark: return .white
         }
     }
-
+    
     /**
      - returns: Corresponding color of an UIActivityIndicatorView depending on the current color style.
      */
@@ -49,7 +49,7 @@ public enum SFColorStyle: Int {
         case .dark: return .lightContent
         }
     }
-
+    
     /**
      - returns: Corresponding color of an UISearchBar depending on the current color style.
      */
@@ -59,7 +59,7 @@ public enum SFColorStyle: Int {
         case .dark: return .blackTranslucent
         }
     }
-
+    
     /**
      - returns: Corresponding color of a keyboard depending on the current color style.
      */
@@ -69,7 +69,7 @@ public enum SFColorStyle: Int {
         case .dark: return .dark
         }
     }
-
+    
     /**
      - returns: Corresponding color of an UIScrollView's indicator depending on the current color style.
      */
@@ -79,7 +79,7 @@ public enum SFColorStyle: Int {
         case .dark: return .white
         }
     }
-
+    
     /**
      - returns: Corresponding blur effect of an UIVisualEffectView depending on the current color style.
      */
@@ -89,9 +89,9 @@ public enum SFColorStyle: Int {
         case .dark: return UIBlurEffect(style: .light)
         }
     }
-
+    
     // MARK: - Colors
-
+    
     /**
      - returns: Main color used on background.
      */
@@ -101,7 +101,7 @@ public enum SFColorStyle: Int {
         case .dark: return SFColors.black
         }
     }
-
+    
     /**
      - returns: Best color to be used on text for good contrast
      */
@@ -111,7 +111,7 @@ public enum SFColorStyle: Int {
         case .dark: return SFColors.white
         }
     }
-
+    
     /**
      - returns: Alternative background color.
      */
@@ -121,7 +121,7 @@ public enum SFColorStyle: Int {
         case .dark: return SFColors.alternativeBlack
         }
     }
-
+    
     /**
      - returns: Color that contrast with the main background color for text entries like SFTextField
      */
@@ -131,7 +131,7 @@ public enum SFColorStyle: Int {
         case .dark: return SFColors.contrastBlack
         }
     }
-
+    
     /**
      - returns: Color for a placeholder that contrast with getTextEntryColor()
      */
@@ -141,7 +141,7 @@ public enum SFColorStyle: Int {
         case .dark: return SFColors.lightGray
         }
     }
-
+    
     /**
      - returns: Color for separators in SFTableView
      */
@@ -151,7 +151,7 @@ public enum SFColorStyle: Int {
         case .dark: return SFColors.separatorBlack
         }
     }
-
+    
     /**
      - returns: Color for interactive items like buttons.
      */
@@ -161,5 +161,5 @@ public enum SFColorStyle: Int {
         case .dark: return SFColors.orange
         }
     }
-
+    
 }

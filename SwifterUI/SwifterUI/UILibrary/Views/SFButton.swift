@@ -89,14 +89,14 @@ open class SFButton: UIButton, SFViewColorStyle {
     
     open func updateColors() {
         
-        backgroundColor = isTextPicker ? colorStyle.getTextEntryColor() : useClearBackground ? .clear : useAlternativeColors ? colorStyle.getAlternativeColor() : colorStyle.getMainColor()
+        backgroundColor = isTextPicker ? colorStyle.getTextEntryColor() : useClearBackground ? .clear : useAlternativeColors ? colorStyle.getTextEntryColor() : colorStyle.getAlternativeColor()
         
         titleLabel?.backgroundColor = backgroundColor
         
         if setTextColor {
             if useAlternativeTextColor {
-                tintColor = colorStyle.getPlaceholderColor()
-                setTitleColor(colorStyle.getPlaceholderColor(), for: .normal)
+                tintColor = colorStyle.getTextColor()
+                setTitleColor(colorStyle.getTextColor(), for: .normal)
             } else {
                 tintColor = colorStyle.getInteractiveColor()
                 setTitleColor(colorStyle.getInteractiveColor(), for: .normal)

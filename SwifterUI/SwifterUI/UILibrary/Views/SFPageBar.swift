@@ -67,7 +67,7 @@ open class SFPageBar: SFScrollView {
             button.titleLabel?.alpha = selectedIndex == index ? 1 : 0.5
             button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
             button.addTouchAnimations = true
-            button.useAlternativeColors = useAlternativeColors
+            button.useClearBackground = true
             buttonStackView.addArrangedSubview(button)
             return button
         })
@@ -100,10 +100,10 @@ open class SFPageBar: SFScrollView {
             }
             
             UIView.animate(withDuration: 0.3, animations: {
-                button.titleLabel?.alpha = self.selectedIndex == index ? 1 : 0.5
                 button.useAlternativeTextColor = self.selectedIndex == index ? false : true
                 self.updateColors()
             })
+            button.titleLabel?.alpha = index != self.selectedIndex ? 0.5 : 1.0
         }
     }
     

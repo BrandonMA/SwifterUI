@@ -267,7 +267,7 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
             if let lastMessage = messages.last {
                 if lastMessage.timestamp.string(with: "EEEE dd MMM yyyy") != message.timestamp.string(with: "EEEE dd MMM yyyy") {
                     messages.append(message)
-                    chatManager.update(dataSections: SFChatViewController.orderMessages(messages), animation: .bottom).done {
+                    chatManager.update(dataSections: SFChatViewController.orderMessages(messages), animation: .fade).done {
                         self.chatView.scrollToBottom()
                     }
                 } else {
@@ -278,7 +278,7 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
                 }
             } else {
                 messages.append(message)
-                chatManager.update(dataSections: SFChatViewController.orderMessages(messages), animation: .bottom).done {
+                chatManager.update(dataSections: SFChatViewController.orderMessages(messages), animation: .fade).done {
                     self.chatView.scrollToBottom()
                 }
             }

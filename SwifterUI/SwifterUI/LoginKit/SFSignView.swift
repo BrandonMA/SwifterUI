@@ -42,6 +42,7 @@ open class SFSignView: SFScrollView {
         button.setTitle("Crear Cuenta", for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 17)
         button.addTouchAnimations = true
+        button.useAlternativeColors = true
         return button
     }()
     
@@ -51,6 +52,7 @@ open class SFSignView: SFScrollView {
         button.setTitle("Iniciar Sesión", for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 17)
         button.addTouchAnimations = true
+        button.useAlternativeColors = true
         return button
     }()
     

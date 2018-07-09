@@ -24,6 +24,8 @@
 	<string>$(PRODUCT_NAME) necesita acceso a tu camara para poder tomar fotos</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>$(PRODUCT_NAME) necesita acceso al microfono para grabar videos</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Save photo</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>$(PRODUCT_NAME) necesita acceso a tus fotos para poder enviarlas</string>
 	<key>UILaunchStoryboardName</key>
@@ -46,7 +48,5 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Save photo</string>
 </dict>
 </plist>

@@ -38,6 +38,7 @@ open class SFChatBar: SFView {
         button.setTitle("Enviar", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTouchAnimations = true
+        button.useAlternativeColors = true
         return button
     }()
     
@@ -46,8 +47,8 @@ open class SFChatBar: SFView {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(SFAssets.imageOfPlus.withRenderingMode(.alwaysTemplate), for: .normal)
         button.imageView?.contentMode = .center
-        button.useAlternativeTextColor = true
         button.addTouchAnimations = true
+        button.useAlternativeColors = true
         return button
     }()
     

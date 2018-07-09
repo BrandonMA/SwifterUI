@@ -89,7 +89,7 @@ open class SFButton: UIButton, SFViewColorStyle {
     
     open func updateColors() {
         
-        backgroundColor = isTextPicker ? colorStyle.getTextEntryColor() : useClearBackground ? .clear : useAlternativeColors ? colorStyle.getTextEntryColor() : colorStyle.getAlternativeColor()
+        backgroundColor = isTextPicker ? colorStyle.getTextEntryColor() : useClearBackground ? .clear : useAlternativeColors ? colorStyle.getMainColor() : colorStyle.getAlternativeColor()
         
         titleLabel?.backgroundColor = backgroundColor
         

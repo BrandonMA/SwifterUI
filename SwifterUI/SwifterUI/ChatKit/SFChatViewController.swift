@@ -170,10 +170,10 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
         if let keyboardFrame: NSValue = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardRectangle = keyboardFrame.cgRectValue
             let keyboardHeight = keyboardRectangle.height
-            chatView.contentInset.bottom = keyboardHeight
-            chatView.scrollIndicatorInsets.bottom = keyboardHeight
+            chatView.contentInset.bottom = keyboardHeight - view.safeAreaInsets.bottom
+            chatView.scrollIndicatorInsets.bottom = chatView.contentInset.bottom
             
-            if chatView.isDragging == false && chatView.contentOffset.y != -64 {
+            if chatView.isDragging == false && chatView.contentOffset.y > -64 {
                 if !isWaitingForPopViewController {
                     self.chatView.scrollToBottom(animated: false)
                 } else {

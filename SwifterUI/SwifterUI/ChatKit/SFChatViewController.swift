@@ -356,13 +356,13 @@ extension SFChatViewController: SFTableManagerDelegate {
             let message = chatManager.getItem(at: indexPath)
             
             if let image = message.image {
-                let height = ((tableView.bounds.width * 2/3) / (image.size.width / image.size.height)) + 33
+                let height = ((view.bounds.width * 2/3) / (image.size.width / image.size.height)) + 33
                 cachedHeights[indexPath] = height
                 return height
             } else if message.imageURL != nil {
-                return tableView.bounds.width * 2/3
+                return view.bounds.width * 2/3
             } else if message.videoURL != nil {
-                let height = tableView.bounds.width * 2/3
+                let height = view.bounds.width * 2/3
                 cachedHeights[indexPath] = height
                 return height
             } else {

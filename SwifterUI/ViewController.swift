@@ -88,6 +88,7 @@ class ViewController: SFViewController {
         view.addSubview(collectionView)
         
         collectionManager.configure(collectionView: collectionView) { (cell, model, indexPath) in
+            cell.isUserInteractionEnabled = true
             cell.addShadow(color: .black, offSet: CGSize(width: 0, height: 5), radius: 10, opacity: 0.05)
         }
         
@@ -105,6 +106,7 @@ class ViewController: SFViewController {
         
         tableManager.headerStyler = { (headerView, section, index) in
             headerView.titleLabel.text = "Header"
+            headerView.titleLabel.isUserInteractionEnabled = true
         }
         
         tableManager.footerStyler = { (footerView, section, index) in

@@ -63,8 +63,10 @@ open class SFTableViewProfileCell: SFTableViewCell {
     
     open override func layoutSubviews() {
         super.layoutSubviews()
-        stackView.clipEdges(margin: UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16))
-        profileImageView.width(SFDimension(value: 36))
+        if mainContraints.isEmpty {
+            mainContraints.append(contentsOf: stackView.clipEdges(margin: UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)))
+            mainContraints.append(profileImageView.width(SFDimension(value: 36)))
+        }
     }
     
 }

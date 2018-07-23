@@ -55,7 +55,7 @@ open class SFSignUpView: SFView {
     
     open lazy var signUpButton: SFButton = {
         let button = SFButton(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
-        button.setTitle("Crear Cuenta", for: .normal)
+        button.title = "Crear Cuenta"
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 10
         button.addTouchAnimations = true
@@ -84,12 +84,14 @@ open class SFSignUpView: SFView {
     // MARK: - Instance Methods
     
     open override func updateConstraints() {
-        contentStack.clipEdges()
-        nameSection.height(SFDimension(value: 64))
-        lastNameSection.height(SFDimension(value: 64))
-        mailSection.height(SFDimension(value: 64))
-        passwordSection.height(SFDimension(value: 64))
-        signUpButton.height(SFDimension(value: 52))
+        if mainContraints.isEmpty {
+            mainContraints.append(contentsOf: contentStack.clipEdges())
+            mainContraints.append(nameSection.height(SFDimension(value: 64)))
+            mainContraints.append(lastNameSection.height(SFDimension(value: 64)))
+            mainContraints.append(mailSection.height(SFDimension(value: 64)))
+            mainContraints.append(passwordSection.height(SFDimension(value: 64)))
+            mainContraints.append(signUpButton.height(SFDimension(value: 52)))
+        }
         super.updateConstraints()
     }
 }

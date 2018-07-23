@@ -32,7 +32,11 @@ open class SFSection: SFView {
     open var bottomView: UIView
     
     open var text: String? {
-        return nil
+        get {
+            return nil
+        } set {
+            
+        }
     }
     
     // MARK: - Initializers
@@ -56,7 +60,9 @@ open class SFSection: SFView {
     // MARK: - Instance Methods
     
     open override func updateConstraints() {
-        stackView.clipEdges()
+        if mainContraints.isEmpty {
+            mainContraints.append(contentsOf: stackView.clipEdges())
+        }
         super.updateConstraints()
     }
     

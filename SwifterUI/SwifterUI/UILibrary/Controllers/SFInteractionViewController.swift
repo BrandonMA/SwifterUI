@@ -29,7 +29,7 @@ extension SFInteractionViewController where Self: UIViewController {
     
     public func handleTouch(button: SFButton) {
         returnToMainViewController {
-            button.actions.forEach({ $0() })
+            button.touchUpInsideActions.forEach({ $0() })
         }
     }
     

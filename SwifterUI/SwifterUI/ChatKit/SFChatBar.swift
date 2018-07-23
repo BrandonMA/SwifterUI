@@ -69,26 +69,24 @@ open class SFChatBar: SFView {
     // MARK: - Instance Methods
     
     open override func updateConstraints() {
-        contentView.clipEdges(exclude: [.top])
-        contentView.height(SFDimension(value: 49))
-        
-        sendButton.clipEdges(exclude: [.left],
-                             margin: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 8),
-                             useSafeArea: false)
-        sendButton.width(SFDimension(value: 58))
-        
-        fileButton.clipEdges(exclude: [.right, .left],
-                             margin: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0),
-                             useSafeArea: false)
-        fileButton.clipRight(to: .left, of: sendButton, margin: 8, useSafeArea: false)
-        fileButton.width(SFDimension(value: 28))
-        
-        textView.clipEdges(exclude: [.right],
-                           margin: UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 0),
-                           useSafeArea: false)
-        textView.clipRight(to: .left, of: fileButton, margin: 8, useSafeArea: false)
-        
-        clipTop(to: .top, of: contentView)
+        if mainContraints.isEmpty {
+            mainContraints.append(contentsOf: contentView.clipEdges(exclude: [.top]))
+            mainContraints.append(contentView.height(SFDimension(value: 49)))
+            mainContraints.append(contentsOf:  sendButton.clipEdges(exclude: [.left],
+                                                                    margin: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 8),
+                                                                    useSafeArea: false))
+            mainContraints.append(sendButton.width(SFDimension(value: 58)))
+            mainContraints.append(contentsOf: fileButton.clipEdges(exclude: [.right, .left],
+                                                                   margin: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0),
+                                                                   useSafeArea: false))
+            mainContraints.append(fileButton.clipRight(to: .left, of: sendButton, margin: 8, useSafeArea: false))
+            mainContraints.append(fileButton.width(SFDimension(value: 28)))
+            mainContraints.append(contentsOf: textView.clipEdges(exclude: [.right],
+                                                                 margin: UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 0),
+                                                                 useSafeArea: false))
+            mainContraints.append(textView.clipRight(to: .left, of: fileButton, margin: 8, useSafeArea: false))
+            mainContraints.append(clipTop(to: .top, of: contentView))
+        }
         super.updateConstraints()
     }
     

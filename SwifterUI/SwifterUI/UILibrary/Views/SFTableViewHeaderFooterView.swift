@@ -8,7 +8,7 @@
 
 import UIKit
 
-open class SFTableViewHeaderFooterView: UITableViewHeaderFooterView, SFViewColorStyle {
+open class SFTableViewHeaderFooterView: UITableViewHeaderFooterView, SFViewColorStyle, SFMainContainer {
     
     // MARK: - Class Properties
     
@@ -21,6 +21,8 @@ open class SFTableViewHeaderFooterView: UITableViewHeaderFooterView, SFViewColor
     }
     
     // MARK: - Instance Properties
+    
+    open var mainContraints: Constraints = []
     
     open var automaticallyAdjustsColorStyle: Bool = true
     

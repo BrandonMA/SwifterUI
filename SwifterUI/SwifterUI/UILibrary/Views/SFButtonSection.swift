@@ -39,11 +39,15 @@ public final class SFButtonSection: SFSection {
     }
     
     public override final var text: String? {
-        if title != "" {
-            return title
-        } else {
-            SFWobbleAnimation(with: self).start()
-            return nil
+        get {
+            if title != "" {
+                return title
+            } else {
+                SFWobbleAnimation(with: self).start()
+                return nil
+            }
+        } set {
+            button.title = newValue
         }
     }
     

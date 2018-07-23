@@ -65,10 +65,9 @@ open class SFSignViewController: SFViewController {
             let inAnimation = SFScaleAnimation(with: self.signView.signInView, type: .inside)
             inAnimation.duration = 0.6
             return inAnimation.start()
-            }.done({
-            }).catch({ error in
-                self.showError()
-            })
+        }.catch({ error in
+            self.showError()
+        })
     }
     
     private func showSignUp() {
@@ -83,10 +82,9 @@ open class SFSignViewController: SFViewController {
             let inAnimation = SFScaleAnimation(with: self.signView.signUpView, type: .inside)
             inAnimation.duration = 0.6
             return inAnimation.start()
-            }.done({
-            }).catch({ error in
-                self.showError()
-            })
+        }.catch({ error in
+            self.showError()
+        })
     }
     
     private func setColorsForState() {

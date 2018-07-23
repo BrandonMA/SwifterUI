@@ -8,7 +8,7 @@
 
 import UIKit
 
-open class SFCollectionViewCell: UICollectionViewCell, SFViewColorStyle {
+open class SFCollectionViewCell: UICollectionViewCell, SFViewColorStyle, SFMainContainer {
     
     // MARK: - Class Properties
     
@@ -17,6 +17,8 @@ open class SFCollectionViewCell: UICollectionViewCell, SFViewColorStyle {
     }
     
     // MARK: - Instance Properties
+    
+    open var mainContraints: Constraints = []
     
     open var automaticallyAdjustsColorStyle: Bool = true
     

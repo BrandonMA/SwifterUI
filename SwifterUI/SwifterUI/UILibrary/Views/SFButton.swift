@@ -27,11 +27,11 @@ open class SFButton: UIButton, SFViewColorStyle {
     public final var addTouchAnimations: Bool = false {
         didSet {
             if addTouchAnimations == true {
-                addTarget(self, action: #selector(touchDown(button:)), for: .touchDown)
+                addTarget(self, action: #selector(animateTouchDown(button:)), for: .touchDown)
                 addTarget(self, action: #selector(touchUp(button:)), for: .touchUpInside)
                 addTarget(self, action: #selector(touchUp(button:)), for: .touchDragExit)
             } else {
-                removeTarget(self, action: #selector(touchDown(button:)), for: .touchDown)
+                removeTarget(self, action: #selector(animateTouchDown(button:)), for: .touchDown)
                 removeTarget(self, action: #selector(touchUp(button:)), for: .touchUpInside)
                 removeTarget(self, action: #selector(touchUp(button:)), for: .touchDragExit)
             }
@@ -45,11 +45,8 @@ open class SFButton: UIButton, SFViewColorStyle {
         return imageView
     }()
     
-    public var actions: [() -> Void] = [] {
-        didSet {
-            
-        }
-    }
+    public var touchUpInsideActions: [() -> Void] = []
+    public var touchDownActions: [() -> Void] = []
     
     /**
      Easy way to set title for SFButton
@@ -69,10 +66,11 @@ open class SFButton: UIButton, SFViewColorStyle {
         self.useAlternativeColors = useAlternativeColors
         super.init(frame: frame)
         addSubview(rightImageView)
+        addTarget(self, action: #selector(touchUpInside), for: .touchUpInside)
+        addTarget(self, action: #selector(touchDown), for: .touchDown)
         if automaticallyAdjustsColorStyle {
             updateColors()
         }
-        addTarget(self, action: #selector(didTouch), for: .touchUpInside)
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -105,7 +103,7 @@ open class SFButton: UIButton, SFViewColorStyle {
         updateSubviewsColors()
     }
     
-    @objc public final func touchDown(button: UIButton) {
+    @objc public final func animateTouchDown(button: UIButton) {
         titleLabel?.alpha = 0.7
         let animation = SFScaleAnimation(with: button, type: .outside)
         animation.finalScaleX = 0.95
@@ -123,12 +121,20 @@ open class SFButton: UIButton, SFViewColorStyle {
         }
     }
     
-    public final func addTouchAction(action: @escaping () -> Void) {
-        actions.append(action)
+    public final func addTouchAction(for event: UIControlEvents = .touchUpInside, _ action: @escaping () -> Void) {
+        switch event {
+        case .touchUpInside: touchUpInsideActions.append(action)
+        case .touchDown: touchDownActions.append(action)
+        default: return
+        }
     }
     
-    @objc public final func didTouch() {
-        actions.forEach { $0() }
+    @objc public final func touchUpInside() {
+        touchUpInsideActions.forEach { $0() }
+    }
+    
+    @objc public final func touchDown() {
+        touchDownActions.forEach { $0() }
     }
 }
 

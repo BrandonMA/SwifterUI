@@ -14,7 +14,7 @@ open class SFPopViewController: SFViewController {
     
     private var initialPoint: CGFloat = 0
     
-    open lazy var sfview: SFPopView = {
+    open lazy var popView: SFPopView = {
         let popView = SFPopView(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         popView.translatesAutoresizingMaskIntoConstraints = false
         return popView
@@ -24,16 +24,16 @@ open class SFPopViewController: SFViewController {
     
     override open func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(sfview)
+        view.addSubview(popView)
         view.clipsToBounds = true
-        sfview.bar.dismissButton.addTarget(self, action: #selector(dismissPop), for: .touchUpInside)
+        popView.bar.dismissButton.addTarget(self, action: #selector(dismissPop), for: .touchUpInside)
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(dismiss(withPanGesture:)))
         self.sfview.addGestureRecognizer(panGesture)
     }
     
     open override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        sfview.clipEdges(useSafeArea: false)
+        popView.clipEdges(useSafeArea: false)
     }
     
     @objc public final func dismissPop() {

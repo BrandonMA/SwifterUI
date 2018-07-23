@@ -60,8 +60,10 @@ open class SFPageBar: SFScrollView {
         self.titles = titles
         self.buttons = titles.enumerated().map({ (index, title) -> SFButton in
             let button = SFButton(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
-            button.addTarget(self, action: #selector(didTouch(sfbutton:)), for: .touchUpInside)
-            button.setTitle(title, for: .normal)
+            button.addTouchAction { [unowned self] in
+                self.didTouch(sfbutton: button)
+            }
+            button.title = title
             button.translatesAutoresizingMaskIntoConstraints = false
             button.useAlternativeTextColor = selectedIndex == index ? false : true
             button.titleLabel?.alpha = selectedIndex == index ? 1 : 0.5

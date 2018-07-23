@@ -8,11 +8,13 @@
 
 import UIKit
 
-open class SFScrollView: UIScrollView, SFViewColorStyle {
+open class SFScrollView: UIScrollView, SFViewColorStyle, SFMainContainer {
     
     // MARK: - Instance Properties
     
     open var needsLayoutUpdate: Bool = true
+    
+    open var mainContraints: Constraints = []
     
     private var oldSize: CGSize = .zero
     

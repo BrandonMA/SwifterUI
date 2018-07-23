@@ -119,8 +119,10 @@ open class SFTableViewConversationCell: SFTableViewCell {
     
     open override func layoutSubviews() {
         super.layoutSubviews()
-        stackView.clipEdges(margin: UIEdgeInsets(top: 12, left: 12, bottom: 12, right: 12))
-        profileImageView.width(SFDimension(value: 48))
-        notificationIndicator.width(SFDimension(value: 24.5))
+        if mainContraints.isEmpty {
+            mainContraints.append(contentsOf: stackView.clipEdges(margin: UIEdgeInsets(top: 12, left: 12, bottom: 12, right: 12)))
+            mainContraints.append(profileImageView.width(SFDimension(value: 48)))
+            mainContraints.append(notificationIndicator.width(SFDimension(value: 24.5)))
+        }
     }
 }

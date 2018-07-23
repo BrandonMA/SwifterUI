@@ -90,7 +90,7 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
     
     // MARK: - Initializers
     
-    public init(messages: [MessageType], automaticallyAdjustsColorStyle: Bool) {
+    public init(messages: [MessageType] = [], automaticallyAdjustsColorStyle: Bool = true) {
         chatManager = SFTableManager<MessageType, SFTableViewChatCell, SFTableViewHeaderView, SFTableViewFooterView>(dataSections: SFChatViewController.orderMessages(messages))
         super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle)
         chatManager.delegate = self
@@ -224,7 +224,7 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
     @objc private final func mediaButtonDidTouch() {
         
         let photosButton = SFButton()
-        photosButton.setTitle("Fotos y Videos", for: .normal)
+        photosButton.title = "Fotos y Videos"
         photosButton.addTouchAction {
             self.showMediaPicker(sourceType: .photoLibrary)
         }
@@ -378,6 +378,8 @@ extension SFChatViewController: SFTableManagerDelegate {
         return height
     }
 }
+
+
 
 
 

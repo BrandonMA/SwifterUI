@@ -34,7 +34,7 @@ open class SFCollectionView: UICollectionView, SFViewColorStyle {
     // MARK: - Instance Methods
     
     open func updateColors() {
-        backgroundColor = useAlternativeColors ? colorStyle.getMainColor() : colorStyle.getAlternativeColor()
+        backgroundColor = useAlternativeColors ? colorStyle.getAlternativeColor() : colorStyle.getMainColor()
         updateSubviewsColors()
         
         if self.numberOfSections >= 0 {

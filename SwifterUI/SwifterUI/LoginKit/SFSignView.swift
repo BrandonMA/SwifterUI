@@ -39,7 +39,7 @@ open class SFSignView: SFScrollView {
     public lazy var signUpButton: SFButton = {
         let button = SFButton(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Crear Cuenta", for: .normal)
+        button.title = "Crear Cuenta"
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 17)
         button.addTouchAnimations = true
         button.useAlternativeColors = true
@@ -49,7 +49,7 @@ open class SFSignView: SFScrollView {
     public lazy var signInButton: SFButton = {
         let button = SFButton(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Iniciar Sesión", for: .normal)
+        button.title = "Iniciar Sesión"
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 17)
         button.addTouchAnimations = true
         button.useAlternativeColors = true
@@ -71,7 +71,7 @@ open class SFSignView: SFScrollView {
     
     open lazy var facebookButton: SFButton = {
         let button = SFButton(automaticallyAdjustsColorStyle: false)
-        button.setTitle("Facebook", for: .normal)
+        button.title = "Facebook"
         button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = UIColor(hex: "3B5998")
         button.layer.cornerRadius = 10
@@ -95,10 +95,12 @@ open class SFSignView: SFScrollView {
     
     open override func layoutIfBoundsChanged() {
         super.layoutIfBoundsChanged()
-        contentStack.clipEdges(exclude: [.bottom], margin: UIEdgeInsets(top: 16, left: 16, bottom: 0, right: 16))
-        imageView.height(SFDimension(value: 160))
-        labelsStack.height(SFDimension(value: 32))
-        facebookButton.height(SFDimension(value: 52))
-        contentView.clipBottom(to: .bottom, of: contentStack, margin: -16)
+        if mainContraints.isEmpty {
+            mainContraints.append(contentsOf: contentStack.clipEdges(exclude: [.bottom], margin: UIEdgeInsets(top: 16, left: 16, bottom: 0, right: 16)))
+            mainContraints.append(imageView.height(SFDimension(value: 160)))
+            mainContraints.append(labelsStack.height(SFDimension(value: 32)))
+            mainContraints.append(facebookButton.height(SFDimension(value: 52)))
+            mainContraints.append(contentView.clipBottom(to: .bottom, of: contentStack, margin: -16))
+        }
     }
 }

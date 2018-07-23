@@ -8,7 +8,7 @@
 
 import UIKit
 
-open class SFCollectionViewHeaderFooterView: UICollectionReusableView, SFViewColorStyle {
+open class SFCollectionViewHeaderFooterView: UICollectionReusableView, SFViewColorStyle, SFMainContainer {
     
     // MARK: - Class Properties
     
@@ -21,6 +21,8 @@ open class SFCollectionViewHeaderFooterView: UICollectionReusableView, SFViewCol
     }
     
     // MARK: - Instance Properties
+    
+    open var mainContraints: Constraints = []
     
     open var automaticallyAdjustsColorStyle: Bool = true
     

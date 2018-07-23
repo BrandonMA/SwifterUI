@@ -34,7 +34,7 @@ open class SFSignInView: SFView {
     
     open lazy var signInButton: SFButton = {
         let button = SFButton(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
-        button.setTitle("Iniciar Sesión", for: .normal)
+        button.title = "Iniciar Sesión"
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 10
         button.addTouchAnimations = true
@@ -43,7 +43,7 @@ open class SFSignInView: SFView {
     
     open lazy var passwordResetButton: SFButton = {
         let button = SFButton(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
-        button.setTitle("Cambiar contraseña", for: .normal)
+        button.title = "Cambiar contraseña"
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 10
         button.addTouchAnimations = true
@@ -72,11 +72,13 @@ open class SFSignInView: SFView {
     // MARK: - Instance Methods
     
     open override func updateConstraints() {
-        contentStack.clipEdges()
-        mailSection.height(SFDimension(value: 64))
-        passwordSection.height(SFDimension(value: 64))
-        passwordResetButton.height(SFDimension(value: 52))
-        signInButton.height(SFDimension(value: 52))
+        if mainContraints.isEmpty {
+            mainContraints.append(contentsOf: contentStack.clipEdges())
+            mainContraints.append(mailSection.height(SFDimension(value: 64)))
+            mainContraints.append(passwordSection.height(SFDimension(value: 64)))
+            mainContraints.append(passwordResetButton.height(SFDimension(value: 52)))
+            mainContraints.append(signInButton.height(SFDimension(value: 52)))
+        }
         super.updateConstraints()
     }
 }

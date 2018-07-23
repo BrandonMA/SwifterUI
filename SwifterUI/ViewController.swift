@@ -10,6 +10,52 @@ import UIKit
 import DeepDiff
 import PromiseKit
 
+struct FirebaseMessage: SFMessage {
+    
+    // MARK: - Static Methods
+    
+    public static func == (lhs: FirebaseMessage, rhs: FirebaseMessage) -> Bool {
+        return lhs.identifier == rhs.identifier
+    }
+    
+    // MARK: - Instance Properties
+    
+    var identifier: String = ""
+    var senderIdentifier: String = ""
+    var text: String?
+    var imageURL: URL?
+    var image: UIImage?
+    var videoURL: URL?
+    var fileURL: URL?
+    var timestamp: Date = Date()
+    var isMine: Bool = true
+    
+    // MARK: - Initializers
+    
+    public init(senderIdentifier: String, text: String? = nil, image: UIImage? = nil, videoURL: URL? = nil, fileURL: URL? = nil, timestamp: Date, isMine: Bool) {
+        self.identifier = UUID().uuidString
+        self.senderIdentifier = senderIdentifier
+        self.text = text
+        self.image = image
+        self.imageURL = nil
+        self.videoURL = videoURL
+        self.fileURL = fileURL
+        self.timestamp = timestamp
+        self.isMine = isMine
+    }
+    
+}
+
+
+
+
+
+
+
+
+
+
+
 class View: SFView {
     
     lazy var button: SFButton = {

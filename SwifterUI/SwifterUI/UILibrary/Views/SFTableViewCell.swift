@@ -8,7 +8,7 @@
 
 import UIKit
 
-open class SFTableViewCell: UITableViewCell, SFViewColorStyle {
+open class SFTableViewCell: UITableViewCell, SFViewColorStyle, SFMainContainer {
     
     // MARK: - Class Properties
     
@@ -21,6 +21,8 @@ open class SFTableViewCell: UITableViewCell, SFViewColorStyle {
     }
     
     // MARK: - Instance Properties
+    
+    open var mainContraints: Constraints = []
     
     open var automaticallyAdjustsColorStyle: Bool = true
     

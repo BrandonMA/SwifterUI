@@ -8,13 +8,22 @@
 
 import UIKit
 
-open class SFView: UIView, SFViewColorStyle {
+public protocol SFMainContainer {
+    /**
+     Used to save static constraints and not setting them every time update constraints is called
+     */
+    var mainContraints: Constraints { get set }
+}
+
+open class SFView: UIView, SFViewColorStyle, SFMainContainer {
     
     // MARK: - Instance Properties
     
     open var automaticallyAdjustsColorStyle: Bool = false
     
     open var useAlternativeColors: Bool = false
+    
+    open var mainContraints: Constraints = []
     
     // MARK: - Initializers
     

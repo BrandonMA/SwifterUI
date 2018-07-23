@@ -144,11 +144,11 @@ public extension UIView {
     public final func height(_ height: SFDimension? = nil,
                              comparedTo view: UIView? = nil,
                              relation: ConstraintRelation = .equal,
-                             margin: CGFloat = 0.0) -> Constraint? {
+                             margin: CGFloat = 0.0) -> Constraint {
         
         guard let anchorView = getAnchorView(view) else {
             print("\(self) You didn't set a relative view or superview isn't available")
-            return nil
+            fatalError()
         }
         
         let heightConstraint: Constraint
@@ -171,11 +171,11 @@ public extension UIView {
     public final func width(_ width: SFDimension? = nil,
                             comparedTo view: UIView? = nil,
                             relation: ConstraintRelation = .equal,
-                            margin: CGFloat = 0.0) -> Constraint? {
+                            margin: CGFloat = 0.0) -> Constraint {
         
         guard let anchorView = getAnchorView(view) else {
             print("\(self) You didn't set a relative view or superview isn't available")
-            return nil
+            fatalError()
         }
         
         let widthConstraint: Constraint
@@ -217,11 +217,11 @@ public extension UIView {
                                  of view: UIView? = nil,
                                  margin: CGFloat = 0,
                                  relation: ConstraintRelation = .equal,
-                                 useSafeArea: Bool) -> Constraint? {
+                                 useSafeArea: Bool) -> Constraint {
         
         guard let anchorView = getAnchorView(view) else {
             print("\(self) You didn't set a relative view or superview isn't available")
-            return nil
+            fatalError()
         }
         
         switch edge {
@@ -242,7 +242,7 @@ public extension UIView {
                             relation: relation)
         default:
             print("You can't constraint a bottom anchor to a right/left/leading/trailing anchor")
-            return nil
+            fatalError()
         }
     }
     
@@ -252,11 +252,11 @@ public extension UIView {
                                  of view: UIView? = nil,
                                  margin: CGFloat = 0,
                                  relation: ConstraintRelation = .equal,
-                                 useSafeArea: Bool) -> Constraint? {
+                                 useSafeArea: Bool) -> Constraint {
         
         guard let anchorView = getAnchorView(view) else {
             print("\(self) You didn't set a relative view or superview isn't available")
-            return nil
+            fatalError()
         }
         switch edge {
         case .right:
@@ -276,7 +276,7 @@ public extension UIView {
                             relation: relation)
         default:
             print("You can't constraint a right anchor to a top/bottom anchor")
-            return nil
+            fatalError()
         }
     }
     
@@ -285,13 +285,13 @@ public extension UIView {
                                   of view: UIView? = nil,
                                   margin: CGFloat = 0,
                                   relation: ConstraintRelation = .equal,
-                                  useSafeArea: Bool = true) -> Constraint? {
+                                  useSafeArea: Bool = true) -> Constraint {
         
         return clipXAxisAnchor(childAnchor: centerXAnchor,
                                to: edge, of: view,
                                margin: margin,
                                relation: relation,
-                               useSafeArea: useSafeArea)?.set(identifier: ConstraintType.centerX.rawValue)
+                               useSafeArea: useSafeArea).set(identifier: ConstraintType.centerX.rawValue)
         
     }
     
@@ -300,13 +300,13 @@ public extension UIView {
                                   of view: UIView? = nil,
                                   margin: CGFloat = 0,
                                   relation: ConstraintRelation = .equal,
-                                  useSafeArea: Bool = true) -> Constraint? {
+                                  useSafeArea: Bool = true) -> Constraint {
         
         return clipYAxisAnchor(childAnchor: centerYAnchor,
                                to: edge, of: view,
                                margin: margin,
                                relation: relation,
-                               useSafeArea: useSafeArea)?.set(identifier: ConstraintType.centerY.rawValue)
+                               useSafeArea: useSafeArea).set(identifier: ConstraintType.centerY.rawValue)
         
     }
     
@@ -315,13 +315,13 @@ public extension UIView {
                               of view: UIView? = nil,
                               margin: CGFloat = 0,
                               relation: ConstraintRelation = .equal,
-                              useSafeArea: Bool = true) -> Constraint? {
+                              useSafeArea: Bool = true) -> Constraint {
         
         return clipYAxisAnchor(childAnchor: topAnchor,
                                to: edge, of: view,
                                margin: margin,
                                relation: relation,
-                               useSafeArea: useSafeArea)?.set(identifier: ConstraintType.top.rawValue)
+                               useSafeArea: useSafeArea).set(identifier: ConstraintType.top.rawValue)
         
     }
     
@@ -330,14 +330,14 @@ public extension UIView {
                                 of view: UIView? = nil,
                                 margin: CGFloat = 0,
                                 relation: ConstraintRelation = .equal,
-                                useSafeArea: Bool = true) -> Constraint? {
+                                useSafeArea: Bool = true) -> Constraint {
         
         let margin = margin * -1
         return clipXAxisAnchor(childAnchor: rightAnchor,
                                to: edge, of: view,
                                margin: margin,
                                relation: relation,
-                               useSafeArea: useSafeArea)?.set(identifier: ConstraintType.right.rawValue)
+                               useSafeArea: useSafeArea).set(identifier: ConstraintType.right.rawValue)
         
     }
     
@@ -346,14 +346,14 @@ public extension UIView {
                                  of view: UIView? = nil,
                                  margin: CGFloat = 0,
                                  relation: ConstraintRelation = .equal,
-                                 useSafeArea: Bool = true) -> Constraint? {
+                                 useSafeArea: Bool = true) -> Constraint {
         
         let margin = margin * -1
         return clipYAxisAnchor(childAnchor: bottomAnchor,
                                to: edge, of: view,
                                margin: margin,
                                relation: relation,
-                               useSafeArea: useSafeArea)?.set(identifier: ConstraintType.bottom.rawValue)
+                               useSafeArea: useSafeArea).set(identifier: ConstraintType.bottom.rawValue)
         
     }
     
@@ -362,13 +362,13 @@ public extension UIView {
                                of view: UIView? = nil,
                                margin: CGFloat = 0,
                                relation: ConstraintRelation = .equal,
-                               useSafeArea: Bool = true) -> Constraint? {
+                               useSafeArea: Bool = true) -> Constraint {
         
         return clipXAxisAnchor(childAnchor: leftAnchor,
                                to: edge, of: view,
                                margin: margin,
                                relation: relation,
-                               useSafeArea: useSafeArea)?.set(identifier: ConstraintType.left.rawValue)
+                               useSafeArea: useSafeArea).set(identifier: ConstraintType.left.rawValue)
         
     }
     
@@ -377,12 +377,12 @@ public extension UIView {
     @discardableResult
     public final func center(axis: [ConstraintAxis] = [.horizontal, .vertical],
                              in view: UIView? = nil,
-                             margin: CGPoint = .zero) -> [Constraint?] {
+                             margin: CGPoint = .zero) -> [Constraint] {
         
         guard let anchorView = getAnchorView(view) else {
             fatalError("You didn't set a relative view or superview isn't available")
         }
-        var constraints: [Constraint?] = []
+        var constraints: [Constraint] = []
         
         if axis.contains(.horizontal) {
             constraints.append(clipCenterX(to: .centerX,
@@ -409,9 +409,9 @@ public extension UIView {
                                 exclude: [ConstraintEdge] = [],
                                 margin: UIEdgeInsets = .zero,
                                 relation: ConstraintRelation = .equal,
-                                useSafeArea: Bool = true) -> [Constraint?] {
+                                useSafeArea: Bool = true) -> [Constraint] {
         
-        var constraints: [Constraint?] = []
+        var constraints: [Constraint] = []
         
         if exclude.contains(.top) == false {
             constraints.append(clipTop(to: .top,

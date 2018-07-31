@@ -235,8 +235,7 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
             self.showMediaPicker(sourceType: .camera)
         }
         
-        let viewController = SFBulletinController(buttons: [photosButton, cameraButton])
-        viewController.bulletinTitle = "Multimedia"
+        let viewController = SFBulletinViewController(title: "Multimedia", buttons: [photosButton, cameraButton])
         present(viewController, animated: true, completion: nil)
     }
     

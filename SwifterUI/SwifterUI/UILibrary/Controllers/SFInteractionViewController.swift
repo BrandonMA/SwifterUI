@@ -18,7 +18,6 @@ public protocol SFInteractionViewController {
     
     // MARK: - Instance Methods
     
-    func handleTouch(button: SFButton)
     func returnToMainViewController(completion: (() -> Void)?)
     func moveView(recognizer: UIPanGestureRecognizer)
 }
@@ -26,12 +25,6 @@ public protocol SFInteractionViewController {
 extension SFInteractionViewController where Self: UIViewController {
     
     // MARK: - Instance Methods
-    
-    public func handleTouch(button: SFButton) {
-        returnToMainViewController {
-            button.touchUpInsideActions.forEach({ $0() })
-        }
-    }
     
     public func returnToMainViewController(completion: (() -> Void)? = nil) {
         let animation = SFScaleAnimation(with: mainView, type: .outside)

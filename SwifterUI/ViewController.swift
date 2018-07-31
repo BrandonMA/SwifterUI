@@ -46,16 +46,6 @@ struct FirebaseMessage: SFMessage {
     
 }
 
-
-
-
-
-
-
-
-
-
-
 class View: SFView {
     
     lazy var button: SFButton = {
@@ -170,6 +160,20 @@ class ViewController: SFViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        let button = SFButton()
+        button.title = "Entendido"
+        button.addTouchAction {
+            print("Hola")
+        }
+        
+        let buttonDps = SFButton()
+        buttonDps.title = "Okc"
+        buttonDps.addTouchAction {
+            print("Hola")
+        }
+        
+        let bulletinController = SFBulletinViewController(title: "Prueba", message: "Este es mi mensaje de prueba", buttons: [button, buttonDps])
+        present(bulletinController, animated: true)
     }
 }
 

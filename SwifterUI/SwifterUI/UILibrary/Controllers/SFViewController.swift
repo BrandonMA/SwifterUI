@@ -113,7 +113,7 @@ open class SFViewController: UIViewController, SFControllerColorStyle {
     
     open override func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil) {
         
-        if viewControllerToPresent.isKind(of: SFBulletinController.self) || viewControllerToPresent.isKind(of: SFAlertViewController.self) {
+        if viewControllerToPresent.isKind(of: SFBulletinViewController.self) {
             viewControllerToPresent.modalPresentationStyle = .overFullScreen
             viewControllerToPresent.modalTransitionStyle = .crossDissolve
             super.present(viewControllerToPresent, animated: flag, completion: completion)

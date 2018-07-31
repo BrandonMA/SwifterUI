@@ -114,8 +114,6 @@
 		42DBF1A62037556F00F4BB6F /* SFBulletinController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42DBF1A52037556F00F4BB6F /* SFBulletinController.swift */; };
 		42E7C53820E59540001E56AA /* SFTabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E7C53720E59540001E56AA /* SFTabBarItem.swift */; };
 		42E83BBD202B98F800A341C5 /* SFTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E83BBC202B98F800A341C5 /* SFTableViewCell.swift */; };
-		42F38780207B16AC00DAD4BC /* SFAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F3877F207B16AC00DAD4BC /* SFAlertView.swift */; };
-		42F38782207B16D200DAD4BC /* SFAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F38781207B16D200DAD4BC /* SFAlertViewController.swift */; };
 		42F38784207B2CA700DAD4BC /* SFInteractionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F38783207B2CA700DAD4BC /* SFInteractionViewController.swift */; };
 		42FAD75920B7376C00E5AE19 /* SFDataSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FAD75820B7376C00E5AE19 /* SFDataSection.swift */; };
 		42FB9F9C202FC8AB006895F4 /* SFTableViewProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FB9F9B202FC8AB006895F4 /* SFTableViewProfileCell.swift */; };
@@ -255,8 +253,6 @@
 		42DBF1A52037556F00F4BB6F /* SFBulletinController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFBulletinController.swift; sourceTree = "<group>"; };
 		42E7C53720E59540001E56AA /* SFTabBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFTabBarItem.swift; sourceTree = "<group>"; };
 		42E83BBC202B98F800A341C5 /* SFTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFTableViewCell.swift; sourceTree = "<group>"; };
-		42F3877F207B16AC00DAD4BC /* SFAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFAlertView.swift; sourceTree = "<group>"; };
-		42F38781207B16D200DAD4BC /* SFAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFAlertViewController.swift; sourceTree = "<group>"; };
 		42F38783207B2CA700DAD4BC /* SFInteractionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFInteractionViewController.swift; sourceTree = "<group>"; };
 		42FAD75820B7376C00E5AE19 /* SFDataSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFDataSection.swift; sourceTree = "<group>"; };
 		42FB9F9B202FC8AB006895F4 /* SFTableViewProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFTableViewProfileCell.swift; sourceTree = "<group>"; };
@@ -447,7 +443,6 @@
 				42C701B02016834E00EBFBE2 /* SFPopViewController.swift */,
 				42F38783207B2CA700DAD4BC /* SFInteractionViewController.swift */,
 				42DBF1A52037556F00F4BB6F /* SFBulletinController.swift */,
-				42F38781207B16D200DAD4BC /* SFAlertViewController.swift */,
 				42838205206DA49000039F66 /* SFImageZoomViewController.swift */,
 				42D71B0820D0FF380079EFCE /* SFPageViewController.swift */,
 				4211D872209C9D9F00C89FAC /* SFPageSectionsViewController.swift */,
@@ -480,7 +475,6 @@
 				420AFCE42080189400D9D778 /* SFTextScrollSection.swift */,
 				42834C0B20465964009CFE22 /* SFButtonSection.swift */,
 				42DBF1A3203754E900F4BB6F /* SFBulletinView.swift */,
-				42F3877F207B16AC00DAD4BC /* SFAlertView.swift */,
 				424D5A682045ECF000C029E1 /* SFProfileImageView.swift */,
 				42C6724F205CD7C400DA4BCB /* SFPickerView.swift */,
 				42C67251205CD7DE00DA4BCB /* SFDatePicker.swift */,
@@ -847,7 +841,6 @@
 				42B253E51FEA0E700002C297 /* ConstraintType.swift in Sources */,
 				4230E8E8204CBF79003E5BCC /* SFTableViewHeaderFooterView.swift in Sources */,
 				42A42EBF1FF1BC81002FE4A7 /* SFGradientReady.swift in Sources */,
-				42F38782207B16D200DAD4BC /* SFAlertViewController.swift in Sources */,
 				424E2C75202378EA00F9A4E2 /* UITextView.swift in Sources */,
 				429FD4911FED7EDC00FD7F10 /* UIImageView.swift in Sources */,
 				42838206206DA49000039F66 /* SFImageZoomViewController.swift in Sources */,
@@ -894,7 +887,6 @@
 				423F0B691FE9BD8300BF746C /* SFAnimation.swift in Sources */,
 				42C701B42016839500EBFBE2 /* SFPresentationManager.swift in Sources */,
 				429FD49D1FED8F0D00FD7F10 /* SFSqueezeAnimation.swift in Sources */,
-				42F38780207B16AC00DAD4BC /* SFAlertView.swift in Sources */,
 				42B253E31FEA04E90002C297 /* DispatchQueue.swift in Sources */,
 				424BE0C31FF45B42005DE2AD /* CGFloat.swift in Sources */,
 				429FD4A51FED938400FD7F10 /* SFZoomAnimation.swift in Sources */,

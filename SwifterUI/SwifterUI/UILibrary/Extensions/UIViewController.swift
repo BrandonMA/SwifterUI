@@ -17,7 +17,7 @@ public extension UIViewController {
         let errorMessage = message ?? "Ocurrio un problema, intente de nuevo por favor"
         let button = SFButton()
         button.setTitle("Entendido", for: .normal)
-        let alert = SFAlertViewController(title: errorTitle, message: errorMessage, buttons: [button])
+        let alert = SFBulletinViewController(title: errorTitle, message: errorMessage, buttons: [button])
         self.present(alert, animated: true)
     }
 }

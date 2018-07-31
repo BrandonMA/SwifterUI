@@ -12,7 +12,7 @@ open class SFBulletinView: SFView {
     
     // MARK: - Instance Properties
     
-    private final lazy var shadowView: UIView = {
+    public final lazy var shadowView: UIView = {
         let view = UIView()
         view.isUserInteractionEnabled = true
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -52,8 +52,20 @@ open class SFBulletinView: SFView {
     public final lazy var titleLabel: SFLabel = {
         let label = SFLabel(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         label.font = .boldSystemFont(ofSize: 23)
-        label.text = "Titulo"
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
+        label.numberOfLines = 1
+        return label
+    }()
+    
+    public final lazy var messageLabel: SFLabel = {
+        let label = SFLabel(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
+        label.font = .systemFont(ofSize: 17)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
+        label.useAlternativeColors = true
+        label.numberOfLines = 0
+        label.textAlignment = .center
         return label
     }()
     
@@ -75,6 +87,7 @@ open class SFBulletinView: SFView {
         
         backgroundView.addSubview(closeButton)
         backgroundView.addSubview(titleLabel)
+        backgroundView.addSubview(messageLabel)
         backgroundView.addSubview(self.middleView)
         
         if buttons.count > 0 {
@@ -127,11 +140,16 @@ open class SFBulletinView: SFView {
         
         closeButton.width(SFDimension(value: 32))
         closeButton.height(SFDimension(value: 32))
-        closeButton.clipBottom(to: .top, of: middleView, margin: 12)
+        closeButton.clipBottom(to: .top, of: messageLabel, margin: 12)
         closeButton.clipRight(to: .right, margin: 12)
         
-        titleLabel.center(axis: [.horizontal])
+        titleLabel.clipRight(to: .right, margin: 24)
+        titleLabel.clipLeft(to: .left, margin: 24)
         titleLabel.center(axis: [.vertical], in: closeButton)
+        
+        messageLabel.clipRight(to: .right, margin: 12)
+        messageLabel.clipLeft(to: .left, margin: 12)
+        messageLabel.clipBottom(to: .top, of: middleView, margin: 12)
         
         if useCompactInterface {
             backgroundView.width(SFDimension(type: .fraction, value: 11/12))

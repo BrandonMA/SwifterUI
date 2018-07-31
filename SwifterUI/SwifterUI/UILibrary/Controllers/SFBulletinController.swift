@@ -8,23 +8,23 @@
 
 import UIKit
 
-public protocol SFBulletinControllerDelegate: class {
+public protocol SFBulletinViewControllerDelegate: class {
     
     // MARK: - Instance Methods
     
-    func bulletinController(_ bulletinController: SFBulletinController, retreivedValue: String?, index: Int?)
+    func bulletinController(_ bulletinController: SFBulletinViewController, retreivedValue: String?, index: Int?)
 }
 
-extension SFBulletinControllerDelegate {
+extension SFBulletinViewControllerDelegate {
     
     // MARK: - Instance Methods
     
-    public func bulletinController(_ bulletinController: SFBulletinController, retreivedValue: String?, index: Int?) {
+    public func bulletinController(_ bulletinController: SFBulletinViewController, retreivedValue: String?, index: Int?) {
         
     }
 }
 
-open class SFBulletinController: SFViewController, SFInteractionViewController {
+open class SFBulletinViewController: SFViewController, SFInteractionViewController {
     
     // MARK: - Instance Properties
     
@@ -32,7 +32,7 @@ open class SFBulletinController: SFViewController, SFInteractionViewController {
     public final lazy var animator: UIDynamicAnimator = UIDynamicAnimator(referenceView: view)
     public final var snapping: UISnapBehavior?
     
-    public final weak var delegate: SFBulletinControllerDelegate? = nil
+    public final weak var delegate: SFBulletinViewControllerDelegate?
     
     public final var pickerValues: [String] = []
     public final var buttons: [SFButton] = []
@@ -56,9 +56,23 @@ open class SFBulletinController: SFViewController, SFInteractionViewController {
         return datePicker
     }()
     
-    public final var bulletinTitle: String = "Titulo" {
-        didSet {
-            bulletinView.titleLabel.text = bulletinTitle
+    public final var bulletinTitle: String {
+        get {
+            return bulletinView.titleLabel.text ?? ""
+        } set {
+            DispatchQueue.addAsyncTask(to: .main) {
+                self.bulletinView.titleLabel.text = newValue
+            }
+        }
+    }
+    
+    public final var bulletinMessage: String {
+        get {
+            return bulletinView.messageLabel.text ?? ""
+        } set {
+            DispatchQueue.addAsyncTask(to: .main) {
+                self.bulletinView.messageLabel.text = newValue
+            }
         }
     }
     
@@ -74,29 +88,35 @@ open class SFBulletinController: SFViewController, SFInteractionViewController {
         super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle)
     }
     
-    public convenience init(with values: [String], automaticallyAdjustsColorStyle: Bool = true) {
+    public convenience init(title: String = "", with values: [String], automaticallyAdjustsColorStyle: Bool = true) {
         self.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle)
         pickerValues = values
+        bulletinTitle = title
         useDatePicker = false
         useButtons = false
     }
     
-    public convenience init(date: Date = Date(), minDate: Date? = nil, maxDate: Date? = nil, automaticallyAdjustsColorStyle: Bool = true) {
+    public convenience init(title: String = "", date: Date = Date(), minDate: Date? = nil, maxDate: Date? = nil, automaticallyAdjustsColorStyle: Bool = true) {
         self.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle)
         useDatePicker = true
         useButtons = false
+        bulletinTitle = title
         datePicker.date = date
         datePicker.minimumDate = minDate
         datePicker.maximumDate = maxDate
     }
     
-    public convenience init(buttons: [SFButton], automaticallyAdjustsColorStyle: Bool = true) {
+    public convenience init(title: String = "", message: String = "", buttons: [SFButton], automaticallyAdjustsColorStyle: Bool = true) {
         self.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle)
         self.buttons = buttons
+        bulletinTitle = title
+        bulletinMessage = message
         useDatePicker = false
         useButtons = true
         buttons.forEach { (button) in
-            button.addTarget(self, action: #selector(didTouch(button:)), for: .touchUpInside)
+            button.addTouchAction { [unowned self] in
+                self.returnToMainViewController()
+            }
         }
     }
     
@@ -109,10 +129,17 @@ open class SFBulletinController: SFViewController, SFInteractionViewController {
     open override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(bulletinView)
-        bulletinView.closeButton.addTarget(self, action: #selector(closeButtonDidTouch), for: .touchUpInside)
-        bulletinView.doneButton.addTarget(self, action: #selector(doneButtonDidTouch), for: .touchUpInside)
-        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(dragView))
-        bulletinView.backgroundView.addGestureRecognizer(panGesture)
+        
+        bulletinView.closeButton.addTouchAction { [unowned self] in
+            self.closeButtonDidTouch()
+        }
+        
+        bulletinView.doneButton.addTouchAction { [unowned self] in
+            self.doneButtonDidTouch()
+        }
+        
+        bulletinView.backgroundView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(dragView)))
+        bulletinView.shadowView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(closeButtonDidTouch)))
     }
     
     open override func viewWillLayoutSubviews() {
@@ -136,7 +163,7 @@ open class SFBulletinController: SFViewController, SFInteractionViewController {
         delegate?.bulletinController(self, retreivedValue: nil, index: nil)
     }
     
-    @objc private func doneButtonDidTouch() {
+    private func doneButtonDidTouch() {
         returnToMainViewController()
         if buttons.count == 0 {
             if useDatePicker {
@@ -148,10 +175,6 @@ open class SFBulletinController: SFViewController, SFInteractionViewController {
                 delegate?.bulletinController(self, retreivedValue: pickerValues[pickerView.selectedRow(inComponent: 0)], index: pickerView.selectedRow(inComponent: 0))
             }
         }
-    }
-    
-    @objc private func didTouch(button: SFButton) {
-        handleTouch(button: button)
     }
     
     open override func updateColors() {
@@ -175,7 +198,7 @@ open class SFBulletinController: SFViewController, SFInteractionViewController {
     
 }
 
-extension SFBulletinController: UIPickerViewDataSource, UIPickerViewDelegate {
+extension SFBulletinViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     
     public func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1

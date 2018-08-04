@@ -16,7 +16,7 @@ open class SFPageSectionsViewController: SFPageViewController {
     private var isSelecting: Bool = false
     
     open lazy var pageBar: SFPageBar = {
-        let view = SFPageBar(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
+        let view = SFPageBar(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle, items: titles.count)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.scrollVertically = false
         view.barDelegate = self
@@ -29,7 +29,10 @@ open class SFPageSectionsViewController: SFPageViewController {
         super.viewDidLoad()
         pageView.delegate = self
         view.addSubview(pageBar)
-        pageBar.configure(with: titles)
+        
+        pageBar.buttons.enumerated().forEach { (index, button) in
+            button.title = titles[index]
+        }
     }
     
     open override func viewWillLayoutSubviews() {
@@ -39,12 +42,14 @@ open class SFPageSectionsViewController: SFPageViewController {
         pageView.clipEdges(exclude: [.top])
     }
     
-    open override func prepare(viewController: SFViewController) {
-        super.prepare(viewController: viewController)
+    override func add(viewController: SFViewController) {
         guard let title = viewController.title else { return }
         titles.append(title)
+        super.add(viewController: viewController)
     }
     
+    var viewAnimator = UIViewPropertyAnimator()
+    var x: CGFloat = 0.0
 }
 
 extension SFPageSectionsViewController: UIScrollViewDelegate {
@@ -53,9 +58,20 @@ extension SFPageSectionsViewController: UIScrollViewDelegate {
         isSelecting = false
     }
     
+    public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        viewAnimator = UIViewPropertyAnimator(duration: 0.3, curve: .easeInOut, animations: {
+        })
+        viewAnimator.startAnimation()
+        viewAnimator.pauseAnimation()
+    }
+    
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
         if scrollView.contentOffset.x > 0 && isSelecting == false {
-            var newIndex = Int(round(scrollView.contentOffset.x / scrollView.bounds.width))
+            
+            let scrollValue = scrollView.contentOffset.x / scrollView.bounds.width
+            var newIndex = Int(round(scrollValue))
+            
             if newIndex != pageBar.selectedIndex {
                 newIndex = newIndex < 0 ? 0 : newIndex
                 pageBar.select(index: Int(newIndex))

@@ -41,13 +41,15 @@ open class SFPageView: SFScrollView {
     
     // MARK: - Instance Methods
     
-    open func configure(with views: [UIView]) {
-        self.views = views
-        views.enumerated().forEach { (index, view) in
-            view.translatesAutoresizingMaskIntoConstraints = false
-            viewsStackView.addArrangedSubview(view)
-            view.width(SFDimension(type: .fraction, value: 1), comparedTo: self)
-        }
+    public final func add(view: UIView) {
+        views.append(view)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        viewsStackView.addArrangedSubview(view)
+        view.width(SFDimension(type: .fraction, value: 1), comparedTo: self)
+    }
+    
+    public final func add(views: [UIView]) {
+        views.forEach({ add(view: $0) })
     }
     
     open override func layoutIfBoundsChanged() {

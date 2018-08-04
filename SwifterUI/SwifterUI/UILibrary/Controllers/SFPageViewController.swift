@@ -12,8 +12,6 @@ open class SFPageViewController: SFViewController {
     
     // MARK: - Instance Properties
     
-    open var views: [UIView] = []
-    
     open lazy var pageView: SFPageView = {
         let view = SFPageView(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -25,9 +23,7 @@ open class SFPageViewController: SFViewController {
     
     public init(automaticallyAdjustsColorStyle: Bool = true, viewControllers: [SFViewController]) {
         super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle)
-        viewControllers.forEach { (controller) in
-            prepare(viewController: controller)
-        }
+        add(viewControllers: viewControllers)
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -39,7 +35,6 @@ open class SFPageViewController: SFViewController {
     open override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(pageView)
-        pageView.configure(with: views)
     }
     
     open override func viewWillLayoutSubviews() {
@@ -47,15 +42,13 @@ open class SFPageViewController: SFViewController {
         pageView.clipEdges()
     }
     
-    /**
-     Called on viewDidLoad() for every viewController that has been added
-     - Parameters:
-     - viewController: Current SFViewController to work with.
-     */
-    open func prepare(viewController: SFViewController) {
+    func add(viewController: SFViewController) {
         guard let view = viewController.view else { return }
         addChildViewController(viewController)
-        views.append(view)
+        pageView.add(view: view)
     }
     
+    func add(viewControllers: [SFViewController]) {
+        viewControllers.forEach({ add(viewController: $0) })
+    }
 }

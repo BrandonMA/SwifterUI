@@ -61,7 +61,7 @@ open class SFScrollView: UIScrollView, SFViewColorStyle, SFMainContainer {
         addSubview(contentView)
         
         contentView.useAlternativeColors = useAlternativeColors
-        contentView.clipEdges(useSafeArea: false) // Don't move this line to layoutSubviews because automatic scrolling is not going to work, not sure why.
+        contentView.clipEdges(useSafeArea: false)
         
         if automaticallyAdjustsColorStyle {
             updateColors()

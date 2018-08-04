@@ -26,8 +26,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         let pageController = SFPageSectionsViewController(viewControllers: controllers)
-//        pageController.pageBar.buttonsTintColor = .red
+        pageController.pageBar.font = UIFont.boldSystemFont(ofSize: 19)
         pageController.pageBar.useAdaptingWidth = false
+        pageController.pageBar.showIndicator = false
         window?.rootViewController = pageController
         window?.makeKeyAndVisible()
 

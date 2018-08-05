@@ -55,7 +55,9 @@ open class SFCollectionViewHeaderFooterView: UICollectionReusableView, SFViewCol
     
     open override func layoutSubviews() {
         super.layoutSubviews()
-        titleLabel.clipEdges(margin: UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16))
+        if mainContraints.isEmpty {
+            mainContraints.append(contentsOf: titleLabel.clipEdges(margin: UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)))
+        }
     }
 
     open func updateColors() {

@@ -11,37 +11,11 @@ import MobileCoreServices
 
 open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, SFVideoPlayerDelegate, SFTableViewChatCellDelegate {
     
-    // MARK: - Static Methods
-    
-    static open func orderMessages(_ messages: [MessageType]) -> [SFDataSection<MessageType>] {
-        var sections: [SFDataSection<MessageType>] = []
-        
-        for message in messages {
-            
-            if let index = sections.index(where: { $0.identifier == message.timestamp.string(with: "EEEE dd MMM yyyy") }) {
-                sections[index].content.append(message)
-            } else {
-                let section = SFDataSection<MessageType>(content: [message], identifier: message.timestamp.string(with: "EEEE dd MMM yyyy"))
-                sections.append(section)
-            }
-        }
-        
-        sections = sections.sorted(by: { (current, next) -> Bool in
-            guard let currentDate = Date.date(from: current.identifier, with: "EEEE dd MMM yyyy") else { return false }
-            guard let nextDate = Date.date(from: next.identifier, with: "EEEE dd MMM yyyy") else { return false }
-            return currentDate < nextDate
-        })
-        
-        return sections
-    }
-    
     // MARK: - Instance Properties
     
     private var activeCell: SFTableViewChatCell?
     
     public var chatManager: SFTableManager<MessageType, SFTableViewChatCell, SFTableViewHeaderView, SFTableViewFooterView>
-    
-    public var messages: [MessageType] = []
     
     public final lazy var chatView: SFTableView = {
         let tableView = SFTableView(automaticallyAdjustsColorStyle: true, useAlternativeColors: true, style: .grouped)
@@ -91,10 +65,9 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
     // MARK: - Initializers
     
     public init(messages: [MessageType] = [], automaticallyAdjustsColorStyle: Bool = true) {
-        chatManager = SFTableManager<MessageType, SFTableViewChatCell, SFTableViewHeaderView, SFTableViewFooterView>(dataSections: SFChatViewController.orderMessages(messages))
+        chatManager = SFTableManager<MessageType, SFTableViewChatCell, SFTableViewHeaderView, SFTableViewFooterView>(data: [messages])
         super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle)
         chatManager.delegate = self
-        self.messages = messages
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -113,8 +86,10 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
         
         view.addSubview(chatView)
         
-        chatBar.sendButton.addTarget(self, action: #selector(sendButtonDidTouch), for: .touchUpInside)
-        chatBar.fileButton.addTarget(self, action: #selector(mediaButtonDidTouch), for: .touchUpInside)
+        chatBar.sendButton.addTouchAction { [unowned self] in self.sendButtonDidTouch() }
+        
+        chatBar.fileButton.addTouchAction { [unowned self] in self.mediaButtonDidTouch() }
+        
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(keyboardWillShow(notification:)),
                                                name: .UIKeyboardWillShow, object: nil)
@@ -221,8 +196,8 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
     
     // MARK: - Media Methods
     
-    @objc private final func mediaButtonDidTouch() {
-        
+    private final func mediaButtonDidTouch() {
+        print("Showing media picker")
         let photosButton = SFButton()
         photosButton.title = "Fotos y Videos"
         photosButton.addTouchAction {
@@ -245,7 +220,7 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
         return true
     }
     
-    @objc private final func sendButtonDidTouch() {
+    private final func sendButtonDidTouch() {
         if chatBar.textView.text != "" {
             let message = MessageType(senderIdentifier: "",
                                       text: chatBar.textView.text,
@@ -261,27 +236,29 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
         }
     }
     
-    public func addNewMessages(_ newMessages: [MessageType]) {
-        for message in newMessages {
-            if let lastMessage = messages.last {
-                if lastMessage.timestamp.string(with: "EEEE dd MMM yyyy") != message.timestamp.string(with: "EEEE dd MMM yyyy") {
-                    messages.append(message)
-                    chatManager.update(dataSections: SFChatViewController.orderMessages(messages), animation: .fade).done {
-                        self.chatView.scrollToBottom()
-                    }
-                } else {
-                    messages.append(message)
-                    chatManager.insert(item: message, animation: message.isMine ? .right : .left).done {
-                        self.chatView.scrollToBottom()
-                    }
+    public func addNewMessage(_ message: MessageType) {
+        let messageDate = message.timestamp.string(with: "EEEE dd MMM yyyy")
+        if let lastSection = chatManager.data.last {
+            if lastSection.identifier != messageDate {
+                let section = SFDataSection<MessageType>(content: [message], identifier: messageDate)
+                chatManager.insert(section: section, index: chatManager.lastIndex.section + 1, animation: message.isMine ? .right : .left).done {
+                    self.chatView.scrollToBottom()
                 }
             } else {
-                messages.append(message)
-                chatManager.update(dataSections: SFChatViewController.orderMessages(messages), animation: .fade).done {
+                chatManager.insert(item: message, animation: message.isMine ? .right : .left).done {
                     self.chatView.scrollToBottom()
                 }
             }
+        } else {
+            let section = SFDataSection<MessageType>(content: [message], identifier: messageDate)
+            chatManager.update(dataSections: [section], animation: message.isMine ? .right : .left).done {
+                self.chatView.scrollToBottom()
+            }
         }
+    }
+    
+    public func addNewMessages(_ newMessages: [MessageType]) {
+        newMessages.forEach({ addNewMessage($0) })
     }
     
     // MARK: - UIImagePickerControllerDelegate

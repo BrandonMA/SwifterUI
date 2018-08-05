@@ -28,7 +28,7 @@ open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell, Header
     
     public weak var delegate: SFTableManagerDelegate?
     
-    public var data: [SFDataSection<DataModel>] = [SFDataSection<DataModel>()]
+    public var data: [SFDataSection<DataModel>] = []
     public weak var tableView: SFTableView?
     
     public var lastSectionIndex: Int {
@@ -54,12 +54,12 @@ open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell, Header
     
     public init(dataSections: [SFDataSection<DataModel>] = []) {
         super.init()
-        update(dataSections: dataSections, animation: .automatic)
+        update(dataSections: dataSections, animation: .fade)
     }
     
     public init(data: [[DataModel]] = []) {
         super.init()
-        update(data: data, animation: .automatic)
+        update(data: data, animation: .fade)
     }
     
     // MARK: - Instace Methods
@@ -95,28 +95,27 @@ open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell, Header
     // MARK: - Update Methods
     
     @discardableResult
-    open func update(dataSections: [SFDataSection<DataModel>], animation: UITableViewRowAnimation = .automatic) -> Guarantee<Void> {
+    open func update(dataSections: [SFDataSection<DataModel>], animation: UITableViewRowAnimation = .fade) -> Guarantee<Void> {
         return Guarantee { seal in
             
-            if dataSections.count == 0 {
-                update(dataSection: SFDataSection<DataModel>(), index: 0, animation: .automatic).done {
-                    self.reloadSection(index: 0)
-                    seal(())
-                }
-            }
-            
-            for (index, dataSection) in dataSections.enumerated() {
-                
-                let numberOfRowsBeforeUpdate = self.tableView?.numberOfRows(inSection: index)
-                
-                update(dataSection: dataSection, index: index, animation: animation).done {
+            if dataSections.isEmpty {
+                seal(())
+            } else if let item = dataSections.first, item.content.isEmpty {
+                seal(())
+            } else {
+                for (index, dataSection) in dataSections.enumerated() {
                     
-                    if numberOfRowsBeforeUpdate == 0 {
-                        self.reloadSection(index: index)
-                    }
+                    let numberOfRowsBeforeUpdate = self.tableView?.numberOfRows(inSection: index)
                     
-                    if index == dataSections.count - 1 {
-                        seal(())
+                    update(dataSection: dataSection, index: index, animation: animation).done {
+                        
+                        if numberOfRowsBeforeUpdate == 0 {
+                            self.reloadSection(index: index)
+                        }
+                        
+                        if index == dataSections.count - 1 {
+                            seal(())
+                        }
                     }
                 }
             }
@@ -124,35 +123,35 @@ open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell, Header
     }
     
     @discardableResult
-    open func update(data: [[DataModel]], animation: UITableViewRowAnimation = .automatic) -> Guarantee<Void> {
+    open func update(data: [[DataModel]], animation: UITableViewRowAnimation = .fade) -> Guarantee<Void> {
         return Guarantee { seal in
             
-            if data.count == 0 {
-                update(dataSection: SFDataSection<DataModel>(), index: 0, animation: .automatic).done {
-                    self.reloadSection(index: 0)
-                    seal(())
+            if data.isEmpty {
+                seal(())
+            } else if let item = data.first, item.isEmpty {
+                seal(())
+            } else {
+                for (index, section) in data.enumerated() {
+                    let numberOfRowsBeforeUpdate = self.tableView?.numberOfRows(inSection: index)
+                    let dataSection = SFDataSection<DataModel>(content: section, identifier: "")
+                    update(dataSection: dataSection, index: index, animation: animation).done {
+                        
+                        if numberOfRowsBeforeUpdate == 0 {
+                            self.reloadSection(index: index)
+                        }
+                        
+                        if index == data.count - 1 {
+                            seal(())
+                        }
+                    }
                 }
             }
             
-            for (index, section) in data.enumerated() {
-                let numberOfRowsBeforeUpdate = self.tableView?.numberOfRows(inSection: index)
-                let dataSection = SFDataSection<DataModel>(content: section, identifier: "")
-                update(dataSection: dataSection, index: index, animation: animation).done {
-                    
-                    if numberOfRowsBeforeUpdate == 0 {
-                        self.reloadSection(index: index)
-                    }
-                    
-                    if index == data.count - 1 {
-                        seal(())
-                    }
-                }
-            }
         }
     }
     
     @discardableResult
-    open func update(dataSection: SFDataSection<DataModel>, index: Int, animation: UITableViewRowAnimation = .automatic) -> Guarantee<Void> {
+    open func update(dataSection: SFDataSection<DataModel>, index: Int, animation: UITableViewRowAnimation = .fade) -> Guarantee<Void> {
         if self.data.count > index {
             return Guarantee { seal in
                 let olddataSection = self.data[index]
@@ -170,7 +169,7 @@ open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell, Header
     // MARK: - Sections
     
     @discardableResult
-    open func insert(section: SFDataSection<DataModel>, index: Int, animation: UITableViewRowAnimation = .automatic) -> Guarantee<Void> {
+    open func insert(section: SFDataSection<DataModel>, index: Int, animation: UITableViewRowAnimation = .fade) -> Guarantee<Void> {
         return Guarantee { seal in
             self.data.append(section)
             self.tableView?.beginUpdates()
@@ -190,7 +189,7 @@ open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell, Header
     }
     
     @discardableResult
-    open func deleteSection(index: Int, animation: UITableViewRowAnimation = .automatic) -> Guarantee<Void> {
+    open func deleteSection(index: Int, animation: UITableViewRowAnimation = .fade) -> Guarantee<Void> {
         return Guarantee { seal in
             self.data.remove(at: index)
             self.tableView?.beginUpdates()
@@ -201,7 +200,7 @@ open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell, Header
     }
     
     @discardableResult
-    open func reloadSection(index: Int, animation: UITableViewRowAnimation = .automatic) -> Guarantee<Void> {
+    open func reloadSection(index: Int, animation: UITableViewRowAnimation = .fade) -> Guarantee<Void> {
         return Guarantee { seal in
             self.tableView?.beginUpdates()
             self.tableView?.reloadSections(IndexSet(integer: index), with: animation)
@@ -217,7 +216,7 @@ open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell, Header
     }
     
     @discardableResult
-    open func insert(item: DataModel, indexPath: IndexPath? = nil, animation: UITableViewRowAnimation = .automatic) -> Guarantee<Void> {
+    open func insert(item: DataModel, indexPath: IndexPath? = nil, animation: UITableViewRowAnimation = .fade) -> Guarantee<Void> {
         return Guarantee { seal in
             let indexPath = indexPath ?? self.lastIndex
             if indexPath.section > self.lastSectionIndex {
@@ -248,7 +247,7 @@ open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell, Header
     }
     
     @discardableResult
-    open func removeItem(from indexPath: IndexPath, animation: UITableViewRowAnimation = .automatic) -> Guarantee<Void> {
+    open func removeItem(from indexPath: IndexPath, animation: UITableViewRowAnimation = .fade) -> Guarantee<Void> {
         return Guarantee { seal in
             self.data[indexPath.section].content.remove(at: indexPath.item)
             self.tableView?.beginUpdates()
@@ -259,7 +258,7 @@ open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell, Header
     }
     
     @discardableResult
-    open func reloadItem(from indexPath: IndexPath, animation: UITableViewRowAnimation = .automatic) -> Guarantee<Void> {
+    open func reloadItem(from indexPath: IndexPath, animation: UITableViewRowAnimation = .fade) -> Guarantee<Void> {
         return Guarantee { seal in
             self.tableView?.beginUpdates()
             self.tableView?.reloadRows(at: [indexPath], with: animation)

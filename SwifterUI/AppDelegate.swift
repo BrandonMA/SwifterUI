@@ -17,19 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                      didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
         window = UIWindow(frame: UIScreen.main.bounds)
-        
-        var controllers: [SFViewController] = []
-        for i in 0...2 {
-            let controller = i % 2 == 0 ? SFSignViewController() : ViewController()
-            controller.title = "\(i) controller"
-            controllers.append(controller)
-        }
-        
-        let pageController = SFPageSectionsViewController(viewControllers: controllers)
-        pageController.pageBar.font = UIFont.boldSystemFont(ofSize: 19)
-        pageController.pageBar.useAdaptingWidth = false
-        pageController.pageBar.showIndicator = false
-        window?.rootViewController = pageController
+        window?.rootViewController = SFChatViewController<FirebaseMessage>()
         window?.makeKeyAndVisible()
 
         return true

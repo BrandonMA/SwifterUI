@@ -32,3 +32,26 @@ public extension SFMessage {
         return identifier.hashValue
     }
 }
+
+public extension Array where Element: SFMessage {
+    public func orderMessages(_ messages: [Element]) -> [SFDataSection<Element>] {
+        var sections: [SFDataSection<Element>] = []
+        
+        for message in messages {
+            if let index = sections.index(where: { $0.identifier == message.timestamp.string(with: "EEEE dd MMM yyyy") }) {
+                sections[index].content.append(message)
+            } else {
+                let section = SFDataSection<Element>(content: [message], identifier: message.timestamp.string(with: "EEEE dd MMM yyyy"))
+                sections.append(section)
+            }
+        }
+        
+        sections = sections.sorted(by: { (current, next) -> Bool in
+            guard let currentDate = Date.date(from: current.identifier, with: "EEEE dd MMM yyyy") else { return false }
+            guard let nextDate = Date.date(from: next.identifier, with: "EEEE dd MMM yyyy") else { return false }
+            return currentDate < nextDate
+        })
+        
+        return sections
+    }
+}

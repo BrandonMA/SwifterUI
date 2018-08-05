@@ -22,7 +22,7 @@ open class SFCollectionManager<DataModel: Hashable, CellType: SFCollectionViewCe
     
     public weak var delegate: SFCollectionManagerDelegate?
     
-    public var data: [SFDataSection<DataModel>] = [SFDataSection<DataModel>()]
+    public var data: [SFDataSection<DataModel>] = []
     public weak var collectionView: SFCollectionView?
     
     public var lastSectionIndex: Int {
@@ -73,23 +73,23 @@ open class SFCollectionManager<DataModel: Hashable, CellType: SFCollectionViewCe
     open func update(dataSections: [SFDataSection<DataModel>]) -> Guarantee<Void> {
         
         return Guarantee { seal in
-            if dataSections.count == 0 {
-                update(dataSection: SFDataSection<DataModel>(), index: 0).done {
-                    self.reloadSection(index: 0)
-                    seal(())
-                }
-            }
             
-            for (index, section) in dataSections.enumerated() {
-                let numberOfRowsBeforeUpdate = self.collectionView?.numberOfItems(inSection: index)
-                self.update(dataSection: section, index: index).done {
-                    
-                    if numberOfRowsBeforeUpdate == 0 {
-                        self.reloadSection(index: index)
-                    }
-                    
-                    if index == dataSections.count - 1 {
-                        seal(())
+            if dataSections.isEmpty {
+                seal(())
+            } else if let item = dataSections.first, item.content.isEmpty {
+                seal(())
+            } else {
+                for (index, section) in dataSections.enumerated() {
+                    let numberOfRowsBeforeUpdate = self.collectionView?.numberOfItems(inSection: index)
+                    self.update(dataSection: section, index: index).done {
+                        
+                        if numberOfRowsBeforeUpdate == 0 {
+                            self.reloadSection(index: index)
+                        }
+                        
+                        if index == dataSections.count - 1 {
+                            seal(())
+                        }
                     }
                 }
             }
@@ -100,24 +100,23 @@ open class SFCollectionManager<DataModel: Hashable, CellType: SFCollectionViewCe
     open func update(data: [[DataModel]]) -> Guarantee<Void> {
         return Guarantee { seal in
             
-            if data.count == 0 {
-                update(dataSection: SFDataSection<DataModel>(), index: 0).done {
-                    self.reloadSection(index: 0)
-                    seal(())
-                }
-            }
-            
-            for (index, section) in data.enumerated() {
-                let numberOfRowsBeforeUpdate = self.collectionView?.numberOfItems(inSection: index)
-                let dataSection = SFDataSection<DataModel>(content: section, identifier: "")
-                self.update(dataSection: dataSection, index: index).done {
-                    
-                    if numberOfRowsBeforeUpdate == 0 {
-                        self.reloadSection(index: index)
-                    }
-                    
-                    if index == data.count - 1 {
-                        seal(())
+            if data.isEmpty {
+                seal(())
+            } else if let item = data.first, item.isEmpty {
+                seal(())
+            } else {
+                for (index, section) in data.enumerated() {
+                    let numberOfRowsBeforeUpdate = self.collectionView?.numberOfItems(inSection: index)
+                    let dataSection = SFDataSection<DataModel>(content: section, identifier: "")
+                    self.update(dataSection: dataSection, index: index).done {
+                        
+                        if numberOfRowsBeforeUpdate == 0 {
+                            self.reloadSection(index: index)
+                        }
+                        
+                        if index == data.count - 1 {
+                            seal(())
+                        }
                     }
                 }
             }

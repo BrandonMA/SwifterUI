@@ -34,10 +34,10 @@ public extension SFMessage {
 }
 
 public extension Array where Element: SFMessage {
-    public func orderMessages(_ messages: [Element]) -> [SFDataSection<Element>] {
+    public func orderMessages() -> [SFDataSection<Element>] {
         var sections: [SFDataSection<Element>] = []
-        
-        for message in messages {
+         
+        for message in self {
             if let index = sections.index(where: { $0.identifier == message.timestamp.string(with: "EEEE dd MMM yyyy") }) {
                 sections[index].content.append(message)
             } else {

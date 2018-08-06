@@ -75,8 +75,12 @@ open class SFCollectionManager<DataModel: Hashable, CellType: SFCollectionViewCe
         return Guarantee { seal in
             
             if dataSections.isEmpty {
+                self.data.removeAll()
+                self.collectionView?.reloadData()
                 seal(())
             } else if let item = dataSections.first, item.content.isEmpty {
+                self.data.removeAll()
+                self.collectionView?.reloadData()
                 seal(())
             } else {
                 for (index, section) in dataSections.enumerated() {
@@ -101,8 +105,12 @@ open class SFCollectionManager<DataModel: Hashable, CellType: SFCollectionViewCe
         return Guarantee { seal in
             
             if data.isEmpty {
+                self.data.removeAll()
+                self.collectionView?.reloadData()
                 seal(())
             } else if let item = data.first, item.isEmpty {
+                self.data.removeAll()
+                self.collectionView?.reloadData()
                 seal(())
             } else {
                 for (index, section) in data.enumerated() {

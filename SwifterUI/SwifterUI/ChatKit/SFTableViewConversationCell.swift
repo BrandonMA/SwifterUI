@@ -76,7 +76,7 @@ open class SFTableViewConversationCell: SFTableViewCell {
     private lazy var bottomStackView: SFStackView = {
         let bottomStackView = SFStackView(arrangedSubviews: [messageLabel, notificationIndicator])
         bottomStackView.axis = .horizontal
-        bottomStackView.alignment = .fill
+        bottomStackView.alignment = .center
         bottomStackView.distribution = .fill
         bottomStackView.spacing = 8
         bottomStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -122,7 +122,8 @@ open class SFTableViewConversationCell: SFTableViewCell {
         if mainContraints.isEmpty {
             mainContraints.append(contentsOf: stackView.clipEdges(margin: UIEdgeInsets(top: 12, left: 12, bottom: 12, right: 12)))
             mainContraints.append(profileImageView.width(SFDimension(value: 48)))
-            mainContraints.append(notificationIndicator.width(SFDimension(value: 24.5)))
+            mainContraints.append(notificationIndicator.width(SFDimension(value: 20)))
+            mainContraints.append(notificationIndicator.height(SFDimension(value: 20)))
         }
     }
 }

@@ -99,8 +99,12 @@ open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell, Header
         return Guarantee { seal in
             
             if dataSections.isEmpty {
+                self.data.removeAll()
+                self.tableView?.reloadData()
                 seal(())
             } else if let item = dataSections.first, item.content.isEmpty {
+                self.data.removeAll()
+                self.tableView?.reloadData()
                 seal(())
             } else {
                 for (index, dataSection) in dataSections.enumerated() {
@@ -127,8 +131,12 @@ open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell, Header
         return Guarantee { seal in
             
             if data.isEmpty {
+                self.data.removeAll()
+                self.tableView?.reloadData()
                 seal(())
             } else if let item = data.first, item.isEmpty {
+                self.data.removeAll()
+                self.tableView?.reloadData()
                 seal(())
             } else {
                 for (index, section) in data.enumerated() {

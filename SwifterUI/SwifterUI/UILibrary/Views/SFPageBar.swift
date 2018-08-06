@@ -105,7 +105,7 @@ open class SFPageBar: SFScrollView {
             
             mainContraints.append(scrollIndicator.height(SFDimension(value: 2)))
             mainContraints.append(scrollIndicator.clipBottom(to: .bottom, of: contentView))
-
+            
             mainContraints.append(contentView.clipBottom(to: .bottom, of: buttonStackView))
         }
         
@@ -118,33 +118,29 @@ open class SFPageBar: SFScrollView {
     }
     
     open func select(index: Int) {
+        
         selectedIndex = index
         
-        scrollIndicator.remove(constraintType: .width)
-        scrollIndicator.remove(constraintType: .left)
-        scrollIndicator.width(SFDimension(type: .fraction, value: 1), comparedTo: buttons[selectedIndex])
-        scrollIndicator.clipLeft(to: .left, of: buttons[selectedIndex])
-        
-        DispatchQueue.addAsyncTask(to: .main) {
-            UIView.animate(withDuration: 0.3, animations: {
-                self.contentView.layoutIfNeeded()
-            })
-        }
-        
         buttons.enumerated().forEach { (index, button) in
-            
-            if self.selectedIndex == index && useAdaptingWidth {
-                setContentOffset(CGPoint(x: button.frame.origin.x, y: 0), animated: true)
-            }
-            
             button.titleLabel?.alpha = self.selectedIndex == index ? 1 : 0.5
+            if self.selectedIndex == index && useAdaptingWidth {
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.scrollIndicator.frame.size.width = self.buttons[self.selectedIndex].frame.size.width
+                    self.scrollIndicator.frame.origin.x = self.buttons[self.selectedIndex].frame.origin.x + 16
+                })
+                
+                scrollRectToVisible(CGRect(origin: button.frame.origin, size: CGSize(width: button.frame.size.width + 32, height: button.frame.size.height)), animated: true)
+            }
             
             UIView.animate(withDuration: 0.3, animations: {
                 button.useAlternativeTextColor = self.selectedIndex == index ? false : true
                 self.updateColors()
             })
-            
         }
+        self.scrollIndicator.remove(constraintType: .width)
+        self.scrollIndicator.remove(constraintType: .left)
+        self.scrollIndicator.width(SFDimension(type: .fraction, value: 1), comparedTo: self.buttons[self.selectedIndex])
+        self.scrollIndicator.clipLeft(to: .left, of: self.buttons[self.selectedIndex])
     }
     
     open override func updateColors() {

@@ -115,7 +115,9 @@ open class SFBulletinViewController: SFViewController, SFInteractionViewControll
         useButtons = true
         buttons.forEach { (button) in
             button.addTouchAction { [unowned self] in
-                self.returnToMainViewController()
+                self.returnToMainViewController(completion: {
+                    button.touchUpInsideActions.forEach({ $0() })
+                })
             }
         }
     }

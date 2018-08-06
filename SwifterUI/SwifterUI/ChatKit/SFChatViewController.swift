@@ -62,10 +62,16 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
     private weak var currentZoomCell: SFTableViewChatCell?
     private lazy var initialFrameForZooming: CGRect = .zero
     
+    public var numberOfMessages: Int {
+        var numberOfMessages = 0
+        chatManager.data.forEach({ numberOfMessages += $0.content.count })
+        return numberOfMessages
+    }
+    
     // MARK: - Initializers
     
-    public init(messages: [MessageType] = [], automaticallyAdjustsColorStyle: Bool = true) {
-        chatManager = SFTableManager<MessageType, SFTableViewChatCell, SFTableViewHeaderView, SFTableViewFooterView>(data: [messages])
+    public init(messages: [SFDataSection<MessageType>] = [], automaticallyAdjustsColorStyle: Bool = true) {
+        chatManager = SFTableManager<MessageType, SFTableViewChatCell, SFTableViewHeaderView, SFTableViewFooterView>(dataSections: messages)
         super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle)
         chatManager.delegate = self
     }

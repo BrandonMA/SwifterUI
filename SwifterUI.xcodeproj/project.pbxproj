@@ -110,6 +110,7 @@
 		42D34C73202FABB3002B6FA6 /* SFNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D34C72202FABB3002B6FA6 /* SFNavigationController.swift */; };
 		42D34C75202FAF10002B6FA6 /* SFPopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D34C74202FAF10002B6FA6 /* SFPopView.swift */; };
 		42D71B0920D0FF380079EFCE /* SFPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D71B0820D0FF380079EFCE /* SFPageViewController.swift */; };
+		42DA32C4211A492000F32A43 /* SFAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42DA32C3211A492000F32A43 /* SFAlertViewController.swift */; };
 		42DBF1A4203754E900F4BB6F /* SFBulletinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42DBF1A3203754E900F4BB6F /* SFBulletinView.swift */; };
 		42DBF1A62037556F00F4BB6F /* SFBulletinController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42DBF1A52037556F00F4BB6F /* SFBulletinController.swift */; };
 		42E7C53820E59540001E56AA /* SFTabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E7C53720E59540001E56AA /* SFTabBarItem.swift */; };
@@ -249,6 +250,7 @@
 		42D34C72202FABB3002B6FA6 /* SFNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFNavigationController.swift; sourceTree = "<group>"; };
 		42D34C74202FAF10002B6FA6 /* SFPopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFPopView.swift; sourceTree = "<group>"; };
 		42D71B0820D0FF380079EFCE /* SFPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFPageViewController.swift; sourceTree = "<group>"; };
+		42DA32C3211A492000F32A43 /* SFAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFAlertViewController.swift; sourceTree = "<group>"; };
 		42DBF1A3203754E900F4BB6F /* SFBulletinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFBulletinView.swift; sourceTree = "<group>"; };
 		42DBF1A52037556F00F4BB6F /* SFBulletinController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFBulletinController.swift; sourceTree = "<group>"; };
 		42E7C53720E59540001E56AA /* SFTabBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFTabBarItem.swift; sourceTree = "<group>"; };
@@ -443,6 +445,7 @@
 				42C701B02016834E00EBFBE2 /* SFPopViewController.swift */,
 				42F38783207B2CA700DAD4BC /* SFInteractionViewController.swift */,
 				42DBF1A52037556F00F4BB6F /* SFBulletinController.swift */,
+				42DA32C3211A492000F32A43 /* SFAlertViewController.swift */,
 				42838205206DA49000039F66 /* SFImageZoomViewController.swift */,
 				42D71B0820D0FF380079EFCE /* SFPageViewController.swift */,
 				4211D872209C9D9F00C89FAC /* SFPageSectionsViewController.swift */,
@@ -825,6 +828,7 @@
 				42C2E17D20422DCA00087B3C /* UIViewController.swift in Sources */,
 				424BE0BF1FF45B18005DE2AD /* UIColor.swift in Sources */,
 				42BFCFC420537CA700111E17 /* Array.swift in Sources */,
+				42DA32C4211A492000F32A43 /* SFAlertViewController.swift in Sources */,
 				42CB6AFE203603060080EFB8 /* SFTableViewChatCell.swift in Sources */,
 				42446779202AC83000F59892 /* SFButton.swift in Sources */,
 				42A42EBA1FF1BA36002FE4A7 /* SFGradient.swift in Sources */,

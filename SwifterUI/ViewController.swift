@@ -122,7 +122,7 @@ class ViewController: SFViewController {
         super.viewDidLoad()
         view.addSubview(tableView)
         view.addSubview(collectionView)
-        
+
         collectionManager.configure(collectionView: collectionView) { (cell, model, indexPath) in
             cell.isUserInteractionEnabled = true
             cell.addShadow(color: .black, offSet: CGSize(width: 0, height: 5), radius: 10, opacity: 0.05)
@@ -158,6 +158,13 @@ class ViewController: SFViewController {
         collectionView.clipEdges(exclude: [.top])
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        let button = SFButton()
+        button.title = "Hola"
+        let alert = SFAlertViewController(title: "Prueba", message: "Este es un mensaje de prueba", buttons: [button], automaticallyAdjustsColorStyle: true)
+        present(alert, animated: true)
+    }
 }
 
 

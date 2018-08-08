@@ -62,7 +62,7 @@ open class SFSection: SFView {
     
     open override func updateConstraints() {
         if mainContraints.isEmpty {
-            mainContraints.append(contentsOf: stackView.clipEdges(exclude: [.bottom]))
+            mainContraints.append(contentsOf: stackView.clipEdges())
         }
         super.updateConstraints()
     }

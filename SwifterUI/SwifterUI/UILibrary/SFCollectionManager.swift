@@ -56,6 +56,19 @@ open class SFCollectionManager<DataModel: Hashable, CellType: SFCollectionViewCe
     
     // MARK: - Instace Methods
     
+    open func forceUpdate(dataSections: [SFDataSection<DataModel>]) {
+        data = dataSections
+        collectionView?.reloadData()
+    }
+    
+    open func forceUpdate(data: [[DataModel]]) {
+        for (index, section) in data.enumerated() {
+            let dataSection = SFDataSection<DataModel>(content: section, identifier: "")
+            self.data[index] = dataSection
+        }
+        collectionView?.reloadData()
+    }
+    
     open func configure(collectionView: SFCollectionView, itemStyler: SFCollectionManagerItemStyler?) {
         self.itemStyler = itemStyler
         self.collectionView = collectionView

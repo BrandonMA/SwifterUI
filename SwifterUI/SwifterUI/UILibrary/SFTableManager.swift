@@ -98,6 +98,19 @@ open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell, Header
     
     // MARK: - Update Methods
     
+    open func forceUpdate(dataSections: [SFDataSection<DataModel>]) {
+        data = dataSections
+        tableView?.reloadData()
+    }
+    
+    open func forceUpdate(data: [[DataModel]]) {
+        for (index, section) in data.enumerated() {
+            let dataSection = SFDataSection<DataModel>(content: section, identifier: "")
+            self.data[index] = dataSection
+        }
+        tableView?.reloadData()
+    }
+    
     @discardableResult
     open func update(dataSections: [SFDataSection<DataModel>], animation: UITableViewRowAnimation = .fade) -> Guarantee<Void> {
         return Guarantee { seal in

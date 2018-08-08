@@ -88,7 +88,8 @@ open class SFCollectionManager<DataModel: Hashable, CellType: SFCollectionViewCe
                 seal(())
             } else {
                 for (index, section) in dataSections.enumerated() {
-                    let numberOfRowsBeforeUpdate = collectionView!.numberOfSections > 0 ? collectionView!.numberOfItems(inSection: index) : 0
+                    guard let collectionView = collectionView else { return }
+                    let numberOfRowsBeforeUpdate = collectionView.numberOfSections > 0 ? collectionView.numberOfItems(inSection: index) : 0
                     self.update(dataSection: section, index: index).done {
                         
                         if numberOfRowsBeforeUpdate == 0 {
@@ -118,7 +119,8 @@ open class SFCollectionManager<DataModel: Hashable, CellType: SFCollectionViewCe
                 seal(())
             } else {
                 for (index, section) in data.enumerated() {
-                    let numberOfRowsBeforeUpdate = collectionView!.numberOfSections > 0 ? collectionView!.numberOfItems(inSection: index) : 0
+                    guard let collectionView = collectionView else { return }
+                    let numberOfRowsBeforeUpdate = collectionView.numberOfSections > 0 ? collectionView.numberOfItems(inSection: index) : 0
                     let dataSection = SFDataSection<DataModel>(content: section, identifier: "")
                     self.update(dataSection: dataSection, index: index).done {
                         

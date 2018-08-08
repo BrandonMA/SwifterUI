@@ -112,9 +112,8 @@ open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell, Header
                 seal(())
             } else {
                 for (index, dataSection) in dataSections.enumerated() {
-                    
-                    let numberOfRowsBeforeUpdate = tableView!.numberOfSections > 0 ? tableView!.numberOfRows(inSection: index) : 0
-                    
+                    guard let tableView = tableView else { return }
+                    let numberOfRowsBeforeUpdate = tableView.numberOfSections > 0 ? tableView.numberOfRows(inSection: index) : 0
                     update(dataSection: dataSection, index: index, animation: animation).done {
                         
                         if numberOfRowsBeforeUpdate == 0 {
@@ -144,7 +143,8 @@ open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell, Header
                 seal(())
             } else {
                 for (index, section) in data.enumerated() {
-                    let numberOfRowsBeforeUpdate = tableView!.numberOfSections > 0 ? tableView!.numberOfRows(inSection: index) : 0
+                    guard let tableView = tableView else { return }
+                    let numberOfRowsBeforeUpdate = tableView.numberOfSections > 0 ? tableView.numberOfRows(inSection: index) : 0
                     let dataSection = SFDataSection<DataModel>(content: section, identifier: "")
                     update(dataSection: dataSection, index: index, animation: animation).done {
                         

@@ -46,6 +46,7 @@ open class SFSection: SFView {
         super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, useAlternativeColors: useAlternativeColors, frame: frame)
         addSubview(stackView)
         titleLabel.setContentHuggingPriority(.init(251), for: .vertical)
+        bottomView.translatesAutoresizingMaskIntoConstraints = false
         bottomView.setContentHuggingPriority(.init(250), for: .vertical)
         
         if automaticallyAdjustsColorStyle {
@@ -61,7 +62,7 @@ open class SFSection: SFView {
     
     open override func updateConstraints() {
         if mainContraints.isEmpty {
-            mainContraints.append(contentsOf: stackView.clipEdges())
+            mainContraints.append(contentsOf: stackView.clipEdges(exclude: [.bottom]))
         }
         super.updateConstraints()
     }

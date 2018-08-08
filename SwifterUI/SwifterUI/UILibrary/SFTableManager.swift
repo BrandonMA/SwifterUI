@@ -54,12 +54,16 @@ open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell, Header
     
     public init(dataSections: [SFDataSection<DataModel>] = []) {
         super.init()
-        update(dataSections: dataSections, animation: .fade)
+        DispatchQueue.addAsyncTask(to: .main) {
+            self.update(dataSections: dataSections)
+        }
     }
     
     public init(data: [[DataModel]] = []) {
         super.init()
-        update(data: data, animation: .fade)
+        DispatchQueue.addAsyncTask(to: .main) {
+            self.update(data: data)
+        }
     }
     
     // MARK: - Instace Methods
@@ -109,7 +113,7 @@ open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell, Header
             } else {
                 for (index, dataSection) in dataSections.enumerated() {
                     
-                    let numberOfRowsBeforeUpdate = self.tableView?.numberOfRows(inSection: index)
+                    let numberOfRowsBeforeUpdate = tableView!.numberOfSections > 0 ? tableView!.numberOfRows(inSection: index) : 0
                     
                     update(dataSection: dataSection, index: index, animation: animation).done {
                         
@@ -140,7 +144,7 @@ open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell, Header
                 seal(())
             } else {
                 for (index, section) in data.enumerated() {
-                    let numberOfRowsBeforeUpdate = self.tableView?.numberOfRows(inSection: index)
+                    let numberOfRowsBeforeUpdate = tableView!.numberOfSections > 0 ? tableView!.numberOfRows(inSection: index) : 0
                     let dataSection = SFDataSection<DataModel>(content: section, identifier: "")
                     update(dataSection: dataSection, index: index, animation: animation).done {
                         

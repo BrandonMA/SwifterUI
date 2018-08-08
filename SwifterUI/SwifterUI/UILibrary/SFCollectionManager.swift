@@ -37,17 +37,21 @@ open class SFCollectionManager<DataModel: Hashable, CellType: SFCollectionViewCe
     open var prefetchStyler: ((DataModel, IndexPath) -> ())?
     open var headerStyler: ((HeaderType, SFDataSection<DataModel>, Int) -> ())?
     open var footerStyler: ((FooterType, SFDataSection<DataModel>, Int) -> ())?
-
+    
     // MARK: - Initializers
     
     public init(dataSections: [SFDataSection<DataModel>] = []) {
         super.init()
-        update(dataSections: dataSections)
+        DispatchQueue.addAsyncTask(to: .main) {
+            self.update(dataSections: dataSections)
+        }
     }
     
     public init(data: [[DataModel]] = []) {
         super.init()
-        update(data: data)
+        DispatchQueue.addAsyncTask(to: .main) {
+            self.update(data: data)
+        }
     }
     
     // MARK: - Instace Methods
@@ -84,7 +88,7 @@ open class SFCollectionManager<DataModel: Hashable, CellType: SFCollectionViewCe
                 seal(())
             } else {
                 for (index, section) in dataSections.enumerated() {
-                    let numberOfRowsBeforeUpdate = self.collectionView?.numberOfItems(inSection: index)
+                    let numberOfRowsBeforeUpdate = collectionView!.numberOfSections > 0 ? collectionView!.numberOfItems(inSection: index) : 0
                     self.update(dataSection: section, index: index).done {
                         
                         if numberOfRowsBeforeUpdate == 0 {
@@ -114,7 +118,7 @@ open class SFCollectionManager<DataModel: Hashable, CellType: SFCollectionViewCe
                 seal(())
             } else {
                 for (index, section) in data.enumerated() {
-                    let numberOfRowsBeforeUpdate = self.collectionView?.numberOfItems(inSection: index)
+                    let numberOfRowsBeforeUpdate = collectionView!.numberOfSections > 0 ? collectionView!.numberOfItems(inSection: index) : 0
                     let dataSection = SFDataSection<DataModel>(content: section, identifier: "")
                     self.update(dataSection: dataSection, index: index).done {
                         
@@ -130,7 +134,7 @@ open class SFCollectionManager<DataModel: Hashable, CellType: SFCollectionViewCe
             }
         }
     }
-
+    
     @discardableResult
     private func update(dataSection: SFDataSection<DataModel>, index: Int) -> Guarantee<Void> {
         if self.data.count > index {
@@ -146,7 +150,7 @@ open class SFCollectionManager<DataModel: Hashable, CellType: SFCollectionViewCe
             return insert(section: dataSection, index: index)
         }
     }
-
+    
     // MARK: - Sections
     
     @discardableResult
@@ -172,7 +176,7 @@ open class SFCollectionManager<DataModel: Hashable, CellType: SFCollectionViewCe
             })
         }
     }
-
+    
     @discardableResult
     open func deleteSection(index: Int) -> Guarantee<Void> {
         return Guarantee { seal in
@@ -184,7 +188,7 @@ open class SFCollectionManager<DataModel: Hashable, CellType: SFCollectionViewCe
             })
         }
     }
-
+    
     @discardableResult
     open func reloadSection(index: Int) -> Guarantee<Void> {
         return Guarantee { seal in
@@ -220,7 +224,7 @@ open class SFCollectionManager<DataModel: Hashable, CellType: SFCollectionViewCe
             }
         }
     }
-
+    
     @discardableResult
     open func moveItem(from: IndexPath, to: IndexPath) -> Guarantee<Void> {
         return Guarantee { seal in
@@ -234,7 +238,7 @@ open class SFCollectionManager<DataModel: Hashable, CellType: SFCollectionViewCe
             })
         }
     }
-
+    
     @discardableResult
     open func removeItem(from indexPath: IndexPath) -> Guarantee<Void> {
         return Guarantee { seal in

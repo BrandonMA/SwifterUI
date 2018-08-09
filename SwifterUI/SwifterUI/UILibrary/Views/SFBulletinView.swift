@@ -81,26 +81,6 @@ open class SFBulletinView: SFView {
         self.buttons = buttons
         
         super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, useAlternativeColors: useAlternativeColors, frame: frame)
-        
-        addSubview(shadowView)
-        addSubview(backgroundView)
-        
-        backgroundView.addSubview(closeButton)
-        backgroundView.addSubview(titleLabel)
-        backgroundView.addSubview(messageLabel)
-        backgroundView.addSubview(self.middleView)
-        
-        if buttons.count > 0 {
-            self.middleView.translatesAutoresizingMaskIntoConstraints = false
-            buttons.forEach({ (button) in
-                button.translatesAutoresizingMaskIntoConstraints = false
-                button.layer.cornerRadius = 16
-                button.addTouchAnimations = true
-                self.middleView.addSubview(button)
-            })
-        } else {
-            backgroundView.addSubview(doneButton)
-        }
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -109,12 +89,52 @@ open class SFBulletinView: SFView {
     
     // MARK: - Instance Methods
     
-    open override func updateConstraints() {
+    open override func prepareSubviews() {
+        
+        addSubview(shadowView)
+        addSubview(backgroundView)
+        
+        backgroundView.addSubview(closeButton)
+        backgroundView.addSubview(titleLabel)
+        backgroundView.addSubview(messageLabel)
+        backgroundView.addSubview(middleView)
+        
+        if buttons.count > 0 {
+            middleView.translatesAutoresizingMaskIntoConstraints = false
+            buttons.forEach({ (button) in
+                button.translatesAutoresizingMaskIntoConstraints = false
+                button.layer.cornerRadius = 16
+                button.addTouchAnimations = true
+                middleView.addSubview(button)
+            })
+        } else {
+            backgroundView.addSubview(doneButton)
+        }
+        
+        super.prepareSubviews()
+    }
+    
+    open override func setConstraints() {
         
         shadowView.clipEdges(useSafeArea: false)
-        
         middleView.clipRight(to: .right, margin: 12)
         middleView.clipLeft(to: .left, margin: 12)
+        closeButton.width(SFDimension(value: 32))
+        closeButton.height(SFDimension(value: 32))
+        closeButton.clipBottom(to: .top, of: messageLabel, margin: 12)
+        closeButton.clipRight(to: .right, margin: 12)
+        
+        titleLabel.clipRight(to: .right, margin: 24)
+        titleLabel.clipLeft(to: .left, margin: 24)
+        titleLabel.center(axis: [.vertical], in: closeButton)
+        
+        messageLabel.clipRight(to: .right, margin: 12)
+        messageLabel.clipLeft(to: .left, margin: 12)
+        messageLabel.clipBottom(to: .top, of: middleView, margin: 12)
+        
+        backgroundView.clipBottom(to: .bottom, margin: 12)
+        backgroundView.clipTop(to: .top, of: closeButton, margin: -12)
+        backgroundView.clipCenterX(to: .centerX)
         
         if buttons.count > 0 {
             middleView.clipBottom(to: .bottom, margin: 12)
@@ -138,29 +158,18 @@ open class SFBulletinView: SFView {
             middleView.height(SFDimension(value: 200))
         }
         
-        closeButton.width(SFDimension(value: 32))
-        closeButton.height(SFDimension(value: 32))
-        closeButton.clipBottom(to: .top, of: messageLabel, margin: 12)
-        closeButton.clipRight(to: .right, margin: 12)
+        super.setConstraints()
+    }
+    
+    open override func updateConstraints() {
         
-        titleLabel.clipRight(to: .right, margin: 24)
-        titleLabel.clipLeft(to: .left, margin: 24)
-        titleLabel.center(axis: [.vertical], in: closeButton)
-        
-        messageLabel.clipRight(to: .right, margin: 12)
-        messageLabel.clipLeft(to: .left, margin: 12)
-        messageLabel.clipBottom(to: .top, of: middleView, margin: 12)
+        backgroundView.remove(constraintType: .width)
         
         if useCompactInterface {
             backgroundView.width(SFDimension(type: .fraction, value: 11/12))
-            backgroundView.clipCenterX(to: .centerX)
         } else {
             backgroundView.width(SFDimension(type: .fraction, value: 1/2))
-            backgroundView.clipCenterX(to: .centerX)
         }
-        
-        backgroundView.clipBottom(to: .bottom, margin: 12)
-        backgroundView.clipTop(to: .top, of: closeButton, margin: -12)
         
         super.updateConstraints()
         

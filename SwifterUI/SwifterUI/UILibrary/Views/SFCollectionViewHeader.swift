@@ -8,7 +8,7 @@
 
 import UIKit
 
-open class SFCollectionViewHeaderFooterView: UICollectionReusableView, SFViewColorStyle, SFMainContainer {
+open class SFCollectionViewHeaderFooterView: UICollectionReusableView, SFViewColorStyle, SFLayoutView {
     
     // MARK: - Class Properties
     
@@ -22,7 +22,7 @@ open class SFCollectionViewHeaderFooterView: UICollectionReusableView, SFViewCol
     
     // MARK: - Instance Properties
     
-    open var mainContraints: Constraints = []
+    open var customConstraints: Constraints = []
     
     open var automaticallyAdjustsColorStyle: Bool = true
     
@@ -40,11 +40,8 @@ open class SFCollectionViewHeaderFooterView: UICollectionReusableView, SFViewCol
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
-        addSubview(titleLabel)
-        
-        if automaticallyAdjustsColorStyle {
-            updateColors()
-        }
+        prepareSubviews()
+        setConstraints()
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -53,11 +50,15 @@ open class SFCollectionViewHeaderFooterView: UICollectionReusableView, SFViewCol
     
     // MARK: - Instance Methods
     
-    open override func layoutSubviews() {
-        super.layoutSubviews()
-        if mainContraints.isEmpty {
-            mainContraints.append(contentsOf: titleLabel.clipEdges(margin: UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)))
+    open func prepareSubviews() {
+        addSubview(titleLabel)
+        if automaticallyAdjustsColorStyle {
+            updateColors()
         }
+    }
+    
+    open func setConstraints() {
+        titleLabel.clipEdges(margin: UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16))
     }
 
     open func updateColors() {

@@ -44,14 +44,6 @@ open class SFSection: SFView {
     public init(automaticallyAdjustsColorStyle: Bool = true, useAlternativeColors: Bool = false, frame: CGRect = .zero, bottomView: UIView) {
         self.bottomView = bottomView
         super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, useAlternativeColors: useAlternativeColors, frame: frame)
-        addSubview(stackView)
-        titleLabel.setContentHuggingPriority(.init(251), for: .vertical)
-        bottomView.translatesAutoresizingMaskIntoConstraints = false
-        bottomView.setContentHuggingPriority(.init(250), for: .vertical)
-        
-        if automaticallyAdjustsColorStyle {
-            updateColors()
-        }
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -60,11 +52,17 @@ open class SFSection: SFView {
     
     // MARK: - Instance Methods
     
-    open override func updateConstraints() {
-        if mainContraints.isEmpty {
-            mainContraints.append(contentsOf: stackView.clipEdges())
-        }
-        super.updateConstraints()
+    open override func prepareSubviews() {
+        addSubview(stackView)
+        titleLabel.setContentHuggingPriority(.init(251), for: .vertical)
+        bottomView.translatesAutoresizingMaskIntoConstraints = false
+        bottomView.setContentHuggingPriority(.init(250), for: .vertical)
+        super.prepareSubviews()
+    }
+    
+    open override func setConstraints() {
+        stackView.clipEdges()
+        super.setConstraints()
     }
     
     open override func updateColors() {

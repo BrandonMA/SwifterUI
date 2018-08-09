@@ -115,7 +115,7 @@ class ViewController: SFViewController {
         return collectionView
     }()
     
-    let tableManager = SFTableManager<String, SFTableViewCell, SFTableViewHeaderView, SFTableViewFooterView>(data: [["Prueba 1", "Prueba 2", "Prueba 3", "Prueba 1", "Prueba 2", "Prueba 3", "Prueba 4"], ["Prueba 1", "Prueba 2", "Prueba 3", "Prueba 1", "Prueba 2", "Prueba 3", "Prueba 4"]])
+    let tableManager = SFTableManager<String, SFTableViewCell, SFTableViewHeaderView, SFTableViewFooterView>()
     let collectionManager = SFCollectionManager<String, SFCollectionViewCell, SFCollectionViewHeaderView, SFCollectionViewFooterView>(data: [["Prueba 1", "Prueba 2", "Prueba 3", "Prueba 4"]])
 
     override func viewDidLoad() {
@@ -148,6 +148,8 @@ class ViewController: SFViewController {
         tableManager.footerStyler = { (footerView, section, index) in
             footerView.titleLabel.text = "Footer"
         }
+        
+        tableManager.update(data: [["Prueba 1", "Prueba 2", "Prueba 3", "Prueba 1", "Prueba 2", "Prueba 3", "Prueba 4"], ["Prueba 1", "Prueba 2", "Prueba 3", "Prueba 1", "Prueba 2", "Prueba 3", "Prueba 4"]])
     }
     
     override func viewWillLayoutSubviews() {

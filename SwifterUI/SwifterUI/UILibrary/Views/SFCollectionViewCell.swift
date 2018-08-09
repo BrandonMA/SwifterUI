@@ -8,7 +8,7 @@
 
 import UIKit
 
-open class SFCollectionViewCell: UICollectionViewCell, SFViewColorStyle, SFMainContainer {
+open class SFCollectionViewCell: UICollectionViewCell, SFViewColorStyle, SFLayoutView {
     
     // MARK: - Class Properties
     
@@ -18,7 +18,7 @@ open class SFCollectionViewCell: UICollectionViewCell, SFViewColorStyle, SFMainC
     
     // MARK: - Instance Properties
     
-    open var mainContraints: Constraints = []
+    open var customConstraints: Constraints = []
     
     open var automaticallyAdjustsColorStyle: Bool = true
     
@@ -26,7 +26,27 @@ open class SFCollectionViewCell: UICollectionViewCell, SFViewColorStyle, SFMainC
     
     // MARK: - Initializers
     
+    public override init(frame: CGRect) {
+        super.init(frame: frame)
+        prepareSubviews()
+        setConstraints()
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: - Instance Methods
+    
+    open func prepareSubviews() {
+        if automaticallyAdjustsColorStyle {
+            updateColors()
+        }
+    }
+    
+    open func setConstraints() {
+        
+    }
     
     open func updateColors() {
         backgroundColor = useAlternativeColors ? colorStyle.getAlternativeColor() : colorStyle.getMainColor()

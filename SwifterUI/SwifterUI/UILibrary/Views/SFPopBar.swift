@@ -46,24 +46,16 @@ open class SFPopBar: SFView {
     
     // MARK: - Initializers
     
-    public override init(automaticallyAdjustsColorStyle: Bool = true, useAlternativeColors: Bool = false, frame: CGRect = .zero) {
-        super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, useAlternativeColors: useAlternativeColors, frame: frame)
+    // MARK: - Instance Methods
+    
+    open override func prepareSubviews() {
         addSubview(dismissButton)
         addSubview(titleLabel)
         addSubview(rightButton)
-        
-        if automaticallyAdjustsColorStyle {
-            updateColors()
-        }
+        super.prepareSubviews()
     }
     
-    required public init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    // MARK: - Instance Methods
-    
-    open override func updateConstraints() {
+    open override func setConstraints() {
         dismissButton.center(axis: [.vertical])
         dismissButton.clipLeft(to: .left, margin: 12)
         dismissButton.width(SFDimension(value: 32))
@@ -76,7 +68,7 @@ open class SFPopBar: SFView {
         rightButton.clipLeft(to: .right, of: titleLabel)
         
         height(SFDimension(value: 44))
-        super.updateConstraints()
+        super.setConstraints()
     }
     
     open override func updateColors() {

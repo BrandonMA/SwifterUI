@@ -71,9 +71,10 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
     // MARK: - Initializers
     
     public init(messages: [SFDataSection<MessageType>] = [], automaticallyAdjustsColorStyle: Bool = true) {
-        chatManager = SFTableManager<MessageType, SFTableViewChatCell, SFTableViewHeaderView, SFTableViewFooterView>(dataSections: messages)
+        chatManager = SFTableManager<MessageType, SFTableViewChatCell, SFTableViewHeaderView, SFTableViewFooterView>()
         super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle)
         chatManager.delegate = self
+        chatManager.update(dataSections: messages)
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -203,7 +204,6 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
     // MARK: - Media Methods
     
     private final func mediaButtonDidTouch() {
-        print("Showing media picker")
         let photosButton = SFButton()
         photosButton.title = "Fotos y Videos"
         photosButton.addTouchAction {

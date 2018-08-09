@@ -52,18 +52,8 @@ open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell, Header
     
     // MARK: - Initializers
     
-    public init(dataSections: [SFDataSection<DataModel>] = []) {
+    public override init() {
         super.init()
-        DispatchQueue.addAsyncTask(to: .main) {
-            self.update(dataSections: dataSections)
-        }
-    }
-    
-    public init(data: [[DataModel]] = []) {
-        super.init()
-        DispatchQueue.addAsyncTask(to: .main) {
-            self.update(data: data)
-        }
     }
     
     // MARK: - Instace Methods
@@ -196,41 +186,47 @@ open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell, Header
     @discardableResult
     open func insert(section: SFDataSection<DataModel>, index: Int, animation: UITableViewRowAnimation = .fade) -> Guarantee<Void> {
         return Guarantee { seal in
-            self.data.append(section)
-            self.tableView?.beginUpdates()
-            self.tableView?.insertSections(IndexSet(integer: index), with: animation)
-            self.tableView?.endUpdates()
-            seal(())
+            self.tableView?.performBatchUpdates({
+                self.data.insert(section, at: index)
+                self.tableView?.insertSections(IndexSet(integer: index), with: animation)
+            }, completion: { (finished) in
+                seal(())
+            })
         }
     }
     
     @discardableResult
     open func moveSection(from: Int, to: Int) -> Guarantee<Void> {
         return Guarantee { seal in
-            self.data.move(from: from, to: to)
-            self.tableView?.moveSection(from, toSection: to)
-            seal(())
+            self.tableView?.performBatchUpdates({
+                self.data.move(from: from, to: to)
+                self.tableView?.moveSection(from, toSection: to)
+            }, completion: { (finished) in
+                seal(())
+            })
         }
     }
     
     @discardableResult
     open func deleteSection(index: Int, animation: UITableViewRowAnimation = .fade) -> Guarantee<Void> {
         return Guarantee { seal in
-            self.data.remove(at: index)
-            self.tableView?.beginUpdates()
-            self.tableView?.deleteSections(IndexSet(integer: index), with: animation)
-            self.tableView?.endUpdates()
-            seal(())
+            self.tableView?.performBatchUpdates({
+                self.data.remove(at: index)
+                self.tableView?.deleteSections(IndexSet(integer: index), with: animation)
+            }, completion: { (finished) in
+                seal(())
+            })
         }
     }
     
     @discardableResult
     open func reloadSection(index: Int, animation: UITableViewRowAnimation = .fade) -> Guarantee<Void> {
         return Guarantee { seal in
-            self.tableView?.beginUpdates()
-            self.tableView?.reloadSections(IndexSet(integer: index), with: animation)
-            self.tableView?.endUpdates()
-            seal(())
+            self.tableView?.performBatchUpdates({
+                self.tableView?.reloadSections(IndexSet(integer: index), with: animation)
+            }, completion: { (finished) in
+                seal(())
+            })
         }
     }
     
@@ -243,52 +239,55 @@ open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell, Header
     @discardableResult
     open func insert(item: DataModel, indexPath: IndexPath? = nil, animation: UITableViewRowAnimation = .fade) -> Guarantee<Void> {
         return Guarantee { seal in
+            
             let indexPath = indexPath ?? self.lastIndex
             if indexPath.section > self.lastSectionIndex {
                 self.data.insert(SFDataSection<DataModel>(), at: self.lastSectionIndex)
             }
-            self.data[indexPath.section].content.insert(item, at: indexPath.row)
             
-            if self.tableView?.numberOfRows(inSection: indexPath.section) != self.data[indexPath.section].content.count {
-                self.tableView?.beginUpdates()
+            self.tableView?.performBatchUpdates({
+                self.data[indexPath.section].content.insert(item, at: indexPath.row)
                 self.tableView?.insertRows(at: [indexPath], with: animation)
-                self.tableView?.endUpdates()
+            }, completion: { (finished) in
                 seal(())
-            }
+            })
         }
     }
     
     @discardableResult
     open func moveItem(from: IndexPath, to: IndexPath) -> Guarantee<Void> {
         return Guarantee { seal in
-            let item = self.data[from.section].content[from.item] // Get item to move
-            self.data[from.section].content.remove(at: from.item) // Remove it from old indexPath
-            self.data[to.section].content.insert(item, at: to.item) // Insert it to new indexPath
-            self.tableView?.beginUpdates()
-            self.tableView?.moveRow(at: from, to: to)
-            self.tableView?.endUpdates()
-            seal(())
+            self.tableView?.performBatchUpdates({
+                let item = self.data[from.section].content[from.item] // Get item to move
+                self.data[from.section].content.remove(at: from.item) // Remove it from old indexPath
+                self.data[to.section].content.insert(item, at: to.item) // Insert it to new indexPath
+                self.tableView?.moveRow(at: from, to: to)
+            }, completion: { (finished) in
+                seal(())
+            })
         }
     }
     
     @discardableResult
     open func removeItem(from indexPath: IndexPath, animation: UITableViewRowAnimation = .fade) -> Guarantee<Void> {
         return Guarantee { seal in
-            self.data[indexPath.section].content.remove(at: indexPath.item)
-            self.tableView?.beginUpdates()
-            self.tableView?.deleteRows(at: [indexPath], with: animation)
-            self.tableView?.endUpdates()
-            seal(())
+            self.tableView?.performBatchUpdates({
+                self.data[indexPath.section].content.remove(at: indexPath.item)
+                self.tableView?.deleteRows(at: [indexPath], with: animation)
+            }, completion: { (finished) in
+                seal(())
+            })
         }
     }
     
     @discardableResult
     open func reloadItem(from indexPath: IndexPath, animation: UITableViewRowAnimation = .fade) -> Guarantee<Void> {
         return Guarantee { seal in
-            self.tableView?.beginUpdates()
-            self.tableView?.reloadRows(at: [indexPath], with: animation)
-            self.tableView?.endUpdates()
-            seal(())
+            self.tableView?.performBatchUpdates({
+                self.tableView?.reloadRows(at: [indexPath], with: animation)
+            }, completion: { (finished) in
+                seal(())
+            })
         }
     }
     

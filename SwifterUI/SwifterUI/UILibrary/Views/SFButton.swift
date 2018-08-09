@@ -8,7 +8,7 @@
 
 import UIKit
 
-open class SFButton: UIButton, SFViewColorStyle {
+open class SFButton: UIButton, SFViewColorStyle, SFLayoutView {
     
     // MARK: - Instance Properties
     
@@ -23,6 +23,8 @@ open class SFButton: UIButton, SFViewColorStyle {
     open var useClearBackground: Bool = false
     
     open var isTextPicker: Bool = false
+    
+    open var customConstraints: Constraints = []
     
     public final var addTouchAnimations: Bool = false {
         didSet {
@@ -65,12 +67,12 @@ open class SFButton: UIButton, SFViewColorStyle {
         self.automaticallyAdjustsColorStyle = automaticallyAdjustsColorStyle
         self.useAlternativeColors = useAlternativeColors
         super.init(frame: frame)
-        addSubview(rightImageView)
+        
         addTarget(self, action: #selector(touchUpInside), for: .touchUpInside)
         addTarget(self, action: #selector(touchDown), for: .touchDown)
-        if automaticallyAdjustsColorStyle {
-            updateColors()
-        }
+        
+        prepareSubviews()
+        setConstraints()
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -79,10 +81,16 @@ open class SFButton: UIButton, SFViewColorStyle {
     
     // MARK: - Instance Methods
     
-    open override func updateConstraints() {
-        rightImageView.clipEdges(exclude: [.left], margin: UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8), useSafeArea: false)
-        rightImageView.width(SFDimension(value: 14))
-        super.updateConstraints()
+    public func prepareSubviews() {
+        addSubview(rightImageView)
+        if automaticallyAdjustsColorStyle {
+            updateColors()
+        }
+    }
+    
+    public func setConstraints() {
+        customConstraints.append(contentsOf: rightImageView.clipEdges(exclude: [.left], margin: UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8), useSafeArea: false))
+        customConstraints.append(rightImageView.width(SFDimension(value: 14)))
     }
     
     open func updateColors() {

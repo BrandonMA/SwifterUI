@@ -8,7 +8,7 @@
 
 import UIKit
 
-open class SFTableViewHeaderFooterView: UITableViewHeaderFooterView, SFViewColorStyle, SFMainContainer {
+open class SFTableViewHeaderFooterView: UITableViewHeaderFooterView, SFViewColorStyle, SFLayoutView {
     
     // MARK: - Class Properties
     
@@ -22,7 +22,7 @@ open class SFTableViewHeaderFooterView: UITableViewHeaderFooterView, SFViewColor
     
     // MARK: - Instance Properties
     
-    open var mainContraints: Constraints = []
+    open var customConstraints: Constraints = []
     
     open var automaticallyAdjustsColorStyle: Bool = true
     
@@ -40,11 +40,8 @@ open class SFTableViewHeaderFooterView: UITableViewHeaderFooterView, SFViewColor
     
     public override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
-        contentView.addSubview(titleLabel)
-        
-        if automaticallyAdjustsColorStyle {
-            updateColors()
-        }
+        prepareSubviews()
+        setConstraints()
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -53,11 +50,15 @@ open class SFTableViewHeaderFooterView: UITableViewHeaderFooterView, SFViewColor
     
     // MARK: - Instance Methods
     
-    open override func layoutSubviews() {
-        super.layoutSubviews()
-        if mainContraints.isEmpty {
-            mainContraints.append(contentsOf: titleLabel.clipEdges(margin: UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)))
+    open func prepareSubviews() {
+        contentView.addSubview(titleLabel)
+        if automaticallyAdjustsColorStyle {
+            updateColors()
         }
+    }
+    
+    open func setConstraints() {
+        titleLabel.clipEdges(margin: UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16), useSafeArea: false)
     }
     
     open func updateColors() {
@@ -77,7 +78,7 @@ open class SFTableViewHeaderFooterView: UITableViewHeaderFooterView, SFViewColor
             }
         }
     }
-    
+
 }
 
 

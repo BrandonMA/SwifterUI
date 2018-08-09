@@ -95,12 +95,12 @@ open class SFSignView: SFScrollView {
     
     open override func layoutIfBoundsChanged() {
         super.layoutIfBoundsChanged()
-        if mainContraints.isEmpty {
-            mainContraints.append(contentsOf: contentStack.clipEdges(exclude: [.bottom], margin: UIEdgeInsets(top: 16, left: 16, bottom: 0, right: 16)))
-            mainContraints.append(imageView.height(SFDimension(value: 160)))
-            mainContraints.append(labelsStack.height(SFDimension(value: 32)))
-            mainContraints.append(facebookButton.height(SFDimension(value: 52)))
-            mainContraints.append(contentView.clipBottom(to: .bottom, of: contentStack, margin: -16))
+        if customConstraints.isEmpty {
+            customConstraints.append(contentsOf: contentStack.clipEdges(exclude: [.bottom], margin: UIEdgeInsets(top: 16, left: 16, bottom: 0, right: 16)))
+            customConstraints.append(imageView.height(SFDimension(value: 160)))
+            customConstraints.append(labelsStack.height(SFDimension(value: 32)))
+            customConstraints.append(facebookButton.height(SFDimension(value: 52)))
+            customConstraints.append(contentView.clipBottom(to: .bottom, of: contentStack, margin: -16))
         }
     }
 }

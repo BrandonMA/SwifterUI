@@ -29,11 +29,6 @@ open class SFPopView: SFView {
     public override init(automaticallyAdjustsColorStyle: Bool, useAlternativeColors: Bool = true, frame: CGRect = .zero) {
         super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, useAlternativeColors: useAlternativeColors, frame: frame)
         clipsToBounds = true
-        addSubview(bar)
-        addSubview(contentView)
-        if automaticallyAdjustsColorStyle {
-            updateColors()
-        }
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -42,11 +37,17 @@ open class SFPopView: SFView {
     
     // MARK: - Instance Methods
     
-    open override func updateConstraints() {
+    open override func prepareSubviews() {
+        addSubview(bar)
+        addSubview(contentView)
+        super.prepareSubviews()
+    }
+    
+    open override func setConstraints() {
         bar.clipEdges(exclude: [.bottom], useSafeArea: false)
         contentView.clipEdges(exclude: [.top])
         contentView.clipTop(to: .bottom, of: bar)
-        super.updateConstraints()
+        super.setConstraints()
     }
 }
 

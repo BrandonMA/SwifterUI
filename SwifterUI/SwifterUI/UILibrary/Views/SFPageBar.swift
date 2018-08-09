@@ -58,11 +58,6 @@ open class SFPageBar: SFScrollView {
     
     public init(automaticallyAdjustsColorStyle: Bool = true, useAlternativeColors: Bool = false, frame: CGRect = .zero, items: Int) {
         super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, useAlternativeColors: useAlternativeColors, frame: frame)
-        contentView.addSubview(buttonStackView)
-        contentView.addSubview(scrollIndicator)
-        if automaticallyAdjustsColorStyle {
-            updateColors()
-        }
         showsHorizontalScrollIndicator = false
         clipsToBounds = false
         addButtons(amount: items)
@@ -74,6 +69,23 @@ open class SFPageBar: SFScrollView {
     }
     
     // MARK: - Instance Methods
+    
+    open override func prepareSubviews() {
+        contentView.addSubview(buttonStackView)
+        contentView.addSubview(scrollIndicator)
+        super.prepareSubviews()
+    }
+    
+    open override func setConstraints() {
+        buttonStackView.clipEdges(margin: UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16))
+        scrollIndicator.height(SFDimension(value: 2))
+        scrollIndicator.clipBottom(to: .bottom, of: contentView)
+        contentView.clipBottom(to: .bottom, of: buttonStackView)
+        if !useAdaptingWidth {
+            contentView.width(SFDimension(type: .fraction, value: 1))
+        }
+        super.setConstraints()
+    }
     
     public final func addButton() {
         let button = SFButton(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
@@ -91,25 +103,6 @@ open class SFPageBar: SFScrollView {
     
     public final func addButtons(amount: Int) {
         for _ in 0...amount - 1 { addButton() }
-    }
-    
-    open override func layoutIfBoundsChanged() {
-        super.layoutIfBoundsChanged()
-        
-        if mainContraints.isEmpty {
-            mainContraints.append(contentsOf: buttonStackView.clipEdges(margin: UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)))
-            
-            if !useAdaptingWidth {
-                mainContraints.append(contentView.width(SFDimension(type: .fraction, value: 1)))
-            }
-            
-            mainContraints.append(scrollIndicator.height(SFDimension(value: 2)))
-            mainContraints.append(scrollIndicator.clipBottom(to: .bottom, of: contentView))
-            
-            mainContraints.append(contentView.clipBottom(to: .bottom, of: buttonStackView))
-        }
-        
-        
     }
     
     open func didTouch(sfbutton: UIButton) {

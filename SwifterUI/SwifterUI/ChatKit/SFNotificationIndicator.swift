@@ -34,8 +34,8 @@ open class SFNotificationIndicator: SFView {
     // MARK: - Instance Methods
     
     open override func updateConstraints() {
-        if mainContraints.isEmpty {
-            mainContraints.append(contentsOf: titleLabel.center())
+        if customConstraints.isEmpty {
+            customConstraints.append(contentsOf: titleLabel.center())
         }
         super.updateConstraints()
     }

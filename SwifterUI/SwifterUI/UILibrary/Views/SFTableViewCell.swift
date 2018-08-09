@@ -8,7 +8,7 @@
 
 import UIKit
 
-open class SFTableViewCell: UITableViewCell, SFViewColorStyle, SFMainContainer {
+open class SFTableViewCell: UITableViewCell, SFViewColorStyle, SFLayoutView {
     
     // MARK: - Class Properties
     
@@ -22,7 +22,7 @@ open class SFTableViewCell: UITableViewCell, SFViewColorStyle, SFMainContainer {
     
     // MARK: - Instance Properties
     
-    open var mainContraints: Constraints = []
+    open var customConstraints: Constraints = []
     
     open var automaticallyAdjustsColorStyle: Bool = true
     
@@ -39,12 +39,8 @@ open class SFTableViewCell: UITableViewCell, SFViewColorStyle, SFMainContainer {
     
     public override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        contentView.addSubview(rightImageView)
-        textLabel?.font = UIFont.systemFont(ofSize: 17)
-        
-        if automaticallyAdjustsColorStyle {
-            updateColors()
-        }
+        prepareSubviews()
+        setConstraints()
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -53,8 +49,15 @@ open class SFTableViewCell: UITableViewCell, SFViewColorStyle, SFMainContainer {
     
     // MARK: - Instance Methods
     
-    open override func layoutSubviews() {
-        super.layoutSubviews()
+    open func prepareSubviews() {
+        contentView.addSubview(rightImageView)
+        textLabel?.font = UIFont.systemFont(ofSize: 17)
+        if automaticallyAdjustsColorStyle {
+            updateColors()
+        }
+    }
+    
+    open func setConstraints() {
         rightImageView.center(axis: [.vertical])
         rightImageView.width(SFDimension(value: 16))
         rightImageView.height(SFDimension(value: 16))

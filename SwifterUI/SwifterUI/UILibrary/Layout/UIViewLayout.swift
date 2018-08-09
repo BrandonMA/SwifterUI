@@ -161,6 +161,7 @@ public extension UIView {
                                     margin: margin)
         } else {
             heightConstraint = heightAnchor.constraint(equalTo: anchorView.heightAnchor, multiplier: 1)
+            heightConstraint.priority = UILayoutPriority(rawValue: 999)
         }
         
         heightConstraint.set(active: true).set(identifier: ConstraintType.height.rawValue)
@@ -188,6 +189,7 @@ public extension UIView {
                                    margin: margin)
         } else {
             widthConstraint = widthAnchor.constraint(equalTo: anchorView.widthAnchor, multiplier: 1)
+            widthConstraint.priority = UILayoutPriority(rawValue: 999)
         }
         
         widthConstraint.set(active: true).set(identifier: ConstraintType.width.rawValue)
@@ -203,11 +205,17 @@ public extension UIView {
                                   relation: ConstraintRelation = .equal) -> Constraint {
         switch relation {
         case .equal:
-            return childAnchor.constraint(equalTo: parentAnchor, constant: margin).set(active: true)
+            let constraint = childAnchor.constraint(equalTo: parentAnchor, constant: margin)
+            constraint.priority = UILayoutPriority(rawValue: 999)
+            return constraint.set(active: true)
         case .greater:
-            return childAnchor.constraint(greaterThanOrEqualTo: parentAnchor, constant: margin).set(active: true)
+            let constraint = childAnchor.constraint(greaterThanOrEqualTo: parentAnchor, constant: margin)
+            constraint.priority = UILayoutPriority(rawValue: 999)
+            return constraint.set(active: true)
         case .less:
-            return childAnchor.constraint(lessThanOrEqualTo: parentAnchor, constant: margin).set(active: true)
+            let constraint = childAnchor.constraint(lessThanOrEqualTo: parentAnchor, constant: margin)
+            constraint.priority = UILayoutPriority(rawValue: 999)
+            return constraint.set(active: true)
         }
     }
     

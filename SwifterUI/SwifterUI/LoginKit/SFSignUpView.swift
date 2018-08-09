@@ -84,13 +84,13 @@ open class SFSignUpView: SFView {
     // MARK: - Instance Methods
     
     open override func updateConstraints() {
-        if mainContraints.isEmpty {
-            mainContraints.append(contentsOf: contentStack.clipEdges())
-            mainContraints.append(nameSection.height(SFDimension(value: 64)))
-            mainContraints.append(lastNameSection.height(SFDimension(value: 64)))
-            mainContraints.append(mailSection.height(SFDimension(value: 64)))
-            mainContraints.append(passwordSection.height(SFDimension(value: 64)))
-            mainContraints.append(signUpButton.height(SFDimension(value: 52)))
+        if customConstraints.isEmpty {
+            customConstraints.append(contentsOf: contentStack.clipEdges())
+            customConstraints.append(nameSection.height(SFDimension(value: 64)))
+            customConstraints.append(lastNameSection.height(SFDimension(value: 64)))
+            customConstraints.append(mailSection.height(SFDimension(value: 64)))
+            customConstraints.append(passwordSection.height(SFDimension(value: 64)))
+            customConstraints.append(signUpButton.height(SFDimension(value: 52)))
         }
         super.updateConstraints()
     }

@@ -8,13 +8,13 @@
 
 import UIKit
 
-open class SFScrollView: UIScrollView, SFViewColorStyle, SFMainContainer {
+open class SFScrollView: UIScrollView, SFViewColorStyle, SFLayoutView {
     
     // MARK: - Instance Properties
     
     open var needsLayoutUpdate: Bool = true
     
-    open var mainContraints: Constraints = []
+    open var customConstraints: Constraints = []
     
     private var oldSize: CGSize = .zero
     
@@ -58,14 +58,8 @@ open class SFScrollView: UIScrollView, SFViewColorStyle, SFMainContainer {
         self.automaticallyAdjustsColorStyle = automaticallyAdjustsColorStyle
         self.useAlternativeColors = useAlternativeColors
         super.init(frame: frame)
-        addSubview(contentView)
-        
-        contentView.useAlternativeColors = useAlternativeColors
-        contentView.clipEdges(useSafeArea: false)
-        
-        if automaticallyAdjustsColorStyle {
-            updateColors()
-        }
+        prepareSubviews()
+        setConstraints()
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -73,6 +67,18 @@ open class SFScrollView: UIScrollView, SFViewColorStyle, SFMainContainer {
     }
     
     // MARK: - Instance Methods
+    
+    open func prepareSubviews() {
+        addSubview(contentView)
+        
+        if automaticallyAdjustsColorStyle {
+            updateColors()
+        }
+    }
+    
+    open func setConstraints() {
+        customConstraints.append(contentsOf: contentView.clipEdges(useSafeArea: false))
+    }
     
     open func layoutIfBoundsChanged() {
         

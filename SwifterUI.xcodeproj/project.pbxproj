@@ -58,6 +58,7 @@
 		42838208206DA4D200039F66 /* SFImageZoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42838207206DA4D200039F66 /* SFImageZoomView.swift */; };
 		4286042C20A0D27C00D785FC /* SFCollectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4286042B20A0D27C00D785FC /* SFCollectionManager.swift */; };
 		42933BF42097D2AB00ED7175 /* SFTableManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42933BF32097D2AB00ED7175 /* SFTableManager.swift */; };
+		4299FB27211CC47900E9F233 /* SFLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4299FB26211CC47900E9F233 /* SFLayoutView.swift */; };
 		429FD4911FED7EDC00FD7F10 /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429FD4901FED7EDC00FD7F10 /* UIImageView.swift */; };
 		429FD4931FED89C200FD7F10 /* SFAnimationCurve.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429FD4921FED89C200FD7F10 /* SFAnimationCurve.swift */; };
 		429FD4951FED89F300FD7F10 /* SFShakeAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429FD4941FED89F300FD7F10 /* SFShakeAnimation.swift */; };
@@ -198,6 +199,7 @@
 		42838207206DA4D200039F66 /* SFImageZoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFImageZoomView.swift; sourceTree = "<group>"; };
 		4286042B20A0D27C00D785FC /* SFCollectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFCollectionManager.swift; sourceTree = "<group>"; };
 		42933BF32097D2AB00ED7175 /* SFTableManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFTableManager.swift; sourceTree = "<group>"; };
+		4299FB26211CC47900E9F233 /* SFLayoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFLayoutView.swift; sourceTree = "<group>"; };
 		429FD4901FED7EDC00FD7F10 /* UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 		429FD4921FED89C200FD7F10 /* SFAnimationCurve.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFAnimationCurve.swift; sourceTree = "<group>"; };
 		429FD4941FED89F300FD7F10 /* SFShakeAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFShakeAnimation.swift; sourceTree = "<group>"; };
@@ -526,6 +528,7 @@
 				423AAC231FE76763009D6C39 /* ConstraintEdge.swift */,
 				423AAC251FE7678C009D6C39 /* ConstraintAxis.swift */,
 				4223C5161FE7A0C300A2E2F2 /* ConstraintRelation.swift */,
+				4299FB26211CC47900E9F233 /* SFLayoutView.swift */,
 			);
 			path = Layout;
 			sourceTree = "<group>";
@@ -805,6 +808,7 @@
 				4230E8EA204CC1DA003E5BCC /* SFNotificationIndicator.swift in Sources */,
 				42446777202AC57700F59892 /* SFTextView.swift in Sources */,
 				42289AE2203481A30095FF5C /* String.swift in Sources */,
+				4299FB27211CC47900E9F233 /* SFLayoutView.swift in Sources */,
 				4253D3C2203CDEE500507F88 /* SFTabBarController.swift in Sources */,
 				42E83BBD202B98F800A341C5 /* SFTableViewCell.swift in Sources */,
 				4230E8EC204CC42C003E5BCC /* SFBubbleView.swift in Sources */,

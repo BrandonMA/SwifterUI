@@ -26,13 +26,8 @@ open class SFPageView: SFScrollView {
     
     public override init(automaticallyAdjustsColorStyle: Bool = true, useAlternativeColors: Bool = false, frame: CGRect = .zero) {
         super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, useAlternativeColors: useAlternativeColors, frame: frame)
-        contentView.addSubview(viewsStackView)
         isPagingEnabled = true
         showsHorizontalScrollIndicator = false
-        
-        if automaticallyAdjustsColorStyle {
-            updateColors()
-        }
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -40,6 +35,11 @@ open class SFPageView: SFScrollView {
     }
     
     // MARK: - Instance Methods
+    
+    open override func prepareSubviews() {
+        contentView.addSubview(viewsStackView)
+        super.prepareSubviews()
+    }
     
     public final func add(view: UIView) {
         views.append(view)

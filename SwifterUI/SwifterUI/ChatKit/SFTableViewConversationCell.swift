@@ -119,11 +119,11 @@ open class SFTableViewConversationCell: SFTableViewCell {
     
     open override func layoutSubviews() {
         super.layoutSubviews()
-        if mainContraints.isEmpty {
-            mainContraints.append(contentsOf: stackView.clipEdges(margin: UIEdgeInsets(top: 12, left: 12, bottom: 12, right: 12)))
-            mainContraints.append(profileImageView.width(SFDimension(value: 48)))
-            mainContraints.append(notificationIndicator.width(SFDimension(value: 20)))
-            mainContraints.append(notificationIndicator.height(SFDimension(value: 20)))
+        if customConstraints.isEmpty {
+            customConstraints.append(contentsOf: stackView.clipEdges(margin: UIEdgeInsets(top: 12, left: 12, bottom: 12, right: 12)))
+            customConstraints.append(profileImageView.width(SFDimension(value: 48)))
+            customConstraints.append(notificationIndicator.width(SFDimension(value: 20)))
+            customConstraints.append(notificationIndicator.height(SFDimension(value: 20)))
         }
     }
 }

@@ -8,14 +8,7 @@
 
 import UIKit
 
-public protocol SFMainContainer {
-    /**
-     Used to save static constraints and not setting them every time update constraints is called
-     */
-    var mainContraints: Constraints { get set }
-}
-
-open class SFView: UIView, SFViewColorStyle, SFMainContainer {
+open class SFView: UIView, SFViewColorStyle, SFLayoutView {
     
     // MARK: - Instance Properties
     
@@ -23,7 +16,7 @@ open class SFView: UIView, SFViewColorStyle, SFMainContainer {
     
     open var useAlternativeColors: Bool = false
     
-    open var mainContraints: Constraints = []
+    open var customConstraints: Constraints = []
     
     // MARK: - Initializers
     
@@ -31,9 +24,8 @@ open class SFView: UIView, SFViewColorStyle, SFMainContainer {
         self.automaticallyAdjustsColorStyle = automaticallyAdjustsColorStyle
         self.useAlternativeColors = useAlternativeColors
         super.init(frame: frame)
-        if automaticallyAdjustsColorStyle {
-            updateColors()
-        }
+        prepareSubviews()
+        setConstraints()
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -41,6 +33,16 @@ open class SFView: UIView, SFViewColorStyle, SFMainContainer {
     }
     
     // MARK: - Instance Methods
+    
+    open func prepareSubviews() {
+        if automaticallyAdjustsColorStyle {
+            updateColors()
+        }
+    }
+    
+    open func setConstraints() {
+        
+    }
     
     open func updateColors() {
         backgroundColor = useAlternativeColors ? colorStyle.getAlternativeColor() : colorStyle.getMainColor()

@@ -15,7 +15,7 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
     
     private var activeCell: SFTableViewChatCell?
     
-    public var chatManager: SFTableManager<MessageType, SFTableViewChatCell, SFTableViewHeaderView, SFTableViewFooterView>
+    public var chatManager = SFTableManager<MessageType, SFTableViewChatCell, SFTableViewHeaderView, SFTableViewFooterView>()
     
     public final lazy var chatView: SFTableView = {
         let tableView = SFTableView(automaticallyAdjustsColorStyle: true, useAlternativeColors: true, style: .grouped)
@@ -70,17 +70,6 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
     
     // MARK: - Initializers
     
-    public init(messages: [SFDataSection<MessageType>] = [], automaticallyAdjustsColorStyle: Bool = true) {
-        chatManager = SFTableManager<MessageType, SFTableViewChatCell, SFTableViewHeaderView, SFTableViewFooterView>()
-        super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle)
-        chatManager.delegate = self
-        chatManager.update(dataSections: messages)
-    }
-    
-    required public init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
@@ -100,6 +89,8 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(keyboardWillShow(notification:)),
                                                name: .UIKeyboardWillShow, object: nil)
+        
+        chatManager.delegate = self
         
         chatManager.configure(tableView: chatView) { [unowned self] (cell, message, index) in
             self.configure(cell: cell, message: message, indexPath: index)

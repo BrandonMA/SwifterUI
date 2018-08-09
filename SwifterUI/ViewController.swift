@@ -116,7 +116,7 @@ class ViewController: SFViewController {
     }()
     
     let tableManager = SFTableManager<String, SFTableViewCell, SFTableViewHeaderView, SFTableViewFooterView>()
-    let collectionManager = SFCollectionManager<String, SFCollectionViewCell, SFCollectionViewHeaderView, SFCollectionViewFooterView>(data: [["Prueba 1", "Prueba 2", "Prueba 3", "Prueba 4"]])
+    let collectionManager = SFCollectionManager<String, SFCollectionViewCell, SFCollectionViewHeaderView, SFCollectionViewFooterView>()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -150,6 +150,7 @@ class ViewController: SFViewController {
         }
         
         tableManager.update(data: [["Prueba 1", "Prueba 2", "Prueba 3", "Prueba 1", "Prueba 2", "Prueba 3", "Prueba 4"], ["Prueba 1", "Prueba 2", "Prueba 3", "Prueba 1", "Prueba 2", "Prueba 3", "Prueba 4"]])
+        collectionManager.update(data: [["Prueba 1", "Prueba 2", "Prueba 3", "Prueba 4"]])
     }
     
     override func viewWillLayoutSubviews() {

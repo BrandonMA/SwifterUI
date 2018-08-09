@@ -189,7 +189,7 @@ open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell, Header
             self.tableView?.performBatchUpdates({
                 self.data.insert(section, at: index)
                 self.tableView?.insertSections(IndexSet(integer: index), with: animation)
-            }, completion: { (finished) in
+            }, completion: { (_) in
                 seal(())
             })
         }
@@ -201,7 +201,7 @@ open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell, Header
             self.tableView?.performBatchUpdates({
                 self.data.move(from: from, to: to)
                 self.tableView?.moveSection(from, toSection: to)
-            }, completion: { (finished) in
+            }, completion: { (_) in
                 seal(())
             })
         }
@@ -213,7 +213,7 @@ open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell, Header
             self.tableView?.performBatchUpdates({
                 self.data.remove(at: index)
                 self.tableView?.deleteSections(IndexSet(integer: index), with: animation)
-            }, completion: { (finished) in
+            }, completion: { (_) in
                 seal(())
             })
         }
@@ -224,7 +224,7 @@ open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell, Header
         return Guarantee { seal in
             self.tableView?.performBatchUpdates({
                 self.tableView?.reloadSections(IndexSet(integer: index), with: animation)
-            }, completion: { (finished) in
+            }, completion: { (_) in
                 seal(())
             })
         }
@@ -248,7 +248,7 @@ open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell, Header
             self.tableView?.performBatchUpdates({
                 self.data[indexPath.section].content.insert(item, at: indexPath.row)
                 self.tableView?.insertRows(at: [indexPath], with: animation)
-            }, completion: { (finished) in
+            }, completion: { (_) in
                 seal(())
             })
         }
@@ -262,7 +262,7 @@ open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell, Header
                 self.data[from.section].content.remove(at: from.item) // Remove it from old indexPath
                 self.data[to.section].content.insert(item, at: to.item) // Insert it to new indexPath
                 self.tableView?.moveRow(at: from, to: to)
-            }, completion: { (finished) in
+            }, completion: { (_) in
                 seal(())
             })
         }
@@ -274,7 +274,7 @@ open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell, Header
             self.tableView?.performBatchUpdates({
                 self.data[indexPath.section].content.remove(at: indexPath.item)
                 self.tableView?.deleteRows(at: [indexPath], with: animation)
-            }, completion: { (finished) in
+            }, completion: { (_) in
                 seal(())
             })
         }
@@ -285,7 +285,7 @@ open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell, Header
         return Guarantee { seal in
             self.tableView?.performBatchUpdates({
                 self.tableView?.reloadRows(at: [indexPath], with: animation)
-            }, completion: { (finished) in
+            }, completion: { (_) in
                 seal(())
             })
         }

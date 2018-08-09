@@ -52,7 +52,6 @@ open class SFTableViewProfileCell: SFTableViewCell {
     
     public override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        contentView.addSubview(stackView)
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -61,12 +60,15 @@ open class SFTableViewProfileCell: SFTableViewCell {
     
     // MARK: - Instance Methods
     
-    open override func layoutSubviews() {
-        super.layoutSubviews()
-        if customConstraints.isEmpty {
-            customConstraints.append(contentsOf: stackView.clipEdges(margin: UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)))
-            customConstraints.append(profileImageView.width(SFDimension(value: 36)))
-        }
+    open override func prepareSubviews() {
+        contentView.addSubview(stackView)
+        super.prepareSubviews()
+    }
+    
+    open override func setConstraints() {
+        stackView.clipEdges(margin: UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16))
+        profileImageView.width(SFDimension(value: 36))
+        super.setConstraints()
     }
     
 }

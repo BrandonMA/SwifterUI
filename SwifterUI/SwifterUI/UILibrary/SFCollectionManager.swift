@@ -40,34 +40,11 @@ open class SFCollectionManager<DataModel: Hashable, CellType: SFCollectionViewCe
     
     // MARK: - Initializers
     
-    public init(dataSections: [SFDataSection<DataModel>] = []) {
+    public override init() {
         super.init()
-        DispatchQueue.addAsyncTask(to: .main) {
-            self.update(dataSections: dataSections)
-        }
-    }
-    
-    public init(data: [[DataModel]] = []) {
-        super.init()
-        DispatchQueue.addAsyncTask(to: .main) {
-            self.update(data: data)
-        }
     }
     
     // MARK: - Instace Methods
-    
-    open func forceUpdate(dataSections: [SFDataSection<DataModel>]) {
-        data = dataSections
-        collectionView?.reloadData()
-    }
-    
-    open func forceUpdate(data: [[DataModel]]) {
-        for (index, section) in data.enumerated() {
-            let dataSection = SFDataSection<DataModel>(content: section, identifier: "")
-            self.data[index] = dataSection
-        }
-        collectionView?.reloadData()
-    }
     
     open func configure(collectionView: SFCollectionView, itemStyler: SFCollectionManagerItemStyler?) {
         self.itemStyler = itemStyler
@@ -85,6 +62,19 @@ open class SFCollectionManager<DataModel: Hashable, CellType: SFCollectionViewCe
     }
     
     // MARK: - Update Methods
+    
+    open func forceUpdate(dataSections: [SFDataSection<DataModel>]) {
+        data = dataSections
+        collectionView?.reloadData()
+    }
+    
+    open func forceUpdate(data: [[DataModel]]) {
+        for (index, section) in data.enumerated() {
+            let dataSection = SFDataSection<DataModel>(content: section, identifier: "")
+            self.data[index] = dataSection
+        }
+        collectionView?.reloadData()
+    }
     
     @discardableResult
     open func update(dataSections: [SFDataSection<DataModel>]) -> Guarantee<Void> {
@@ -171,8 +161,8 @@ open class SFCollectionManager<DataModel: Hashable, CellType: SFCollectionViewCe
     @discardableResult
     open func insert(section: SFDataSection<DataModel>, index: Int) -> Guarantee<Void> {
         return Guarantee { seal in
-            self.data.append(section)
             self.collectionView?.performBatchUpdates({
+                self.data.append(section)
                 self.collectionView?.insertSections(IndexSet(integer: index))
             }, completion: { (_) in
                 seal(())
@@ -183,8 +173,8 @@ open class SFCollectionManager<DataModel: Hashable, CellType: SFCollectionViewCe
     @discardableResult
     open func moveSection(from: Int, to: Int) -> Guarantee<Void> {
         return Guarantee { seal in
-            self.data.move(from: from, to: to)
             self.collectionView?.performBatchUpdates({
+                self.data.move(from: from, to: to)
                 self.collectionView?.moveSection(from, toSection: to)
             }, completion: { (_) in
                 seal(())
@@ -195,8 +185,8 @@ open class SFCollectionManager<DataModel: Hashable, CellType: SFCollectionViewCe
     @discardableResult
     open func deleteSection(index: Int) -> Guarantee<Void> {
         return Guarantee { seal in
-            self.data.remove(at: index)
             self.collectionView?.performBatchUpdates({
+                self.data.remove(at: index)
                 self.collectionView?.deleteSections(IndexSet(integer: index))
             }, completion: { (_) in
                 seal(())
@@ -228,25 +218,23 @@ open class SFCollectionManager<DataModel: Hashable, CellType: SFCollectionViewCe
             if indexPath.section > self.lastSectionIndex {
                 self.data.insert(SFDataSection<DataModel>(), at: self.lastSectionIndex)
             }
-            self.data[indexPath.section].content.insert(item, at: indexPath.row)
             
-            if self.collectionView?.numberOfItems(inSection: indexPath.section) != self.data[indexPath.section].content.count {
-                self.collectionView?.performBatchUpdates({
-                    self.collectionView?.insertItems(at: [indexPath])
-                }, completion: { (_) in
-                    seal(())
-                })
-            }
+            self.collectionView?.performBatchUpdates({
+                self.data[indexPath.section].content.insert(item, at: indexPath.row)
+                self.collectionView?.insertItems(at: [indexPath])
+            }, completion: { (_) in
+                seal(())
+            })
         }
     }
     
     @discardableResult
     open func moveItem(from: IndexPath, to: IndexPath) -> Guarantee<Void> {
         return Guarantee { seal in
-            let item = self.data[from.section].content[from.item] // Get item to move
-            self.data[from.section].content.remove(at: from.item) // Remove it from old indexPath
-            self.data[to.section].content.insert(item, at: to.item) // Insert it to new indexPath
             self.collectionView?.performBatchUpdates({
+                let item = self.data[from.section].content[from.item] // Get item to move
+                self.data[from.section].content.remove(at: from.item) // Remove it from old indexPath
+                self.data[to.section].content.insert(item, at: to.item) // Insert it to new indexPath
                 self.collectionView?.moveItem(at: from, to: to)
             }, completion: { (_) in
                 seal(())
@@ -257,8 +245,8 @@ open class SFCollectionManager<DataModel: Hashable, CellType: SFCollectionViewCe
     @discardableResult
     open func removeItem(from indexPath: IndexPath) -> Guarantee<Void> {
         return Guarantee { seal in
-            self.data[indexPath.section].content.remove(at: indexPath.item)
             self.collectionView?.performBatchUpdates({
+                self.data[indexPath.section].content.remove(at: indexPath.item)
                 self.collectionView?.deleteItems(at: [indexPath])
             }, completion: { (_) in
                 seal(())

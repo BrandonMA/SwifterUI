@@ -67,7 +67,6 @@ open class SFPopBar: SFView {
         rightButton.height(SFDimension(value: 32))
         rightButton.clipLeft(to: .right, of: titleLabel)
         
-        height(SFDimension(value: 44))
         super.setConstraints()
     }
     
@@ -77,5 +76,13 @@ open class SFPopBar: SFView {
         addShadow(color: colorStyle.getSeparatorColor(), offSet: CGSize(width: 0, height: 1), radius: 0, opacity: 1)
     }
     
+    open override func updateConstraints() {
+        
+        if customConstraints.isEmpty {
+            customConstraints.append(height(SFDimension(value: 44)))
+        }
+        
+        super.updateConstraints()
+    }
 }
 

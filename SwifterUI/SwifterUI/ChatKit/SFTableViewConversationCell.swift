@@ -106,9 +106,7 @@ open class SFTableViewConversationCell: SFTableViewCell {
     
     public override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        contentView.addSubview(stackView)
-        nameLabel.setContentCompressionResistancePriority(.init(249), for: .horizontal)
-        hourLabel.setContentCompressionResistancePriority(.init(251), for: .horizontal)
+        
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -117,13 +115,18 @@ open class SFTableViewConversationCell: SFTableViewCell {
     
     // MARK: - Instance Methods
     
-    open override func layoutSubviews() {
-        super.layoutSubviews()
-        if customConstraints.isEmpty {
-            customConstraints.append(contentsOf: stackView.clipEdges(margin: UIEdgeInsets(top: 12, left: 12, bottom: 12, right: 12)))
-            customConstraints.append(profileImageView.width(SFDimension(value: 48)))
-            customConstraints.append(notificationIndicator.width(SFDimension(value: 20)))
-            customConstraints.append(notificationIndicator.height(SFDimension(value: 20)))
-        }
+    open override func prepareSubviews() {
+        contentView.addSubview(stackView)
+        nameLabel.setContentCompressionResistancePriority(.init(249), for: .horizontal)
+        hourLabel.setContentCompressionResistancePriority(.init(251), for: .horizontal)
+        super.prepareSubviews()
+    }
+    
+    open override func setConstraints() {
+        stackView.clipEdges(margin: UIEdgeInsets(top: 12, left: 12, bottom: 12, right: 12))
+        profileImageView.width(SFDimension(value: 48))
+        notificationIndicator.width(SFDimension(value: 20))
+        notificationIndicator.height(SFDimension(value: 20))
+        super.setConstraints()
     }
 }

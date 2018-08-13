@@ -71,11 +71,11 @@ open class SFBulletinView: SFView {
     
     open var middleView: UIView
     
-    private var buttons: [SFButton] = []
+    private var buttons: [SFFluidButton] = []
     
     // MARK: - Initializers
     
-    public init(automaticallyAdjustsColorStyle: Bool = true, useAlternativeColors: Bool = false, frame: CGRect = .zero, middleView: UIView? = nil, buttons: [SFButton] = []) {
+    public init(automaticallyAdjustsColorStyle: Bool = true, useAlternativeColors: Bool = false, frame: CGRect = .zero, middleView: UIView? = nil, buttons: [SFFluidButton] = []) {
         
         self.middleView = middleView ?? SFView(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle)
         self.buttons = buttons
@@ -104,7 +104,7 @@ open class SFBulletinView: SFView {
             buttons.forEach({ (button) in
                 button.translatesAutoresizingMaskIntoConstraints = false
                 button.layer.cornerRadius = 16
-                button.addTouchAnimations = true
+                button.useHighlightTextColor = true
                 middleView.addSubview(button)
             })
         } else {

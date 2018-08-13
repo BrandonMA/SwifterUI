@@ -25,14 +25,12 @@ public final class SFTextScrollSection: SFSection {
     public override final var text: String? {
         get {
             guard let text = textView.text else {
-                SFWobbleAnimation(with: self).start()
                 return nil
             }
             
             if text != "" {
                 return text
             } else {
-                SFWobbleAnimation(with: self).start()
                 return nil
             }
         } set {

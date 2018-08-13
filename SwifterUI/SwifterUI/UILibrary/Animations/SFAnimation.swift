@@ -9,8 +9,29 @@
 import UIKit
 import PromiseKit
 
+extension UIViewPropertyAnimator {
+    public convenience init(damping: CGFloat, response: CGFloat, initialVelocity: CGVector = .zero) {
+        let timingParameters = UISpringTimingParameters(damping: damping, response: response, initialVelocity: initialVelocity)
+        self.init(duration: 0, timingParameters: timingParameters)
+    }
+}
+
+extension UISpringTimingParameters {
+    
+    /// - Parameters:
+    ///   - damping: The 'bounciness' of the animation. Value must be between 0 and 1.
+    ///   - response: The 'speed' of the animation.
+    ///   - initialVelocity: The vector describing the starting motion of the property. Optional, default is `.zero`.
+    public convenience init(damping: CGFloat, response: CGFloat, initialVelocity: CGVector = .zero) {
+        let stiffness = pow(2 * .pi / response, 2)
+        let damp = 4 * .pi * damping / response
+        self.init(mass: 1, stiffness: stiffness, damping: damp, initialVelocity: initialVelocity)
+    }
+    
+}
+
 public enum SFAnimationError: Error {
-    case noParent
+    case noView
 }
 
 open class SFAnimation: NSObject {
@@ -26,33 +47,24 @@ open class SFAnimation: NSObject {
     public enum SFAnimationType {
         case inside
         case outside
-        case none
     }
     
     // MARK: - Instance Properties
     
     public final weak var view: UIView?
-    public final var direction: SFAnimationDirection { didSet { self.load() } }
-    public final var type: SFAnimationType { didSet { self.load() } }
-    public final var delay: TimeInterval = 0
-    public final var duration: TimeInterval = 1
-    public final var damping: CGFloat = 1
-    public final var velocity: CGFloat = 0
-    public final var force: CGFloat = 1
-    public final var center: CGPoint = CGPoint.zero
-    public final var initialFrame: CGRect = CGRect.zero
-    public final var finalFrame: CGRect = CGRect.zero
-    public final var initialScaleX: CGFloat = 1
-    public final var initialScaleY: CGFloat = 1
-    public final var finalScaleX: CGFloat = 1
-    public final var finalScaleY: CGFloat = 1
-    public final var initialAlpha: CGFloat = 1.0 { didSet { self.view?.alpha = self.initialAlpha } }
-    public final var finalAlpha: CGFloat = 1.0
-    public final var animationCurve: SFAnimationCurve = .easeOut
+    open var direction: SFAnimationDirection { didSet { self.load() } }
+    open var type: SFAnimationType { didSet { self.load() } }
+    open var damping: CGFloat = 1 { didSet { self.load() } }
+    open var initialVelocity: CGVector = .zero { didSet { self.load() } }
+    open var response: CGFloat = 1 { didSet { self.load() } }
+    open var animator = UIViewPropertyAnimator()
     
     // MARK: - Initializers
     
-    public init(with view: UIView, direction: SFAnimationDirection = .none, type: SFAnimationType = .none) {
+    public init(with view: UIView, direction: SFAnimationDirection = .none, type: SFAnimationType = .inside, damping: CGFloat = 1.0, response: CGFloat = 1.0, initialVelocity: CGVector = .zero) {
+        self.damping = damping
+        self.response = response
+        self.initialVelocity = initialVelocity
         self.type = type
         self.view = view
         self.direction = direction
@@ -68,14 +80,22 @@ open class SFAnimation: NSObject {
     
     // start: All animations should be implemented here
     @discardableResult
-    open func start() -> Promise<Void> {
-        return Promise { seal in
-            seal.fulfill(())
+    open func start() -> Guarantee<Void> {
+        return Guarantee { seal in
+            animator.addCompletion({ (state) in
+                if state == .end {
+                    seal(())
+                }
+            })
+            animator.startAnimation()
         }
     }
     
-    public final func inverted() {
-        self.type = self.type == .inside ? .outside : .inside
+    @discardableResult
+    open func reverse() -> Guarantee<Void> {
+        return Guarantee { seal in
+            seal(())
+        }
     }
 }
 

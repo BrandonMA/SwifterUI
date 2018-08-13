@@ -53,12 +53,12 @@ open class SFSignUpView: SFView {
         return section
     }()
     
-    open lazy var signUpButton: SFButton = {
-        let button = SFButton(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
+    open lazy var signUpButton: SFFluidButton = {
+        let button = SFFluidButton(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         button.title = "Crear Cuenta"
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 10
-        button.addTouchAnimations = true
+        button.useHighlightTextColor = true
         return button
     }()
     
@@ -70,28 +70,20 @@ open class SFSignUpView: SFView {
         return stack
     }()
     
-    // MARK: - Initializers
-    
-    public override init(automaticallyAdjustsColorStyle: Bool = true, useAlternativeColors: Bool = false, frame: CGRect = .zero) {
-        super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, useAlternativeColors: useAlternativeColors, frame: frame)
-        addSubview(contentStack)
-    }
-    
-    public required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     // MARK: - Instance Methods
     
-    open override func updateConstraints() {
-        if customConstraints.isEmpty {
-            customConstraints.append(contentsOf: contentStack.clipEdges())
-            customConstraints.append(nameSection.height(SFDimension(value: 64)))
-            customConstraints.append(lastNameSection.height(SFDimension(value: 64)))
-            customConstraints.append(mailSection.height(SFDimension(value: 64)))
-            customConstraints.append(passwordSection.height(SFDimension(value: 64)))
-            customConstraints.append(signUpButton.height(SFDimension(value: 52)))
-        }
-        super.updateConstraints()
+    open override func prepareSubviews() {
+        addSubview(contentStack)
+        super.prepareSubviews()
+    }
+    
+    open override func setConstraints() {
+        contentStack.clipEdges()
+        nameSection.height(SFDimension(value: 64))
+        lastNameSection.height(SFDimension(value: 64))
+        mailSection.height(SFDimension(value: 64))
+        passwordSection.height(SFDimension(value: 64))
+        signUpButton.height(SFDimension(value: 52))
+        super.setConstraints()
     }
 }

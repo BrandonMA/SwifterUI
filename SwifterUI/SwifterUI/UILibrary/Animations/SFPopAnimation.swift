@@ -14,29 +14,28 @@ open class SFPopAnimation: SFAnimation {
     // MARK: - Instance Methods
     
     open override func load() {
-        self.initialScaleX = type == .outside ? 1 + force * 0.2 : force * 0.2 < 1 ? 1 - force * 0.2 : 0
-        self.finalScaleX = type == .outside ? force * 0.2 < 1 ? 1 - force * 0.2 : 0 : 1 + force * 0.2
+        guard let view = view else { return }
+        let initialScale = CGAffineTransform(scaleX: self.type == .inside ? 0.0 : 1.0, y: self.type == .inside ? 0.0 : 1.0)
+        let finalScale = CGAffineTransform(scaleX: self.type == .inside ? 1.0 : 0.000001, y: self.type == .inside ? 1.0 : 0.000001)
+        view.transform = initialScale
+        if self.type == .inside {
+            view.alpha = 1.0
+        }
+        animator = UIViewPropertyAnimator(damping: self.damping, response: self.response, initialVelocity: self.initialVelocity)
+        animator.addAnimations {
+            view.transform = finalScale
+            if self.type == .outside {
+                view.alpha = 0.0
+            }
+        }
     }
     
+    // MARK: - Instance Methods
+    
     @discardableResult
-    open override func start() -> Promise<Void> {
-        return Promise { seal in
-            guard let view = view else {
-                seal.reject(SFAnimationError.noParent)
-                return
-            }
-            CATransaction.begin()
-            CATransaction.setCompletionBlock({
-                seal.fulfill(())
-            })
-            let animation = CAKeyframeAnimation(keyPath: "transform.scale")
-            animation.values = [1, initialScaleX, finalScaleX, initialScaleX, 1]
-            animation.keyTimes = [0, 0.2, 0.4, 0.6, 0.8, 1]
-            animation.timingFunction = animationCurve.getTimingFunction()
-            animation.duration = self.duration
-            animation.beginTime = CACurrentMediaTime() + CFTimeInterval(delay)
-            view.layer.add(animation, forKey: nil)
-            CATransaction.commit()
-        }
+    open override func reverse() -> Guarantee<Void> {
+        type = type == .inside ? .outside : .inside
+        load()
+        return start()
     }
 }

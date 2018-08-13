@@ -32,21 +32,21 @@ open class SFSignInView: SFView {
         return section
     }()
     
-    open lazy var signInButton: SFButton = {
-        let button = SFButton(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
+    open lazy var signInButton: SFFluidButton = {
+        let button = SFFluidButton(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         button.title = "Iniciar Sesión"
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 10
-        button.addTouchAnimations = true
+        button.useHighlightTextColor = true
         return button
     }()
     
-    open lazy var passwordResetButton: SFButton = {
-        let button = SFButton(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
+    open lazy var passwordResetButton: SFFluidButton = {
+        let button = SFFluidButton(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         button.title = "Cambiar contraseña"
+        button.useHighlightTextColor = true
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 10
-        button.addTouchAnimations = true
         return button
     }()
     
@@ -58,27 +58,19 @@ open class SFSignInView: SFView {
         return stack
     }()
     
-    // MARK: - Initializers
-    
-    public override init(automaticallyAdjustsColorStyle: Bool = true, useAlternativeColors: Bool = false, frame: CGRect = .zero) {
-        super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, useAlternativeColors: useAlternativeColors, frame: frame)
-        addSubview(contentStack)
-    }
-    
-    public required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     // MARK: - Instance Methods
     
-    open override func updateConstraints() {
-        if customConstraints.isEmpty {
-            customConstraints.append(contentsOf: contentStack.clipEdges())
-            customConstraints.append(mailSection.height(SFDimension(value: 64)))
-            customConstraints.append(passwordSection.height(SFDimension(value: 64)))
-            customConstraints.append(passwordResetButton.height(SFDimension(value: 52)))
-            customConstraints.append(signInButton.height(SFDimension(value: 52)))
-        }
-        super.updateConstraints()
+    open override func prepareSubviews() {
+        addSubview(contentStack)
+        super.prepareSubviews()
+    }
+    
+    open override func setConstraints() {
+        contentStack.clipEdges()
+        mailSection.height(SFDimension(value: 64))
+        passwordSection.height(SFDimension(value: 64))
+        passwordResetButton.height(SFDimension(value: 52))
+        signInButton.height(SFDimension(value: 52))
+        super.setConstraints()
     }
 }

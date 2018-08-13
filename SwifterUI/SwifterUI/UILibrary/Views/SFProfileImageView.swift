@@ -73,7 +73,7 @@ open class SFProfileImageView: SFView {
     
     open override func updateColors() {
         backgroundColor = .clear
-        imageView.backgroundColor = useAlternativeColors ? colorStyle.getTextEntryColor() : colorStyle.getAlternativeColor()
+        imageView.backgroundColor = useAlternativeColors ? colorStyle.getContrastColor() : colorStyle.getAlternativeColor()
         imageView.tintColor = colorStyle.getPlaceholderColor()
         updateSubviewsColors()
     }

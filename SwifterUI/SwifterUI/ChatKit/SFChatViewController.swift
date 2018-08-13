@@ -195,15 +195,15 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
     // MARK: - Media Methods
     
     private final func mediaButtonDidTouch() {
-        let photosButton = SFButton()
+        let photosButton = SFFluidButton()
         photosButton.title = "Fotos y Videos"
-        photosButton.addTouchAction {
+        photosButton.addAction {
             self.showMediaPicker(sourceType: .photoLibrary)
         }
         
-        let cameraButton = SFButton()
+        let cameraButton = SFFluidButton()
         cameraButton.title = "Camara"
-        cameraButton.addTouchAction { [unowned self] in
+        cameraButton.addAction { [unowned self] in
             self.showMediaPicker(sourceType: .camera)
         }
         

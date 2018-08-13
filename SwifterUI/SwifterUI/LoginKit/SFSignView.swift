@@ -12,7 +12,7 @@ open class SFSignView: SFScrollView {
     
     // MARK: - Instance Properties
     
-    private lazy var contentStack: SFStackView = {
+    public lazy var contentStack: SFStackView = {
         let stack = SFStackView(arrangedSubviews: [imageView, labelsStack, signUpView, signInView, facebookButton])
         stack.axis = .vertical
         stack.spacing = 16
@@ -36,23 +36,19 @@ open class SFSignView: SFScrollView {
         return stack
     }()
     
-    public lazy var signUpButton: SFButton = {
-        let button = SFButton(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
+    public lazy var signUpButton: SFFluidButton = {
+        let button = SFFluidButton(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle, useAlternativeColors: true)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.title = "Crear Cuenta"
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 17)
-        button.addTouchAnimations = true
-        button.useAlternativeColors = true
+        button.titleLabel.font = UIFont.boldSystemFont(ofSize: 17)
         return button
     }()
     
-    public lazy var signInButton: SFButton = {
-        let button = SFButton(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
+    public lazy var signInButton: SFFluidButton = {
+        let button = SFFluidButton(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle, useAlternativeColors: true)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.title = "Iniciar Sesión"
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 17)
-        button.addTouchAnimations = true
-        button.useAlternativeColors = true
+        button.titleLabel.font = UIFont.boldSystemFont(ofSize: 17)
         return button
     }()
     
@@ -65,17 +61,19 @@ open class SFSignView: SFScrollView {
     public lazy var signInView: SFSignInView = {
         let view = SFSignInView(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.isHidden = true
         return view
     }()
     
-    open lazy var facebookButton: SFButton = {
-        let button = SFButton(automaticallyAdjustsColorStyle: false)
+    open lazy var facebookButton: SFFluidButton = {
+        let button = SFFluidButton(automaticallyAdjustsColorStyle: false)
         button.title = "Facebook"
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = UIColor(hex: "3B5998")
+        button.normalColor = UIColor(hex: "3B5998")
+        button.textColor = .white
+        button.highlightedColor = UIColor(hex: "2d4577")
+        button.highlightedTextColor = UIColor.white
+        button.titleLabel.font = UIFont.boldSystemFont(ofSize: 17)
         button.layer.cornerRadius = 10
-        button.addTouchAnimations = true
         return button
     }()
     
@@ -83,7 +81,6 @@ open class SFSignView: SFScrollView {
     
     public override init(automaticallyAdjustsColorStyle: Bool = true, useAlternativeColors: Bool = false, frame: CGRect = .zero) {
         super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, useAlternativeColors: useAlternativeColors, frame: frame)
-        contentView.addSubview(contentStack)
         scrollsHorizontally = false
     }
     
@@ -93,14 +90,23 @@ open class SFSignView: SFScrollView {
     
     // MARK: - Instance Methods
     
-    open override func layoutIfBoundsChanged() {
-        super.layoutIfBoundsChanged()
-        if customConstraints.isEmpty {
-            customConstraints.append(contentsOf: contentStack.clipEdges(exclude: [.bottom], margin: UIEdgeInsets(top: 16, left: 16, bottom: 0, right: 16)))
-            customConstraints.append(imageView.height(SFDimension(value: 160)))
-            customConstraints.append(labelsStack.height(SFDimension(value: 32)))
-            customConstraints.append(facebookButton.height(SFDimension(value: 52)))
-            customConstraints.append(contentView.clipBottom(to: .bottom, of: contentStack, margin: -16))
-        }
+    open override func prepareSubviews() {
+        contentView.addSubview(contentStack)
+        super.prepareSubviews()
+    }
+    
+    open override func setConstraints() {
+        contentStack.clipEdges(exclude: [.bottom], margin: UIEdgeInsets(top: 16, left: 16, bottom: 0, right: 16))
+        imageView.height(SFDimension(value: 160))
+        labelsStack.height(SFDimension(value: 32))
+        facebookButton.height(SFDimension(value: 52))
+        contentView.clipBottom(to: .bottom, of: contentStack, margin: -16)
+        super.setConstraints()
+    }
+    
+    open override func updateColors() {
+        signUpView.updateColors()
+        signInView.updateColors()
+        super.updateColors()
     }
 }

@@ -95,7 +95,7 @@ open class SFButton: UIButton, SFViewColorStyle, SFLayoutView {
     
     open func updateColors() {
         
-        backgroundColor = isTextPicker ? colorStyle.getTextEntryColor() : useClearBackground ? .clear : useAlternativeColors ? colorStyle.getMainColor() : colorStyle.getAlternativeColor()
+        backgroundColor = isTextPicker ? colorStyle.getContrastColor() : useClearBackground ? .clear : useAlternativeColors ? colorStyle.getMainColor() : colorStyle.getAlternativeColor()
         
         titleLabel?.backgroundColor = backgroundColor
         
@@ -113,13 +113,6 @@ open class SFButton: UIButton, SFViewColorStyle, SFLayoutView {
     
     @objc public final func animateTouchDown(button: UIButton) {
         titleLabel?.alpha = 0.7
-        let animation = SFScaleAnimation(with: button, type: .outside)
-        animation.finalScaleX = 0.95
-        animation.finalScaleY = 0.95
-        animation.finalAlpha = 1.0
-        animation.duration = 0.5
-        animation.damping = 0.6
-        animation.start()
     }
     
     @objc public final func touchUp(button: UIButton) {

@@ -115,6 +115,13 @@ class ViewController: SFViewController {
         return collectionView
     }()
     
+    lazy var button: SFFluidButton = {
+        var button = SFFluidButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.title = "Botón"
+        return button
+    }()
+    
     let tableManager = SFTableManager<String, SFTableViewCell, SFTableViewHeaderView, SFTableViewFooterView>()
     let collectionManager = SFCollectionManager<String, SFCollectionViewCell, SFCollectionViewHeaderView, SFCollectionViewFooterView>()
 
@@ -122,6 +129,7 @@ class ViewController: SFViewController {
         super.viewDidLoad()
         view.addSubview(tableView)
         view.addSubview(collectionView)
+        view.addSubview(button)
 
         collectionManager.configure(collectionView: collectionView) { (cell, model, indexPath) in
             cell.isUserInteractionEnabled = true
@@ -151,20 +159,32 @@ class ViewController: SFViewController {
         
         tableManager.update(data: [["Prueba 1", "Prueba 2", "Prueba 3", "Prueba 1", "Prueba 2", "Prueba 3", "Prueba 4"], ["Prueba 1", "Prueba 2", "Prueba 3", "Prueba 1", "Prueba 2", "Prueba 3", "Prueba 4"]])
         collectionManager.update(data: [["Prueba 1", "Prueba 2", "Prueba 3", "Prueba 4"]])
+        button.addAction {
+            print("Hola")
+        }
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         tableView.clipEdges(exclude: [.bottom])
-        tableView.clipBottom(to: .centerY)
-        collectionView.clipTop(to: .centerY)
+        tableView.clipBottom(to: .top, of: button)
+        
+        button.height(SFDimension(value: 30))
+        button.clipRight(to: .right)
+        button.clipLeft(to: .left)
+        button.clipCenterY(to: .centerY)
+        
+        collectionView.clipTop(to: .bottom, of: button)
         collectionView.clipEdges(exclude: [.top])
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        let button = SFButton()
+        let button = SFFluidButton()
         button.title = "Hola"
+        button.addAction {
+            self.showError()
+        }
         let alert = SFAlertViewController(title: "Prueba", message: "Este es un mensaje de prueba", buttons: [button], automaticallyAdjustsColorStyle: true)
         present(alert, animated: true)
     }

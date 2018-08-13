@@ -125,7 +125,7 @@ public enum SFColorStyle: Int {
     /**
      - returns: Color that contrast with the main background color for text entries like SFTextField
      */
-    public func getTextEntryColor() -> UIColor {
+    public func getContrastColor() -> UIColor {
         switch self {
         case .light: return SFColors.contrastWhite
         case .dark: return SFColors.contrastBlack

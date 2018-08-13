@@ -43,7 +43,12 @@ open class SFSignViewController: SFViewController {
         signView.clipEdges()
     }
     
-    @objc private func didTouch(button: UIButton) {
+    open override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.signView.signInView.removeFromSuperview()
+    }
+    
+    @objc private func didTouch(button: UIControl) {
         state = button == signView.signInButton ? .signIn : .signUp
         setColorsForState()
         if state == .signIn {
@@ -54,45 +59,39 @@ open class SFSignViewController: SFViewController {
     }
     
     private func showSignIn() {
-        let outAnimation = SFScaleAnimation(with: signView.signUpView, type: .outside)
-        outAnimation.duration = 0.6
-        outAnimation.start().then { _ -> Promise<Void> in
-            self.signView.signUpView.isHidden = true
-            self.signView.signInView.isHidden = false
-            UIView.animate(withDuration: 0.6, animations: {
+        let animation = SFPopAnimation(with: signView.signUpView, type: .outside, damping: 0.8, response: 0.7)
+        animation.start().then { _ -> Guarantee<Void> in
+            self.signView.signUpView.removeFromSuperview()
+            self.signView.contentStack.insertArrangedSubview(self.signView.signInView, at: 2)
+            let inAnimation = SFPopAnimation(with: self.signView.signInView, type: .inside, damping: 0.8, response: 0.7)
+            UIView.animate(withDuration: 0.4, animations: {
                 self.signView.layoutIfNeeded()
             })
-            let inAnimation = SFScaleAnimation(with: self.signView.signInView, type: .inside)
-            inAnimation.duration = 0.6
             return inAnimation.start()
-        }.catch({ error in
-            self.showError()
-        })
+        }
     }
     
     private func showSignUp() {
-        let outAnimation = SFScaleAnimation(with: signView.signInView, type: .outside)
-        outAnimation.duration = 0.6
-        outAnimation.start().then { _ -> Promise<Void> in
-            self.signView.signUpView.isHidden = false
-            self.signView.signInView.isHidden = true
-            UIView.animate(withDuration: 0.6, animations: {
+        let animation = SFPopAnimation(with: signView.signInView, type: .outside, damping: 0.8, response: 0.7)
+        animation.start().then { _ -> Guarantee<Void> in
+            self.signView.signInView.removeFromSuperview()
+            self.signView.contentStack.insertArrangedSubview(self.signView.signUpView, at: 2)
+            let inAnimation = SFPopAnimation(with: self.signView.signUpView, type: .inside, damping: 0.8, response: 0.7)
+            UIView.animate(withDuration: 0.4, animations: {
                 self.signView.layoutIfNeeded()
             })
-            let inAnimation = SFScaleAnimation(with: self.signView.signUpView, type: .inside)
-            inAnimation.duration = 0.6
             return inAnimation.start()
-        }.catch({ error in
-            self.showError()
-        })
+        }
     }
     
     private func setColorsForState() {
-        UIView.animate(withDuration: 0.6, animations: {
+        UIView.animate(withDuration: 0.4, animations: {
             if self.state == .signIn {
                 self.signView.signUpButton.alpha = 0.5
+                self.signView.signInButton.alpha = 1.0
             } else if self.state == .signUp {
                 self.signView.signInButton.alpha = 0.5
+                self.signView.signUpButton.alpha = 1.0
             }
         })
     }

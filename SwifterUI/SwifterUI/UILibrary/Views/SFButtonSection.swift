@@ -43,7 +43,6 @@ public final class SFButtonSection: SFSection {
             if title != "" {
                 return title
             } else {
-                SFWobbleAnimation(with: self).start()
                 return nil
             }
         } set {

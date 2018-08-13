@@ -91,7 +91,7 @@ open class SFTextField: UITextField, SFViewColorStyle {
     // MARK: - Instance Methods
     
     open func updateColors() {
-        backgroundColor = useAlternativeColors ? colorStyle.getTextEntryColor() : colorStyle.getAlternativeColor()
+        backgroundColor = useAlternativeColors ? colorStyle.getContrastColor() : colorStyle.getAlternativeColor()
         if let placeholder = placeholder {
             attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [NSAttributedStringKey.foregroundColor:colorStyle.getPlaceholderColor()])
         }

@@ -65,11 +65,6 @@ open class SFTabBarController: UITabBarController, SFControllerColorStyle {
     
     // MARK: - Instance Methods
     
-    open override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-        guard let item = item as? SFTabBarItem else { return }
-        item.startAnimation()
-    }
-    
     open func checkColorStyleListener() {
         if self.automaticallyAdjustsColorStyle == true {
             NotificationCenter.default.addObserver(self, selector: #selector(handleBrightnessChange), name: .UIScreenBrightnessDidChange, object: nil)

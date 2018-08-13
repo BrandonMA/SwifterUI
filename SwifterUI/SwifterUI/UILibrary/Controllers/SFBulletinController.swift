@@ -24,18 +24,16 @@ extension SFBulletinViewControllerDelegate {
     }
 }
 
-open class SFBulletinViewController: SFViewController, SFInteractionViewController {
+open class SFBulletinViewController: SFViewController {
     
     // MARK: - Instance Properties
     
     public final var mainView: UIView { return bulletinView.backgroundView }
-    public final lazy var animator: UIDynamicAnimator = UIDynamicAnimator(referenceView: view)
-    public final var snapping: UISnapBehavior?
     
     public final weak var delegate: SFBulletinViewControllerDelegate?
     
     public final var pickerValues: [String] = []
-    public final var buttons: [SFButton] = []
+    public final var buttons: [SFFluidButton] = []
     
     public final var useDatePicker: Bool = false
     public final var useButtons: Bool = false
@@ -82,6 +80,8 @@ open class SFBulletinViewController: SFViewController, SFInteractionViewControll
         return picker
     }()
     
+    lazy var animation = SFPopAnimation(with: mainView, damping: 0.8, response: 0.7)
+    
     // MARK: - Initializers
     
     public override init(automaticallyAdjustsColorStyle: Bool = true) {
@@ -106,7 +106,7 @@ open class SFBulletinViewController: SFViewController, SFInteractionViewControll
         datePicker.maximumDate = maxDate
     }
     
-    public convenience init(title: String = "", message: String = "", buttons: [SFButton], automaticallyAdjustsColorStyle: Bool = true) {
+    public convenience init(title: String = "", message: String = "", buttons: [SFFluidButton], automaticallyAdjustsColorStyle: Bool = true) {
         self.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle)
         self.buttons = buttons
         bulletinTitle = title
@@ -114,11 +114,11 @@ open class SFBulletinViewController: SFViewController, SFInteractionViewControll
         useDatePicker = false
         useButtons = true
         buttons.forEach { (button) in
-            button.addTouchAction { [unowned self] in
+            button.insertAction({ [unowned self] in
                 self.returnToMainViewController(completion: {
-                    button.touchUpInsideActions.forEach({ $0() })
+                    button.touchActions.forEach({ $0() })
                 })
-            }
+            }, at: 0)
         }
     }
     
@@ -140,7 +140,6 @@ open class SFBulletinViewController: SFViewController, SFInteractionViewControll
             self.doneButtonDidTouch()
         }
         
-        bulletinView.backgroundView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(dragView)))
         bulletinView.shadowView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(closeButtonDidTouch)))
     }
     
@@ -148,15 +147,10 @@ open class SFBulletinViewController: SFViewController, SFInteractionViewControll
         super.viewWillLayoutSubviews()
         bulletinView.clipTop(to: .top, useSafeArea: false)
         bulletinView.clipEdges(exclude: [.top])
-        snapping = UISnapBehavior(item: bulletinView.backgroundView, snapTo: bulletinView.backgroundView.center)
     }
     
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let animation = SFScaleAnimation(with: bulletinView.backgroundView, type: .inside)
-        animation.duration = 1.0
-        animation.damping = 0.7
-        animation.velocity = 0.8
         animation.start()
     }
     
@@ -188,14 +182,14 @@ open class SFBulletinViewController: SFViewController, SFInteractionViewControll
         }
     }
     
-    open override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        guard let snapping = snapping else { return }
-        animator.removeBehavior(snapping)
-        super.viewWillTransition(to: size, with: coordinator)
-    }
-    
-    @objc private func dragView(recognizer: UIPanGestureRecognizer) {
-        moveView(recognizer: recognizer)
+    public func returnToMainViewController(completion: (() -> Void)? = nil) {
+        let animator = UIViewPropertyAnimator(duration: 0.3, curve: .easeOut) {
+            self.mainView.transform = CGAffineTransform(scaleX: 0.001, y: 0.001)
+        }
+        animator.addCompletion { (_) in
+            self.dismiss(animated: true, completion: completion)
+        }
+        animator.startAnimation()
     }
     
 }

@@ -70,7 +70,7 @@ open class SFTableViewCell: UITableViewCell, SFViewColorStyle, SFLayoutView {
         textLabel?.textColor = colorStyle.getTextColor()
         detailTextLabel?.textColor = useAlternativeColors ? colorStyle.getInteractiveColor() : colorStyle.getPlaceholderColor()
         let selectedBackgroundView = UIView()
-        selectedBackgroundView.backgroundColor = useAlternativeColors ? colorStyle.getMainColor() : colorStyle.getAlternativeColor()
+        selectedBackgroundView.backgroundColor = useAlternativeColors ? colorStyle.getMainColor() : colorStyle.getContrastColor()
         self.selectedBackgroundView = selectedBackgroundView
         updateSubviewsColors()
     }

@@ -50,7 +50,7 @@ open class SFViewController: UIViewController, SFControllerColorStyle {
     open var autorotate: Bool = true
     
     public final var sfview: SFView! {
-        return view as! SFView
+        return (view as! SFView)
     }
     
     // MARK: - Initializers

@@ -18,9 +18,9 @@ public final class SFImageZoomView: UIScrollView, SFViewColorStyle {
         return view
     }()
     
-    open var automaticallyAdjustsColorStyle: Bool = false
+    public var automaticallyAdjustsColorStyle: Bool = false
     
-    open var useAlternativeColors: Bool = false
+    public var useAlternativeColors: Bool = false
     
     // MARK: - Initializers
     
@@ -46,7 +46,7 @@ public final class SFImageZoomView: UIScrollView, SFViewColorStyle {
         imageView.frame.origin = .zero
     }
     
-    open func updateColors() {
+    public func updateColors() {
         backgroundColor = useAlternativeColors ? colorStyle.getAlternativeColor() : colorStyle.getMainColor()
         updateSubviewsColors()
     }

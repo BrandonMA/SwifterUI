@@ -10,7 +10,7 @@ import UIKit
 
 open class SFAnimationController: NSObject, UIViewControllerAnimatedTransitioning {
     
-    open let presenting: Bool
+    public let presenting: Bool
     
     public init(presenting: Bool) {
         self.presenting = presenting

@@ -45,7 +45,7 @@ public final class SFImageZoomViewController: SFViewController {
     
     // MARK: - Instace Methods
 
-    open override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(imageZoomView)
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(imageDidTap)))
@@ -60,13 +60,13 @@ public final class SFImageZoomViewController: SFViewController {
         }
     }
 
-    open override func viewWillLayoutSubviews() {
+    public override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         imageZoomView.clipTop(to: .top, useSafeArea: false)
         imageZoomView.clipEdges(exclude: [.top])
     }
 
-    open override func viewDidLayoutSubviews() {
+    public override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         imageZoomView.minimumZoomScale = minimumZoomScale
         if imageZoomView.zoomScale == 1 {

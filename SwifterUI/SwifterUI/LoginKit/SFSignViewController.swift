@@ -43,9 +43,14 @@ open class SFSignViewController: SFViewController {
         signView.clipEdges()
     }
     
+    open override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+    }
+    
     open override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.signView.signInView.removeFromSuperview()
+        signView.signInView.alpha = 0.0
+        signView.signInView.removeFromSuperview()
     }
     
     @objc private func didTouch(button: UIControl) {
@@ -59,29 +64,71 @@ open class SFSignViewController: SFViewController {
     }
     
     private func showSignIn() {
-        let animation = SFPopAnimation(with: signView.signUpView, type: .outside, damping: 0.8, response: 0.7)
-        animation.start().then { _ -> Guarantee<Void> in
+        
+        if signView.signInView.frame.origin.x == 0 {
+            signView.signInView.layoutIfNeeded()
+            signView.signInView.frame = self.signView.signUpView.frame
+            signView.signInView.transform = CGAffineTransform(scaleX: 0.001, y: 0.001)
+        }
+        
+        signView.signInView.alpha = 0.0
+        
+        let animator = UIViewPropertyAnimator(damping: 0.9, response: 0.7)
+        
+        animator.addAnimations {
+            self.signView.signUpView.transform = CGAffineTransform(scaleX: 0.001, y: 0.001)
+        }
+        
+        animator.addCompletion { (_) in
             self.signView.signUpView.removeFromSuperview()
             self.signView.contentStack.insertArrangedSubview(self.signView.signInView, at: 2)
-            let inAnimation = SFPopAnimation(with: self.signView.signInView, type: .inside, damping: 0.8, response: 0.7)
-            UIView.animate(withDuration: 0.4, animations: {
-                self.signView.layoutIfNeeded()
-            })
-            return inAnimation.start()
         }
+        
+        animator.addCompletion { (_) in
+            
+            let newAnimator = UIViewPropertyAnimator(damping: 0.9, response: 0.7)
+            
+            newAnimator.addAnimations {
+                self.signView.signInView.alpha = 1.0
+                self.signView.signInView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+                self.signView.layoutIfNeeded()
+            }
+            
+            newAnimator.startAnimation()
+        }
+        animator.startAnimation()
+        
     }
     
     private func showSignUp() {
-        let animation = SFPopAnimation(with: signView.signInView, type: .outside, damping: 0.8, response: 0.7)
-        animation.start().then { _ -> Guarantee<Void> in
+        
+        signView.signUpView.alpha = 0.0
+        
+        let animator = UIViewPropertyAnimator(damping: 0.9, response: 0.7)
+        
+        animator.addAnimations {
+            self.signView.signInView.transform = CGAffineTransform(scaleX: 0.001, y: 0.001)
+        }
+        
+        animator.addCompletion { (_) in
             self.signView.signInView.removeFromSuperview()
             self.signView.contentStack.insertArrangedSubview(self.signView.signUpView, at: 2)
-            let inAnimation = SFPopAnimation(with: self.signView.signUpView, type: .inside, damping: 0.8, response: 0.7)
-            UIView.animate(withDuration: 0.4, animations: {
-                self.signView.layoutIfNeeded()
-            })
-            return inAnimation.start()
         }
+        
+        animator.addCompletion { (_) in
+            
+            let newAnimator = UIViewPropertyAnimator(damping: 0.9, response: 0.7)
+            
+            newAnimator.addAnimations {
+                self.signView.signUpView.alpha = 1.0
+                self.signView.signUpView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+                self.signView.layoutIfNeeded()
+            }
+            
+            newAnimator.startAnimation()
+        }
+        
+        animator.startAnimation()
     }
     
     private func setColorsForState() {

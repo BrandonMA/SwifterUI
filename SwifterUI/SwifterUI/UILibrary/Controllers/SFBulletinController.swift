@@ -79,9 +79,7 @@ open class SFBulletinViewController: SFViewController {
         picker.translatesAutoresizingMaskIntoConstraints = false
         return picker
     }()
-    
-    lazy var animation = SFPopAnimation(with: mainView, damping: 0.8, response: 0.7)
-    
+        
     // MARK: - Initializers
     
     public override init(automaticallyAdjustsColorStyle: Bool = true) {
@@ -151,7 +149,16 @@ open class SFBulletinViewController: SFViewController {
     
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        animation.start()
+        
+        mainView.transform = CGAffineTransform(scaleX: 0.001, y: 0.001)
+        
+        let animator = UIViewPropertyAnimator(damping: 0.9, response: 0.7)
+        
+        animator.addAnimations {
+            self.mainView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+        }
+        
+        animator.startAnimation()
     }
     
     @objc private func closeButtonDidTouch() {
@@ -183,12 +190,17 @@ open class SFBulletinViewController: SFViewController {
     }
     
     public func returnToMainViewController(completion: (() -> Void)? = nil) {
-        let animator = UIViewPropertyAnimator(duration: 0.3, curve: .easeOut) {
+        
+        let animator = UIViewPropertyAnimator(damping: 0.9, response: 0.7)
+        
+        animator.addAnimations {
             self.mainView.transform = CGAffineTransform(scaleX: 0.001, y: 0.001)
         }
+        
         animator.addCompletion { (_) in
             self.dismiss(animated: true, completion: completion)
         }
+        
         animator.startAnimation()
     }
     

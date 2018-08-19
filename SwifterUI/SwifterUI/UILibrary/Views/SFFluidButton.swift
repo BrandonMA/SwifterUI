@@ -58,10 +58,7 @@ open class SFFluidButton: UIControl, SFViewColorStyle, SFLayoutView {
         super.init(frame: frame)
         prepareSubviews()
         setConstraints()
-        
-        addTarget(self, action: #selector(touchDown), for: [.touchDown, .touchDragEnter, .touchDragInside])
-        addTarget(self, action: #selector(touchUp), for: [.touchUpInside, .touchDragExit, .touchCancel, .touchDragOutside, .touchUpOutside])
-        addTarget(self, action: #selector(performActions), for: .touchUpInside)
+        addTargets()
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -69,6 +66,12 @@ open class SFFluidButton: UIControl, SFViewColorStyle, SFLayoutView {
     }
     
     // MARK: - Instance Methods
+    
+    open func addTargets() {
+        addTarget(self, action: #selector(touchDown), for: [.touchDown, .touchDragEnter, .touchDragInside])
+        addTarget(self, action: #selector(touchUp), for: [.touchUpInside, .touchDragExit, .touchCancel, .touchDragOutside, .touchUpOutside])
+        addTarget(self, action: #selector(performActions), for: .touchUpInside)
+    }
     
     open func prepareSubviews() {
         addSubview(titleLabel)
@@ -93,7 +96,7 @@ open class SFFluidButton: UIControl, SFViewColorStyle, SFLayoutView {
         normalColor = backgroundColor
     }
     
-    @objc private func touchDown() {
+    @objc open func touchDown() {
         
         animator.stopAnimation(true)
         
@@ -115,7 +118,7 @@ open class SFFluidButton: UIControl, SFViewColorStyle, SFLayoutView {
         }
     }
     
-    @objc private func touchUp() {
+    @objc open func touchUp() {
         
         animator = UIViewPropertyAnimator(duration: 0.5, curve: .easeOut, animations: {
             
@@ -131,7 +134,7 @@ open class SFFluidButton: UIControl, SFViewColorStyle, SFLayoutView {
         animator.startAnimation()
     }
     
-    @objc private func performActions() {
+    @objc open func performActions() {
         touchActions.forEach({ $0() })
     }
     
@@ -143,7 +146,6 @@ open class SFFluidButton: UIControl, SFViewColorStyle, SFLayoutView {
         touchActions.insert(action, at: index)
     }
 }
-
 
 
 

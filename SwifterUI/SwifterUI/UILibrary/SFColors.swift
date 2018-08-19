@@ -43,7 +43,7 @@ public struct SFColors {
     /**
      HexCode: 1A1A1A
      */
-    static public let alternativeBlack: UIColor = UIColor(hex: "1A1A1A")
+    static public let alternativeBlack: UIColor = UIColor(hex: "0D0D0D")
     
     /**
      HexCode: E8E8E8
@@ -53,7 +53,7 @@ public struct SFColors {
     /**
      HexCode: 0F0F0F
      */
-    static public let contrastBlack: UIColor = UIColor(hex: "242424")
+    static public let contrastBlack: UIColor = UIColor(hex: "171717")
     
     /**
      HexCode: F0F0F0

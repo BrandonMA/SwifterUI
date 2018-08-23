@@ -10,6 +10,17 @@ import UIKit
 import PromiseKit
 import DeepDiff
 
+public extension UITableView {
+    
+    func reload<T>(changes: [Change<T>], section: Int, insertionAnimation: UITableViewRowAnimation = .fade, deletionAnimation: UITableViewRowAnimation = .fade, replacementAnimation: UITableViewRowAnimation = .fade) -> Guarantee<Void> where T : Hashable {
+        return Guarantee { seal in
+            reload(changes: changes, section: section, insertionAnimation: insertionAnimation, deletionAnimation: deletionAnimation, replacementAnimation: replacementAnimation, completion: { (_) in
+                seal(())
+            })
+        }
+    }
+}
+
 public protocol SFTableManagerDelegate: class {
     func didSelectRow<DataModel: Hashable>(at indexPath: IndexPath, tableView: SFTableView, item: DataModel)
     func heightForRow(at indexPath: IndexPath, tableView: SFTableView) -> CGFloat?
@@ -20,41 +31,31 @@ public extension SFTableManagerDelegate {
     public func heightForRow(at indexPath: IndexPath, tableView: SFTableView) -> CGFloat? { return nil }
 }
 
-open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell, HeaderType: SFTableViewHeaderView, FooterType: SFTableViewFooterView>: NSObject, UITableViewDataSource, UITableViewDelegate, UITableViewDataSourcePrefetching {
+open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell, HeaderType: SFTableViewHeaderView, FooterType: SFTableViewFooterView>: SFDataManager<DataModel>, UITableViewDataSource, UITableViewDelegate, UITableViewDataSourcePrefetching {
     
     public typealias SFTableManagerItemStyler = ((CellType, DataModel, IndexPath) -> ())
+    public typealias SFTableManagerPrefetchStyler = ((DataModel, IndexPath) -> ())
+    public typealias SFTableManagerHeaderStyler = ((HeaderType, SFDataSection<DataModel>, Int) -> ())
+    public typealias SFTableManagerFooterStyler = ((FooterType, SFDataSection<DataModel>, Int) -> ())
     
     // MARK: - Instance Properties
     
     public weak var delegate: SFTableManagerDelegate?
     
-    public var data: [SFDataSection<DataModel>] = []
     public weak var tableView: SFTableView?
-    
-    public var lastSectionIndex: Int {
-        return data.count == 0 ? data.count : data.count - 1
-    }
-    
-    public var lastIndex: IndexPath {
-        return data[lastSectionIndex].content.count == 0 ? IndexPath(row: 0, section: lastSectionIndex) : IndexPath(row: data[lastSectionIndex].content.count, section: lastSectionIndex)
-    }
     
     /**
      Use this to style a cell with colors and less demaning tasks.
      */
-    open var cellStyler: ((CellType, DataModel, IndexPath) -> ())?
+    open var cellStyler: SFTableManagerItemStyler?
     /**
      Add any prefetch calculations or tasks that could be done on the background.
      */
-    open var prefetchStyler: ((DataModel, IndexPath) -> ())?
-    open var headerStyler: ((HeaderType, SFDataSection<DataModel>, Int) -> ())?
-    open var footerStyler: ((FooterType, SFDataSection<DataModel>, Int) -> ())?
+    open var prefetchStyler: SFTableManagerPrefetchStyler?
+    open var headerStyler: SFTableManagerHeaderStyler?
+    open var footerStyler: SFTableManagerFooterStyler?
     
     // MARK: - Initializers
-    
-    public override init() {
-        super.init()
-    }
     
     // MARK: - Instace Methods
     
@@ -88,107 +89,106 @@ open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell, Header
     
     // MARK: - Update Methods
     
-    open func forceUpdate(dataSections: [SFDataSection<DataModel>]) {
-        data = dataSections
+    open override func forceUpdate(dataSections: [SFDataSection<DataModel>]) {
+        super.forceUpdate(dataSections: dataSections)
         tableView?.reloadData()
     }
     
-    open func forceUpdate(data: [[DataModel]]) {
-        for (index, section) in data.enumerated() {
-            let dataSection = SFDataSection<DataModel>(content: section, identifier: "")
-            self.data[index] = dataSection
-        }
+    open override func forceUpdate(data: [[DataModel]]) {
+        super.forceUpdate(data: data)
         tableView?.reloadData()
     }
     
     @discardableResult
-    open func update(dataSections: [SFDataSection<DataModel>], animation: UITableViewRowAnimation = .fade) -> Guarantee<Void> {
-        return Guarantee { seal in
+    open func updateSections(dataSections: [SFDataSection<DataModel>], insertionAnimation: UITableViewRowAnimation = .fade, deletionAnimation: UITableViewRowAnimation = .fade, replacementAnimation: UITableViewRowAnimation = .fade) -> Promise<Void> {
+        return Promise { seal in
             
             if dataSections.isEmpty {
                 self.data.removeAll()
                 self.tableView?.reloadData()
-                seal(())
+                seal.fulfill(())
             } else if let item = dataSections.first, item.content.isEmpty {
                 self.data.removeAll()
                 self.tableView?.reloadData()
-                seal(())
+                seal.fulfill(())
             } else {
-                for (index, dataSection) in dataSections.enumerated() {
-                    guard let tableView = tableView else { return }
-                    let numberOfRowsBeforeUpdate = tableView.numberOfSections > 0 ? tableView.numberOfRows(inSection: index) : 0
-                    update(dataSection: dataSection, index: index, animation: animation).done {
-                        
-                        if numberOfRowsBeforeUpdate == 0 {
-                            self.reloadSection(index: index)
+                firstly {
+                    update(dataSections: dataSections)
+                }.then ({ (arrayOfChanges)  -> Promise<Void> in
+                    let promises = arrayOfChanges.enumerated().map({ (index, changes) -> Guarantee<Void> in
+                        if self.tableView!.numberOfSections < self.data.count {
+                            return self.insertSection(index: index, animation: insertionAnimation)
+                        } else {
+                            return self.tableView!.reload(changes: changes, section: index, insertionAnimation: insertionAnimation, deletionAnimation: deletionAnimation, replacementAnimation: replacementAnimation)
                         }
-                        
-                        if index == dataSections.count - 1 {
-                            seal(())
-                        }
-                    }
-                }
+                    })
+                    return when(fulfilled: promises)
+                }).done({
+                    seal.fulfill(())
+                }).catch({ (error) in
+                    seal.reject(error)
+                })
             }
         }
     }
     
     @discardableResult
-    open func update(data: [[DataModel]], animation: UITableViewRowAnimation = .fade) -> Guarantee<Void> {
-        return Guarantee { seal in
+    open func updateSections(data: [[DataModel]], insertionAnimation: UITableViewRowAnimation = .fade, deletionAnimation: UITableViewRowAnimation = .fade, replacementAnimation: UITableViewRowAnimation = .fade) -> Promise<Void> {
+        return Promise { seal in
             
             if data.isEmpty {
                 self.data.removeAll()
                 self.tableView?.reloadData()
-                seal(())
+                seal.fulfill(())
             } else if let item = data.first, item.isEmpty {
                 self.data.removeAll()
                 self.tableView?.reloadData()
-                seal(())
+                seal.fulfill(())
             } else {
-                for (index, section) in data.enumerated() {
-                    guard let tableView = tableView else { return }
-                    let numberOfRowsBeforeUpdate = tableView.numberOfSections > 0 ? tableView.numberOfRows(inSection: index) : 0
-                    let dataSection = SFDataSection<DataModel>(content: section, identifier: "")
-                    update(dataSection: dataSection, index: index, animation: animation).done {
-                        
-                        if numberOfRowsBeforeUpdate == 0 {
-                            self.reloadSection(index: index)
+                firstly {
+                    update(data: data)
+                }.then ({ (arrayOfChanges)  -> Promise<Void> in
+                    let promises = arrayOfChanges.enumerated().map({ (index, changes) -> Guarantee<Void> in
+                        if self.tableView!.numberOfSections < self.data.count {
+                            return self.insertSection(index: index, animation: insertionAnimation)
+                        } else {
+                            return self.tableView!.reload(changes: changes, section: index, insertionAnimation: insertionAnimation, deletionAnimation: deletionAnimation, replacementAnimation: replacementAnimation)
                         }
-                        
-                        if index == data.count - 1 {
-                            seal(())
-                        }
-                    }
-                }
+                    })
+                    return when(fulfilled: promises)
+                }).done({
+                    seal.fulfill(())
+                }).catch({ (error) in
+                    seal.reject(error)
+                })
             }
             
         }
     }
     
     @discardableResult
-    open func update(dataSection: SFDataSection<DataModel>, index: Int, animation: UITableViewRowAnimation = .fade) -> Guarantee<Void> {
+    open func updateSection(_ dataSection: SFDataSection<DataModel>, index: Int, insertionAnimation: UITableViewRowAnimation = .fade, deletionAnimation: UITableViewRowAnimation = .fade, replacementAnimation: UITableViewRowAnimation = .fade) -> Guarantee<Void> {
         if self.data.count > index {
-            return Guarantee { seal in
-                let olddataSection = self.data[index]
-                let changes = diff(old: olddataSection.content, new: dataSection.content)
-                self.data[index] = dataSection
-                self.tableView?.reload(changes: changes, section: index, insertionAnimation: animation, deletionAnimation: animation, replacementAnimation: animation, completion: { (_) in
-                    seal(())
-                })
-            }
+            return firstly {
+                update(dataSection: dataSection, index: index)
+            }.then({ (changes) -> Guarantee<Void> in
+                self.tableView!.reload(changes: changes, section: index, insertionAnimation: insertionAnimation, deletionAnimation: deletionAnimation, replacementAnimation: replacementAnimation)
+            })
         } else {
-            return insert(section: dataSection, index: index)
+            return insertSection(dataSection)
         }
     }
     
     // MARK: - Sections
     
     @discardableResult
-    open func insert(section: SFDataSection<DataModel>, index: Int, animation: UITableViewRowAnimation = .fade) -> Guarantee<Void> {
+    open func insertSection(_ section: SFDataSection<DataModel>? = nil, index: Int? = nil, animation: UITableViewRowAnimation = .fade) -> Guarantee<Void> {
         return Guarantee { seal in
             self.tableView?.performBatchUpdates({
-                self.data.insert(section, at: index)
-                self.tableView?.insertSections(IndexSet(integer: index), with: animation)
+                if let section = section {
+                    self.data.insert(section, at: index ?? lastSectionIndex)
+                }
+                self.tableView?.insertSections(IndexSet(integer: index ?? lastSectionIndex), with: animation)
             }, completion: { (_) in
                 seal(())
             })
@@ -237,10 +237,10 @@ open class SFTableManager<DataModel: Hashable, CellType: SFTableViewCell, Header
     }
     
     @discardableResult
-    open func insert(item: DataModel, indexPath: IndexPath? = nil, animation: UITableViewRowAnimation = .fade) -> Guarantee<Void> {
+    open func insertItem(_ item: DataModel, indexPath: IndexPath? = nil, animation: UITableViewRowAnimation = .fade) -> Guarantee<Void> {
         return Guarantee { seal in
             
-            let indexPath = indexPath ?? self.lastIndex
+            let indexPath = indexPath ?? self.nextLastItemIndex
             if indexPath.section > self.lastSectionIndex {
                 self.data.insert(SFDataSection<DataModel>(), at: self.lastSectionIndex)
             }

@@ -228,7 +228,7 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
             
             if send(message: message) {
                 chatBar.textView.text = ""
-                addNewMessages([message])
+                addNewMessage(message)
             }
         }
     }
@@ -238,18 +238,20 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
         if let lastSection = chatManager.data.last {
             if lastSection.identifier != messageDate {
                 let section = SFDataSection<MessageType>(content: [message], identifier: messageDate)
-                chatManager.insert(section: section, index: chatManager.lastIndex.section + 1, animation: message.isMine ? .right : .left).done {
+                chatManager.insertSection(section, index: chatManager.lastItemIndex.section + 1, animation: message.isMine ? .right : .left).done {
                     self.chatView.scrollToBottom()
                 }
             } else {
-                chatManager.insert(item: message, animation: message.isMine ? .right : .left).done {
+                chatManager.insertItem(message, animation: message.isMine ? .right : .left).done {
                     self.chatView.scrollToBottom()
                 }
             }
         } else {
             let section = SFDataSection<MessageType>(content: [message], identifier: messageDate)
-            chatManager.update(dataSections: [section], animation: message.isMine ? .right : .left).done {
+            chatManager.insertSection(section, animation: message.isMine ? .right : .left).done {
                 self.chatView.scrollToBottom()
+            }.catch { (error) in
+                self.showError(title: "Error desconocido", message: error.localizedDescription)
             }
         }
     }

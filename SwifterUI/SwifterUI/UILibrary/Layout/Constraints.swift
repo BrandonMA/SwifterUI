@@ -8,15 +8,15 @@
 
 import UIKit
 
-public typealias Constraints = [NSLayoutConstraint]
+public typealias Constraints = [Constraint]
 
 public extension Array where Element: Constraint {
 
-    public func active() {
+    public func activate() {
         Constraint.activate(self)
     }
 
-    public func deactive() {
+    public func deactivate() {
         Constraint.deactivate(self)
     }
 }

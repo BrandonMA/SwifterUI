@@ -11,6 +11,7 @@
 		1FAA548F9B3DB61CF5B675FE /* Pods_SwifterUIUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C79BEACC89055D0892977B0E /* Pods_SwifterUIUITests.framework */; };
 		420AFCE52080189400D9D778 /* SFTextScrollSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420AFCE42080189400D9D778 /* SFTextScrollSection.swift */; };
 		420AFCE7208026CC00D9D778 /* SFStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420AFCE6208026CC00D9D778 /* SFStackView.swift */; };
+		420F5491212E307B00890F07 /* SFDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420F5490212E307B00890F07 /* SFDataManager.swift */; };
 		4211D873209C9D9F00C89FAC /* SFPageSectionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4211D872209C9D9F00C89FAC /* SFPageSectionsViewController.swift */; };
 		4211D87B209CD92C00C89FAC /* SFPageBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4211D87A209CD92C00C89FAC /* SFPageBar.swift */; };
 		4211D87D209CD96200C89FAC /* SFPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4211D87C209CD96200C89FAC /* SFPageView.swift */; };
@@ -136,6 +137,7 @@
 		3B0230C9F419D0411D02E8AB /* Pods_SwifterUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwifterUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		420AFCE42080189400D9D778 /* SFTextScrollSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFTextScrollSection.swift; sourceTree = "<group>"; };
 		420AFCE6208026CC00D9D778 /* SFStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFStackView.swift; sourceTree = "<group>"; };
+		420F5490212E307B00890F07 /* SFDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFDataManager.swift; sourceTree = "<group>"; };
 		4211D872209C9D9F00C89FAC /* SFPageSectionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFPageSectionsViewController.swift; sourceTree = "<group>"; };
 		4211D87A209CD92C00C89FAC /* SFPageBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFPageBar.swift; sourceTree = "<group>"; };
 		4211D87C209CD96200C89FAC /* SFPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFPageView.swift; sourceTree = "<group>"; };
@@ -376,26 +378,40 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		42950D87212E3A4D001B4BE8 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				42A42EAC1FF1AB98002FE4A7 /* SFColors.swift */,
+				424426CA208CC71F00AAFCCC /* SFAssets.swift */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		42950D88212E3A76001B4BE8 /* DataManagers */ = {
+			isa = PBXGroup;
+			children = (
+				42FAD75820B7376C00E5AE19 /* SFDataSection.swift */,
+				420F5490212E307B00890F07 /* SFDataManager.swift */,
+				42933BF32097D2AB00ED7175 /* SFTableManager.swift */,
+				4286042B20A0D27C00D785FC /* SFCollectionManager.swift */,
+			);
+			path = DataManagers;
+			sourceTree = "<group>";
+		};
 		42A42EB61FF1B578002FE4A7 /* UILibrary */ = {
 			isa = PBXGroup;
 			children = (
-				42B253E61FEA0E820002C297 /* Layout */,
-				424426CA208CC71F00AAFCCC /* SFAssets.swift */,
-				42A42EAC1FF1AB98002FE4A7 /* SFColors.swift */,
 				42A42EAA1FF1A9AB002FE4A7 /* SFColorStyle.swift */,
 				42A42EA81FF1A95F002FE4A7 /* SFColorStyleProtocol.swift */,
-				42A42EAE1FF1AC2A002FE4A7 /* SFControllerColorStyle.swift */,
-				42A42EB01FF1AC36002FE4A7 /* SFViewColorStyle.swift */,
-				42FAD75820B7376C00E5AE19 /* SFDataSection.swift */,
-				42933BF32097D2AB00ED7175 /* SFTableManager.swift */,
-				4286042B20A0D27C00D785FC /* SFCollectionManager.swift */,
+				42950D87212E3A4D001B4BE8 /* Assets */,
+				42B253E61FEA0E820002C297 /* Layout */,
+				42950D88212E3A76001B4BE8 /* DataManagers */,
 				424BE0C41FF45B9C005DE2AD /* Extensions */,
 				42A42EBD1FF1BA3F002FE4A7 /* SFGradient */,
 				42AE237C20BD05D400314B92 /* AnimationControllers */,
 				42C701B22016838700EBFBE2 /* Presentation */,
 				42A42EB71FF1B6BD002FE4A7 /* Controllers */,
 				42A42EB81FF1B6C3002FE4A7 /* Views */,
-				42A499F32022A64F00131324 /* SFVideo */,
 			);
 			path = UILibrary;
 			sourceTree = "<group>";
@@ -403,6 +419,7 @@
 		42A42EB71FF1B6BD002FE4A7 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				42A42EAE1FF1AC2A002FE4A7 /* SFControllerColorStyle.swift */,
 				42D34C72202FABB3002B6FA6 /* SFNavigationController.swift */,
 				4253D3C1203CDEE500507F88 /* SFTabBarController.swift */,
 				42A42EB21FF1AD8C002FE4A7 /* SFViewController.swift */,
@@ -420,6 +437,7 @@
 		42A42EB81FF1B6C3002FE4A7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				42A42EB01FF1AC36002FE4A7 /* SFViewColorStyle.swift */,
 				42A42EB41FF1B295002FE4A7 /* SFView.swift */,
 				420AFCE6208026CC00D9D778 /* SFStackView.swift */,
 				42B7B27C203A611E004B5C6E /* SFScrollView.swift */,
@@ -448,6 +466,7 @@
 				4211D87C209CD96200C89FAC /* SFPageView.swift */,
 				4299FB28211E1C1100E9F233 /* SFFluidButton.swift */,
 				42A307A5212A30B70040D0F1 /* SFForceTouchButton.swift */,
+				42A42EC21FF1C13E002FE4A7 /* SFVideoView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -460,14 +479,6 @@
 				42A42EBB1FF1BA39002FE4A7 /* SFGradientDirection.swift */,
 			);
 			path = SFGradient;
-			sourceTree = "<group>";
-		};
-		42A499F32022A64F00131324 /* SFVideo */ = {
-			isa = PBXGroup;
-			children = (
-				42A42EC21FF1C13E002FE4A7 /* SFVideoView.swift */,
-			);
-			path = SFVideo;
 			sourceTree = "<group>";
 		};
 		42AE237C20BD05D400314B92 /* AnimationControllers */ = {
@@ -815,6 +826,7 @@
 				42A42EA91FF1A95F002FE4A7 /* SFColorStyleProtocol.swift in Sources */,
 				420AFCE7208026CC00D9D778 /* SFStackView.swift in Sources */,
 				42A42EAB1FF1A9AB002FE4A7 /* SFColorStyle.swift in Sources */,
+				420F5491212E307B00890F07 /* SFDataManager.swift in Sources */,
 				42A307A2212A28C60040D0F1 /* CGPoint.swift in Sources */,
 				42CDA9BD20361BDE0046791D /* SFChatBar.swift in Sources */,
 				424BE0C11FF45B2D005DE2AD /* Date.swift in Sources */,

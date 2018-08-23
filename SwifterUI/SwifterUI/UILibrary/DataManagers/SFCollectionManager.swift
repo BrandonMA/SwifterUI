@@ -10,33 +10,43 @@ import UIKit
 import DeepDiff
 import PromiseKit
 
+public extension UICollectionView {
+    
+    func reload<T>(changes: [Change<T>], section: Int) -> Guarantee<Void> where T : Hashable {
+        return Guarantee { seal in
+            reload(changes: changes, section: section, completion: { (_) in
+                seal(())
+            })
+        }
+    }
+    
+}
+
 public protocol SFCollectionManagerDelegate: class {
     func didSelectItem<DataModel: Hashable>(at indexPath: IndexPath, collectionView: SFCollectionView, item: DataModel)
 }
 
-open class SFCollectionManager<DataModel: Hashable, CellType: SFCollectionViewCell, HeaderType: SFCollectionViewHeaderView, FooterType: SFCollectionViewFooterView>: NSObject, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDataSourcePrefetching {
+public extension SFCollectionManagerDelegate {
+    func didSelectItem<DataModel: Hashable>(at indexPath: IndexPath, collectionView: SFCollectionView, item: DataModel) {}
+}
+
+open class SFCollectionManager<DataModel: Hashable, CellType: SFCollectionViewCell, HeaderType: SFCollectionViewHeaderView, FooterType: SFCollectionViewFooterView>: SFDataManager<DataModel>, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDataSourcePrefetching {
     
     public typealias SFCollectionManagerItemStyler = ((CellType, DataModel, IndexPath) -> ())
+    public typealias SFCollectionManagerPrefetcher = ((DataModel, IndexPath) -> ())
+    public typealias SFCollectionManagerHeaderStyle = ((HeaderType, SFDataSection<DataModel>, Int) -> ())
+    public typealias SFCollectionManagerFooterStyle = ((FooterType, SFDataSection<DataModel>, Int) -> ())
     
     // MARK: - Instance Properties
     
     public weak var delegate: SFCollectionManagerDelegate?
     
-    public var data: [SFDataSection<DataModel>] = []
     public weak var collectionView: SFCollectionView?
     
-    public var lastSectionIndex: Int {
-        return data.count == 0 ? data.count : data.count - 1
-    }
-    
-    public var lastIndex: IndexPath {
-        return data[lastSectionIndex].content.count == 0 ? IndexPath(row: 0, section: lastSectionIndex) : IndexPath(row: data[lastSectionIndex].content.count, section: lastSectionIndex)
-    }
-    
-    open var itemStyler: ((CellType, DataModel, IndexPath) -> ())?
-    open var prefetchStyler: ((DataModel, IndexPath) -> ())?
-    open var headerStyler: ((HeaderType, SFDataSection<DataModel>, Int) -> ())?
-    open var footerStyler: ((FooterType, SFDataSection<DataModel>, Int) -> ())?
+    open var itemStyler: SFCollectionManagerItemStyler?
+    open var prefetchStyler: SFCollectionManagerPrefetcher?
+    open var headerStyler: SFCollectionManagerHeaderStyle?
+    open var footerStyler: SFCollectionManagerFooterStyle?
     
     // MARK: - Initializers
     
@@ -63,107 +73,106 @@ open class SFCollectionManager<DataModel: Hashable, CellType: SFCollectionViewCe
     
     // MARK: - Update Methods
     
-    open func forceUpdate(dataSections: [SFDataSection<DataModel>]) {
-        data = dataSections
+    open override func forceUpdate(dataSections: [SFDataSection<DataModel>]) {
+        super.forceUpdate(dataSections: dataSections)
         collectionView?.reloadData()
     }
     
-    open func forceUpdate(data: [[DataModel]]) {
-        for (index, section) in data.enumerated() {
-            let dataSection = SFDataSection<DataModel>(content: section, identifier: "")
-            self.data[index] = dataSection
-        }
+    open override func forceUpdate(data: [[DataModel]]) {
+        super.forceUpdate(data: data)
         collectionView?.reloadData()
     }
     
     @discardableResult
-    open func update(dataSections: [SFDataSection<DataModel>]) -> Guarantee<Void> {
+    open func updateSections(dataSections: [SFDataSection<DataModel>]) -> Promise<Void> {
         
-        return Guarantee { seal in
+        return Promise { seal in
             
             if dataSections.isEmpty {
                 self.data.removeAll()
                 self.collectionView?.reloadData()
-                seal(())
+                seal.fulfill(())
             } else if let item = dataSections.first, item.content.isEmpty {
                 self.data.removeAll()
                 self.collectionView?.reloadData()
-                seal(())
+                seal.fulfill(())
             } else {
-                for (index, section) in dataSections.enumerated() {
-                    guard let collectionView = collectionView else { return }
-                    let numberOfRowsBeforeUpdate = collectionView.numberOfSections > 0 ? collectionView.numberOfItems(inSection: index) : 0
-                    self.update(dataSection: section, index: index).done {
-                        
-                        if numberOfRowsBeforeUpdate == 0 {
-                            self.reloadSection(index: index)
+                firstly {
+                    update(dataSections: dataSections)
+                }.then ({ (arrayOfChanges)  -> Promise<Void> in
+                    let promises = arrayOfChanges.enumerated().map({ (index, changes) -> Guarantee<Void> in
+                        if self.collectionView!.numberOfSections < self.data.count {
+                            return self.insertSection(index: index)
+                        } else {
+                            return self.collectionView!.reload(changes: changes, section: index)
                         }
-                        
-                        if index == dataSections.count - 1 {
-                            seal(())
-                        }
-                    }
-                }
+                    })
+                    return when(fulfilled: promises)
+                }).done({
+                    seal.fulfill(())
+                }).catch({ (error) in
+                    seal.reject(error)
+                })
             }
         }
     }
     
     @discardableResult
-    open func update(data: [[DataModel]]) -> Guarantee<Void> {
-        return Guarantee { seal in
+    open func updateSections(data: [[DataModel]]) -> Promise<Void> {
+        return Promise { seal in
             
             if data.isEmpty {
                 self.data.removeAll()
                 self.collectionView?.reloadData()
-                seal(())
+                seal.fulfill(())
             } else if let item = data.first, item.isEmpty {
                 self.data.removeAll()
                 self.collectionView?.reloadData()
-                seal(())
+                seal.fulfill(())
             } else {
-                for (index, section) in data.enumerated() {
-                    guard let collectionView = collectionView else { return }
-                    let numberOfRowsBeforeUpdate = collectionView.numberOfSections > 0 ? collectionView.numberOfItems(inSection: index) : 0
-                    let dataSection = SFDataSection<DataModel>(content: section, identifier: "")
-                    self.update(dataSection: dataSection, index: index).done {
-                        
-                        if numberOfRowsBeforeUpdate == 0 {
-                            self.reloadSection(index: index)
+                firstly {
+                    update(data: data)
+                }.then ({ (arrayOfChanges)  -> Promise<Void> in
+                    let promises = arrayOfChanges.enumerated().map({ (index, changes) -> Guarantee<Void> in
+                        if self.collectionView!.numberOfSections < self.data.count {
+                            return self.insertSection(index: index)
+                        } else {
+                            return self.collectionView!.reload(changes: changes, section: index)
                         }
-                        
-                        if index == data.count - 1 {
-                            seal(())
-                        }
-                    }
-                }
+                    })
+                    return when(fulfilled: promises)
+                }).done({
+                    seal.fulfill(())
+                }).catch({ (error) in
+                    seal.reject(error)
+                })
             }
         }
     }
     
     @discardableResult
-    private func update(dataSection: SFDataSection<DataModel>, index: Int) -> Guarantee<Void> {
+    private func updateSection(dataSection: SFDataSection<DataModel>, index: Int) -> Guarantee<Void> {
         if self.data.count > index {
-            return Guarantee { seal in
-                let olddataSection = self.data[index]
-                let changes = diff(old: olddataSection.content, new: dataSection.content)
-                self.data[index] = dataSection
-                self.collectionView?.reload(changes: changes, section: index, completion: { (_) in
-                    seal(())
-                })
+            return firstly {
+                update(dataSection: dataSection, index: index)
+            }.then { (changes) -> Guarantee<Void> in
+                self.collectionView!.reload(changes: changes, section: index)
             }
         } else {
-            return insert(section: dataSection, index: index)
+            return insertSection(dataSection, index: index)
         }
     }
     
     // MARK: - Sections
     
     @discardableResult
-    open func insert(section: SFDataSection<DataModel>, index: Int) -> Guarantee<Void> {
+    open func insertSection(_ section: SFDataSection<DataModel>? = nil, index: Int? = nil) -> Guarantee<Void> {
         return Guarantee { seal in
             self.collectionView?.performBatchUpdates({
-                self.data.append(section)
-                self.collectionView?.insertSections(IndexSet(integer: index))
+                if let section = section {
+                    self.data.insert(section, at: index ?? lastSectionIndex)
+                }
+                self.collectionView?.insertSections(IndexSet(integer: index ?? lastSectionIndex))
             }, completion: { (_) in
                 seal(())
             })
@@ -212,9 +221,10 @@ open class SFCollectionManager<DataModel: Hashable, CellType: SFCollectionViewCe
     }
     
     @discardableResult
-    open func insert(item: DataModel, indexPath: IndexPath? = nil) -> Guarantee<Void> {
+    open func insertItem(_ item: DataModel, indexPath: IndexPath? = nil) -> Guarantee<Void> {
         return Guarantee { seal in
-            let indexPath = indexPath ?? self.lastIndex
+            
+            let indexPath = indexPath ?? self.nextLastItemIndex
             if indexPath.section > self.lastSectionIndex {
                 self.data.insert(SFDataSection<DataModel>(), at: self.lastSectionIndex)
             }

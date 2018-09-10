@@ -48,6 +48,8 @@ public final class SFImageZoomViewController: SFViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(imageZoomView)
+        imageZoomView.clipTop(to: .top, useSafeArea: false)
+        imageZoomView.clipSides(exclude: [.top])
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(imageDidTap)))
         imageZoomView.contentSize = image.size
     }
@@ -58,12 +60,6 @@ public final class SFImageZoomViewController: SFViewController {
         if navigationController.viewControllers.first == self {
             navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(hideController))
         }
-    }
-
-    public override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        imageZoomView.clipTop(to: .top, useSafeArea: false)
-        imageZoomView.clipEdges(exclude: [.top])
     }
 
     public override func viewDidLayoutSubviews() {

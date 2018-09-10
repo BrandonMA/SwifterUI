@@ -47,8 +47,6 @@ public extension SFColorStyleProtocol {
 
     // MARK: - Instance Properties
 
-    public var colorStyle: SFColorStyle {
-        return UIScreen.main.brightness >= minimumBrighness ? .light : .dark
-    }
+    public var colorStyle: SFColorStyle { return UIScreen.main.brightness >= minimumBrighness ? .light : .dark }
 
 }

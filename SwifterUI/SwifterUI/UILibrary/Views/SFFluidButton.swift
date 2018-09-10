@@ -21,7 +21,17 @@ open class SFFluidButton: UIControl, SFViewColorStyle, SFLayoutView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.backgroundColor = .clear
         label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: UIFont.systemFontSize + 3)
         return label
+    }()
+    
+    open lazy var imageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.backgroundColor = .clear
+        imageView.contentMode = .center
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.tintColor = textColor
+        return imageView
     }()
     
     private var animator = UIViewPropertyAnimator()
@@ -36,6 +46,7 @@ open class SFFluidButton: UIControl, SFViewColorStyle, SFLayoutView {
     open var useHighlightTextColor: Bool = false
     open var textColor: UIColor? {
         didSet {
+            imageView.tintColor = textColor
             titleLabel.textColor = textColor
         }
     }
@@ -75,13 +86,15 @@ open class SFFluidButton: UIControl, SFViewColorStyle, SFLayoutView {
     
     open func prepareSubviews() {
         addSubview(titleLabel)
+        addSubview(imageView)
         if automaticallyAdjustsColorStyle {
             updateColors()
         }
     }
     
     open func setConstraints() {
-        titleLabel.clipEdges()
+        titleLabel.clipSides()
+        imageView.clipSides()
     }
     
     open func updateColors() {
@@ -92,6 +105,8 @@ open class SFFluidButton: UIControl, SFViewColorStyle, SFLayoutView {
         } else {
             titleLabel.textColor = useAlternativeColors ? colorStyle.getInteractiveColor() : colorStyle.getTextColor()
         }
+        imageView.tintColor = titleLabel.textColor
+        
         backgroundColor = useAlternativeColors ? .clear : colorStyle.getAlternativeColor()
         normalColor = backgroundColor
     }
@@ -102,6 +117,7 @@ open class SFFluidButton: UIControl, SFViewColorStyle, SFLayoutView {
         
         if let color = highlightedTextColor {
             titleLabel.textColor = color
+            imageView.tintColor = titleLabel.textColor
         }
         
         if let color = highlightedColor {
@@ -129,6 +145,7 @@ open class SFFluidButton: UIControl, SFViewColorStyle, SFLayoutView {
             
             if let textColor = self.textColor {
                 self.titleLabel.textColor = textColor
+                self.imageView.tintColor = textColor
             }
         })
         animator.startAnimation()

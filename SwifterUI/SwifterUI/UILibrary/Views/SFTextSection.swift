@@ -50,7 +50,7 @@ public final class SFTextSection: SFSection {
     
     public init(automaticallyAdjustsColorStyle: Bool = true, useAlternativeColors: Bool = false, frame: CGRect = .zero) {
         let textField = SFTextField(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, useAlternativeColors: useAlternativeColors, frame: frame)
-        textField.font = UIFont.systemFont(ofSize: 15)
+        textField.font = UIFont.systemFont
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.layer.cornerRadius = 10
         textField.leftPadding = 8

@@ -14,7 +14,7 @@ open class SFSection: SFView {
     
     public final lazy var titleLabel: SFLabel = {
         let label = SFLabel(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
-        label.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
+        label.font = UIFont.boldSystemFont
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
         label.numberOfLines = 1
@@ -61,7 +61,7 @@ open class SFSection: SFView {
     }
     
     open override func setConstraints() {
-        stackView.clipEdges()
+        stackView.clipSides()
         super.setConstraints()
     }
     

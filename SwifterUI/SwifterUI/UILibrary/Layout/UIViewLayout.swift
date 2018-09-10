@@ -70,7 +70,7 @@ public extension UIView {
     /**
      Return an specific constraint if it exists.
      */
-    public final func get(constraintType: ConstraintType) -> Constraint? {
+    public final func getConstraint(_ constraintType: ConstraintType) -> Constraint? {
         
         for constraint in self.constraints {
             if let view = constraint.firstItem as? UIView {
@@ -100,9 +100,9 @@ public extension UIView {
     /**
      Remove an specific constraint if it exists.
      */
-    public final func remove(constraintType: ConstraintType) {
+    public final func removeConstraint(_ constraintType: ConstraintType) {
         guard let superview = superview else { return }
-        if let oldConstraint = get(constraintType: constraintType) {
+        if let oldConstraint = getConstraint(constraintType) {
             removeConstraint(oldConstraint)
             superview.removeConstraint(oldConstraint)
         }
@@ -147,7 +147,7 @@ public extension UIView {
                              margin: CGFloat = 0.0) -> Constraint {
         
         guard let anchorView = getAnchorView(view) else {
-            print("\(self) You didn't set a relative view or superview isn't available")
+            debugPrint("\(self) You didn't set a relative view or superview isn't available")
             fatalError()
         }
         
@@ -175,7 +175,7 @@ public extension UIView {
                             margin: CGFloat = 0.0) -> Constraint {
         
         guard let anchorView = getAnchorView(view) else {
-            print("\(self) You didn't set a relative view or superview isn't available")
+            debugPrint("\(self) You didn't set a relative view or superview isn't available")
             fatalError()
         }
         
@@ -228,7 +228,7 @@ public extension UIView {
                                  useSafeArea: Bool) -> Constraint {
         
         guard let anchorView = getAnchorView(view) else {
-            print("\(self) You didn't set a relative view or superview isn't available")
+            debugPrint("\(self) You didn't set a relative view or superview isn't available")
             fatalError()
         }
         
@@ -249,7 +249,7 @@ public extension UIView {
                             margin: margin,
                             relation: relation)
         default:
-            print("You can't constraint a bottom anchor to a right/left/leading/trailing anchor")
+            debugPrint("You can't constraint a bottom anchor to a right/left/leading/trailing anchor")
             fatalError()
         }
     }
@@ -263,9 +263,10 @@ public extension UIView {
                                  useSafeArea: Bool) -> Constraint {
         
         guard let anchorView = getAnchorView(view) else {
-            print("\(self) You didn't set a relative view or superview isn't available")
+            debugPrint("\(self) You didn't set a relative view or superview isn't available")
             fatalError()
         }
+        
         switch edge {
         case .right:
             return clipEdge(childAnchor: childAnchor,
@@ -283,7 +284,7 @@ public extension UIView {
                             margin: margin,
                             relation: relation)
         default:
-            print("You can't constraint a right anchor to a top/bottom anchor")
+            debugPrint("You can't constraint a right anchor to a top/bottom anchor")
             fatalError()
         }
     }
@@ -383,29 +384,26 @@ public extension UIView {
     // MARK: - Center
     
     @discardableResult
-    public final func center(axis: [ConstraintAxis] = [.horizontal, .vertical],
-                             in view: UIView? = nil,
+    public final func center(in view: UIView? = nil,
                              margin: CGPoint = .zero) -> [Constraint] {
         
         guard let anchorView = getAnchorView(view) else {
             fatalError("You didn't set a relative view or superview isn't available")
         }
+        
         var constraints: [Constraint] = []
         
-        if axis.contains(.horizontal) {
-            constraints.append(clipCenterX(to: .centerX,
-                                           of: anchorView,
-                                           margin: margin.x,
-                                           relation: .equal,
-                                           useSafeArea: false))
-        }
-        if axis.contains(.vertical) {
-            constraints.append(clipCenterY(to: .centerY,
-                                           of: anchorView,
-                                           margin: margin.y,
-                                           relation: .equal,
-                                           useSafeArea: false))
-        }
+        constraints.append(clipCenterX(to: .centerX,
+                                       of: anchorView,
+                                       margin: margin.x,
+                                       relation: .equal,
+                                       useSafeArea: false))
+        
+        constraints.append(clipCenterY(to: .centerY,
+                                       of: anchorView,
+                                       margin: margin.y,
+                                       relation: .equal,
+                                       useSafeArea: false))
         
         return constraints
     }
@@ -413,7 +411,7 @@ public extension UIView {
     // MARK: - Clip multiple edges
     
     @discardableResult
-    public final func clipEdges(to view: UIView? = nil,
+    public final func clipSides(to view: UIView? = nil,
                                 exclude: [ConstraintEdge] = [],
                                 margin: UIEdgeInsets = .zero,
                                 relation: ConstraintRelation = .equal,

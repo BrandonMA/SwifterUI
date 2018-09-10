@@ -30,6 +30,7 @@ Pod::Spec.new do |s|
     chatkit.ios.deployment_target = '11.0'
     chatkit.source_files  = 'SwifterUI/SwifterUI/ChatKit/*'
     chatkit.dependency 'SwifterUI/Core'
+    chatkit.dependency 'Kingfisher'
   end
 
   s.subspec 'LoginKit' do |loginkit|

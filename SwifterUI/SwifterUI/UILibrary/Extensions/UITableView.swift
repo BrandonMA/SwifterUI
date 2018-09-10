@@ -18,9 +18,7 @@ public extension UITableView {
             let lastRow = numberOfRows(inSection: lastSection) - 1
             let indexPath = IndexPath(row: lastRow, section: lastSection)
             if lastRow >= 0 {
-                DispatchQueue.addAsyncTask(to: .main) {
-                    self.scrollToRow(at: indexPath, at: .bottom, animated: animated)
-                }
+                scrollToRow(at: indexPath, at: .bottom, animated: animated)
             }
         }
     }

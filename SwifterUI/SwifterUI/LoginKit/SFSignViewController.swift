@@ -29,28 +29,24 @@ open class SFSignViewController: SFViewController {
     open override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(signView)
-        signView.signInButton.addTarget(self, action: #selector(didTouch(button:)), for: .touchUpInside)
-        signView.signUpButton.addTarget(self, action: #selector(didTouch(button:)), for: .touchUpInside)
-        signView.signUpView.signUpButton.addTarget(self, action: #selector(signUpButtonDidTouch), for: .touchUpInside)
-        signView.signInView.signInButton.addTarget(self, action: #selector(signInButtonDidTouch), for: .touchUpInside)
-        signView.facebookButton.addTarget(self, action: #selector(facebookButtonDidTouch), for: .touchUpInside)
-        signView.signInView.passwordResetButton.addTarget(self, action: #selector(resetPasswordButtonDidTouch), for: .touchUpInside)
+        setTargets()
         setColorsForState()
-    }
-    
-    open override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        signView.clipEdges()
-    }
-    
-    open override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
+        signView.clipSides()
     }
     
     open override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         signView.signInView.alpha = 0.0
         signView.signInView.removeFromSuperview()
+    }
+    
+    private func setTargets() {
+        signView.signInButton.addTarget(self, action: #selector(didTouch(button:)), for: .touchUpInside)
+        signView.signUpButton.addTarget(self, action: #selector(didTouch(button:)), for: .touchUpInside)
+        signView.signUpView.signUpButton.addTarget(self, action: #selector(signUpButtonDidTouch), for: .touchUpInside)
+        signView.signInView.signInButton.addTarget(self, action: #selector(signInButtonDidTouch), for: .touchUpInside)
+        signView.facebookButton.addTarget(self, action: #selector(facebookButtonDidTouch), for: .touchUpInside)
+        signView.signInView.passwordResetButton.addTarget(self, action: #selector(resetPasswordButtonDidTouch), for: .touchUpInside)
     }
     
     @objc private func didTouch(button: UIControl) {
@@ -73,7 +69,7 @@ open class SFSignViewController: SFViewController {
         
         signView.signInView.alpha = 0.0
         
-        let animator = UIViewPropertyAnimator(damping: 0.9, response: 0.7)
+        let animator = UIViewPropertyAnimator(damping: 1.0, response: 0.5)
         
         animator.addAnimations {
             self.signView.signUpView.transform = CGAffineTransform(scaleX: 0.001, y: 0.001)
@@ -86,7 +82,7 @@ open class SFSignViewController: SFViewController {
         
         animator.addCompletion { (_) in
             
-            let newAnimator = UIViewPropertyAnimator(damping: 0.9, response: 0.7)
+            let newAnimator = UIViewPropertyAnimator(damping: 0.7, response: 0.6)
             
             newAnimator.addAnimations {
                 self.signView.signInView.alpha = 1.0
@@ -104,7 +100,7 @@ open class SFSignViewController: SFViewController {
         
         signView.signUpView.alpha = 0.0
         
-        let animator = UIViewPropertyAnimator(damping: 0.9, response: 0.7)
+        let animator = UIViewPropertyAnimator(damping: 1.0, response: 0.5)
         
         animator.addAnimations {
             self.signView.signInView.transform = CGAffineTransform(scaleX: 0.001, y: 0.001)
@@ -117,7 +113,7 @@ open class SFSignViewController: SFViewController {
         
         animator.addCompletion { (_) in
             
-            let newAnimator = UIViewPropertyAnimator(damping: 0.9, response: 0.7)
+            let newAnimator = UIViewPropertyAnimator(damping: 0.7, response: 0.6)
             
             newAnimator.addAnimations {
                 self.signView.signUpView.alpha = 1.0
@@ -144,36 +140,31 @@ open class SFSignViewController: SFViewController {
     }
     
     @objc private func signUpButtonDidTouch() {
-        guard let name = signView.signUpView.nameSection.text else { return }
-        guard let lastName = signView.signUpView.lastNameSection.text else { return }
-        guard let email = signView.signUpView.mailSection.text else { return }
-        guard let password = signView.signUpView.passwordSection.text else { return }
+        guard let name = signView.signUpView.nameTextField.text else { return }
+        guard let lastName = signView.signUpView.lastNameTextField.text else { return }
+        guard let email = signView.signUpView.mailTextField.text else { return }
+        guard let password = signView.signUpView.passwordTextField.text else { return }
         signup(with: name, lastname: lastName, email: email, password: password)
     }
     
-    open func signup(with name: String, lastname: String, email: String, password: String) {
-    }
+    open func signup(with name: String, lastname: String, email: String, password: String) {}
     
     @objc private func signInButtonDidTouch() {
-        guard let email = signView.signInView.mailSection.text else { return }
-        guard let password = signView.signInView.passwordSection.text else { return }
+        guard let email = signView.signInView.mailTextField.text else { return }
+        guard let password = signView.signInView.passwordTextField.text else { return }
         signin(with: email, password: password)
     }
     
-    open func signin(with email: String, password: String) {
-    }
+    open func signin(with email: String, password: String) {}
     
-    @objc open func facebookButtonDidTouch() {
-    }
+    @objc open func facebookButtonDidTouch() {}
     
     @objc open func resetPasswordButtonDidTouch() {
-        guard let email = signView.signInView.mailSection.text else { return }
+        guard let email = signView.signInView.mailTextField.text else { return }
         resetPassword(with: email)
     }
     
-    open func resetPassword(with email: String) {
-        
-    }
+    open func resetPassword(with email: String) {}
     
     open override func updateColors() {
         super.updateColors()

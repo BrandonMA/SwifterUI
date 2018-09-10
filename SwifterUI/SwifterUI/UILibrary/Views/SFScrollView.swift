@@ -77,7 +77,7 @@ open class SFScrollView: UIScrollView, SFViewColorStyle, SFLayoutView {
     }
     
     open func setConstraints() {
-        customConstraints.append(contentsOf: contentView.clipEdges(useSafeArea: false))
+        customConstraints.append(contentsOf: contentView.clipSides(useSafeArea: false))
     }
     
     open func layoutIfBoundsChanged() {

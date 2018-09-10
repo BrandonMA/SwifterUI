@@ -95,9 +95,9 @@ public final class SFTableViewChatCell: SFTableViewCell {
     
     public final override func layoutSubviews() {
         super.layoutSubviews()
-        bubbleView.remove(constraintType: .width)
-        bubbleView.remove(constraintType: .left)
-        bubbleView.remove(constraintType: .right)
+        bubbleView.removeConstraint(.width)
+        bubbleView.removeConstraint(.left)
+        bubbleView.removeConstraint(.right)
         messageVideoView.removeAllConstraints()
         
         bubbleView.clipTop(to: .top, margin: 8)
@@ -110,15 +110,15 @@ public final class SFTableViewChatCell: SFTableViewCell {
             bubbleView.clipLeft(to: .left, margin: 8)
         }
         
-        messageLabel.clipEdges(margin: UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8))
+        messageLabel.clipSides(margin: UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8))
         
         if messageImageView.image != nil {
             bubbleView.addSubview(messageImageView)
-            messageImageView.clipEdges()
+            messageImageView.clipSides()
         } else if messageVideoView.url != nil {
             bubbleView.addSubview(messageVideoView)
             messageVideoView.prepareVideoView()
-            messageVideoView.clipEdges()
+            messageVideoView.clipSides()
         }
     }
     

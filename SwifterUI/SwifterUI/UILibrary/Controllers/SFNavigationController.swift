@@ -56,11 +56,13 @@ open class SFNavigationController: UINavigationController, SFControllerColorStyl
     public override init(rootViewController: UIViewController) {
         super.init(rootViewController: rootViewController)
         checkColorStyle()
+        delegate = self
     }
     
     public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         checkColorStyle()
+        delegate = self
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -147,6 +149,7 @@ extension SFNavigationController: UINavigationControllerDelegate {
         
         return nil
     }
+    
     
 }
 

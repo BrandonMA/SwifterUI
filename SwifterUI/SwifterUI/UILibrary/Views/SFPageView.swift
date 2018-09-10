@@ -54,7 +54,7 @@ open class SFPageView: SFScrollView {
     
     open override func layoutIfBoundsChanged() {
         super.layoutIfBoundsChanged()
-        viewsStackView.clipEdges(exclude: [.bottom])
+        viewsStackView.clipSides(exclude: [.bottom])
         contentView.clipBottom(to: .bottom, of: viewsStackView)
     }
 }

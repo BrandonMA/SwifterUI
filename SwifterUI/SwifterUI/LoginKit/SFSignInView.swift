@@ -12,24 +12,18 @@ open class SFSignInView: SFView {
     
     // MARK: - Instance Properties
     
-    open lazy var mailSection: SFTextSection = {
-        let section = SFTextSection(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
-        section.titleLabel.text = "Correo Electronico"
-        section.textField.placeholder = "Escribe..."
-        section.translatesAutoresizingMaskIntoConstraints = false
-        section.textField.autocorrectionType = .no
-        section.textField.autocapitalizationType = .none
-        return section
+    open lazy var mailTextField: SFSignViewTextField = {
+        let textField = SFSignViewTextField(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
+        textField.placeholder = "Correo Electronico"
+        textField.autocapitalizationType = .none
+        return textField
     }()
     
-    open lazy var passwordSection: SFTextSection = {
-        let section = SFTextSection(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
-        section.titleLabel.text = "Contraseña"
-        section.textField.placeholder = "Escribe..."
-        section.textField.isSecureTextEntry = true
-        section.translatesAutoresizingMaskIntoConstraints = false
-        section.textField.autocorrectionType = .no
-        return section
+    open lazy var passwordTextField: SFSignViewTextField = {
+        let textField = SFSignViewTextField(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
+        textField.placeholder = "Contraseña"
+        textField.isSecureTextEntry = true
+        return textField
     }()
     
     open lazy var signInButton: SFFluidButton = {
@@ -51,7 +45,7 @@ open class SFSignInView: SFView {
     }()
     
     private lazy var contentStack: SFStackView = {
-        let stack = SFStackView(arrangedSubviews: [mailSection, passwordSection, signInButton, passwordResetButton])
+        let stack = SFStackView(arrangedSubviews: [mailTextField, passwordTextField, signInButton, passwordResetButton])
         stack.axis = .vertical
         stack.spacing = 16
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -66,9 +60,9 @@ open class SFSignInView: SFView {
     }
     
     open override func setConstraints() {
-        contentStack.clipEdges()
-        mailSection.height(SFDimension(value: 64))
-        passwordSection.height(SFDimension(value: 64))
+        contentStack.clipSides()
+        mailTextField.height(SFDimension(value: 42))
+        passwordTextField.height(SFDimension(value: 42))
         passwordResetButton.height(SFDimension(value: 52))
         signInButton.height(SFDimension(value: 52))
         super.setConstraints()

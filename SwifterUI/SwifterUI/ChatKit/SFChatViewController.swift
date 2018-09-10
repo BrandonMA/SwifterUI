@@ -9,13 +9,67 @@
 import UIKit
 import MobileCoreServices
 
-open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, SFVideoPlayerDelegate, SFTableViewChatCellDelegate {
+open class SFChatViewController: SFViewController, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, SFVideoPlayerDelegate, SFTableViewChatCellDelegate {
     
     // MARK: - Instance Properties
     
     private var activeCell: SFTableViewChatCell?
     
-    public var chatManager = SFTableManager<MessageType, SFTableViewChatCell, SFTableViewHeaderView, SFTableViewFooterView>()
+    public lazy var chatManager: SFTableManager<SFMessage, SFTableViewChatCell, SFTableViewHeaderView, SFTableViewFooterView> = {
+        let chatManager = SFTableManager<SFMessage, SFTableViewChatCell, SFTableViewHeaderView, SFTableViewFooterView>()
+        
+        chatManager.delegate = self
+        
+        chatManager.configure(tableView: chatView) { [unowned self] (cell, message, indexPath) in
+            
+            cell.delegate = self
+            cell.messageLabel.text = message.text
+            
+            if let image = message.image {
+                cell.messageImageView.image = image
+            } else if let string = message.imageURL, let url = URL(string: string) {
+                cell.messageImageView.kf.setImage(with: url)
+            }
+            
+            if let string = message.videoURL, let url = URL(string: string) {
+                cell.messageVideoView.url = url
+            }
+            
+            cell.messageVideoView.delegate = self
+            cell.isUserInteractionEnabled = true
+            
+            if self.cachedWidths[indexPath] == nil {
+                self.calculateWidth(for: message, indexPath: indexPath)
+            }
+            
+            cell.width = self.cachedWidths[indexPath] ?? 0
+            
+            if message.senderIdentifier == self.chat.currentUser.identifier {
+                cell.bubbleView.useAlternativeColors = true
+                cell.isMine = true
+                cell.updateColors()
+            } else {
+                cell.bubbleView.useAlternativeColors = false
+                cell.isMine = false
+                cell.updateColors()
+            }
+            
+        }
+        
+        chatManager.prefetchStyler = { [unowned self] (message, index) in
+            self.calculateWidth(for: message, indexPath: index)
+        }
+        
+        chatManager.headerStyler = {  (view, section, index) in
+            view.titleLabel.text = section.identifier
+            view.titleLabel.textAlignment = .center
+            view.titleLabel.font = UIFont.boldSystemFont(ofSize: 13)
+            view.titleLabel.useAlternativeColors = false
+            view.useAlternativeColors = true
+        }
+        
+        return chatManager
+    }()
     
     public final lazy var chatView: SFTableView = {
         let tableView = SFTableView(automaticallyAdjustsColorStyle: true, useAlternativeColors: true, style: .grouped)
@@ -30,6 +84,7 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
     public final lazy var chatBar: SFChatBar = {
         let chatBar = SFChatBar(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         chatBar.translatesAutoresizingMaskIntoConstraints = false
+        chatBar.textView.delegate = self
         return chatBar
     }()
     
@@ -56,6 +111,7 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
         let zoomImageView = UIImageView()
         zoomImageView.contentMode = .scaleAspectFit
         zoomImageView.layer.cornerRadius = 10
+        zoomImageView.clipsToBounds = true
         return zoomImageView
     }()
     
@@ -68,7 +124,19 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
         return numberOfMessages
     }
     
+    var chat: SFChat
+    
     // MARK: - Initializers
+    
+    init(chat: SFChat, automaticallyAdjustsColorStyle: Bool = true) {
+        self.chat = chat
+        super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle)
+        chatManager.update(dataSections: chat.messages.ordered())
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     deinit {
         NotificationCenter.default.removeObserver(self)
@@ -82,31 +150,15 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
         
         view.addSubview(chatView)
         
-        chatBar.sendButton.addTouchAction { [unowned self] in self.sendButtonDidTouch() }
+        chatBar.sendButton.addAction { [unowned self] in self.sendButtonDidTouch() }
         
-        chatBar.fileButton.addTouchAction { [unowned self] in self.mediaButtonDidTouch() }
+        chatBar.fileButton.addAction { [unowned self] in self.mediaButtonDidTouch() }
         
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(keyboardWillShow(notification:)),
-                                               name: .UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateMessages), name: Notification.Name(SFChatNotification.multipleMessagesUpdate.rawValue), object: nil)
         
-        chatManager.delegate = self
+        NotificationCenter.default.addObserver(self, selector: #selector(receivedMessage(notification:)), name: Notification.Name(SFChatNotification.newMessageUpdate.rawValue), object: nil)
         
-        chatManager.configure(tableView: chatView) { [unowned self] (cell, message, index) in
-            self.configure(cell: cell, message: message, indexPath: index)
-        }
-        
-        chatManager.prefetchStyler = { [unowned self] (message, index) in
-            self.calculateWidth(for: message, indexPath: index)
-        }
-        
-        chatManager.headerStyler = {  (view, section, index) in
-            view.titleLabel.text = section.identifier
-            view.titleLabel.textAlignment = .center
-            view.titleLabel.font = UIFont.boldSystemFont(ofSize: 13)
-            view.titleLabel.useAlternativeColors = false
-            view.useAlternativeColors = true
-        }
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: .UIKeyboardWillShow, object: nil)
         
     }
     
@@ -119,7 +171,7 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
     
     open override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        chatView.clipEdges()
+        chatView.clipSides()
     }
     
     override open func viewDidLayoutSubviews() {
@@ -130,6 +182,7 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationItem.largeTitleDisplayMode = .never
+        markMessagesAsRead()
     }
     
     open override func updateColors() {
@@ -158,7 +211,7 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
         }
     }
     
-    func calculateWidth(for message: MessageType, indexPath: IndexPath) {
+    func calculateWidth(for message: SFMessage, indexPath: IndexPath) {
         if message.image != nil || message.videoURL != nil || message.imageURL != nil {
             self.cachedWidths[indexPath] = (self.chatView.bounds.width * 2/3)
         } else {
@@ -166,30 +219,27 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
         }
     }
     
-    func configure(cell: SFTableViewChatCell, message: MessageType, indexPath: IndexPath) {
-        cell.delegate = self
-        cell.messageLabel.text = message.text
-        cell.messageImageView.image = message.image
-        cell.messageVideoView.url = message.videoURL
-        cell.messageVideoView.delegate = self
-        cell.isUserInteractionEnabled = true
-        
-        if cachedWidths[indexPath] == nil {
-            calculateWidth(for: message, indexPath: indexPath)
+    open func markMessagesAsRead() {
+        chat.messages.forEach { (message) in
+            if !message.read && message.senderIdentifier != chat.currentUser.identifier {
+                message.read = true
+            }
         }
-        
-        cell.width = cachedWidths[indexPath] ?? 0
-        
-        if message.isMine {
-            cell.bubbleView.useAlternativeColors = true
-            cell.isMine = true
-            cell.updateColors()
-        } else {
-            cell.bubbleView.useAlternativeColors = false
-            cell.isMine = false
-            cell.updateColors()
+
+        chat.unreadMessages = 0
+        NotificationCenter.default.post(name: Notification.Name(SFChatNotification.unreadMessagesUpdate.rawValue), object: nil, userInfo: ["SFChat": chat])
+    }
+    
+    @objc open func updateMessages() {
+        chatManager.updateSections(dataSections: chat.messages.ordered())
+        markMessagesAsRead()
+    }
+    
+    @objc open func receivedMessage(notification: Notification) {
+        if let notificationChat = notification.userInfo?["SFChat"] as? SFChat, notificationChat.identifier == chat.identifier, let message = chat.messages.last {
+            addNewMessage(message)
+            markMessagesAsRead()
         }
-        
     }
     
     // MARK: - Media Methods
@@ -213,42 +263,37 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
     
     // MARK: - Send Methods
     
-    open func send(message: MessageType) -> Bool {
+    open func send(message: SFMessage) -> Bool {
         return true
     }
     
     private final func sendButtonDidTouch() {
         if chatBar.textView.text != "" {
-            let message = MessageType(senderIdentifier: "",
-                                      text: chatBar.textView.text,
-                                      image: nil, videoURL: nil,
-                                      fileURL: nil,
-                                      timestamp: Date(),
-                                      isMine: true)
-            
+            let message = SFMessage(senderIdentifier: chat.currentUser.identifier, text: chatBar.textView.text, imageURL: nil, image: nil, videoURL: nil, fileURL: nil, creationDate: Date(), read: false, chatIdentifier: chat.identifier)
             if send(message: message) {
                 chatBar.textView.text = ""
-                addNewMessage(message)
+                chat.messages.append(message)
             }
         }
     }
     
-    public func addNewMessage(_ message: MessageType) {
-        let messageDate = message.timestamp.string(with: "EEEE dd MMM yyyy")
+    public func addNewMessage(_ message: SFMessage) {
+        chat.modificationDate = Date()
+        let messageDate = message.creationDate.string(with: "EEEE dd MMM yyyy")
         if let lastSection = chatManager.data.last {
             if lastSection.identifier != messageDate {
-                let section = SFDataSection<MessageType>(content: [message], identifier: messageDate)
-                chatManager.insertSection(section, index: chatManager.lastItemIndex.section + 1, animation: message.isMine ? .right : .left).done {
+                let section = SFDataSection<SFMessage>(content: [message], identifier: messageDate)
+                chatManager.insertSection(section, index: chatManager.lastItemIndex.section + 1, animation: message.senderIdentifier == chat.currentUser.identifier ? .right : .left).done {
                     self.chatView.scrollToBottom()
                 }
             } else {
-                chatManager.insertItem(message, animation: message.isMine ? .right : .left).done {
+                chatManager.insertItem(message, animation: message.senderIdentifier == chat.currentUser.identifier ? .right : .left).done {
                     self.chatView.scrollToBottom()
                 }
             }
         } else {
-            let section = SFDataSection<MessageType>(content: [message], identifier: messageDate)
-            chatManager.insertSection(section, animation: message.isMine ? .right : .left).done {
+            let section = SFDataSection<SFMessage>(content: [message], identifier: messageDate)
+            chatManager.insertSection(section, animation: message.senderIdentifier == chat.currentUser.identifier ? .right : .left).done {
                 self.chatView.scrollToBottom()
             }.catch { (error) in
                 self.showError(title: "Error desconocido", message: error.localizedDescription)
@@ -256,7 +301,7 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
         }
     }
     
-    public func addNewMessages(_ newMessages: [MessageType]) {
+    public func addNewMessages(_ newMessages: [SFMessage]) {
         newMessages.forEach({ addNewMessage($0) })
     }
     
@@ -265,30 +310,18 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
     open func imagePickerController(_ picker: UIImagePickerController,
                                     didFinishPickingMediaWithInfo info: [String: Any]) {
         
-        var optionalMessage: MessageType? = nil
+        var optionalMessage: SFMessage? = nil
         
         if let originalImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            optionalMessage = MessageType(senderIdentifier: "",
-                                          text: nil,
-                                          image: originalImage,
-                                          videoURL: nil,
-                                          fileURL: nil,
-                                          timestamp: Date(),
-                                          isMine: true)
+            optionalMessage = SFMessage(senderIdentifier: chat.currentUser.identifier, text: nil, imageURL: nil, image: originalImage, videoURL: nil, fileURL: nil, creationDate: Date(), read: false, chatIdentifier: chat.identifier)
         } else if let videoURL = info[UIImagePickerControllerMediaURL] as? URL {
-            optionalMessage = MessageType(senderIdentifier: "",
-                                          text: nil,
-                                          image: nil,
-                                          videoURL: videoURL,
-                                          fileURL: nil,
-                                          timestamp: Date(),
-                                          isMine: true)
+            optionalMessage = SFMessage(senderIdentifier: chat.currentUser.identifier, text: nil, imageURL: nil, image: nil, videoURL: videoURL.absoluteString, fileURL: nil, creationDate: Date(), read: false, chatIdentifier: chat.identifier)
         }
         
         picker.dismiss(animated: true, completion: {
             guard let message = optionalMessage else { return }
             if self.send(message: message) {
-                self.addNewMessages([message])
+                self.chat.messages.append(message)
             }
         })
     }
@@ -300,12 +333,14 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
         isWaitingForPopViewController = true
         zoomImageView.image = image
         initialFrameForZooming = view.convert(cell.bubbleView.bounds, from: cell.messageImageView)
+        print(initialFrameForZooming)
         zoomImageView.frame = initialFrameForZooming
         view.addSubview(zoomImageView)
         cell.bubbleView.alpha = 0.0
         currentZoomCell = cell
         UIView.animate(withDuration: 0.3, animations: {
             self.zoomImageView.frame = self.view.bounds
+            self.zoomImageView.layer.cornerRadius = 0
         }) { [unowned self] (_) in
             let zoomViewController = SFImageZoomViewController(with: image)
             self.navigationController?.pushViewController(zoomViewController, animated: true)
@@ -313,11 +348,14 @@ open class SFChatViewController<MessageType: SFMessage>: SFViewController, UITab
     }
     
     private func zoomOut() {
+        self.zoomImageView.contentMode = .scaleAspectFill
         UIView.animate(withDuration: 0.3, animations: {
             self.zoomImageView.frame = self.initialFrameForZooming
+            self.zoomImageView.layer.cornerRadius = 10
         }) { (_) in
             self.currentZoomCell?.bubbleView.alpha = 1.0
             self.zoomImageView.removeFromSuperview()
+            self.zoomImageView.contentMode = .scaleAspectFit
         }
     }
     
@@ -354,8 +392,45 @@ extension SFChatViewController: SFTableManagerDelegate {
     }
 }
 
-
-
+extension SFChatViewController: UITextViewDelegate {
+    
+    public func textViewDidBeginEditing(_ textView: UITextView) {
+        
+        chatBar.sendButton.getConstraint(.right)?.constant = -8
+        
+        let animator = UIViewPropertyAnimator(damping: 0.7, response: 0.6)
+        
+        animator.addAnimations {
+            self.chatBar.layoutIfNeeded()
+        }
+        
+        animator.addAnimations({
+            self.chatBar.sendButton.alpha = 1.0
+        }, delayFactor: 0.1)
+        
+        animator.startAnimation()
+        
+    }
+    
+    public func textViewDidEndEditing(_ textView: UITextView) {
+        
+        chatBar.sendButton.getConstraint(.right)?.constant = 28
+        
+        let animator = UIViewPropertyAnimator(damping: 0.7, response: 0.6)
+        
+        animator.addAnimations {
+            self.chatBar.sendButton.alpha = 0.0
+        }
+        
+        animator.addAnimations({
+            self.chatBar.layoutIfNeeded()
+        }, delayFactor: 0.1)
+        
+        animator.startAnimation()
+        
+    }
+    
+}
 
 
 

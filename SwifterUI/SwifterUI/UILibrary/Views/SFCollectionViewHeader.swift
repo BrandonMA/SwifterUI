@@ -30,9 +30,8 @@ open class SFCollectionViewHeaderFooterView: UICollectionReusableView, SFViewCol
     
     open lazy var titleLabel: SFLabel = {
         let label = SFLabel(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
-        label.font = UIFont.boldSystemFont(ofSize: 15)
+        label.font = UIFont.boldSystemFont
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.useAlternativeColors = true
         return label
     }()
     
@@ -58,7 +57,7 @@ open class SFCollectionViewHeaderFooterView: UICollectionReusableView, SFViewCol
     }
     
     open func setConstraints() {
-        titleLabel.clipEdges(margin: UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16))
+        titleLabel.clipSides(margin: UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16))
     }
 
     open func updateColors() {

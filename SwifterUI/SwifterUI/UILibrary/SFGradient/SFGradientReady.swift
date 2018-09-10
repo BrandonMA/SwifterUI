@@ -12,7 +12,7 @@ public protocol SFGradientReady {
     
     // MARK: - Instance Methods
     
-    func set(gradient: SFGradient)
+    func setGradient(_ gradient: SFGradient)
     
 }
 
@@ -20,7 +20,7 @@ extension UIView: SFGradientReady {
     
     // MARK: - Instance Methods
     
-    public func set(gradient: SFGradient) {
+    public func setGradient(_ gradient: SFGradient) {
         if self.frame.width != 0 && self.frame.height != 0 {
             let gradientLayer = gradient.getGradientLayer(width: self.frame.width, height: self.frame.height)
             if let layer = self.layer.sublayers?[0] {

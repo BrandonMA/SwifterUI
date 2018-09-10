@@ -16,7 +16,7 @@ public extension UITextView {
     public final func updateHeightConstraint() {
         let sizeThatFitsTextView = sizeThatFits(CGSize(width: frame.size.width, height: CGFloat(MAXFLOAT)))
         if frame.size.height < sizeThatFitsTextView.height {
-            get(constraintType: .height)?.constant = sizeThatFitsTextView.height
+            getConstraint(.height)?.constant = sizeThatFitsTextView.height
         }
     }
 

@@ -52,7 +52,7 @@ open class SFPDFViewController: SFViewController {
     
     open override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        pdfView.clipEdges()
+        pdfView.clipSides()
     }
     
     @objc public final func shareButtonDidTouch() {

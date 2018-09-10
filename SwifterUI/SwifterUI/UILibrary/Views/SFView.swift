@@ -40,9 +40,7 @@ open class SFView: UIView, SFViewColorStyle, SFLayoutView {
         }
     }
     
-    open func setConstraints() {
-        
-    }
+    open func setConstraints() {}
     
     open func updateColors() {
         backgroundColor = useAlternativeColors ? colorStyle.getAlternativeColor() : colorStyle.getMainColor()

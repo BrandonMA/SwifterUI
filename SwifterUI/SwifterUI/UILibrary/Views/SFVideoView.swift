@@ -78,7 +78,7 @@ public final class SFVideoView: SFView {
         delegate?.prepare(mediaController: controller)
         videoView = controller.view
         addSubview(videoView!)
-        videoView?.clipEdges()
+        videoView?.clipSides()
     }
 
 }

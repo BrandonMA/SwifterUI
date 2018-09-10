@@ -96,7 +96,7 @@ open class SFSignView: SFScrollView {
     }
     
     open override func setConstraints() {
-        contentStack.clipEdges(exclude: [.bottom], margin: UIEdgeInsets(top: 16, left: 16, bottom: 0, right: 16))
+        contentStack.clipSides(exclude: [.bottom], margin: UIEdgeInsets(top: 16, left: 16, bottom: 0, right: 16))
         imageView.height(SFDimension(value: 160))
         labelsStack.height(SFDimension(value: 32))
         facebookButton.height(SFDimension(value: 52))

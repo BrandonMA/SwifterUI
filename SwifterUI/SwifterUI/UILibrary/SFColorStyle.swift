@@ -11,7 +11,7 @@ import UIKit
 /**
  The SFColorStyle is an enum representation of a theme where you can get multiple colors depending on the value.
  */
-public enum SFColorStyle: Int {
+public enum SFColorStyle {
     
     case light
     case dark
@@ -26,14 +26,14 @@ public enum SFColorStyle: Int {
     public func getBarStyle() -> UIBarStyle {
         switch self {
         case .light: return .default
-        case .dark: return .black
+        case .dark: return .blackTranslucent
         }
     }
     
     /**
      - returns: Corresponding color of an UIActivityIndicatorView depending on the current color style.
      */
-    public func getActivityIndicatorStyle() -> UIActivityIndicatorViewStyle {
+    public func getUIActivityIndicatorStyle() -> UIActivityIndicatorViewStyle {
         switch self {
         case .light: return .gray
         case .dark: return .white
@@ -47,16 +47,6 @@ public enum SFColorStyle: Int {
         switch self {
         case .light: return .default
         case .dark: return .lightContent
-        }
-    }
-    
-    /**
-     - returns: Corresponding color of an UISearchBar depending on the current color style.
-     */
-    public func getSearchBarStyle() -> UIBarStyle {
-        switch self {
-        case .light: return .default
-        case .dark: return .blackTranslucent
         }
     }
     
@@ -83,7 +73,7 @@ public enum SFColorStyle: Int {
     /**
      - returns: Corresponding blur effect of an UIVisualEffectView depending on the current color style.
      */
-    public func getEffectStyle() -> UIBlurEffect {
+    public func getBlurEffectStyle() -> UIBlurEffect {
         switch self {
         case .light: return UIBlurEffect(style: .dark)
         case .dark: return UIBlurEffect(style: .light)

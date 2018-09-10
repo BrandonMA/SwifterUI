@@ -8,22 +8,15 @@
 
 import UIKit
 
-open class SFPopBar: SFView {
+open class SFSlideBar: SFView {
     
     // MARK: - Instance Properties
     
-    open override var tintColor: UIColor! {
-        didSet {
-            dismissButton.tintColor = tintColor
-        }
-    }
-    
-    open lazy var dismissButton: SFButton = {
-        let button = SFButton(automaticallyAdjustsColorStyle: false)
+    open lazy var dismissButton: SFFluidButton = {
+        let button = SFFluidButton(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.imageView.image = SFAssets.imageOfArrowDown.withRenderingMode(.alwaysTemplate)
         button.useAlternativeColors = true
-        button.setImage(SFAssets.imageOfArrowDown.withRenderingMode(.alwaysTemplate), for: .normal)
-        button.addTouchAnimations = true
         return button
     }()
     
@@ -34,13 +27,12 @@ open class SFPopBar: SFView {
         return label
     }()
     
-    open lazy var rightButton: SFButton = {
-        let button = SFButton(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
+    open lazy var rightButton: SFFluidButton = {
+        let button = SFFluidButton(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.contentHorizontalAlignment = .right
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
-        button.addTouchAnimations = true
-        button.useClearBackground = true
+        button.titleLabel.textAlignment = .right
+        button.titleLabel.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
+        button.useAlternativeColors = true
         return button
     }()
     
@@ -56,7 +48,7 @@ open class SFPopBar: SFView {
     }
     
     open override func setConstraints() {
-        dismissButton.center(axis: [.vertical])
+        dismissButton.clipCenterY(to: .centerY)
         dismissButton.clipLeft(to: .left, margin: 12)
         dismissButton.width(SFDimension(value: 32))
         dismissButton.height(SFDimension(value: 32))
@@ -72,7 +64,6 @@ open class SFPopBar: SFView {
     
     open override func updateColors() {
         super.updateColors()
-        self.tintColor = colorStyle.getInteractiveColor()
         addShadow(color: colorStyle.getSeparatorColor(), offSet: CGSize(width: 0, height: 1), radius: 0, opacity: 1)
     }
     

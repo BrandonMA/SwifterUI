@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "2656134E121C65AFAACCB370C03D3F19"
+               BlueprintIdentifier = "BC9BF74B06B8982755EF3FE51308003D"
                BuildableName = "DeepDiff.framework"
                BlueprintName = "DeepDiff"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "2656134E121C65AFAACCB370C03D3F19"
+            BlueprintIdentifier = "BC9BF74B06B8982755EF3FE51308003D"
             BuildableName = "DeepDiff.framework"
             BlueprintName = "DeepDiff"
             ReferencedContainer = "container:Pods.xcodeproj">

@@ -8,49 +8,36 @@
 
 import UIKit
 
-
 open class SFSignUpView: SFView {
     
     // MARK: - Instance Properties
     
-    open lazy var nameSection: SFTextSection = {
-        let section = SFTextSection(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
-        section.titleLabel.text = "Nombre"
-        section.textField.placeholder = "Escribe..."
-        section.translatesAutoresizingMaskIntoConstraints = false
-        section.textField.autocorrectionType = .no
-        section.textField.autocapitalizationType = .words
-        return section
+    open lazy var nameTextField: SFSignViewTextField = {
+        let textField = SFSignViewTextField(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
+        textField.placeholder = "Nombre"
+        textField.autocapitalizationType = .words
+        return textField
     }()
     
-    open lazy var lastNameSection: SFTextSection = {
-        let section = SFTextSection(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
-        section.titleLabel.text = "Apellidos"
-        section.textField.placeholder = "Escribe..."
-        section.translatesAutoresizingMaskIntoConstraints = false
-        section.textField.autocorrectionType = .no
-        section.textField.autocapitalizationType = .words
-        return section
+    open lazy var lastNameTextField: SFSignViewTextField = {
+        let textField = SFSignViewTextField(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
+        textField.placeholder = "Apellidos"
+        textField.autocapitalizationType = .words
+        return textField
     }()
     
-    open lazy var mailSection: SFTextSection = {
-        let section = SFTextSection(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
-        section.titleLabel.text = "Correo Electronico"
-        section.textField.placeholder = "Escribe..."
-        section.translatesAutoresizingMaskIntoConstraints = false
-        section.textField.autocorrectionType = .no
-        section.textField.autocapitalizationType = .none
-        return section
+    open lazy var mailTextField: SFSignViewTextField = {
+        let textField = SFSignViewTextField(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
+        textField.placeholder = "Correo Electronico"
+        textField.autocapitalizationType = .none
+        return textField
     }()
     
-    open lazy var passwordSection: SFTextSection = {
-        let section = SFTextSection(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
-        section.titleLabel.text = "Contraseña"
-        section.textField.placeholder = "Escribe..."
-        section.textField.isSecureTextEntry = true
-        section.translatesAutoresizingMaskIntoConstraints = false
-        section.textField.autocorrectionType = .no
-        return section
+    open lazy var passwordTextField: SFSignViewTextField = {
+        let textField = SFSignViewTextField(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
+        textField.placeholder = "Contraseña"
+        textField.isSecureTextEntry = true
+        return textField
     }()
     
     open lazy var signUpButton: SFFluidButton = {
@@ -63,7 +50,7 @@ open class SFSignUpView: SFView {
     }()
     
     private lazy var contentStack: SFStackView = {
-        let stack = SFStackView(arrangedSubviews: [nameSection, lastNameSection, mailSection, passwordSection, signUpButton])
+        let stack = SFStackView(arrangedSubviews: [nameTextField, lastNameTextField, mailTextField, passwordTextField, signUpButton])
         stack.axis = .vertical
         stack.spacing = 16
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -78,11 +65,11 @@ open class SFSignUpView: SFView {
     }
     
     open override func setConstraints() {
-        contentStack.clipEdges()
-        nameSection.height(SFDimension(value: 64))
-        lastNameSection.height(SFDimension(value: 64))
-        mailSection.height(SFDimension(value: 64))
-        passwordSection.height(SFDimension(value: 64))
+        contentStack.clipSides()
+        nameTextField.height(SFDimension(value: 42))
+        lastNameTextField.height(SFDimension(value: 42))
+        mailTextField.height(SFDimension(value: 42))
+        passwordTextField.height(SFDimension(value: 42))
         signUpButton.height(SFDimension(value: 52))
         super.setConstraints()
     }

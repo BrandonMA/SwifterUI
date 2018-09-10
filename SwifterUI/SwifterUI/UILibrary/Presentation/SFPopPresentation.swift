@@ -36,17 +36,13 @@ open class SFPopPresentation: UIPresentationController {
     
     @objc private func updateColors() {
         guard let window = UIApplication.shared.keyWindow else { fatalError() }
-        UIView.animate(withDuration: 0.6, animations: {
-            window.backgroundColor = .black
-        })
+        UIView.animate(withDuration: 0.6, animations: { window.backgroundColor = .black })
     }
     
     override open func presentationTransitionWillBegin() {
         
-        guard var mainController = self.presentingViewController as? SFControllerColorStyle else { return }
-        
-        if let controller = presentingViewController as? UINavigationController {
-            if let view = controller.viewIfLoaded {
+        if let presentingViewController = presentingViewController as? UINavigationController {
+            if let view = presentingViewController.viewIfLoaded {
                 view.addSubview(shadowView)
             }
         } else {
@@ -54,10 +50,20 @@ open class SFPopPresentation: UIPresentationController {
         }
         
         presentingViewController.view.layer.masksToBounds = true
-        shadowView.clipEdges(useSafeArea: false)
-        updateColors()
         
-        UIView.animate(withDuration: 0.6) {
+        shadowView.clipSides(useSafeArea: false)
+        updateColors()
+        startPresentationAnimation()
+    }
+    
+    private func startPresentationAnimation() {
+        
+        guard var mainController = self.presentingViewController as? SFControllerColorStyle else { return }
+        shadowView.frame = presentingViewController.view.frame
+        
+        let animator = UIViewPropertyAnimator(damping: 0.7, response: 0.6)
+        
+        animator.addAnimations {
             
             self.shadowView.alpha = 0.5
             
@@ -78,21 +84,28 @@ open class SFPopPresentation: UIPresentationController {
             
             mainController.automaticallyTintNavigationBar = false
             mainController.statusBarStyle = .lightContent
+            
         }
+        
+        animator.startAnimation()
     }
     
     open override func dismissalTransitionWillBegin() {
-        
-        guard var mainController = self.presentingViewController as? SFControllerColorStyle else { return }
-        if let controller = self.presentingViewController as? UINavigationController {
-            guard let topViewController = controller.topViewController as? SFViewController else { return }
+        if let presentingViewController = self.presentingViewController as? UINavigationController {
+            guard let topViewController = presentingViewController.topViewController as? SFViewController else { return }
             topViewController.updateColors()
         }
-        
         updateColors()
+        startDismissalAnimation()
+    }
+    
+    private func startDismissalAnimation() {
         
-        UIView.animate(withDuration: 0.6, animations: {
-            
+        guard var mainController = self.presentingViewController as? SFControllerColorStyle else { return }
+        
+        let animator = UIViewPropertyAnimator(damping: 0.7, response: 0.6)
+        
+        animator.addAnimations {
             self.shadowView.alpha = 0
             
             if let tabBar = mainController as? SFTabBarController {
@@ -112,11 +125,13 @@ open class SFPopPresentation: UIPresentationController {
                 self.presentingViewController.view.frame.origin.y -= UIApplication.shared.statusBarFrame.height
                 self.presentingViewController.view.layer.cornerRadius = 0
             }
-            
-        }, completion: { finished in
-            self.shadowView.removeFromSuperview()
-        })
+        }
         
+        animator.addCompletion { (_) in
+            self.shadowView.removeFromSuperview()
+        }
+        
+        animator.startAnimation()
     }
     
     override open func containerViewWillLayoutSubviews() {

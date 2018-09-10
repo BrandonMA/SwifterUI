@@ -8,7 +8,7 @@
 
 import UIKit
 
-open class SFTableViewProfileCell: SFTableViewCell {
+open class SFTableViewContactCell: SFTableViewCell {
     
     // MARK: - Class Properties
     
@@ -17,7 +17,7 @@ open class SFTableViewProfileCell: SFTableViewCell {
     }
     
     open override class var identifier: String {
-        return "SFTableViewProfileCell"
+        return "SFTableViewContactCell"
     }
     
     // MARK: - Instance Properties
@@ -66,7 +66,7 @@ open class SFTableViewProfileCell: SFTableViewCell {
     }
     
     open override func setConstraints() {
-        stackView.clipEdges(margin: UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16))
+        stackView.clipSides(margin: UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16))
         profileImageView.width(SFDimension(value: 36))
         super.setConstraints()
     }

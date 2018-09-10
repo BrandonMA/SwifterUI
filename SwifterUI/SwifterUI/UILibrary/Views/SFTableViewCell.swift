@@ -51,14 +51,14 @@ open class SFTableViewCell: UITableViewCell, SFViewColorStyle, SFLayoutView {
     
     open func prepareSubviews() {
         contentView.addSubview(rightImageView)
-        textLabel?.font = UIFont.systemFont(ofSize: 17)
+        textLabel?.font = UIFont.systemFont
         if automaticallyAdjustsColorStyle {
             updateColors()
         }
     }
     
     open func setConstraints() {
-        rightImageView.center(axis: [.vertical])
+        rightImageView.clipCenterY(to: .centerY)
         rightImageView.width(SFDimension(value: 16))
         rightImageView.height(SFDimension(value: 16))
         rightImageView.clipRight(to: .right, margin: 8)

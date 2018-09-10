@@ -89,7 +89,7 @@ open class SFButton: UIButton, SFViewColorStyle, SFLayoutView {
     }
     
     public func setConstraints() {
-        customConstraints.append(contentsOf: rightImageView.clipEdges(exclude: [.left], margin: UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8), useSafeArea: false))
+        customConstraints.append(contentsOf: rightImageView.clipSides(exclude: [.left], margin: UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8), useSafeArea: false))
         customConstraints.append(rightImageView.width(SFDimension(value: 14)))
     }
     

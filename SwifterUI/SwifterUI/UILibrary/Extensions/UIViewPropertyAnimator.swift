@@ -9,8 +9,10 @@
 import UIKit
 
 public extension UIViewPropertyAnimator {
+    
     public convenience init(damping: CGFloat, response: CGFloat, initialVelocity: CGVector = .zero) {
         let timingParameters = UISpringTimingParameters(damping: damping, response: response, initialVelocity: initialVelocity)
         self.init(duration: 0, timingParameters: timingParameters)
     }
+    
 }

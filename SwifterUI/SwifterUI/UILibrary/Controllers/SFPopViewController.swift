@@ -2,7 +2,7 @@
 //  SFPopViewController.swift
 //  SwifterUI
 //
-//  Created by Brandon Maldonado Alonso on 22/01/18.
+//  Created by brandon maldonado alonso on 07/09/18.
 //  Copyright © 2018 Brandon Maldonado Alonso. All rights reserved.
 //
 
@@ -12,54 +12,54 @@ open class SFPopViewController: SFViewController {
     
     // MARK: - Instance Properties
     
-    private var initialPoint: CGFloat = 0
+    open var popView: SFPopView
     
-    open lazy var popView: SFPopView = {
-        let popView = SFPopView(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
+    // MARK: - Initializers
+    
+    public override init(automaticallyAdjustsColorStyle: Bool = true) {
+        popView = SFPopView(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, middleView: SFView(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle))
         popView.translatesAutoresizingMaskIntoConstraints = false
-        return popView
-    }()
+        super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle)
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - Instance Methods
     
-    override open func viewDidLoad() {
+    open override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(popView)
-        view.clipsToBounds = true
-        popView.bar.dismissButton.addTarget(self, action: #selector(dismissPop), for: .touchUpInside)
-        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(dismiss(withPanGesture:)))
-        self.sfview.addGestureRecognizer(panGesture)
+        popView.clipSides(useSafeArea: false)
     }
     
-    open override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        popView.clipEdges(useSafeArea: false)
-    }
-    
-    @objc public final func dismissPop() {
-        dismiss(animated: true, completion: nil)
-    }
-    
-    @objc public final func dismiss(withPanGesture panGesture: UIPanGestureRecognizer) {
+    open override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
-        guard let window = UIApplication.shared.keyWindow else { fatalError() }
-        let currentPoint = panGesture.location(in: window).y
+        popView.contentView.transform = CGAffineTransform(scaleX: 0.001, y: 0.001)
         
-        if panGesture.state == .began {
-            initialPoint = panGesture.location(in: window).y
-        } else if panGesture.state == .changed {
-            let distance = currentPoint - initialPoint
-            view.frame.origin.y += distance
-            initialPoint = currentPoint
-        } else if panGesture.state == .ended {
-            if view.frame.origin.y < 80 {
-                UIView.animate(withDuration: 0.6, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0, options: [], animations: {
-                    self.view.frame.origin.y = UIApplication.shared.statusBarFrame.height + 10
-                }, completion: nil)
-            } else {
-                dismiss(animated: true, completion: nil)
-            }
+        let animator = UIViewPropertyAnimator(damping: 0.7, response: 0.6)
+        
+        animator.addAnimations {
+            self.popView.contentView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
         }
+        
+        animator.startAnimation()
+    }
+    
+    public func returnToMainViewController(completion: (() -> Void)? = nil) {
+        
+        let animator = UIViewPropertyAnimator(damping: 1.0, response: 0.5)
+        
+        animator.addAnimations {
+            self.popView.contentView.transform = CGAffineTransform(scaleX: 0.001, y: 0.001)
+        }
+        
+        animator.addCompletion { (_) in
+            self.dismiss(animated: true, completion: completion)
+        }
+        
+        animator.startAnimation()
     }
 }
-

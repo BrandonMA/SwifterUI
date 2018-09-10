@@ -27,10 +27,6 @@ public extension UIColor {
 
     // MARK: - Static Methods
 
-    public static func random(alpha: CGFloat = 1.0) -> UIColor {
-        return UIColor(red: .random, green: .random, blue: .random, alpha: alpha)
-    }
-
     // hexValue: You need to provide 255 values to use this function
     public static func getHexValue(r: CGFloat, g: CGFloat, b: CGFloat) -> String {
         return String(format:"%02X", Int(r)) + String(format:"%02X", Int(g)) + String(format:"%02X", Int(b))

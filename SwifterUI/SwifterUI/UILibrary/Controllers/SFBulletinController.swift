@@ -24,11 +24,9 @@ extension SFBulletinViewControllerDelegate {
     }
 }
 
-open class SFBulletinViewController: SFViewController {
+open class SFBulletinViewController: SFPopViewController {
     
     // MARK: - Instance Properties
-    
-    public final var mainView: UIView { return bulletinView.backgroundView }
     
     public final weak var delegate: SFBulletinViewControllerDelegate?
     
@@ -74,12 +72,8 @@ open class SFBulletinViewController: SFViewController {
         }
     }
     
-    public final lazy var bulletinView: SFBulletinView = {
-        let picker = SFBulletinView(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle, middleView: useButtons ? nil : useDatePicker ? datePicker : pickerView, buttons: buttons)
-        picker.translatesAutoresizingMaskIntoConstraints = false
-        return picker
-    }()
-        
+    public final lazy var bulletinView: SFBulletinView = { return popView as! SFBulletinView }()
+    
     // MARK: - Initializers
     
     public override init(automaticallyAdjustsColorStyle: Bool = true) {
@@ -92,6 +86,7 @@ open class SFBulletinViewController: SFViewController {
         bulletinTitle = title
         useDatePicker = false
         useButtons = false
+        createBulletinView()
     }
     
     public convenience init(title: String = "", date: Date = Date(), minDate: Date? = nil, maxDate: Date? = nil, automaticallyAdjustsColorStyle: Bool = true) {
@@ -102,6 +97,7 @@ open class SFBulletinViewController: SFViewController {
         datePicker.date = date
         datePicker.minimumDate = minDate
         datePicker.maximumDate = maxDate
+        createBulletinView()
     }
     
     public convenience init(title: String = "", message: String = "", buttons: [SFFluidButton], automaticallyAdjustsColorStyle: Bool = true) {
@@ -112,12 +108,15 @@ open class SFBulletinViewController: SFViewController {
         useDatePicker = false
         useButtons = true
         buttons.forEach { (button) in
+            let oldActions = button.touchActions
+            button.touchActions.removeAll()
             button.insertAction({ [unowned self] in
                 self.returnToMainViewController(completion: {
-                    button.touchActions.forEach({ $0() })
+                    oldActions.forEach({ $0() })
                 })
             }, at: 0)
         }
+        createBulletinView()
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -126,39 +125,26 @@ open class SFBulletinViewController: SFViewController {
     
     // MARK: - Instance Methods
     
+    internal func createBulletinView() {
+        popView = SFBulletinView(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle, middleView: useButtons ? nil : useDatePicker ? datePicker : pickerView, buttons: buttons)
+        popView.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
     open override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(bulletinView)
+        bulletinView.clipTop(to: .top, useSafeArea: false)
+        bulletinView.clipSides(exclude: [.top])
         
-        bulletinView.closeButton.addTouchAction { [unowned self] in
+        bulletinView.closeButton.addAction { [unowned self] in
             self.closeButtonDidTouch()
         }
         
-        bulletinView.doneButton.addTouchAction { [unowned self] in
+        bulletinView.doneButton.addAction { [unowned self] in
             self.doneButtonDidTouch()
         }
         
         bulletinView.shadowView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(closeButtonDidTouch)))
-    }
-    
-    open override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        bulletinView.clipTop(to: .top, useSafeArea: false)
-        bulletinView.clipEdges(exclude: [.top])
-    }
-    
-    open override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        mainView.transform = CGAffineTransform(scaleX: 0.001, y: 0.001)
-        
-        let animator = UIViewPropertyAnimator(damping: 0.9, response: 0.7)
-        
-        animator.addAnimations {
-            self.mainView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-        }
-        
-        animator.startAnimation()
     }
     
     @objc private func closeButtonDidTouch() {
@@ -187,21 +173,6 @@ open class SFBulletinViewController: SFViewController {
             self.pickerView.updateColors()
             self.datePicker.updateColors()
         }
-    }
-    
-    public func returnToMainViewController(completion: (() -> Void)? = nil) {
-        
-        let animator = UIViewPropertyAnimator(damping: 0.9, response: 0.7)
-        
-        animator.addAnimations {
-            self.mainView.transform = CGAffineTransform(scaleX: 0.001, y: 0.001)
-        }
-        
-        animator.addCompletion { (_) in
-            self.dismiss(animated: true, completion: completion)
-        }
-        
-        animator.startAnimation()
     }
     
 }

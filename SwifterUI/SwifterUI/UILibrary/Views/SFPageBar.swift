@@ -16,7 +16,7 @@ open class SFPageBar: SFScrollView {
     
     // MARK: - Instance Properties
     
-    open var font: UIFont = UIFont.boldSystemFont(ofSize: 17) {
+    open var font: UIFont = UIFont.boldSystemFont {
         didSet {
             buttons.forEach({ $0.titleLabel?.font = font })
         }
@@ -77,7 +77,7 @@ open class SFPageBar: SFScrollView {
     }
     
     open override func setConstraints() {
-        buttonStackView.clipEdges(margin: UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16))
+        buttonStackView.clipSides(margin: UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16))
         scrollIndicator.height(SFDimension(value: 2))
         scrollIndicator.clipBottom(to: .bottom, of: contentView)
         contentView.clipBottom(to: .bottom, of: buttonStackView)
@@ -130,8 +130,8 @@ open class SFPageBar: SFScrollView {
                 self.updateColors()
             })
         }
-        self.scrollIndicator.remove(constraintType: .width)
-        self.scrollIndicator.remove(constraintType: .left)
+        self.scrollIndicator.removeConstraint(.width)
+        self.scrollIndicator.removeConstraint(.left)
         self.scrollIndicator.width(SFDimension(type: .fraction, value: 1), comparedTo: self.buttons[self.selectedIndex])
         self.scrollIndicator.clipLeft(to: .left, of: self.buttons[self.selectedIndex])
     }

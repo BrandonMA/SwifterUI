@@ -8,44 +8,24 @@
 
 import UIKit
 
-open class SFBulletinView: SFView {
+open class SFBulletinView: SFPopView {
     
     // MARK: - Instance Properties
     
-    public final lazy var shadowView: UIView = {
-        let view = UIView()
-        view.isUserInteractionEnabled = true
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.alpha = 0.5
-        view.backgroundColor = .black
-        return view
-    }()
-    
-    public final lazy var backgroundView: SFView = {
-        let view = SFView(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.layer.cornerRadius = 16
-        view.addShadow(color: .black, offSet: CGSize(width: 0, height: 12), radius: 16, opacity: 0.15)
-        return view
-    }()
-    
-    public final lazy var closeButton: SFButton = {
-        let button = SFButton(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
-        button.setImage(SFAssets.imageOfClose.withRenderingMode(.alwaysTemplate), for: .normal)
-        button.useAlternativeTextColor = true
+    public final lazy var closeButton: SFFluidButton = {
+        let button = SFFluidButton(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
+        button.imageView.image = SFAssets.imageOfClose.withRenderingMode(.alwaysTemplate)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 16
+        button.clipsToBounds = true
         return button
     }()
     
-    public final lazy var doneButton: SFButton = {
-        let button = SFButton(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
-        button.useAlternativeTextColor = true
+    public final lazy var doneButton: SFFluidButton = {
+        let button = SFFluidButton(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 16
-        button.setTitle("Listo", for: .normal)
-        button.titleLabel?.font = .boldSystemFont(ofSize: 17)
-        button.addTouchAnimations = true
+        button.title = "Listo"
         return button
     }()
     
@@ -69,18 +49,15 @@ open class SFBulletinView: SFView {
         return label
     }()
     
-    open var middleView: UIView
-    
     private var buttons: [SFFluidButton] = []
     
     // MARK: - Initializers
     
     public init(automaticallyAdjustsColorStyle: Bool = true, useAlternativeColors: Bool = false, frame: CGRect = .zero, middleView: UIView? = nil, buttons: [SFFluidButton] = []) {
         
-        self.middleView = middleView ?? SFView(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle)
         self.buttons = buttons
         
-        super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, useAlternativeColors: useAlternativeColors, frame: frame)
+        super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, useAlternativeColors: useAlternativeColors, frame: frame, middleView: middleView ?? SFView(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle))
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -91,13 +68,10 @@ open class SFBulletinView: SFView {
     
     open override func prepareSubviews() {
         
-        addSubview(shadowView)
-        addSubview(backgroundView)
-        
-        backgroundView.addSubview(closeButton)
-        backgroundView.addSubview(titleLabel)
-        backgroundView.addSubview(messageLabel)
-        backgroundView.addSubview(middleView)
+        contentView.addSubview(closeButton)
+        contentView.addSubview(titleLabel)
+        contentView.addSubview(messageLabel)
+        contentView.addSubview(middleView)
         
         if buttons.count > 0 {
             middleView.translatesAutoresizingMaskIntoConstraints = false
@@ -108,7 +82,7 @@ open class SFBulletinView: SFView {
                 middleView.addSubview(button)
             })
         } else {
-            backgroundView.addSubview(doneButton)
+            contentView.addSubview(doneButton)
         }
         
         super.prepareSubviews()
@@ -116,9 +90,8 @@ open class SFBulletinView: SFView {
     
     open override func setConstraints() {
         
-        shadowView.clipEdges(useSafeArea: false)
-        middleView.clipRight(to: .right, margin: 12)
-        middleView.clipLeft(to: .left, margin: 12)
+        super.setConstraints()
+        
         closeButton.width(SFDimension(value: 32))
         closeButton.height(SFDimension(value: 32))
         closeButton.clipBottom(to: .top, of: messageLabel, margin: 12)
@@ -126,15 +99,17 @@ open class SFBulletinView: SFView {
         
         titleLabel.clipRight(to: .right, margin: 24)
         titleLabel.clipLeft(to: .left, margin: 24)
-        titleLabel.center(axis: [.vertical], in: closeButton)
+        titleLabel.clipCenterY(to: .centerY, of: closeButton)
         
         messageLabel.clipRight(to: .right, margin: 12)
         messageLabel.clipLeft(to: .left, margin: 12)
         messageLabel.clipBottom(to: .top, of: middleView, margin: 12)
         
-        backgroundView.clipBottom(to: .bottom, margin: 12)
-        backgroundView.clipTop(to: .top, of: closeButton, margin: -12)
-        backgroundView.clipCenterX(to: .centerX)
+        contentView.removeConstraint(.bottom)
+        contentView.removeConstraint(.top)
+        contentView.removeConstraint(.centerY)
+        contentView.clipBottom(to: .bottom, margin: 12)
+        contentView.clipTop(to: .top, of: closeButton, margin: -12)
         
         if buttons.count > 0 {
             middleView.clipBottom(to: .bottom, margin: 12)
@@ -152,32 +127,12 @@ open class SFBulletinView: SFView {
                 }
             }
         } else {
-            doneButton.clipEdges(exclude: [.top], margin: UIEdgeInsets(top: 0, left: 12, bottom: 12, right: 12))
+            doneButton.clipSides(exclude: [.top], margin: UIEdgeInsets(top: 0, left: 12, bottom: 12, right: 12))
             doneButton.height(SFDimension(value: 48))
             middleView.clipBottom(to: .top, of: doneButton)
             middleView.height(SFDimension(value: 200))
         }
         
-        super.setConstraints()
-    }
-    
-    open override func updateConstraints() {
-        
-        backgroundView.remove(constraintType: .width)
-        
-        if useCompactInterface {
-            backgroundView.width(SFDimension(type: .fraction, value: 11/12))
-        } else {
-            backgroundView.width(SFDimension(type: .fraction, value: 1/2))
-        }
-        
-        super.updateConstraints()
-        
-    }
-    
-    open override func updateColors() {
-        backgroundColor = .clear
-        updateSubviewsColors()
     }
 }
 

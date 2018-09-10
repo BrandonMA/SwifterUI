@@ -1,24 +1,14 @@
 //
-//  SFTableViewChatCell.swift
+//  SFConversationView.swift
 //  SwifterUI
 //
-//  Created by brandon maldonado alonso on 10/02/18.
+//  Created by brandon maldonado alonso on 8/29/18.
 //  Copyright © 2018 Brandon Maldonado Alonso. All rights reserved.
 //
 
 import UIKit
 
-open class SFTableViewConversationCell: SFTableViewCell {
-    
-    // MARK: - Class Properties
-    
-    open override class var height: CGFloat {
-        return 72
-    }
-    
-    open override class var identifier: String {
-        return "SFTableViewConversationCell"
-    }
+open class SFConversationView: SFView {
     
     // MARK: - Instance Properties
     
@@ -26,7 +16,7 @@ open class SFTableViewConversationCell: SFTableViewCell {
         let imageView = UIImageView()
         imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.layer.cornerRadius = 24
+        imageView.layer.cornerRadius = 28
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
@@ -59,8 +49,16 @@ open class SFTableViewConversationCell: SFTableViewCell {
     open lazy var notificationIndicator: SFNotificationIndicator = {
         let indicator = SFNotificationIndicator(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         indicator.translatesAutoresizingMaskIntoConstraints = false
-        indicator.alpha = 0
         return indicator
+    }()
+    
+    open lazy var rightImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.clipsToBounds = true
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
+        imageView.image = SFAssets.imageOfArrowRight.withRenderingMode(.alwaysTemplate)
+        return imageView
     }()
     
     private lazy var topStackView: SFStackView = {
@@ -89,44 +87,42 @@ open class SFTableViewConversationCell: SFTableViewCell {
         verticalStackView.alignment = .fill
         verticalStackView.distribution = .fill
         verticalStackView.translatesAutoresizingMaskIntoConstraints = false
+        verticalStackView.spacing = 8
         return verticalStackView
     }()
     
     private lazy var stackView: SFStackView = {
-        let stackView = SFStackView(arrangedSubviews: [profileImageView, verticalStackView])
+        let stackView = SFStackView(arrangedSubviews: [profileImageView, verticalStackView, rightImageView])
         stackView.axis = .horizontal
-        stackView.alignment = .fill
+        stackView.alignment = .center
         stackView.distribution = .fill
-        stackView.spacing = 16
+        stackView.spacing = 8
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
     
-    // MARK: - Initializers
-    
-    public override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-    }
-    
-    required public init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     // MARK: - Instance Methods
     
     open override func prepareSubviews() {
-        contentView.addSubview(stackView)
+        addSubview(stackView)
         nameLabel.setContentCompressionResistancePriority(.init(249), for: .horizontal)
         hourLabel.setContentCompressionResistancePriority(.init(251), for: .horizontal)
         super.prepareSubviews()
     }
     
     open override func setConstraints() {
-        stackView.clipEdges(margin: UIEdgeInsets(top: 12, left: 12, bottom: 12, right: 12))
-        profileImageView.width(SFDimension(value: 48))
-        notificationIndicator.width(SFDimension(value: 20))
-        notificationIndicator.height(SFDimension(value: 20))
+        stackView.clipSides(margin: UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8))
+        profileImageView.width(SFDimension(value: 56))
+        notificationIndicator.width(SFDimension(value: 24))
+        notificationIndicator.height(SFDimension(value: 24))
+        rightImageView.width(SFDimension(value: 8.80))
+        rightImageView.height(SFDimension(value: 16))
         super.setConstraints()
     }
+    
+    open override func updateColors() {
+        super.updateColors()
+        rightImageView.tintColor = colorStyle.getPlaceholderColor()
+    }
+    
 }

@@ -12,16 +12,14 @@ open class SFPageViewController: SFViewController {
     
     // MARK: - Instance Properties
     
-    open lazy var pageView: SFPageView = {
-        let view = SFPageView(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.scrollVertically = false
-        return view
-    }()
+    open var pageView: SFPageView
     
     // MARK: - Initializers
     
     public init(automaticallyAdjustsColorStyle: Bool = true, viewControllers: [SFViewController]) {
+        pageView = SFPageView(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle)
+        pageView.translatesAutoresizingMaskIntoConstraints = false
+        pageView.scrollVertically = false
         super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle)
         add(viewControllers: viewControllers)
     }
@@ -35,11 +33,7 @@ open class SFPageViewController: SFViewController {
     open override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(pageView)
-    }
-    
-    open override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        pageView.clipEdges()
+        pageView.clipSides()
     }
     
     func add(viewController: SFViewController) {

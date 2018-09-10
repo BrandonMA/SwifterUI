@@ -49,9 +49,7 @@ open class SFViewController: UIViewController, SFControllerColorStyle {
     
     open var autorotate: Bool = true
     
-    public final var sfview: SFView! {
-        return (view as! SFView)
-    }
+    public final var sfview: SFView { return view as! SFView }
     
     // MARK: - Initializers
     
@@ -120,7 +118,7 @@ open class SFViewController: UIViewController, SFControllerColorStyle {
             return
         }
         
-        if viewControllerToPresent.isKind(of: SFPopViewController.self) {
+        if viewControllerToPresent.isKind(of: SFSlideViewController.self) {
             let manager = SFPresentationManager(animation: .pop)
             viewControllerToPresent.transitioningDelegate = manager
             viewControllerToPresent.modalPresentationStyle = .custom

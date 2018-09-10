@@ -42,7 +42,7 @@ public final class SFTextScrollSection: SFSection {
     
     public init(automaticallyAdjustsColorStyle: Bool = true, useAlternativeColors: Bool = false, frame: CGRect = .zero) {
         let textView = SFTextView(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, useAlternativeColors: useAlternativeColors, frame: frame)
-        textView.font = UIFont.systemFont(ofSize: 15)
+        textView.font = UIFont.systemFont
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.layer.cornerRadius = 10
         textView.textContainerInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)

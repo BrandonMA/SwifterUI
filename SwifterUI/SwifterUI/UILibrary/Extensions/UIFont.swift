@@ -15,5 +15,9 @@ public extension UIFont {
     public static var systemFont: UIFont {
         return UIFont.systemFont(ofSize: UIFont.systemFontSize)
     }
+    
+    public static var boldSystemFont: UIFont {
+        return UIFont.boldSystemFont(ofSize: UIFont.systemFontSize)
+    }
 
 }

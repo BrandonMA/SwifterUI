@@ -9,9 +9,8 @@ target 'SwifterUI' do
 
   # Pods for SwifterUI
 
-  pod 'PromiseKit', '~> 6.0'
   pod 'DeepDiff'
-  pod 'Kingfisher', '~> 4.9'
+  pod 'Kingfisher'
   
   target 'SwifterUITests' do
     inherit! :search_paths

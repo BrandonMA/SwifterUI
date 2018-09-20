@@ -15,18 +15,17 @@ Pod::Spec.new do |s|
   }
 
   s.ios.deployment_target = '11.0'
-  s.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.0' }
+  s.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.2' }
 
   s.subspec 'Core' do |core|
-    core.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.0' }
+    core.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.2' }
     core.ios.deployment_target = '11.0'
     core.source_files = 'SwifterUI/SwifterUI/UILibrary/*', 'SwifterUI/SwifterUI/UILibrary/**/*'
-    core.dependency 'PromiseKit', '~> 6.0'
     core.dependency 'DeepDiff'
   end
 
   s.subspec 'ChatKit' do |chatkit|
-    chatkit.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.0' }
+    chatkit.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.2' }
     chatkit.ios.deployment_target = '11.0'
     chatkit.source_files  = 'SwifterUI/SwifterUI/ChatKit/*'
     chatkit.dependency 'SwifterUI/Core'
@@ -34,7 +33,7 @@ Pod::Spec.new do |s|
   end
 
   s.subspec 'LoginKit' do |loginkit|
-    loginkit.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.0' }
+    loginkit.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.2' }
     loginkit.ios.deployment_target = '11.0'
     loginkit.source_files  = 'SwifterUI/SwifterUI/LoginKit/**/*'
     loginkit.dependency 'SwifterUI/Core'

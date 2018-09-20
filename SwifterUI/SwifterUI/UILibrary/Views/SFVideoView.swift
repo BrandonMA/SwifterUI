@@ -22,8 +22,8 @@ public extension SFVideoPlayerDelegate where Self: UIViewController {
     // MARK: - Instance Methods
     
     public func prepare(mediaController: UIViewController) {
-        mediaController.didMove(toParentViewController: self)
-        self.addChildViewController(mediaController)
+        addChild(mediaController)
+        mediaController.didMove(toParent: self)
     }
 }
 
@@ -32,35 +32,11 @@ public final class SFVideoView: SFView {
 
     // MARK: - Instance Properties
 
-    public final var videoView: UIView? = nil
+    private final var controller = AVPlayerViewController()
 
-    public final var url: URL? = nil {
-        didSet {
-            DispatchQueue.addAsyncTask(to: .background) {
-                guard let url = self.url else {
-                    DispatchQueue.addAsyncTask(to: .main, handler: {
-                        self.videoView?.removeFromSuperview()
-                    })
-                    return
-                }
-                self.player = AVPlayer(url: url)
-            }
-        }
-    }
-
-    public final var controller = AVPlayerViewController()
-
-    public final var player: AVPlayer? {
-        didSet {
-            self.player?.automaticallyWaitsToMinimizeStalling = false
-            self.controller.player = self.player
-            DispatchQueue.addAsyncTask(to: .main) {
-                self.prepareVideoView()
-            }
-        }
-    }
-
-    public final weak var delegate: SFVideoPlayerDelegate? = nil
+    public final weak var delegate: SFVideoPlayerDelegate?
+    
+    // MARK: - Initializer
 
     public override init(automaticallyAdjustsColorStyle: Bool = true, useAlternativeColors: Bool = false, frame: CGRect = .zero) {
         super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, useAlternativeColors: useAlternativeColors, frame: frame)
@@ -74,11 +50,32 @@ public final class SFVideoView: SFView {
 
     // MARK: - Instance Methods
 
-    public final func prepareVideoView() {
-        delegate?.prepare(mediaController: controller)
-        videoView = controller.view
-        addSubview(videoView!)
-        videoView?.clipSides()
+    public final func setVideo(with url: URL?) {
+        
+        DispatchQueue.global(qos: .background).async {
+            guard let url = url else { return }
+            let player = AVPlayer(url: url)
+            player.automaticallyWaitsToMinimizeStalling = false
+            self.controller.player = player
+            
+            DispatchQueue.main.async {
+                self.addSubview(self.controller.view)
+                self.controller.view.translatesAutoresizingMaskIntoConstraints = false
+                self.controller.view.clipSides()
+                self.delegate?.prepare(mediaController: self.controller)
+            }
+        }
+    }
+    
+    public final func cleanView() {
+        self.controller.view.removeFromSuperview()
+        controller.player = nil
+        controller.removeFromParent()
+    }
+    
+    public override func removeFromSuperview() {
+        cleanView()
+        super.removeFromSuperview()
     }
 
 }

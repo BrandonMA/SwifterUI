@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import PromiseKit
 
 public enum SFSignState {
     case signIn

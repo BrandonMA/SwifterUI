@@ -58,7 +58,7 @@ public final class SFButtonSection: SFSection {
         button.rightImageView.image = SFAssets.imageOfArrowRight.withRenderingMode(.alwaysTemplate)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 10
-        button.contentHorizontalAlignment = UIControlContentHorizontalAlignment.left
+        button.contentHorizontalAlignment = UIControl.ContentHorizontalAlignment.left
         button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 0)
         button.titleLabel?.font = UIFont.systemFont
         super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, useAlternativeColors: useAlternativeColors, frame: frame, bottomView: button)

@@ -67,7 +67,7 @@ open class SFTabBarController: UITabBarController, SFControllerColorStyle {
     
     open func checkColorStyleListener() {
         if self.automaticallyAdjustsColorStyle == true {
-            NotificationCenter.default.addObserver(self, selector: #selector(handleBrightnessChange), name: .UIScreenBrightnessDidChange, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(handleBrightnessChange), name: UIScreen.brightnessDidChangeNotification, object: nil)
         } else {
             NotificationCenter.default.removeObserver(self)
         }
@@ -80,7 +80,7 @@ open class SFTabBarController: UITabBarController, SFControllerColorStyle {
     }
     
     open func updateColors() {
-        DispatchQueue.addAsyncTask(to: .main) {
+        DispatchQueue.main.async {
             self.tabBar.tintColor = self.colorStyle.getInteractiveColor()
             self.tabBar.barStyle = self.colorStyle.getBarStyle()
             

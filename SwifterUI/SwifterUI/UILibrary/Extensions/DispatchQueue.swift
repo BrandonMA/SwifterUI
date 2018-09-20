@@ -42,14 +42,4 @@ public extension DispatchQueue {
         dispatchLevel.dispatchQueue.asyncAfter(deadline: .now() + seconds, execute: handler) // Add the action to be executed after the delay to the corresponding DispatchQueue
     }
 
-    // addAsyncTask: Add an action to a dispatch queue asynchronously
-    // - Parameters:
-    //   dispatchLevel: Dispatch queue where your code is going to be executed
-    //   handler: Action to be executed
-    public static func addAsyncTask(to dispatchLevel: DispatchLevel, handler: @escaping () -> Void) {
-        dispatchLevel.dispatchQueue.async {
-            handler()
-        }
-    }
-
 }

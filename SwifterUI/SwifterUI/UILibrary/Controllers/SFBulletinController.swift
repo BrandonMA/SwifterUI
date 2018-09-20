@@ -56,7 +56,7 @@ open class SFBulletinViewController: SFPopViewController {
         get {
             return bulletinView.titleLabel.text ?? ""
         } set {
-            DispatchQueue.addAsyncTask(to: .main) {
+            DispatchQueue.main.async {
                 self.bulletinView.titleLabel.text = newValue
             }
         }
@@ -66,7 +66,7 @@ open class SFBulletinViewController: SFPopViewController {
         get {
             return bulletinView.messageLabel.text ?? ""
         } set {
-            DispatchQueue.addAsyncTask(to: .main) {
+            DispatchQueue.main.async {
                 self.bulletinView.messageLabel.text = newValue
             }
         }
@@ -168,7 +168,7 @@ open class SFBulletinViewController: SFPopViewController {
     
     open override func updateColors() {
         super.updateColors()
-        DispatchQueue.addAsyncTask(to: .main) {
+        DispatchQueue.main.async {
             self.view.backgroundColor = .clear
             self.pickerView.updateColors()
             self.datePicker.updateColors()

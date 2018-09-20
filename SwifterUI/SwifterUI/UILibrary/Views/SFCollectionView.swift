@@ -42,11 +42,11 @@ open class SFCollectionView: UICollectionView, SFViewColorStyle {
             if numberOfSections >= 0 {
                 for i in 0...numberOfSections {
                     
-                    if let header = supplementaryView(forElementKind: UICollectionElementKindSectionHeader, at: IndexPath(row: 0, section: i)) as? SFViewColorStyle {
+                    if let header = supplementaryView(forElementKind: UICollectionView.elementKindSectionHeader, at: IndexPath(row: 0, section: i)) as? SFViewColorStyle {
                         header.updateColors()
                     }
                     
-                    if let footer = supplementaryView(forElementKind: UICollectionElementKindSectionFooter, at: IndexPath(row: 0, section: i)) as? SFViewColorStyle {
+                    if let footer = supplementaryView(forElementKind: UICollectionView.elementKindSectionFooter, at: IndexPath(row: 0, section: i)) as? SFViewColorStyle {
                         footer.updateColors()
                     }
                     

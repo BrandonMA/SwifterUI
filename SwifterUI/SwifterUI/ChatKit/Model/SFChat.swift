@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import PromiseKit
 
 public enum SFChatNotification: String {
     case unreadMessagesUpdate
@@ -15,12 +14,20 @@ public enum SFChatNotification: String {
     case multipleMessagesUpdate
 }
 
-open class SFChat: Hashable {
+open class SFChat: Hashable, Codable {
+    
+    public enum CodingKeys: String, CodingKey {
+        case identifier
+        case modificationDate
+        case users
+        case name
+        case imageURL
+    }
     
     // MARK: - Static Methods
     
     public static func == (lhs: SFChat, rhs: SFChat) -> Bool {
-        return lhs.identifier == rhs.identifier && lhs.modificationDate == rhs.modificationDate && lhs.users == rhs.users && lhs.name == rhs.name
+        return lhs.identifier == rhs.identifier && lhs.modificationDate == rhs.modificationDate && lhs.users == rhs.users && lhs.name == rhs.name && lhs.imageURL == rhs.imageURL
     }
     
     // MARK: - Instance Properties
@@ -29,30 +36,29 @@ open class SFChat: Hashable {
     open var modificationDate: Date
     open var users: [String] = []
     open var name: String
-    open var imageURL: String? { return nil }
+    open var imageURL: String?
     
-    open var hashValue: Int { return identifier.hashValue }
-    open unowned var currentUser: SFUser
+    open var hashValue: Int { return identifier.hashValue ^ modificationDate.hashValue ^ name.hashValue }
+    open weak var currentUser: SFUser?
     open var unreadMessages = 0
-    open var image: UIImage?
     
     private var _messages: [SFMessage] = []
     open var messages: [SFMessage] {
-        set(newValue) {
+        get {
+            return _messages
+        } set {
             
             let newMessages = newValue.count - _messages.count
             _messages = newValue
+            let userInfo = ["SFChat": self]
             
             if newMessages == 1 {
-                 NotificationCenter.default.post(name: Notification.Name(SFChatNotification.newMessageUpdate.rawValue), object: nil, userInfo: ["SFChat": self])
+                 NotificationCenter.default.post(name: Notification.Name(SFChatNotification.newMessageUpdate.rawValue), object: nil, userInfo: userInfo)
             } else if newMessages > 1 {
-                NotificationCenter.default.post(name: Notification.Name(SFChatNotification.multipleMessagesUpdate.rawValue), object: nil, userInfo: ["SFChat": self])
+                NotificationCenter.default.post(name: Notification.Name(SFChatNotification.multipleMessagesUpdate.rawValue), object: nil, userInfo: userInfo)
             }
             
             checkUnreadMessages()
-                        
-        } get {
-            return _messages
         }
     }
     
@@ -67,22 +73,72 @@ open class SFChat: Hashable {
         self.messages = messages
         self.users.append(currentUser.identifier)
         checkUnreadMessages()
-        self.currentUser.chats.append(self)
+    }
+    
+    public required init(from decoder: Decoder) throws {
+        let data = try decoder.container(keyedBy: CodingKeys.self)
+        identifier = try data.decode(String.self, forKey: CodingKeys.identifier)
+        modificationDate = try data.decode(Date.self, forKey: CodingKeys.identifier)
+        users = try data.decode(Array<String>.self, forKey: CodingKeys.users)
+        name = try data.decode(String.self, forKey: CodingKeys.name)
+        imageURL = try data.decode(String?.self, forKey: CodingKeys.imageURL)
     }
     
     // MARK: - Instance Methods
     
-    func checkUnreadMessages() {
+    // TODO: addNew(user: SFUser) - Insert it in the correct place, do not use ordered().
+    // TODO: addNew(users: [SFUser]) - Use ordered().
+    // TODO: addNew(message: SFMessage) - Just append it.
+    // TODO: addNew(messages: [SFMessage] - Use ordered().
+    
+    open func checkUnreadMessages() {
+        
+        guard let currentUser = currentUser else { return }
         
         unreadMessages = 0
         
-        messages.forEach { (message) in
-            if !message.read && message.senderIdentifier != currentUser.identifier {
+        messages.forEach {
+            if !$0.read && $0.senderIdentifier != currentUser.identifier {
                 unreadMessages += 1
             }
         }
         
         NotificationCenter.default.post(name: Notification.Name(SFChatNotification.unreadMessagesUpdate.rawValue), object: nil, userInfo: ["SFChat": self])
+    }
+    
+    open func markMessagesAsRead() {
+        
+        guard let currentUser = currentUser else { return }
+        
+        messages.forEach {
+            if !$0.read && $0.senderIdentifier != currentUser.identifier {
+                $0.read = true
+            }
+        }
+        
+        unreadMessages = 0
+        
+        NotificationCenter.default.post(name: Notification.Name(SFChatNotification.unreadMessagesUpdate.rawValue), object: nil, userInfo: ["SFChat": self])
+    }
+    
+    open func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(identifier, forKey: CodingKeys.identifier)
+        try container.encode(modificationDate, forKey: CodingKeys.modificationDate)
+        try container.encode(users, forKey: CodingKeys.users)
+        try container.encode(name, forKey: CodingKeys.name)
+        try container.encode(imageURL, forKey: CodingKeys.imageURL)
+    }
+}
+
+public extension Array where Element: SFDataSection<SFChat> {
+    
+    public mutating func sortByModificationTime() {
+        forEach { (section) in
+            section.content.sort { (current, next) -> Bool in
+                return current.modificationDate > next.modificationDate
+            }
+        }
     }
 }
 
@@ -92,32 +148,14 @@ public extension Array where Element: SFChat {
         return self.filter({ $0.name.lowercased().contains(title.lowercased() )})
     }
     
+    public func createDataSections() -> [SFDataSection<SFChat>] {
+        let section = SFDataSection<SFChat>(content: self)
+        return [section]
+    }
+    
     public func ordered() -> [SFDataSection<SFChat>] {
-        
-        var sections: [SFDataSection<SFChat>] = []
-        
-        for chat in self {
-            if let index = sections.index(where: { $0.identifier == chat.modificationDate.string(with: "EEEE dd MMM yyyy") }) {
-                sections[index].content.append(chat)
-            } else {
-                let section = SFDataSection<SFChat>(content: [chat], identifier: chat.modificationDate.string(with: "EEEE dd MMM yyyy"))
-                sections.append(section)
-            }
-        }
-        
-        sections.sort(by: { (current, next) -> Bool in
-            guard let currentDate = Date.date(from: current.identifier, with: "EEEE dd MMM yyyy") else { return false }
-            guard let nextDate = Date.date(from: next.identifier, with: "EEEE dd MMM yyyy") else { return false }
-            return currentDate < nextDate
-        })
-        
-        for (index, var section) in sections.enumerated() {
-            section.content.sort { (current, next) -> Bool in
-                return current.modificationDate > next.modificationDate
-            }
-            sections[index] = section
-        }
-        
+        var sections = createDataSections()
+        sections.sortByModificationTime()
         return sections
     }
     

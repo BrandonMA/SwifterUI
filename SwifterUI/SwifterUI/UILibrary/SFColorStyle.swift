@@ -26,14 +26,14 @@ public enum SFColorStyle {
     public func getBarStyle() -> UIBarStyle {
         switch self {
         case .light: return .default
-        case .dark: return .blackTranslucent
+        case .dark: return .black
         }
     }
     
     /**
      - returns: Corresponding color of an UIActivityIndicatorView depending on the current color style.
      */
-    public func getUIActivityIndicatorStyle() -> UIActivityIndicatorViewStyle {
+    public func getUIActivityIndicatorStyle() -> UIActivityIndicatorView.Style {
         switch self {
         case .light: return .gray
         case .dark: return .white
@@ -63,7 +63,7 @@ public enum SFColorStyle {
     /**
      - returns: Corresponding color of an UIScrollView's indicator depending on the current color style.
      */
-    public func getScrollIndicatorStyle() -> UIScrollViewIndicatorStyle {
+    public func getScrollIndicatorStyle() -> UIScrollView.IndicatorStyle {
         switch self {
         case .light: return .black
         case .dark: return .white

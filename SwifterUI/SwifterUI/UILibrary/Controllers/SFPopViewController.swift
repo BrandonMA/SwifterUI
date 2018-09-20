@@ -50,7 +50,7 @@ open class SFPopViewController: SFViewController {
     
     public func returnToMainViewController(completion: (() -> Void)? = nil) {
         
-        let animator = UIViewPropertyAnimator(damping: 1.0, response: 0.5)
+        let animator = UIViewPropertyAnimator(damping: 1.0, response: 0.4)
         
         animator.addAnimations {
             self.popView.contentView.transform = CGAffineTransform(scaleX: 0.001, y: 0.001)

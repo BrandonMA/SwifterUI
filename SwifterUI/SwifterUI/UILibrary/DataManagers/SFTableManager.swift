@@ -7,65 +7,44 @@
 //
 
 import UIKit
-import PromiseKit
 import DeepDiff
 
-public extension UITableView {
-    
-    fileprivate func reload<T>(changes: [Change<T>], section: Int, insertionAnimation: UITableViewRowAnimation = .fade, deletionAnimation: UITableViewRowAnimation = .fade, replacementAnimation: UITableViewRowAnimation = .fade) -> Guarantee<Void> where T : Hashable {
-        return Guarantee { seal in
-            reload(changes: changes, section: section, insertionAnimation: insertionAnimation, deletionAnimation: deletionAnimation, replacementAnimation: replacementAnimation, completion: { (_) in
-                seal(())
-            })
-        }
-    }
-}
-
-public protocol SFTableManagerDelegate: class {
+public protocol SFTableAdapterDelegate: class {
     func didSelectRow<DataType: Hashable>(at indexPath: IndexPath, tableView: SFTableView, item: DataType)
     func heightForRow(at indexPath: IndexPath, tableView: SFTableView) -> CGFloat?
+    func prepareCell<DataType: Hashable>(_ cell: SFTableViewCell, at indexPath: IndexPath, with data: DataType)
+    func headerStyler<HeaderType: SFTableViewHeaderView, DataType: Hashable>() -> ((HeaderType, SFDataSection<DataType>, Int) -> ())?
+    func footerStyler<FooterType: SFTableViewFooterView, DataType: Hashable>() -> ((FooterType, SFDataSection<DataType>, Int) -> ())?
+    func prefetch<DataType: Hashable>(item: DataType, indexPath: IndexPath)
 }
 
-public extension SFTableManagerDelegate {
+public extension SFTableAdapterDelegate {
     public func didSelectRow<DataType: Hashable>(at indexPath: IndexPath, tableView: SFTableView, item: DataType) {}
     public func heightForRow(at indexPath: IndexPath, tableView: SFTableView) -> CGFloat? { return nil }
+    public func headerStyler<HeaderType: SFTableViewHeaderView, DataType: Hashable>() -> ((HeaderType, SFDataSection<DataType>, Int) -> ())? { return nil }
+    public func footerStyler<FooterType: SFTableViewFooterView, DataType: Hashable>() -> ((FooterType, SFDataSection<DataType>, Int) -> ())? { return nil }
+    public func prefetch<DataType: Hashable>(item: DataType, indexPath: IndexPath) {}
 }
 
-open class SFTableManager<DataType: Hashable, CellType: SFTableViewCell, HeaderType: SFTableViewHeaderView, FooterType: SFTableViewFooterView>: SFDataManager<DataType>, UITableViewDataSource, UITableViewDelegate, UITableViewDataSourcePrefetching {
-    
-    public typealias SFTableManagerItemStyler = ((CellType, DataType, IndexPath) -> ())
-    public typealias SFTableManagerPrefetchStyler = ((DataType, IndexPath) -> ())
-    public typealias SFTableManagerHeaderStyler = ((HeaderType, SFDataSection<DataType>, Int) -> ())
-    public typealias SFTableManagerFooterStyler = ((FooterType, SFDataSection<DataType>, Int) -> ())
+open class SFTableAdapter<DataType: Hashable, CellType: SFTableViewCell, HeaderType: SFTableViewHeaderView, FooterType: SFTableViewFooterView>: NSObject, UITableViewDataSource, UITableViewDelegate {
     
     // MARK: - Instance Properties
     
-    public final weak var delegate: SFTableManagerDelegate?
-    
+    public final weak var delegate: SFTableAdapterDelegate?
     public final weak var tableView: SFTableView?
+    public final weak var dataManager: SFDataManager<DataType>?
+    
+    public final var insertAnimation: UITableView.RowAnimation = .automatic
+    public final var deleteAnimation: UITableView.RowAnimation = .automatic
+    public final var reloadAnimation: UITableView.RowAnimation = .automatic
     
     public final var addIndexList: Bool = false
     
-    /**
-     Use this to style a cell with colors and less demaning tasks.
-     */
-    public final var cellStyler: SFTableManagerItemStyler?
-    /**
-     Add any prefetch calculations or tasks that could be done on the background.
-     */
-    public final var prefetchStyler: SFTableManagerPrefetchStyler?
-    public final var headerStyler: SFTableManagerHeaderStyler?
-    public final var footerStyler: SFTableManagerFooterStyler?
-    
-    // MARK: - Initializers
-    
-    // MARK: - Instace Methods
-    
-    open func configure(tableView: SFTableView, cellStyler: SFTableManagerItemStyler?) {
-        self.cellStyler = cellStyler
+    public func configure(tableView: SFTableView, dataManager: SFDataManager<DataType>) {
+        self.dataManager = dataManager
         self.tableView = tableView
+        dataManager.delegate = self
         tableView.dataSource = self
-        tableView.prefetchDataSource = self
         tableView.delegate = self
         registerViews()
         registerHeightForViews()
@@ -78,9 +57,20 @@ open class SFTableManager<DataType: Hashable, CellType: SFTableViewCell, HeaderT
     }
     
     private final func registerHeightForViews() {
+        
         tableView?.rowHeight = CellType.height
-        tableView?.sectionHeaderHeight = headerStyler == nil ? 0.0 : HeaderType.height
-        tableView?.sectionFooterHeight = footerStyler == nil ? 0.0 : FooterType.height
+        
+        if let _: ((HeaderType, SFDataSection<DataType>, Int) -> ()) = delegate?.headerStyler() {
+            tableView?.sectionHeaderHeight = HeaderType.height
+        } else {
+            tableView?.sectionHeaderHeight = 0.0
+        }
+        
+        if let _: ((FooterType, SFDataSection<DataType>, Int) -> ()) = delegate?.footerStyler() {
+            tableView?.sectionFooterHeight = FooterType.height
+        } else {
+            tableView?.sectionFooterHeight = 0.0
+        }
         
         if tableView?.style == .grouped {
             tableView?.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: CGFloat.leastNonzeroMagnitude, height: CGFloat.leastNonzeroMagnitude))
@@ -89,207 +79,30 @@ open class SFTableManager<DataType: Hashable, CellType: SFTableViewCell, HeaderT
         }
     }
     
-    // MARK: - Update Methods
-    
-    open override func forceUpdate(dataSections: [SFDataSection<DataType>]) {
-        super.forceUpdate(dataSections: dataSections)
-        tableView?.reloadData()
-    }
-    
-    open override func forceUpdate(data: [[DataType]]) {
-        super.forceUpdate(data: data)
-        tableView?.reloadData()
-    }
-    
-    @discardableResult
-    open func updateSections(dataSections: [SFDataSection<DataType>], insertionAnimation: UITableViewRowAnimation = .fade, deletionAnimation: UITableViewRowAnimation = .fade, replacementAnimation: UITableViewRowAnimation = .fade) -> Guarantee<Void> {
-        
-        if dataSections.isEmpty {
-            self.data.removeAll()
-            self.tableView?.reloadData()
-            return Guarantee()
-        } else if let item = dataSections.first, item.content.isEmpty {
-            self.data.removeAll()
-            self.tableView?.reloadData()
-            return Guarantee()
-        } else {
-            return performChanges(update(dataSections: dataSections), insertionAnimation: insertionAnimation, deletionAnimation: deletionAnimation, replacementAnimation: replacementAnimation)
-        }
-    }
-    
-    @discardableResult
-    open func updateSections(data: [[DataType]], insertionAnimation: UITableViewRowAnimation = .fade, deletionAnimation: UITableViewRowAnimation = .fade, replacementAnimation: UITableViewRowAnimation = .fade) -> Guarantee<Void> {
-        
-        if data.isEmpty {
-            self.data.removeAll()
-            self.tableView?.reloadData()
-            return Guarantee()
-        } else if let item = data.first, item.isEmpty {
-            self.data.removeAll()
-            self.tableView?.reloadData()
-            return Guarantee()
-        } else {
-            return performChanges(update(data: data), insertionAnimation: insertionAnimation, deletionAnimation: deletionAnimation, replacementAnimation: replacementAnimation)
-        }
-    }
-    
-    public final func performChanges(_ changes: [[Change<DataType>]], insertionAnimation: UITableViewRowAnimation = .fade, deletionAnimation: UITableViewRowAnimation = .fade, replacementAnimation: UITableViewRowAnimation = .fade) -> Guarantee<Void> {
-        let promises = changes.enumerated().map({ (index, changes) -> Guarantee<Void> in
-            if self.tableView!.numberOfSections < self.data.count {
-                return self.insertSection(index: index, animation: insertionAnimation)
-            } else {
-                return self.tableView!.reload(changes: changes, section: index, insertionAnimation: insertionAnimation, deletionAnimation: deletionAnimation, replacementAnimation: replacementAnimation)
-            }
-        })
-        
-        return when(guarantees: promises)
-    }
-    
-    @discardableResult
-    open func updateSection(_ dataSection: SFDataSection<DataType>, index: Int, insertionAnimation: UITableViewRowAnimation = .fade, deletionAnimation: UITableViewRowAnimation = .fade, replacementAnimation: UITableViewRowAnimation = .fade) -> Guarantee<Void> {
-        if self.data.count > index {
-            let changes = update(dataSection: dataSection, index: index)
-            return tableView!.reload(changes: changes, section: index, insertionAnimation: insertionAnimation, deletionAnimation: deletionAnimation, replacementAnimation: replacementAnimation)
-        } else {
-            return insertSection(dataSection)
-        }
-    }
-    
-    // MARK: - Sections
-    
-    @discardableResult
-    open func insertSection(_ section: SFDataSection<DataType>? = nil, index: Int? = nil, animation: UITableViewRowAnimation = .fade) -> Guarantee<Void> {
-        return Guarantee { seal in
-            self.tableView?.performBatchUpdates({
-                if let section = section {
-                    self.data.insert(section, at: index ?? lastSectionIndex)
-                }
-                self.tableView?.insertSections(IndexSet(integer: index ?? lastSectionIndex), with: animation)
-            }, completion: { (_) in
-                seal(())
-            })
-        }
-    }
-    
-    @discardableResult
-    open func moveSection(from: Int, to: Int) -> Guarantee<Void> {
-        return Guarantee { seal in
-            self.tableView?.performBatchUpdates({
-                self.data.move(from: from, to: to)
-                self.tableView?.moveSection(from, toSection: to)
-            }, completion: { (_) in
-                seal(())
-            })
-        }
-    }
-    
-    @discardableResult
-    open func deleteSection(index: Int, animation: UITableViewRowAnimation = .fade) -> Guarantee<Void> {
-        return Guarantee { seal in
-            self.tableView?.performBatchUpdates({
-                self.data.remove(at: index)
-                self.tableView?.deleteSections(IndexSet(integer: index), with: animation)
-            }, completion: { (_) in
-                seal(())
-            })
-        }
-    }
-    
-    @discardableResult
-    open func reloadSection(index: Int, animation: UITableViewRowAnimation = .fade) -> Guarantee<Void> {
-        return Guarantee { seal in
-            self.tableView?.performBatchUpdates({
-                self.tableView?.reloadSections(IndexSet(integer: index), with: animation)
-            }, completion: { (_) in
-                seal(())
-            })
-        }
-    }
-    
-    // MARK: - Items
-    
-    public final func getItem(at indexPath: IndexPath) -> DataType {
-        return data[indexPath.section].content[indexPath.row]
-    }
-    
-    @discardableResult
-    open func insertItem(_ item: DataType? = nil, indexPath: IndexPath? = nil, animation: UITableViewRowAnimation = .fade) -> Guarantee<Void> {
-        return Guarantee { seal in
-            
-            let indexPath = indexPath ?? self.nextLastItemIndex
-            if indexPath.section > self.lastSectionIndex {
-                self.data.insert(SFDataSection<DataType>(), at: self.lastSectionIndex)
-            }
-            
-            self.tableView?.performBatchUpdates({
-                if let item = item {
-                    self.data[indexPath.section].content.insert(item, at: indexPath.row)
-                }
-                self.tableView?.insertRows(at: [indexPath], with: animation)
-            }, completion: { (_) in
-                seal(())
-            })
-        }
-    }
-    
-    @discardableResult
-    open func moveItem(from: IndexPath, to: IndexPath) -> Guarantee<Void> {
-        return Guarantee { seal in
-            self.tableView?.performBatchUpdates({
-                let item = self.data[from.section].content[from.item] // Get item to move
-                self.data[from.section].content.remove(at: from.item) // Remove it from old indexPath
-                self.data[to.section].content.insert(item, at: to.item) // Insert it to new indexPath
-                self.tableView?.moveRow(at: from, to: to)
-            }, completion: { (_) in
-                seal(())
-            })
-        }
-    }
-    
-    @discardableResult
-    open func removeItem(from indexPath: IndexPath, animation: UITableViewRowAnimation = .fade) -> Guarantee<Void> {
-        return Guarantee { seal in
-            self.tableView?.performBatchUpdates({
-                self.data[indexPath.section].content.remove(at: indexPath.item)
-                self.tableView?.deleteRows(at: [indexPath], with: animation)
-            }, completion: { (_) in
-                seal(())
-            })
-        }
-    }
-    
-    @discardableResult
-    open func reloadItem(from indexPath: IndexPath, animation: UITableViewRowAnimation = .fade) -> Guarantee<Void> {
-        return Guarantee { seal in
-            self.tableView?.performBatchUpdates({
-                self.tableView?.reloadRows(at: [indexPath], with: animation)
-            }, completion: { (_) in
-                seal(())
-            })
-        }
-    }
-    
     // MARK: - UITableViewDataSource
     
     public func sectionIndexTitles(for tableView: UITableView) -> [String]? {
         if addIndexList {
-            return data.map({ $0.identifier })
+            return dataManager?.compactMap({ $0.identifier })
         } else {
             return nil
         }
     }
     
     public func numberOfSections(in tableView: UITableView) -> Int {
-        return data.count
+        guard let dataManager = dataManager else { return 0 }
+        return dataManager.count
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data[section].content.count
+        guard let dataManager = dataManager else { return 0 }
+        return dataManager[section].count
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CellType.identifier, for: indexPath) as? CellType else { return UITableViewCell() }
-        cellStyler?(cell, data[indexPath.section].content[indexPath.row], indexPath)
+        guard let dataManager = dataManager else { return UITableViewCell() }
+        delegate?.prepareCell(cell, at: indexPath, with: dataManager.getItem(at: indexPath))
         return cell
     }
     
@@ -297,7 +110,8 @@ open class SFTableManager<DataType: Hashable, CellType: SFTableViewCell, HeaderT
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let tableView = tableView as? SFTableView else { return }
-        let item = data[indexPath.section].content[indexPath.row]
+        guard let dataManager = dataManager else { return }
+        let item = dataManager[indexPath.section].content[indexPath.row]
         delegate?.didSelectRow(at: indexPath, tableView: tableView, item: item)
     }
     
@@ -307,13 +121,18 @@ open class SFTableManager<DataType: Hashable, CellType: SFTableViewCell, HeaderT
     }
     
     public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return headerStyler == nil ? 0.0 : HeaderType.height
+        if let _: ((HeaderType, SFDataSection<DataType>, Int) -> ()) = delegate?.headerStyler() {
+            return HeaderType.height
+        } else {
+            return 0.0
+        }
     }
     
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if let headerStyle = headerStyler {
+        if let headerStyle: ((HeaderType, SFDataSection<DataType>, Int) -> ()) = delegate?.headerStyler() {
             guard let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: HeaderType.identifier) as? HeaderType else { return nil }
-            headerStyle(view, data[section], section)
+            guard let dataManager = dataManager else { return nil }
+            headerStyle(view, dataManager[section], section)
             view.updateColors()
             return view
         } else {
@@ -322,13 +141,19 @@ open class SFTableManager<DataType: Hashable, CellType: SFTableViewCell, HeaderT
     }
     
     public func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return footerStyler == nil ? 0.0 : FooterType.height
+        if let _: ((FooterType, SFDataSection<DataType>, Int) -> ()) = delegate?.footerStyler() {
+            return FooterType.height
+        } else {
+            return 0.0
+        }
     }
     
     public func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        if let footerStyle = footerStyler {
+        
+        if let footerStyle: ((FooterType, SFDataSection<DataType>, Int) -> ()) = delegate?.footerStyler() {
             guard let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: FooterType.identifier) as? FooterType else { return nil }
-            footerStyle(view, data[section], section)
+            guard let dataManager = dataManager else { return nil }
+            footerStyle(view, dataManager[section], section)
             view.updateColors()
             return view
         } else {
@@ -349,13 +174,67 @@ open class SFTableManager<DataType: Hashable, CellType: SFTableViewCell, HeaderT
     // MARK: - UITableViewDataSourcePrefetching
     
     public func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        guard let dataManager = dataManager else { return }
         indexPaths.forEach { (indexPath) in
-            prefetchStyler?(data[indexPath.section].content[indexPath.row], indexPath)
+            delegate?.prefetch(item: dataManager.getItem(at: indexPath), indexPath: indexPath)
         }
     }
+
     
 }
 
+extension SFTableAdapter: SFDataManagerDelegate {
+    
+    public func updateSection<DataType>(with changes: [Change<DataType>], index: Int) where DataType : Hashable {
+        tableView?.reload(changes: changes, section: index, insertionAnimation: insertAnimation, deletionAnimation: deleteAnimation, replacementAnimation: .automatic, completion: { (_) in
+            
+        })
+    }
+    
+    public func forceUpdate() {
+        tableView?.reloadData()
+    }
+    
+    // MARK: - Sections
+    
+    public func insertSection(at index: Int) {
+        tableView?.performBatchUpdates({
+            tableView?.insertSections(IndexSet(integer: index), with: .automatic)
+        }, completion: nil)
+    }
+    
+    public func moveSection(from: Int, to: Int) {
+        tableView?.performBatchUpdates({
+            tableView?.moveSection(from, toSection: to)
+        }, completion: nil)
+    }
+    
+    public func removeSection(at index: Int) {
+        tableView?.performBatchUpdates({
+            tableView?.deleteSections(IndexSet(integer: index), with: deleteAnimation)
+        }, completion: nil)
+    }
+    
+    // MARK: - Items
+    
+    public func insertItem(at indexPath: IndexPath) {
+        tableView?.performBatchUpdates({
+            tableView?.insertRows(at: [indexPath], with: .automatic)
+        }, completion: nil)
+    }
+    
+    public func moveItem(from: IndexPath, to: IndexPath) {
+        tableView?.performBatchUpdates({
+            tableView?.moveRow(at: from, to: to)
+        }, completion: nil)
+    }
+    
+    public func removeItem(at indexPath: IndexPath) {
+        tableView?.performBatchUpdates({
+            tableView?.deleteRows(at: [indexPath], with: deleteAnimation)
+        }, completion: nil)
+    }
+}
 
 
 

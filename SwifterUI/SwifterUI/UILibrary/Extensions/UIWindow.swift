@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import PromiseKit
 
 public extension UIWindow {
 
@@ -29,15 +28,12 @@ public extension UIWindow {
 
     // MARK: - Instance Methods
 
-    @discardableResult
-    public final func updateRootViewController(with viewController: UIViewController) -> Promise<Void> {
-        return Promise { seal in
-            UIView.transition(with: self, duration: 0.6, options: .transitionCrossDissolve, animations: {
-                self.rootViewController = viewController
-            }, completion: { _ in
-                seal.fulfill(())
-            })
-        }
+    public final func updateRootViewController(with viewController: UIViewController, completion: (() -> Void)? = nil) {
+        UIView.transition(with: self, duration: 0.6, options: .transitionCrossDissolve, animations: {
+            self.rootViewController = viewController
+        }, completion: { _ in
+           completion?()
+        })
     }
 
     // MARK: - Instance Properties

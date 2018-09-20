@@ -8,7 +8,7 @@
 
 import UIKit
 
-public final class SFImageZoomViewController: SFViewController {
+public final class SFImageViewController: SFViewController {
     
     // MARK: - Instance Properties
 
@@ -55,10 +55,11 @@ public final class SFImageZoomViewController: SFViewController {
     }
     
     public override func prepare(navigationController: UINavigationController) {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: SFAssets.imageOfShareIcon, style: .done, target: self, action: #selector(shareButtonDidTouch))
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareButtonDidTouch))
         
         if navigationController.viewControllers.first == self {
-            navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(hideController))
+            navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismissViewController))
         }
     }
 
@@ -93,7 +94,7 @@ public final class SFImageZoomViewController: SFViewController {
         statusBarIsHidden = hidden
     }
     
-    @objc final func hideController() {
+    @objc final func dismissViewController() {
         dismiss(animated: true, completion: nil)
     }
     
@@ -108,7 +109,7 @@ public final class SFImageZoomViewController: SFViewController {
     }
 }
 
-extension SFImageZoomViewController: UIScrollViewDelegate {
+extension SFImageViewController: UIScrollViewDelegate {
     
     public func scrollViewDidZoom(_ scrollView: UIScrollView) {
         centerImage(with: scrollView.zoomScale)

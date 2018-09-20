@@ -12,20 +12,17 @@ open class SFGroupChat: SFChat {
     
     // MARK: - Instance Properties
     
-    private var _imageURL: String?
-    open override var imageURL: String? {
-        get { return _imageURL }
-        set { _imageURL = newValue }
-    }
-    
     // MARK: - Initialiers
     
     @discardableResult
-    public init(identifier: String = UUID().uuidString, currentUser: SFUser, users: [SFUser], messages: [SFMessage] = [], name: String, modificationDate: Date = Date(), imageURL: String? = nil, image: UIImage? = nil) {
+    public init(identifier: String = UUID().uuidString, currentUser: SFUser, users: [SFUser], messages: [SFMessage] = [], name: String, modificationDate: Date = Date(), imageURL: String) {
         super.init(identifier: identifier, currentUser: currentUser, users: [], messages: messages, name: name, modificationDate: modificationDate)
         self.imageURL = imageURL
-        self.image = image
         users.forEach({ self.addNew(user: $0) })
+    }
+    
+    public required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
     }
     
     // MARK: - Instance Methods
@@ -36,8 +33,8 @@ open class SFGroupChat: SFChat {
             users.append(user.identifier)
         }
         
-        if !user.chats.contains(self) {
-            user.chats.append(self)
-        }
+//        if !user.chats.contains(self) {
+//            user.chats.append(self)
+//        }
     }
 }

@@ -122,7 +122,7 @@ open class SFButton: UIButton, SFViewColorStyle, SFLayoutView {
         }
     }
     
-    public final func addTouchAction(for event: UIControlEvents = .touchUpInside, _ action: @escaping () -> Void) {
+    public final func addTouchAction(for event: UIControl.Event = .touchUpInside, _ action: @escaping () -> Void) {
         switch event {
         case .touchUpInside: touchUpInsideActions.append(action)
         case .touchDown: touchDownActions.append(action)

@@ -25,7 +25,7 @@ open class SFPopPresentation: UIPresentationController {
     
     public override init(presentedViewController: UIViewController, presenting presentingViewController: UIViewController?) {
         super.init(presentedViewController: presentedViewController, presenting: presentingViewController)
-        NotificationCenter.default.addObserver(self, selector: #selector(updateColors), name: .UIScreenBrightnessDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateColors), name: UIScreen.brightnessDidChangeNotification, object: nil)
     }
     
     deinit {

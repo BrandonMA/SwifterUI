@@ -97,7 +97,7 @@ open class SFViewController: UIViewController, SFControllerColorStyle {
     
     public final func checkColorStyleListener() {
         if self.automaticallyAdjustsColorStyle == true {
-            NotificationCenter.default.addObserver(self, selector: #selector(handleBrightnessChange), name: .UIScreenBrightnessDidChange, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(handleBrightnessChange), name: UIScreen.brightnessDidChangeNotification, object: nil)
         } else {
             NotificationCenter.default.removeObserver(self)
         }
@@ -111,7 +111,7 @@ open class SFViewController: UIViewController, SFControllerColorStyle {
     
     open override func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil) {
         
-        if viewControllerToPresent.isKind(of: SFBulletinViewController.self) || viewControllerToPresent.isKind(of: SFAlertViewController.self) {
+        if viewControllerToPresent.isKind(of: SFBulletinViewController.self) {
             viewControllerToPresent.modalPresentationStyle = .overFullScreen
             viewControllerToPresent.modalTransitionStyle = .crossDissolve
             super.present(viewControllerToPresent, animated: flag, completion: completion)
@@ -130,7 +130,7 @@ open class SFViewController: UIViewController, SFControllerColorStyle {
     }
     
     open func updateColors() {
-        DispatchQueue.addAsyncTask(to: .main) {
+        DispatchQueue.main.async {
             self.updateSubviewsColors()
             
             if self.automaticallyTintNavigationBar == true {
@@ -146,7 +146,7 @@ open class SFViewController: UIViewController, SFControllerColorStyle {
 }
 
 public extension UIImagePickerControllerDelegate where Self: SFViewController & UINavigationControllerDelegate {
-    public func showMediaPicker(sourceType: UIImagePickerControllerSourceType, mediaTypes: [String] = [kUTTypeImage as String, kUTTypeMovie as String]) {
+    public func showMediaPicker(sourceType: UIImagePickerController.SourceType, mediaTypes: [String] = [kUTTypeImage as String, kUTTypeMovie as String]) {
         let imagePicker = UIImagePickerController()
         imagePicker.sourceType = sourceType
         imagePicker.allowsEditing = false

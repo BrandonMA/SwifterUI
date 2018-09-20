@@ -46,7 +46,7 @@ open class SFPDFViewController: SFViewController {
     open override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(pdfView)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: SFAssets.imageOfShareIcon, style: .done, target: self, action: #selector(shareButtonDidTouch))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareButtonDidTouch))
         pdfView.autoScales = true
     }
     

@@ -93,7 +93,7 @@ open class SFTextField: UITextField, SFViewColorStyle {
     open func updateColors() {
         backgroundColor = useAlternativeColors ? colorStyle.getContrastColor() : colorStyle.getAlternativeColor()
         if let placeholder = placeholder {
-            attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [NSAttributedStringKey.foregroundColor:colorStyle.getPlaceholderColor()])
+            attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [NSAttributedString.Key.foregroundColor:colorStyle.getPlaceholderColor()])
         }
         textColor = colorStyle.getTextColor()
         keyboardAppearance = colorStyle.getKeyboardStyle()

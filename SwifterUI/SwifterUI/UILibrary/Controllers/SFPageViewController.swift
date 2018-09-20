@@ -38,7 +38,7 @@ open class SFPageViewController: SFViewController {
     
     func add(viewController: SFViewController) {
         guard let view = viewController.view else { return }
-        addChildViewController(viewController)
+        addChild(viewController)
         pageView.add(view: view)
     }
     

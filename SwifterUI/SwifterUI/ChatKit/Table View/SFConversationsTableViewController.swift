@@ -82,6 +82,10 @@ open class SFConversationsTableViewController: SFViewController {
             }
         }
     }
+    
+    open func delete(chat: SFChat) {
+        
+    }
 }
 
 extension SFConversationsTableViewController: SFTableAdapterDelegate {
@@ -136,6 +140,7 @@ extension SFConversationsTableViewController: SFTableAdapterDelegate {
         user.contactsManager.flatData.forEach { (contact) in
             contact.chatsManager.deleteItem(chat)
             NotificationCenter.default.post(name: Notification.Name(SFChatNotification.deleted.rawValue), object: nil, userInfo: ["SFChat": chat])
+            delete(chat: chat)
         }
     }
     

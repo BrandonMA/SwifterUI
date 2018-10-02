@@ -72,6 +72,14 @@ open class SFContactsViewController: SFViewController {
     @objc func dismissViewController() {
         dismiss(animated: true, completion: nil)
     }
+    
+    open func delete(contact: SFUser) {
+        
+    }
+    
+    open func delete(chat: SFChat) {
+        
+    }
 }
 
 extension SFContactsViewController: UISearchResultsUpdating {
@@ -96,11 +104,13 @@ extension SFContactsViewController: SFTableAdapterDelegate {
         guard let contact = item as? SFUser else { return }
         user.contactsManager.deleteItem(contact)
         NotificationCenter.default.post(name: Notification.Name(SFUserNotification.deleted.rawValue), object: nil, userInfo: ["SFUser": contact])
+        delete(contact: contact)
         user.chatsManager.flatData.forEach { (chat) in
             guard let chat = chat as? SFSingleChat else { return }
             if chat.contact == contact {
                 user.chatsManager.deleteItem(chat)
                 NotificationCenter.default.post(name: Notification.Name(SFChatNotification.deleted.rawValue), object: nil, userInfo: ["SFChat": chat])
+                delete(chat: chat)
             }
         }
     }

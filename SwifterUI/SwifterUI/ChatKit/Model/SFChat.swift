@@ -10,8 +10,8 @@ import UIKit
 
 public enum SFChatNotification: String {
     case unreadMessagesUpdate
-    case newMessageUpdate
-    case multipleMessagesUpdate
+    case newMessage
+    case deleted
 }
 
 open class SFChat: Hashable, Codable {
@@ -27,7 +27,7 @@ open class SFChat: Hashable, Codable {
     // MARK: - Static Methods
     
     public static func == (lhs: SFChat, rhs: SFChat) -> Bool {
-        return lhs.identifier == rhs.identifier && lhs.modificationDate == rhs.modificationDate && lhs.users == rhs.users && lhs.name == rhs.name && lhs.imageURL == rhs.imageURL
+        return lhs.identifier == rhs.identifier && lhs.name == rhs.name && lhs.imageURL == rhs.imageURL
     }
     
     // MARK: - Instance Properties
@@ -42,25 +42,7 @@ open class SFChat: Hashable, Codable {
     open weak var currentUser: SFUser?
     open var unreadMessages = 0
     
-    private var _messages: [SFMessage] = []
-    open var messages: [SFMessage] {
-        get {
-            return _messages
-        } set {
-            
-            let newMessages = newValue.count - _messages.count
-            _messages = newValue
-            let userInfo = ["SFChat": self]
-            
-            if newMessages == 1 {
-                 NotificationCenter.default.post(name: Notification.Name(SFChatNotification.newMessageUpdate.rawValue), object: nil, userInfo: userInfo)
-            } else if newMessages > 1 {
-                NotificationCenter.default.post(name: Notification.Name(SFChatNotification.multipleMessagesUpdate.rawValue), object: nil, userInfo: userInfo)
-            }
-            
-            checkUnreadMessages()
-        }
-    }
+    open var messagesManager = SFDataManager<SFMessage>()
     
     // MARK: - Initialiers
     
@@ -70,8 +52,8 @@ open class SFChat: Hashable, Codable {
         self.currentUser = currentUser
         self.users = users
         self.name = name
-        self.messages = messages
-        self.users.append(currentUser.identifier)
+        messagesManager.update(dataSections: messages.ordered())
+        addNew(userIdentifier: currentUser.identifier)
         checkUnreadMessages()
     }
     
@@ -86,18 +68,48 @@ open class SFChat: Hashable, Codable {
     
     // MARK: - Instance Methods
     
-    // TODO: addNew(user: SFUser) - Insert it in the correct place, do not use ordered().
-    // TODO: addNew(users: [SFUser]) - Use ordered().
-    // TODO: addNew(message: SFMessage) - Just append it.
-    // TODO: addNew(messages: [SFMessage] - Use ordered().
+    open func addNew(userIdentifier: String) {
+        if users.contains(userIdentifier) == false {
+            users.append(userIdentifier)
+        }
+    }
     
+    open func addNew(message: SFMessage) {
+        
+        users.forEach { (userIdentifier) in
+            if message.senderIdentifier == currentUser?.identifier {
+                message.sender = currentUser
+            } else if userIdentifier == message.senderIdentifier {
+                if let user = currentUser?.contactsManager.flatData.first(where: { $0.identifier == userIdentifier}) {
+                    message.sender = user
+                }
+            }
+        }
+        
+        let messageDate = message.creationDate.string(with: "EEEE dd MMM yyyy")
+        if let lastSection = messagesManager.last {
+            if lastSection.identifier != messageDate {
+                let section = SFDataSection<SFMessage>(content: [message], identifier: messageDate)
+                messagesManager.insertSection(section)
+            } else {
+                messagesManager.insertItem(message)
+            }
+        } else {
+            let section = SFDataSection<SFMessage>(content: [message], identifier: messageDate)
+            messagesManager.insertSection(section)
+        }
+        
+        NotificationCenter.default.post(name: Notification.Name(SFChatNotification.newMessage.rawValue), object: nil, userInfo: ["SFChat": self])
+        checkUnreadMessages()
+    }
+        
     open func checkUnreadMessages() {
         
         guard let currentUser = currentUser else { return }
         
         unreadMessages = 0
         
-        messages.forEach {
+        messagesManager.flatData.forEach {
             if !$0.read && $0.senderIdentifier != currentUser.identifier {
                 unreadMessages += 1
             }
@@ -110,7 +122,7 @@ open class SFChat: Hashable, Codable {
         
         guard let currentUser = currentUser else { return }
         
-        messages.forEach {
+        messagesManager.flatData.forEach {
             if !$0.read && $0.senderIdentifier != currentUser.identifier {
                 $0.read = true
             }
@@ -143,10 +155,6 @@ public extension Array where Element: SFDataSection<SFChat> {
 }
 
 public extension Array where Element: SFChat {
-    
-    public func filter(by title: String) -> [SFChat] {
-        return self.filter({ $0.name.lowercased().contains(title.lowercased() )})
-    }
     
     public func createDataSections() -> [SFDataSection<SFChat>] {
         let section = SFDataSection<SFChat>(content: self)

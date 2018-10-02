@@ -13,32 +13,44 @@ public protocol SFTableAdapterDelegate: class {
     func didSelectRow<DataType: Hashable>(at indexPath: IndexPath, tableView: SFTableView, item: DataType)
     func heightForRow(at indexPath: IndexPath, tableView: SFTableView) -> CGFloat?
     func prepareCell<DataType: Hashable>(_ cell: SFTableViewCell, at indexPath: IndexPath, with data: DataType)
-    func headerStyler<HeaderType: SFTableViewHeaderView, DataType: Hashable>() -> ((HeaderType, SFDataSection<DataType>, Int) -> ())?
-    func footerStyler<FooterType: SFTableViewFooterView, DataType: Hashable>() -> ((FooterType, SFDataSection<DataType>, Int) -> ())?
-    func prefetch<DataType: Hashable>(item: DataType, indexPath: IndexPath)
+    var useCustomHeader: Bool { get }
+    func prepareHeader<DataType: Hashable>(_ view: SFTableViewHeaderView, with data: SFDataSection<DataType>, index: Int)
+    var useCustomFooter: Bool { get }
+    func prepareFooter<DataType: Hashable>(_ view: SFTableViewFooterView, with data: SFDataSection<DataType>, index: Int)
+    func prefetch<DataType: Hashable>(item: DataType, at indexPath: IndexPath)
+    func deleted<DataType: Hashable>(item: DataType, at indexPath: IndexPath)
 }
 
 public extension SFTableAdapterDelegate {
     public func didSelectRow<DataType: Hashable>(at indexPath: IndexPath, tableView: SFTableView, item: DataType) {}
     public func heightForRow(at indexPath: IndexPath, tableView: SFTableView) -> CGFloat? { return nil }
-    public func headerStyler<HeaderType: SFTableViewHeaderView, DataType: Hashable>() -> ((HeaderType, SFDataSection<DataType>, Int) -> ())? { return nil }
-    public func footerStyler<FooterType: SFTableViewFooterView, DataType: Hashable>() -> ((FooterType, SFDataSection<DataType>, Int) -> ())? { return nil }
-    public func prefetch<DataType: Hashable>(item: DataType, indexPath: IndexPath) {}
+    public func prepareCell<DataType: Hashable>(_ cell: SFTableViewCell, at indexPath: IndexPath, with data: DataType) {}
+    public var useCustomHeader: Bool { return false }
+    public func prepareHeader<DataType: Hashable>(_ view: SFTableViewHeaderView, with data: SFDataSection<DataType>, index: Int) {}
+    public var useCustomFooter: Bool { return false }
+    public func prepareFooter<DataType: Hashable>(_ view: SFTableViewFooterView, with data: SFDataSection<DataType>, index: Int) {}
+    public func prefetch<DataType: Hashable>(item: DataType, at indexPath: IndexPath) {}
+    public func deleted<DataType: Hashable>(item: DataType, at indexPath: IndexPath) {}
 }
 
-open class SFTableAdapter<DataType: Hashable, CellType: SFTableViewCell, HeaderType: SFTableViewHeaderView, FooterType: SFTableViewFooterView>: NSObject, UITableViewDataSource, UITableViewDelegate {
+public final class SFTableAdapter<DataType: Hashable, CellType: SFTableViewCell, HeaderType: SFTableViewHeaderView, FooterType: SFTableViewFooterView>: NSObject, UITableViewDataSource, UITableViewDelegate {
     
     // MARK: - Instance Properties
     
-    public final weak var delegate: SFTableAdapterDelegate?
-    public final weak var tableView: SFTableView?
-    public final weak var dataManager: SFDataManager<DataType>?
+    public weak var delegate: SFTableAdapterDelegate? {
+        didSet {
+            registerHeightForViews()
+        }
+    }
+    public weak var tableView: SFTableView?
+    public weak var dataManager: SFDataManager<DataType>?
     
-    public final var insertAnimation: UITableView.RowAnimation = .automatic
-    public final var deleteAnimation: UITableView.RowAnimation = .automatic
-    public final var reloadAnimation: UITableView.RowAnimation = .automatic
+    public var insertAnimation: UITableView.RowAnimation = .automatic
+    public var deleteAnimation: UITableView.RowAnimation = .automatic
+    public var updateAnimation: UITableView.RowAnimation = .automatic
     
-    public final var addIndexList: Bool = false
+    public var addIndexList: Bool = false
+    public var enableEditing: Bool = false
     
     public func configure(tableView: SFTableView, dataManager: SFDataManager<DataType>) {
         self.dataManager = dataManager
@@ -50,26 +62,19 @@ open class SFTableAdapter<DataType: Hashable, CellType: SFTableViewCell, HeaderT
         registerHeightForViews()
     }
     
-    private final func registerViews() {
+    private func registerViews() {
         tableView?.register(CellType.self, forCellReuseIdentifier: CellType.identifier)
         tableView?.register(HeaderType.self, forHeaderFooterViewReuseIdentifier: HeaderType.identifier)
         tableView?.register(FooterType.self, forHeaderFooterViewReuseIdentifier: FooterType.identifier)
     }
     
-    private final func registerHeightForViews() {
+    private func registerHeightForViews() {
         
         tableView?.rowHeight = CellType.height
         
-        if let _: ((HeaderType, SFDataSection<DataType>, Int) -> ()) = delegate?.headerStyler() {
-            tableView?.sectionHeaderHeight = HeaderType.height
-        } else {
-            tableView?.sectionHeaderHeight = 0.0
-        }
-        
-        if let _: ((FooterType, SFDataSection<DataType>, Int) -> ()) = delegate?.footerStyler() {
-            tableView?.sectionFooterHeight = FooterType.height
-        } else {
-            tableView?.sectionFooterHeight = 0.0
+        if let delegate = delegate {
+            tableView?.sectionHeaderHeight = delegate.useCustomHeader ? HeaderType.height : 0.0
+            tableView?.sectionFooterHeight = delegate.useCustomFooter ? FooterType.height : 0.0
         }
         
         if tableView?.style == .grouped {
@@ -79,9 +84,21 @@ open class SFTableAdapter<DataType: Hashable, CellType: SFTableViewCell, HeaderT
         }
     }
     
+    private var temporarySearchData: [DataType]?
+    public func search(_ isIncluded: (DataType) -> Bool) {
+        temporarySearchData = dataManager?.flatData.filter(isIncluded)
+        tableView?.reloadData()
+    }
+    
+    public func clearSearch() {
+        temporarySearchData = nil
+        tableView?.reloadData()
+    }
+    
     // MARK: - UITableViewDataSource
     
     public func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+        if temporarySearchData != nil { return nil }
         if addIndexList {
             return dataManager?.compactMap({ $0.identifier })
         } else {
@@ -91,28 +108,49 @@ open class SFTableAdapter<DataType: Hashable, CellType: SFTableViewCell, HeaderT
     
     public func numberOfSections(in tableView: UITableView) -> Int {
         guard let dataManager = dataManager else { return 0 }
-        return dataManager.count
+        return temporarySearchData == nil ? dataManager.count : 1
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let dataManager = dataManager else { return 0 }
-        return dataManager[section].count
+        return temporarySearchData?.count ?? dataManager[section].count
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CellType.identifier, for: indexPath) as? CellType else { return UITableViewCell() }
         guard let dataManager = dataManager else { return UITableViewCell() }
-        delegate?.prepareCell(cell, at: indexPath, with: dataManager.getItem(at: indexPath))
+        if let temporarySearchData = temporarySearchData {
+            delegate?.prepareCell(cell, at: indexPath, with: temporarySearchData[indexPath.row])
+        } else {
+            delegate?.prepareCell(cell, at: indexPath, with: dataManager.getItem(at: indexPath))
+        }
         return cell
     }
     
     // MARK: - UITableViewDelegate
     
+    public func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return temporarySearchData != nil ? false : enableEditing
+    }
+    
+    public func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let item = dataManager?.getItem(at: indexPath)
+            dataManager?.deleteItem(at: indexPath)
+            delegate?.deleted(item: item, at: indexPath)
+        }
+    }
+    
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let tableView = tableView as? SFTableView else { return }
         guard let dataManager = dataManager else { return }
-        let item = dataManager[indexPath.section].content[indexPath.row]
-        delegate?.didSelectRow(at: indexPath, tableView: tableView, item: item)
+        if let temporarySearchData = temporarySearchData {
+            let item = temporarySearchData[indexPath.row]
+            delegate?.didSelectRow(at: indexPath, tableView: tableView, item: item)
+        } else {
+            let item = dataManager[indexPath.section].content[indexPath.row]
+            delegate?.didSelectRow(at: indexPath, tableView: tableView, item: item)
+        }
     }
     
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -121,18 +159,21 @@ open class SFTableAdapter<DataType: Hashable, CellType: SFTableViewCell, HeaderT
     }
     
     public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if let _: ((HeaderType, SFDataSection<DataType>, Int) -> ()) = delegate?.headerStyler() {
-            return HeaderType.height
+        if temporarySearchData != nil { return 0.0 }
+        if let delegate = delegate {
+            return delegate.useCustomHeader ? HeaderType.height : 0.0
         } else {
             return 0.0
         }
     }
     
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if let headerStyle: ((HeaderType, SFDataSection<DataType>, Int) -> ()) = delegate?.headerStyler() {
+        guard let delegate = delegate else { return nil }
+        if temporarySearchData != nil { return nil }
+        if delegate.useCustomHeader {
             guard let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: HeaderType.identifier) as? HeaderType else { return nil }
             guard let dataManager = dataManager else { return nil }
-            headerStyle(view, dataManager[section], section)
+            delegate.prepareHeader(view, with: dataManager[section], index: section)
             view.updateColors()
             return view
         } else {
@@ -141,19 +182,21 @@ open class SFTableAdapter<DataType: Hashable, CellType: SFTableViewCell, HeaderT
     }
     
     public func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        if let _: ((FooterType, SFDataSection<DataType>, Int) -> ()) = delegate?.footerStyler() {
-            return FooterType.height
+        if temporarySearchData != nil { return 0.0 }
+        if let delegate = delegate {
+            return delegate.useCustomFooter ? FooterType.height : 0.0
         } else {
             return 0.0
         }
     }
     
     public func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        
-        if let footerStyle: ((FooterType, SFDataSection<DataType>, Int) -> ()) = delegate?.footerStyler() {
+        guard let delegate = delegate else { return nil }
+        if temporarySearchData != nil { return nil }
+        if delegate.useCustomFooter {
             guard let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: FooterType.identifier) as? FooterType else { return nil }
             guard let dataManager = dataManager else { return nil }
-            footerStyle(view, dataManager[section], section)
+            delegate.prepareFooter(view, with: dataManager[section], index: section)
             view.updateColors()
             return view
         } else {
@@ -176,7 +219,7 @@ open class SFTableAdapter<DataType: Hashable, CellType: SFTableViewCell, HeaderT
     public func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
         guard let dataManager = dataManager else { return }
         indexPaths.forEach { (indexPath) in
-            delegate?.prefetch(item: dataManager.getItem(at: indexPath), indexPath: indexPath)
+            delegate?.prefetch(item: dataManager.getItem(at: indexPath), at: indexPath)
         }
     }
 
@@ -186,53 +229,106 @@ open class SFTableAdapter<DataType: Hashable, CellType: SFTableViewCell, HeaderT
 extension SFTableAdapter: SFDataManagerDelegate {
     
     public func updateSection<DataType>(with changes: [Change<DataType>], index: Int) where DataType : Hashable {
-        tableView?.reload(changes: changes, section: index, insertionAnimation: insertAnimation, deletionAnimation: deleteAnimation, replacementAnimation: .automatic, completion: { (_) in
-            
-        })
+        if temporarySearchData != nil {
+            clearSearch()
+        } else {
+            tableView?.reload(changes: changes, section: index, insertionAnimation: insertAnimation, deletionAnimation: deleteAnimation, replacementAnimation: .automatic, completion: { (_) in
+                
+            })
+        }
+        
     }
     
     public func forceUpdate() {
-        tableView?.reloadData()
+        if temporarySearchData != nil {
+            clearSearch()
+        } else {
+            tableView?.reloadData()
+        }
     }
     
     // MARK: - Sections
     
     public func insertSection(at index: Int) {
-        tableView?.performBatchUpdates({
-            tableView?.insertSections(IndexSet(integer: index), with: .automatic)
-        }, completion: nil)
+        if temporarySearchData != nil {
+            clearSearch()
+        } else {
+            tableView?.performBatchUpdates({
+                tableView?.insertSections(IndexSet(integer: index), with: insertAnimation)
+            }, completion: nil)
+        }
     }
     
     public func moveSection(from: Int, to: Int) {
-        tableView?.performBatchUpdates({
-            tableView?.moveSection(from, toSection: to)
-        }, completion: nil)
+        if temporarySearchData != nil {
+            clearSearch()
+        } else {
+            tableView?.performBatchUpdates({
+                tableView?.moveSection(from, toSection: to)
+            }, completion: nil)
+        }
     }
     
-    public func removeSection(at index: Int) {
-        tableView?.performBatchUpdates({
-            tableView?.deleteSections(IndexSet(integer: index), with: deleteAnimation)
-        }, completion: nil)
+    public func deleteSection(at index: Int) {
+        if temporarySearchData != nil {
+            clearSearch()
+        } else {
+            tableView?.performBatchUpdates({
+                tableView?.deleteSections(IndexSet(integer: index), with: deleteAnimation)
+            }, completion: nil)
+        }
+    }
+    
+    public func updateSection(at index: Int) {
+        if temporarySearchData != nil {
+            clearSearch()
+        } else {
+            tableView?.performBatchUpdates({
+                tableView?.reloadSections(IndexSet(integer: index), with: updateAnimation)
+            }, completion: nil)
+        }
     }
     
     // MARK: - Items
     
     public func insertItem(at indexPath: IndexPath) {
-        tableView?.performBatchUpdates({
-            tableView?.insertRows(at: [indexPath], with: .automatic)
-        }, completion: nil)
+        if temporarySearchData != nil {
+            clearSearch()
+        } else {
+            tableView?.performBatchUpdates({
+                tableView?.insertRows(at: [indexPath], with: insertAnimation)
+            }, completion: nil)
+        }
     }
     
     public func moveItem(from: IndexPath, to: IndexPath) {
-        tableView?.performBatchUpdates({
-            tableView?.moveRow(at: from, to: to)
-        }, completion: nil)
+        if temporarySearchData != nil {
+            clearSearch()
+        } else {
+            tableView?.performBatchUpdates({
+                tableView?.moveRow(at: from, to: to)
+            }, completion: nil)
+        }
     }
     
-    public func removeItem(at indexPath: IndexPath) {
-        tableView?.performBatchUpdates({
-            tableView?.deleteRows(at: [indexPath], with: deleteAnimation)
-        }, completion: nil)
+    public func deleteItem(at indexPath: IndexPath) {
+        if temporarySearchData != nil {
+            clearSearch()
+        } else {
+            tableView?.performBatchUpdates({
+                tableView?.deleteRows(at: [indexPath], with: deleteAnimation)
+            }, completion: nil)
+        }
+    }
+    
+    public func updateItem(at index: IndexPath) {
+        if temporarySearchData != nil {
+            clearSearch()
+        } else {
+            tableView?.performBatchUpdates({
+                tableView?.reloadRows(at: [index], with: updateAnimation)
+            }, completion: nil)
+        }
     }
 }
 

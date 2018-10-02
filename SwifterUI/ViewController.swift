@@ -67,10 +67,10 @@ class ViewController: SFViewController, SFVideoPlayerDelegate {
 
 extension ViewController: SFTableAdapterDelegate {
     
-    func headerStyler<HeaderType, DataType>() -> ((HeaderType, SFDataSection<DataType>, Int) -> ())? where HeaderType : SFTableViewHeaderView, DataType : Hashable {
-        return { (view, data, index) in
-            view.textLabel?.text = "Prueba - \(index)"
-        }
+    var useCustomHeader: Bool { return true }
+    
+    func prepareHeader<DataType>(_ view: SFTableViewHeaderView, with data: SFDataSection<DataType>, index: Int) where DataType : Hashable {
+        view.textLabel?.text = "Prueba - \(index)"
     }
     
     func prepareCell<DataType>(_ cell: SFTableViewCell, at indexPath: IndexPath, with data: DataType) where DataType : Hashable {

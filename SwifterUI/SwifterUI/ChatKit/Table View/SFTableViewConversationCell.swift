@@ -1,16 +1,20 @@
 //
-//  SFTableViewChatCell.swift
+//  SFTableViewConversationCell.swift
 //  SwifterUI
 //
-//  Created by brandon maldonado alonso on 10/02/18.
+//  Created by brandon maldonado alonso on 8/30/18.
 //  Copyright © 2018 Brandon Maldonado Alonso. All rights reserved.
 //
 
 import UIKit
 
-open class SFCollectionViewConversationCell: SFCollectionViewCell {
+open class SFTableViewConversationCell: SFTableViewCell {
     
     // MARK: - Class Properties
+    
+    open override class var height: CGFloat {
+        return 72
+    }
     
     open override class var identifier: String {
         return "SFTableViewConversationCell"
@@ -28,15 +32,13 @@ open class SFCollectionViewConversationCell: SFCollectionViewCell {
     // MARK: - Instance Methods
     
     open override func prepareSubviews() {
-        layer.cornerRadius = 8
-        clipsToBounds = true
-        addShadow(color: .black, offSet: CGSize(width: 0, height: 6), radius: 10, opacity: 0.05)
         contentView.addSubview(conversationView)
         super.prepareSubviews()
     }
     
     open override func setConstraints() {
-        conversationView.clipSides()
+        conversationView.clipSides(margin: UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12))
         super.setConstraints()
     }
 }
+

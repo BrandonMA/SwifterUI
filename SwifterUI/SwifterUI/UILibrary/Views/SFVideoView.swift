@@ -51,7 +51,6 @@ public final class SFVideoView: SFView {
     // MARK: - Instance Methods
 
     public final func setVideo(with url: URL?) {
-        
         DispatchQueue.global(qos: .background).async {
             guard let url = url else { return }
             let player = AVPlayer(url: url)
@@ -76,6 +75,10 @@ public final class SFVideoView: SFView {
     public override func removeFromSuperview() {
         cleanView()
         super.removeFromSuperview()
+    }
+    
+    public override func updateColors() {
+        backgroundColor = .clear
     }
 
 }

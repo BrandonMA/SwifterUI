@@ -12,10 +12,12 @@ import DeepDiff
 public protocol SFDataManagerDelegate: class {
     func insertSection(at index: Int)
     func moveSection(from: Int, to: Int)
-    func removeSection(at index: Int)
+    func deleteSection(at index: Int)
+    func updateSection(at index: Int)
     func insertItem(at indexPath: IndexPath)
     func moveItem(from: IndexPath, to: IndexPath)
-    func removeItem(at indexPath: IndexPath)
+    func deleteItem(at indexPath: IndexPath)
+    func updateItem(at index: IndexPath)
     func updateSection<DataType: Hashable>(with changes: [Change<DataType>], index: Int)
     func forceUpdate()
 }
@@ -37,10 +39,12 @@ open class SFDataManager<DataType: Hashable> {
     
     open func forceUpdate(dataSections: ContentType) {
         data = dataSections
+        delegate?.forceUpdate()
     }
     
     open func forceUpdate(data: [[DataType]]) {
         self.data = data.compactMap({ return SFDataSection<DataType>(content: $0) })
+        delegate?.forceUpdate()
     }
     
     @discardableResult
@@ -130,12 +134,26 @@ public extension SFDataManager {
     }
     
     public var nextLastItemIndex: IndexPath {
+        
         if count == 0 {
             return IndexPath(item: 0, section: 0)
         } else {
             var nextLastItemIndex = lastItemIndex
             nextLastItemIndex.item += 1
             return nextLastItemIndex
+        }
+    }
+    
+    public var last: SFDataSection<DataType>? {
+        return data.last
+    }
+    
+    public var lastItem: DataType? {
+        if isEmpty {
+            return nil
+        } else {
+            let item = data[lastItemIndex.section].content[lastItemIndex.row]
+            return item
         }
     }
     
@@ -158,7 +176,16 @@ public extension SFDataManager {
     
     public func deleteSection(at index: Int) {
         data.remove(at: index)
-        delegate?.removeSection(at: index)
+        delegate?.deleteSection(at: index)
+    }
+    
+    public func updateSection(_ section: SFDataSection<DataType>? = nil, at index: Int) {
+        
+        if let section = section {
+            data[index] = section
+        }
+        
+        delegate?.updateSection(at: index)
     }
 }
 
@@ -184,13 +211,31 @@ public extension SFDataManager {
         delegate?.moveItem(from: from, to: to)
     }
     
-    public func removeItem(at indexPath: IndexPath) {
+    public func deleteItem(at indexPath: IndexPath) {
         data[indexPath.section].content.remove(at: indexPath.item)
-        delegate?.removeItem(at: indexPath)
+        delegate?.deleteItem(at: indexPath)
+    }
+    
+    public func updateItem(_ item: DataType? = nil, at indexPath: IndexPath) {
+        if let item = item {
+            data[indexPath.section].content[indexPath.row] = item
+        }
+        delegate?.updateItem(at: indexPath)
     }
     
     public func getItem(at indexPath: IndexPath) -> DataType {
         return data[indexPath.section].content[indexPath.row]
+    }
+    
+    public func deleteItem(_ item: DataType) {
+        for (sectionIndex, section) in enumerated() {
+            for (itemIndex, sectionItem) in section.enumerated() {
+                if item == sectionItem {
+                    self.deleteItem(at: IndexPath(item: itemIndex, section: sectionIndex))
+                    return
+                }
+            }
+        }
     }
     
 }

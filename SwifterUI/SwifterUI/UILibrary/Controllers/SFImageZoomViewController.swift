@@ -55,12 +55,8 @@ public final class SFImageViewController: SFViewController {
     }
     
     public override func prepare(navigationController: UINavigationController) {
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareButtonDidTouch))
-        
-        if navigationController.viewControllers.first == self {
-            navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismissViewController))
-        }
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissViewController))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareButtonDidTouch))
     }
 
     public override func viewDidLayoutSubviews() {
@@ -95,7 +91,7 @@ public final class SFImageViewController: SFViewController {
     }
     
     @objc final func dismissViewController() {
-        dismiss(animated: true, completion: nil)
+        navigationController?.popViewController(animated: false)
     }
     
     @objc public final func shareButtonDidTouch() {

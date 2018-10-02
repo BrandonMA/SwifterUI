@@ -98,7 +98,6 @@
 		42C701B12016834E00EBFBE2 /* SFSlideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C701B02016834E00EBFBE2 /* SFSlideViewController.swift */; };
 		42C701B42016839500EBFBE2 /* SFPresentationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C701B32016839500EBFBE2 /* SFPresentationManager.swift */; };
 		42CB6AFC203602870080EFB8 /* SFMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CB6AFB203602870080EFB8 /* SFMessage.swift */; };
-		42CB6B002036035C0080EFB8 /* SFCollectionViewConversationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CB6AFF2036035C0080EFB8 /* SFCollectionViewConversationCell.swift */; };
 		42CDA9BD20361BDE0046791D /* SFChatBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CDA9BC20361BDE0046791D /* SFChatBar.swift */; };
 		42D13476208D436600EFB118 /* SFSignViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D13475208D436600EFB118 /* SFSignViewController.swift */; };
 		42D13478208D5F3000EFB118 /* SFSignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D13477208D5F3000EFB118 /* SFSignUpView.swift */; };
@@ -114,6 +113,8 @@
 		42DBF1A62037556F00F4BB6F /* SFBulletinController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42DBF1A52037556F00F4BB6F /* SFBulletinController.swift */; };
 		42E83BBD202B98F800A341C5 /* SFTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E83BBC202B98F800A341C5 /* SFTableViewCell.swift */; };
 		42EB9AA821450F8A009353C4 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 42EB9AA721450F8A009353C4 /* Podfile */; };
+		42F12D03215591C3000B2F51 /* SFChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F12D02215591C3000B2F51 /* SFChatViewController.swift */; };
+		42F12D05215591D6000B2F51 /* SFTableViewChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F12D04215591D6000B2F51 /* SFTableViewChatCell.swift */; };
 		42FAD75920B7376C00E5AE19 /* SFDataSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FAD75820B7376C00E5AE19 /* SFDataSection.swift */; };
 		42FB9F9C202FC8AB006895F4 /* SFTableViewProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FB9F9B202FC8AB006895F4 /* SFTableViewProfileCell.swift */; };
 		49E574EE4AA5A1722212F0FA /* Pods_SwifterUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08B6A698CD50ED99BBE8D49B /* Pods_SwifterUITests.framework */; };
@@ -236,7 +237,6 @@
 		42C701B02016834E00EBFBE2 /* SFSlideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFSlideViewController.swift; sourceTree = "<group>"; };
 		42C701B32016839500EBFBE2 /* SFPresentationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFPresentationManager.swift; sourceTree = "<group>"; };
 		42CB6AFB203602870080EFB8 /* SFMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFMessage.swift; sourceTree = "<group>"; };
-		42CB6AFF2036035C0080EFB8 /* SFCollectionViewConversationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFCollectionViewConversationCell.swift; sourceTree = "<group>"; };
 		42CDA9BC20361BDE0046791D /* SFChatBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFChatBar.swift; sourceTree = "<group>"; };
 		42D13475208D436600EFB118 /* SFSignViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFSignViewController.swift; sourceTree = "<group>"; };
 		42D13477208D5F3000EFB118 /* SFSignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFSignUpView.swift; sourceTree = "<group>"; };
@@ -252,6 +252,8 @@
 		42DBF1A52037556F00F4BB6F /* SFBulletinController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFBulletinController.swift; sourceTree = "<group>"; };
 		42E83BBC202B98F800A341C5 /* SFTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFTableViewCell.swift; sourceTree = "<group>"; };
 		42EB9AA721450F8A009353C4 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		42F12D02215591C3000B2F51 /* SFChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFChatViewController.swift; sourceTree = "<group>"; };
+		42F12D04215591D6000B2F51 /* SFTableViewChatCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFTableViewChatCell.swift; sourceTree = "<group>"; };
 		42FAD75820B7376C00E5AE19 /* SFDataSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFDataSection.swift; sourceTree = "<group>"; };
 		42FB9F9B202FC8AB006895F4 /* SFTableViewProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFTableViewProfileCell.swift; sourceTree = "<group>"; };
 		5EAB32061D4D2297A66CEEB7 /* Pods-SwifterUI.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwifterUI.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwifterUI/Pods-SwifterUI.release.xcconfig"; sourceTree = "<group>"; };
@@ -400,26 +402,27 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		42710AD12136ECC700413898 /* TableViewVersion */ = {
+		42710AD12136ECC700413898 /* Table View */ = {
 			isa = PBXGroup;
 			children = (
 				42B61B7A213846FD007CDE77 /* SFTableViewConversationCell.swift */,
 				42B61B782138467E007CDE77 /* SFConversationsTableViewController.swift */,
 				42FB9F9B202FC8AB006895F4 /* SFTableViewProfileCell.swift */,
 				42710ACE2135F16100413898 /* SFContactsViewController.swift */,
+				42F12D04215591D6000B2F51 /* SFTableViewChatCell.swift */,
+				42F12D02215591C3000B2F51 /* SFChatViewController.swift */,
 			);
-			path = TableViewVersion;
+			path = "Table View";
 			sourceTree = "<group>";
 		};
-		42710AD22136ECCF00413898 /* CollectionViewVersion */ = {
+		42710AD22136ECCF00413898 /* Collection View */ = {
 			isa = PBXGroup;
 			children = (
-				42CB6AFF2036035C0080EFB8 /* SFCollectionViewConversationCell.swift */,
 			);
-			path = CollectionViewVersion;
+			path = "Collection View";
 			sourceTree = "<group>";
 		};
-		42710AD32136ECF500413898 /* BaseViews */ = {
+		42710AD32136ECF500413898 /* View */ = {
 			isa = PBXGroup;
 			children = (
 				4230E8E9204CC1DA003E5BCC /* SFNotificationIndicator.swift */,
@@ -428,7 +431,7 @@
 				42087C2221427E3100F71CA9 /* SFChatBarButton.swift */,
 				42CDA9BC20361BDE0046791D /* SFChatBar.swift */,
 			);
-			path = BaseViews;
+			path = View;
 			sourceTree = "<group>";
 		};
 		42950D87212E3A4D001B4BE8 /* Assets */ = {
@@ -583,9 +586,9 @@
 		42CB6AFA2036027C0080EFB8 /* ChatKit */ = {
 			isa = PBXGroup;
 			children = (
-				42710AD32136ECF500413898 /* BaseViews */,
-				42710AD22136ECCF00413898 /* CollectionViewVersion */,
-				42710AD12136ECC700413898 /* TableViewVersion */,
+				42710AD32136ECF500413898 /* View */,
+				42710AD22136ECCF00413898 /* Collection View */,
+				42710AD12136ECC700413898 /* Table View */,
 				42710AD02136ECB500413898 /* Model */,
 			);
 			path = ChatKit;
@@ -869,7 +872,6 @@
 				42710ACF2135F16100413898 /* SFContactsViewController.swift in Sources */,
 				42446773202AC27F00F59892 /* UIView.swift in Sources */,
 				42087C2B2142BA9200F71CA9 /* SFPopViewController.swift in Sources */,
-				42CB6B002036035C0080EFB8 /* SFCollectionViewConversationCell.swift in Sources */,
 				422FC7A1214574DD0023F362 /* SFGroupChat.swift in Sources */,
 				42C701B12016834E00EBFBE2 /* SFSlideViewController.swift in Sources */,
 				42B61B7B213846FD007CDE77 /* SFTableViewConversationCell.swift in Sources */,
@@ -883,6 +885,7 @@
 				42834C0C20465964009CFE22 /* SFButtonSection.swift in Sources */,
 				424BE0BB1FF45AD7005DE2AD /* UIFont.swift in Sources */,
 				42A42EA91FF1A95F002FE4A7 /* SFColorStyleProtocol.swift in Sources */,
+				42F12D05215591D6000B2F51 /* SFTableViewChatCell.swift in Sources */,
 				420AFCE7208026CC00D9D778 /* SFStackView.swift in Sources */,
 				42A42EAB1FF1A9AB002FE4A7 /* SFColorStyle.swift in Sources */,
 				420F5491212E307B00890F07 /* SFDataManager.swift in Sources */,
@@ -905,6 +908,7 @@
 				4211D873209C9D9F00C89FAC /* SFPageSectionsViewController.swift in Sources */,
 				42CB6AFC203602870080EFB8 /* SFMessage.swift in Sources */,
 				42D34C67202F5FA3002B6FA6 /* SFTextSection.swift in Sources */,
+				42F12D03215591C3000B2F51 /* SFChatViewController.swift in Sources */,
 				42D34C65202F5F84002B6FA6 /* SFLabel.swift in Sources */,
 				42B7B27D203A611E004B5C6E /* SFScrollView.swift in Sources */,
 				423AAC261FE7678C009D6C39 /* ConstraintAxis.swift in Sources */,

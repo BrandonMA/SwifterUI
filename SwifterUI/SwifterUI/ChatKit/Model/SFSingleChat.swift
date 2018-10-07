@@ -22,19 +22,6 @@ open class SFSingleChat: SFChat {
     
     open weak var contact: SFUser?
     
-    // MARK: - Initialiers
-    
-    @discardableResult
-    public init(identifier: String = UUID().uuidString, currentUser: SFUser, contact: SFUser, messages: [SFMessage] = [], modificationDate: Date = Date()) {
-        self.contact = contact
-        super.init(identifier: identifier, currentUser: currentUser, users: [], messages: messages, name: "\(contact.name) \(contact.lastName)", modificationDate: modificationDate)
-        addNew(userIdentifier: contact.identifier)
-    }
-    
-    public required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-    }
-    
 }
 
 

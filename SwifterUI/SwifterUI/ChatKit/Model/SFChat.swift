@@ -46,14 +46,12 @@ open class SFChat: Hashable, Codable {
     
     // MARK: - Initialiers
     
-    public init(identifier: String = UUID().uuidString, currentUser: SFUser, users: [String], messages: [SFMessage] = [], name: String, modificationDate: Date = Date()) {
+    public required init(identifier: String = UUID().uuidString, users: [String], messages: [SFMessage] = [], name: String, modificationDate: Date = Date()) {
         self.identifier = identifier
         self.modificationDate = modificationDate
-        self.currentUser = currentUser
         self.users = users
         self.name = name
         messagesManager.update(dataSections: messages.ordered())
-        addNew(userIdentifier: currentUser.identifier)
         checkUnreadMessages()
     }
     

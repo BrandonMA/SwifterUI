@@ -23,7 +23,6 @@
 		42289AE2203481A30095FF5C /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42289AE1203481A30095FF5C /* String.swift */; };
 		42289AE4203481C70095FF5C /* UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42289AE3203481C70095FF5C /* UITableView.swift */; };
 		422FC79F2145498B0023F362 /* SFSingleChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422FC79E2145498B0023F362 /* SFSingleChat.swift */; };
-		422FC7A1214574DD0023F362 /* SFGroupChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422FC7A0214574DD0023F362 /* SFGroupChat.swift */; };
 		4230E8E8204CBF79003E5BCC /* SFTableViewHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4230E8E7204CBF79003E5BCC /* SFTableViewHeaderFooterView.swift */; };
 		4230E8EA204CC1DA003E5BCC /* SFNotificationIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4230E8E9204CC1DA003E5BCC /* SFNotificationIndicator.swift */; };
 		4230E8EC204CC42C003E5BCC /* SFBubbleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4230E8EB204CC42C003E5BCC /* SFBubbleView.swift */; };
@@ -156,7 +155,6 @@
 		42289AE1203481A30095FF5C /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		42289AE3203481C70095FF5C /* UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableView.swift; sourceTree = "<group>"; };
 		422FC79E2145498B0023F362 /* SFSingleChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFSingleChat.swift; sourceTree = "<group>"; };
-		422FC7A0214574DD0023F362 /* SFGroupChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFGroupChat.swift; sourceTree = "<group>"; };
 		4230E8E7204CBF79003E5BCC /* SFTableViewHeaderFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFTableViewHeaderFooterView.swift; sourceTree = "<group>"; };
 		4230E8E9204CC1DA003E5BCC /* SFNotificationIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFNotificationIndicator.swift; sourceTree = "<group>"; };
 		4230E8EB204CC42C003E5BCC /* SFBubbleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFBubbleView.swift; sourceTree = "<group>"; };
@@ -396,7 +394,6 @@
 				42710AC82135A66600413898 /* SFUser.swift */,
 				42710ACC2135AF7200413898 /* SFChat.swift */,
 				422FC79E2145498B0023F362 /* SFSingleChat.swift */,
-				422FC7A0214574DD0023F362 /* SFGroupChat.swift */,
 				42CB6AFB203602870080EFB8 /* SFMessage.swift */,
 			);
 			path = Model;
@@ -872,7 +869,6 @@
 				42710ACF2135F16100413898 /* SFContactsViewController.swift in Sources */,
 				42446773202AC27F00F59892 /* UIView.swift in Sources */,
 				42087C2B2142BA9200F71CA9 /* SFPopViewController.swift in Sources */,
-				422FC7A1214574DD0023F362 /* SFGroupChat.swift in Sources */,
 				42C701B12016834E00EBFBE2 /* SFSlideViewController.swift in Sources */,
 				42B61B7B213846FD007CDE77 /* SFTableViewConversationCell.swift in Sources */,
 				424BE0C61FF45C20005DE2AD /* SFPopPresentation.swift in Sources */,

@@ -142,7 +142,9 @@ extension SFContactsViewController: SFTableAdapterDelegate {
         if let existingChat = user.chatsManager.first?.first(where: { $0.users.contains(user.identifier) && $0.users.count == 2 }) {
             return existingChat
         } else {
-            let chat = SFSingleChat(currentUser: self.user, contact: user)
+            let chat = SFSingleChat(users: [self.user.identifier, user.identifier], messages: [], name: "\(user.name) \(user.lastName)")
+            chat.currentUser = self.user
+            chat.contact = user
             self.user.addNew(chat: chat)
             user.addNew(chat: chat)
             return chat

@@ -46,19 +46,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         newContact3.profilePictureURL = "https://randomuser.me/api/portraits/men/70.jpg"
         brandon.addNew(contact: newContact3)
         
-        let chat = SFGroupChat(currentUser: brandon, users: [brandon.identifier, newContact.identifier, newContact2.identifier, newContact3.identifier], name: "Amigos", imageURL: "https://randomuser.me/api/portraits/men/1.jpg")
-        brandon.addNew(chat: chat)
-        newContact.addNew(chat: chat)
-        newContact2.addNew(chat: chat)
-        newContact3.addNew(chat: chat)
-        
-        DispatchQueue.delay(by: 3, dispatchLevel: .main) {
-            let message = SFMessage(senderIdentifier: newContact.identifier, chatIdentifier: chat.identifier, text: "Hola")
-            chat.addNew(message: message)
-            let message2 = SFMessage(senderIdentifier: newContact.identifier, chatIdentifier: chat.identifier, text: "Oki")
-            chat.addNew(message: message2)
-        }
-        
         window?.rootViewController = SFNavigationController(rootViewController: SFConversationsTableViewController(user: brandon))
         
         window?.makeKeyAndVisible()

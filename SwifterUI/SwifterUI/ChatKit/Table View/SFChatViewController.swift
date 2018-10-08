@@ -124,7 +124,7 @@ open class SFChatViewController: SFViewController, UITableViewDelegate, UIImageP
     
     // MARK: - Initializers
     
-    init(chat: SFChat, automaticallyAdjustsColorStyle: Bool = true) {
+    public init(chat: SFChat, automaticallyAdjustsColorStyle: Bool = true) {
         self.chat = chat
         super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle)
         adapter.delegate = self

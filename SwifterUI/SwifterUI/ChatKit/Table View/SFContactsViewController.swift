@@ -38,7 +38,7 @@ open class SFContactsViewController: SFViewController {
     
     // MARK: - Initializers
     
-    init(user: SFUser, automaticallyAdjustsColorStyle: Bool = true) {
+    public init(user: SFUser, automaticallyAdjustsColorStyle: Bool = true) {
         self.user = user
         super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle)
         adapter.delegate = self

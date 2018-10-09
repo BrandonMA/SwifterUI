@@ -33,7 +33,7 @@ open class SFContactsViewController: SFViewController {
     }()
     
     let adapter = SFTableAdapter<SFUser, SFTableViewContactCell, SFTableViewHeaderView, SFTableViewFooterView>()
-        
+    
     open var user: SFUser
     
     // MARK: - Initializers
@@ -79,6 +79,20 @@ open class SFContactsViewController: SFViewController {
     
     open func delete(chat: SFChat) {
         
+    }
+    
+    open func getChat(for user: SFUser) -> SFChat {
+        
+        if let existingChat = user.chatsManager.first?.first(where: { $0.users.contains(user.identifier) && $0.users.count == 2 }) {
+            return existingChat
+        } else {
+            let chat = SFSingleChat(users: [self.user.identifier, user.identifier], messages: [], name: "\(user.name) \(user.lastName)")
+            chat.currentUser = self.user
+            chat.contact = user
+            self.user.addNew(chat: chat)
+            user.addNew(chat: chat)
+            return chat
+        }
     }
 }
 
@@ -137,24 +151,11 @@ extension SFContactsViewController: SFTableAdapterDelegate {
         view.titleLabel.text = data.identifier
     }
     
-    private func getChat(for user: SFUser) -> SFChat {
-        
-        if let existingChat = user.chatsManager.first?.first(where: { $0.users.contains(user.identifier) && $0.users.count == 2 }) {
-            return existingChat
-        } else {
-            let chat = SFSingleChat(users: [self.user.identifier, user.identifier], messages: [], name: "\(user.name) \(user.lastName)")
-            chat.currentUser = self.user
-            chat.contact = user
-            self.user.addNew(chat: chat)
-            user.addNew(chat: chat)
-            return chat
-        }
-    }
-
     public func didSelectRow<DataType>(at indexPath: IndexPath, tableView: SFTableView, item: DataType) where DataType: Hashable {
         guard let item = item as? SFUser else { return }
+        let chat = getChat(for: item)
         dismiss(animated: true) {
-            self.delegate?.didSelectChat(self.getChat(for: item))
+            self.delegate?.didSelectChat(chat)
         }
     }
     

@@ -8,7 +8,7 @@
 
 import UIKit
 
-open class SFConversationsTableViewController: SFViewController {
+open class SFConversationsTableViewController: SFViewController, SFContactsViewControllerDelegate {
     
     // MARK: - Instance Properties
     
@@ -65,13 +65,13 @@ open class SFConversationsTableViewController: SFViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(showContactsViewController))
     }
     
-    @objc func showContactsViewController() {
+    @objc open func showContactsViewController() {
         let contactsViewController = SFContactsViewController(user: user)
         contactsViewController.delegate = self
         present(SFNavigationController(rootViewController: contactsViewController), animated: true)
     }
     
-    @objc func newMessage(notification: Notification) {
+    @objc open func newMessage(notification: Notification) {
         if let chat = notification.userInfo?["SFChat"] as? SFChat {
             user.chatsManager.enumerated().forEach { (sectionIndex, section) in
                 section.enumerated().forEach({ (itemIndex, item) in
@@ -85,6 +85,11 @@ open class SFConversationsTableViewController: SFViewController {
     
     open func delete(chat: SFChat) {
         
+    }
+    
+    open func didSelectChat(_ chat: SFChat) {
+        let chatController = SFChatViewController(chat: chat)
+        navigationController?.pushViewController(chatController, animated: true)
     }
 }
 
@@ -164,15 +169,6 @@ extension SFConversationsTableViewController: UISearchResultsUpdating {
             }
         }
     }
-}
-
-extension SFConversationsTableViewController: SFContactsViewControllerDelegate {
-
-    public func didSelectChat(_ chat: SFChat) {
-        let chatController = SFChatViewController(chat: chat)
-        navigationController?.pushViewController(chatController, animated: true)
-    }
-
 }
 
 extension SFConversationsTableViewController: UIViewControllerPreviewingDelegate {

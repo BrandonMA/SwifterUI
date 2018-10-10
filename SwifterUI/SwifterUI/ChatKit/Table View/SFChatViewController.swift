@@ -233,14 +233,20 @@ open class SFChatViewController: SFViewController, UITableViewDelegate, UIImageP
     
     open func send(message: SFMessage) -> Bool { return true }
     
+    open func upload(text: String, completion: (SFMessage) -> Void) {
+        guard let currentUser = chat.currentUser else { return }
+        let message = SFMessage(senderIdentifier: currentUser.identifier, chatIdentifier: chat.identifier, text: text)
+        completion(message)
+    }
+    
     private final func sendButtonDidTouch() {
         if let text = chatBar.textView.text, text != "" {
-            guard let currentUser = chat.currentUser else { return }
-            let message = SFMessage(senderIdentifier: currentUser.identifier, chatIdentifier: chat.identifier, text: text)
-            if send(message: message) {
-                chatBar.textView.text = ""
-                chat.addNew(message: message)
-                chatView.scrollToBottom()
+            upload(text: text) { (message) in
+                if send(message: message) {
+                    chatBar.textView.text = ""
+                    chat.addNew(message: message)
+                    chatView.scrollToBottom()
+                }
             }
         }
     }
@@ -249,7 +255,7 @@ open class SFChatViewController: SFViewController, UITableViewDelegate, UIImageP
     
     public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            uploadImage(originalImage) { (message) in
+            upload(image: originalImage) { (message) in
                 picker.dismiss(animated: true, completion: {
                     if self.send(message: message) {
                         self.chat.addNew(message: message)
@@ -258,7 +264,7 @@ open class SFChatViewController: SFViewController, UITableViewDelegate, UIImageP
                 })
             }
         } else if let videoURL = info[UIImagePickerController.InfoKey.mediaURL] as? URL {
-            uploadVideo(videoURL) { (message) in
+            upload(videoURL: videoURL) { (message) in
                 picker.dismiss(animated: true, completion: {
                     if self.send(message: message) {
                         self.chat.addNew(message: message)
@@ -269,13 +275,13 @@ open class SFChatViewController: SFViewController, UITableViewDelegate, UIImageP
         }
     }
     
-    open func uploadImage(_ image: UIImage, completion: (SFMessage) -> Void)  {
+    open func upload(image: UIImage, completion: (SFMessage) -> Void)  {
         guard let currentUser = chat.currentUser else { return }
         let message = SFMessage(senderIdentifier: currentUser.identifier, chatIdentifier: chat.identifier, image: image, imageURL: "")
         completion(message)
     }
     
-    open func uploadVideo(_ videoURL: URL, completion: (SFMessage) -> Void) {
+    open func upload(videoURL: URL, completion: (SFMessage) -> Void) {
         guard let currentUser = chat.currentUser else { return }
         let message = SFMessage(senderIdentifier: currentUser.identifier, chatIdentifier: chat.identifier, videoURL: videoURL.absoluteString)
         completion(message)

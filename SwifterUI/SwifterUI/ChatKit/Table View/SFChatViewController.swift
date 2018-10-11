@@ -233,19 +233,24 @@ open class SFChatViewController: SFViewController, UITableViewDelegate, UIImageP
     
     open func send(message: SFMessage) -> Bool { return true }
     
-    open func upload(text: String, completion: (SFMessage) -> Void) {
+    open func upload(text: String, completion: @escaping (SFMessage, Error?) -> Void) {
         guard let currentUser = chat.currentUser else { return }
         let message = SFMessage(senderIdentifier: currentUser.identifier, chatIdentifier: chat.identifier, text: text)
-        completion(message)
+        completion(message, nil)
     }
     
     private final func sendButtonDidTouch() {
         if let text = chatBar.textView.text, text != "" {
-            upload(text: text) { (message) in
-                if send(message: message) {
-                    chatBar.textView.text = ""
-                    chat.addNew(message: message)
-                    chatView.scrollToBottom()
+            upload(text: text) { (message, error) in
+                
+                if error != nil {
+                    self.showError(title: "Error al envíar el mensaje", message: "Por favor vuelva a intentarlo")
+                } else {
+                    if self.send(message: message) {
+                        self.chatBar.textView.text = ""
+                        self.chat.addNew(message: message)
+                        self.chatView.scrollToBottom()
+                    }
                 }
             }
         }
@@ -255,36 +260,47 @@ open class SFChatViewController: SFViewController, UITableViewDelegate, UIImageP
     
     public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            upload(image: originalImage) { (message) in
-                picker.dismiss(animated: true, completion: {
-                    if self.send(message: message) {
-                        self.chat.addNew(message: message)
-                        self.chatView.scrollToBottom()
-                    }
-                })
+            upload(image: originalImage) { (message, error) in
+                
+                if error != nil {
+                    self.showError(title: "Error al subir el archivo", message: "Por favor vuelva a intentarlo")
+                } else {
+                    picker.dismiss(animated: true, completion: {
+                        if self.send(message: message) {
+                            self.chat.addNew(message: message)
+                            self.chatView.scrollToBottom()
+                        }
+                    })
+                }
             }
         } else if let videoURL = info[UIImagePickerController.InfoKey.mediaURL] as? URL {
-            upload(videoURL: videoURL) { (message) in
-                picker.dismiss(animated: true, completion: {
-                    if self.send(message: message) {
-                        self.chat.addNew(message: message)
-                        self.chatView.scrollToBottom()
-                    }
-                })
+            
+            upload(videoURL: videoURL) { (message, error) in
+                
+                if error != nil {
+                    self.showError(title: "Error al subir el archivo", message: "Por favor vuelva a intentarlo")
+                } else {
+                    picker.dismiss(animated: true, completion: {
+                        if self.send(message: message) {
+                            self.chat.addNew(message: message)
+                            self.chatView.scrollToBottom()
+                        }
+                    })
+                }
             }
         }
     }
     
-    open func upload(image: UIImage, completion: (SFMessage) -> Void)  {
+    open func upload(image: UIImage, completion: @escaping (SFMessage, Error?) -> Void)  {
         guard let currentUser = chat.currentUser else { return }
         let message = SFMessage(senderIdentifier: currentUser.identifier, chatIdentifier: chat.identifier, image: image, imageURL: "")
-        completion(message)
+        completion(message, nil)
     }
     
-    open func upload(videoURL: URL, completion: (SFMessage) -> Void) {
+    open func upload(videoURL: URL, completion: @escaping (SFMessage, Error?) -> Void) {
         guard let currentUser = chat.currentUser else { return }
         let message = SFMessage(senderIdentifier: currentUser.identifier, chatIdentifier: chat.identifier, videoURL: videoURL.absoluteString)
-        completion(message)
+        completion(message, nil)
     }
 }
 

@@ -148,6 +148,7 @@ open class SFChatViewController: SFViewController, UITableViewDelegate, UIImageP
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(newMessage(notification:)), name: Notification.Name(SFChatNotification.newMessage.rawValue), object: nil)
         chatView.clipSides()
+        tabBarController?.tabBar.isHidden = true
     }
     
     open override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {

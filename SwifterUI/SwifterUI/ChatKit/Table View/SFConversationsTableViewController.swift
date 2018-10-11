@@ -8,7 +8,7 @@
 
 import UIKit
 
-open class SFConversationsTableViewController: SFViewController, SFContactsViewControllerDelegate {
+open class SFConversationsTableViewController: SFViewController {
     
     // MARK: - Instance Properties
     
@@ -87,9 +87,16 @@ open class SFConversationsTableViewController: SFViewController, SFContactsViewC
         
     }
     
-    open func didSelectChat(_ chat: SFChat) {
+    open func open(chat: SFChat) {
         let chatController = SFChatViewController(chat: chat)
         navigationController?.pushViewController(chatController, animated: true)
+    }
+    
+}
+
+extension SFConversationsTableViewController: SFContactsViewControllerDelegate {
+    public func didSelectChat(_ chat: SFChat) {
+        open(chat: chat)
     }
 }
 
@@ -150,9 +157,8 @@ extension SFConversationsTableViewController: SFTableAdapterDelegate {
     }
     
     public func didSelectRow<DataType>(at indexPath: IndexPath, tableView: SFTableView, item: DataType) where DataType : Hashable {
-        guard let item = item as? SFChat else { return }
-        let chatController = SFChatViewController(chat: item)
-        navigationController?.pushViewController(chatController, animated: true)
+        guard let chat = item as? SFChat else { return }
+        open(chat: chat)
     }
 }
 

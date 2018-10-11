@@ -39,7 +39,8 @@ public extension DispatchQueue {
     //   handler: Action to be executed after the delay
     public static func delay(by seconds: Double, dispatchLevel: DispatchLevel = .background, handler: @escaping () -> Void) {
         // Create a DispatchTime in seconds since now + the number of seconds added
-        dispatchLevel.dispatchQueue.asyncAfter(deadline: .now() + seconds, execute: handler) // Add the action to be executed after the delay to the corresponding DispatchQueue
+        // Add the action to be executed after the delay to the corresponding DispatchQueue
+        dispatchLevel.dispatchQueue.asyncAfter(deadline: .now() + seconds, execute: handler)
     }
 
 }

@@ -39,7 +39,9 @@ open class SFMessage: Hashable, Codable {
     open var imageURL: String?
     open var videoURL: String?
     
-    open var hashValue: Int { return identifier.hashValue ^ chatIdentifier.hashValue }
+    open var hashValue: Int {
+        return identifier.hashValue ^ chatIdentifier.hashValue
+    }
     open var image: UIImage? = nil
     open weak var sender: SFUser?
     
@@ -53,19 +55,50 @@ open class SFMessage: Hashable, Codable {
         self.read = read
     }
     
-    public convenience init(identifier: String = UUID().uuidString, senderIdentifier: String, chatIdentifier: String, creationDate: Date = Date(), read: Bool = false, text: String) {
-        self.init(identifier: identifier, senderIdentifier: senderIdentifier, chatIdentifier: chatIdentifier, creationDate: creationDate, read: read)
+    public convenience init(identifier: String = UUID().uuidString,
+                            senderIdentifier: String,
+                            chatIdentifier: String,
+                            creationDate: Date = Date(),
+                            read: Bool = false,
+                            text: String) {
+        
+        self.init(identifier: identifier,
+                  senderIdentifier: senderIdentifier,
+                  chatIdentifier: chatIdentifier,
+                  creationDate: creationDate,
+                  read: read)
         self.text = text
     }
     
-    public convenience init(identifier: String = UUID().uuidString, senderIdentifier: String, chatIdentifier: String, creationDate: Date = Date(), read: Bool = false, image: UIImage, imageURL: String) {
-        self.init(identifier: identifier, senderIdentifier: senderIdentifier, chatIdentifier: chatIdentifier, creationDate: creationDate, read: read)
+    public convenience init(identifier: String = UUID().uuidString,
+                            senderIdentifier: String,
+                            chatIdentifier: String,
+                            creationDate: Date = Date(),
+                            read: Bool = false,
+                            image: UIImage,
+                            imageURL: String) {
+        
+        self.init(identifier: identifier,
+                  senderIdentifier: senderIdentifier,
+                  chatIdentifier: chatIdentifier,
+                  creationDate: creationDate,
+                  read: read)
         self.image = image
         self.imageURL = imageURL
     }
     
-    public convenience init(identifier: String = UUID().uuidString, senderIdentifier: String, chatIdentifier: String, creationDate: Date = Date(), read: Bool = false, videoURL: String) {
-        self.init(identifier: identifier, senderIdentifier: senderIdentifier, chatIdentifier: chatIdentifier, creationDate: creationDate, read: read)
+    public convenience init(identifier: String = UUID().uuidString,
+                            senderIdentifier: String,
+                            chatIdentifier: String,
+                            creationDate: Date = Date(),
+                            read: Bool = false,
+                            videoURL: String) {
+        
+        self.init(identifier: identifier,
+                  senderIdentifier: senderIdentifier,
+                  chatIdentifier: chatIdentifier,
+                  creationDate: creationDate,
+                  read: read)
         self.videoURL = videoURL
     }
     
@@ -114,7 +147,9 @@ public extension Array where Element: SFMessage {
         
         for message in self {
             
-            if let index = sections.index(where: { $0.identifier == message.creationDate.string(with: "EEEE dd MMM yyyy") }) {
+            if let index = sections.index(where: {
+                $0.identifier == message.creationDate.string(with: "EEEE dd MMM yyyy")
+            }) {
                 sections[index].content.append(message)
             } else {
                 let section = SFDataSection<SFMessage>(content: [message], identifier: message.creationDate.string(with: "EEEE dd MMM yyyy"))

@@ -63,11 +63,11 @@ open class SFDataManager<DataType: Hashable> {
         }
         return changes
     }
-    
+
     @discardableResult
     private func update(dataSection: SFDataSection<DataType>, index: Int?) -> [Change<DataType>] {
         var changes: [Change<DataType>] = []
-        
+
         if let index = index, self.data.count > index {
             let oldDataSection = self.data[index]
             changes = diff(old: oldDataSection.content, new: dataSection.content)
@@ -84,15 +84,15 @@ open class SFDataManager<DataType: Hashable> {
 // MARK: - Collection && IteratorProtocol
 
 extension SFDataManager: Collection, IteratorProtocol {
-    
+
     public typealias Element = ContentType.Element
     public typealias Index = ContentType.Index
-    
+
     public var startIndex: Index { return data.startIndex }
     public var endIndex: Index { return data.endIndex }
     
     public subscript(index: Index) -> ContentType.Element {
-        get { return data[index] }
+        return data[index]
     }
     
     public func index(after i: Index) -> Index {
@@ -229,21 +229,11 @@ public extension SFDataManager {
     
     public func deleteItem(_ item: DataType) {
         for (sectionIndex, section) in enumerated() {
-            for (itemIndex, sectionItem) in section.enumerated() {
-                if item == sectionItem {
-                    self.deleteItem(at: IndexPath(item: itemIndex, section: sectionIndex))
-                    return
-                }
+            for (itemIndex, sectionItem) in section.enumerated() where item == sectionItem {
+                self.deleteItem(at: IndexPath(item: itemIndex, section: sectionIndex))
+                return
             }
         }
     }
     
 }
-
-
-
-
-
-
-
-

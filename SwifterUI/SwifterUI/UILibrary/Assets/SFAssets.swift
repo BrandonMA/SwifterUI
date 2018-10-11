@@ -9,11 +9,9 @@
 //  http://www.paintcodeapp.com
 //
 
-
-
 import UIKit
 
-public class SFAssets : NSObject {
+public class SFAssets: NSObject {
 
     //// Cache
 

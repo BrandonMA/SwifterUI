@@ -25,7 +25,10 @@ open class SFUser: Hashable, Codable {
     // MARK: - Static Methods
     
     public static func == (lhs: SFUser, rhs: SFUser) -> Bool {
-        return lhs.identifier == rhs.identifier && lhs.name == rhs.name && lhs.lastName == rhs.lastName && lhs.profilePictureURL == rhs.profilePictureURL
+        return lhs.identifier == rhs.identifier &&
+            lhs.name == rhs.name &&
+            lhs.lastName == rhs.lastName &&
+            lhs.profilePictureURL == rhs.profilePictureURL
     }
     
     // MARK: - Instance Properties
@@ -35,7 +38,9 @@ open class SFUser: Hashable, Codable {
     open var lastName: String
     open var profilePictureURL: String?
     
-    open var hashValue: Int { return identifier.hashValue ^ name.hashValue ^ lastName.hashValue }
+    open var hashValue: Int {
+        return identifier.hashValue ^ name.hashValue ^ lastName.hashValue
+    }
     
     open var contactsManager = SFDataManager<SFUser>()
     
@@ -43,11 +48,16 @@ open class SFUser: Hashable, Codable {
     
     // MARK: - Initializers
     
-    public init(identifier: String = UUID().uuidString, name: String, lastName: String, profilePictureURL: String? = nil) {
+    public init(identifier: String = UUID().uuidString,
+                name: String,
+                lastName: String,
+                profilePictureURL: String? = nil) {
+        
         self.identifier = identifier
         self.name = name
         self.lastName = lastName
         self.profilePictureURL = profilePictureURL
+        
     }
     
     public required init(from decoder: Decoder) throws {
@@ -69,14 +79,20 @@ open class SFUser: Hashable, Codable {
     }
         
     open func addNew(chat: SFChat) {
-        if chatsManager.contains(chat) == false {
+        if !chatsManager.contains(chat) {
             chatsManager.insertItem(chat, at: IndexPath(item: 0, section: 0))
         }
     }
     
     open func addNew(contact: SFUser) {
-        if contactsManager.contains(contact) == false && contact.contactsManager.contains(self) == false && contact.identifier != identifier {
-            if let sectionIndex = contactsManager.index(where: { $0.identifier.contains(contact.name.uppercased().first!) }) {
+        
+        if contactsManager.contains(contact) == false &&
+            contact.contactsManager.contains(self) == false &&
+            contact.identifier != identifier {
+            
+            if let sectionIndex = contactsManager.index(where: {
+                $0.identifier.contains(contact.name.uppercased().first!)
+            }) {
                 for (index, user) in contactsManager[sectionIndex].enumerated() {
                     if user.lastName > contact.lastName {
                         contactsManager.insertItem(contact, at: IndexPath(item: index, section: sectionIndex))
@@ -84,7 +100,9 @@ open class SFUser: Hashable, Codable {
                     }
                 }
             } else {
+                
                 let newSection = SFDataSection<SFUser>(content: [contact], identifier: "\(contact.name.uppercased().first!)")
+                
                 if contactsManager.isEmpty {
                     contactsManager.insertSection(newSection)
                 } else {
@@ -122,7 +140,9 @@ public extension Array where Element: SFUser {
         
         for contact in self {
             
-            if let index = sections.index(where: { $0.identifier.contains(contact.name.uppercased().first!) }) {
+            if let index = sections.index(where: {
+                $0.identifier.contains(contact.name.uppercased().first!)
+            }) {
                 sections[index].content.append(contact)
             } else {
                 let section = SFDataSection<SFUser>(content: [contact], identifier: "\(contact.name.uppercased().first!)")

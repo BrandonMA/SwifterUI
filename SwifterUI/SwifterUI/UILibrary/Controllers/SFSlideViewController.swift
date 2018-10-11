@@ -57,7 +57,12 @@ open class SFSlideViewController: SFViewController {
             initialPoint = currentPoint
         } else if panGesture.state == .ended {
             if view.frame.origin.y < 80 {
-                UIView.animate(withDuration: 0.6, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0, options: [], animations: {
+                UIView.animate(withDuration: 0.6,
+                               delay: 0,
+                               usingSpringWithDamping: 0.6,
+                               initialSpringVelocity: 0,
+                               options: [],
+                               animations: {
                     self.view.frame.origin.y = UIApplication.shared.statusBarFrame.height + 10
                 }, completion: nil)
             } else {

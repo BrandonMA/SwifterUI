@@ -1,0 +1,18 @@
+excluded:
+  - Pods
+disabled_rules:
+  - trailing_whitespace
+  - trailing_newline
+  - identifier_name
+
+line_length:
+  warning: 140
+  error: 200
+
+type_body_length:
+  warning: 700
+  error: 900
+
+file_length:
+  warning: 600
+  error: 1000

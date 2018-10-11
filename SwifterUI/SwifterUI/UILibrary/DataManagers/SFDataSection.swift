@@ -38,7 +38,7 @@ extension SFDataSection: Collection, IteratorProtocol {
     public var endIndex: Index { return content.endIndex }
     
     public subscript(index: Index) -> ContentType.Element {
-        get { return content[index] }
+        return content[index]
     }
     
     public func index(after i: Index) -> Index {
@@ -55,13 +55,3 @@ extension SFDataSection: Collection, IteratorProtocol {
     }
     
 }
-
-
-
-
-
-
-
-
-
-

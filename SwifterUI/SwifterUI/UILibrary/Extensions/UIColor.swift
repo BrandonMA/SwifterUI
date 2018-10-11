@@ -13,8 +13,8 @@ public extension UIColor {
     // MARK: - Initializers
 
     // init: Instead of the init method provided by apple that takes values between 1 and 0, this one use 255-0.
-    public convenience init(r: CGFloat, g: CGFloat, b: CGFloat, alpha: CGFloat = 1) {
-        self.init(red: r/255, green: g/255, blue: b/255, alpha: alpha)
+    public convenience init(red: CGFloat, green: CGFloat, blue: CGFloat, transparency: CGFloat = 1) {
+        self.init(red: red/255, green: green/255, blue: blue/255, alpha: transparency)
     }
 
     public convenience init(hex: String, alpha: CGFloat = 1) {
@@ -22,14 +22,19 @@ public extension UIColor {
         scanner.scanLocation = 0
         var rgbValue: UInt64 = 0
         scanner.scanHexInt64(&rgbValue)
-        self.init(r: CGFloat((rgbValue & 0xff0000) >> 16), g: CGFloat((rgbValue & 0xff00) >> 8), b: CGFloat(rgbValue & 0xff), alpha: alpha)
+        self.init(red: CGFloat((rgbValue & 0xff0000) >> 16),
+                  green: CGFloat((rgbValue & 0xff00) >> 8),
+                  blue: CGFloat(rgbValue & 0xff),
+                  transparency: alpha)
     }
 
     // MARK: - Static Methods
 
     // hexValue: You need to provide 255 values to use this function
-    public static func getHexValue(r: CGFloat, g: CGFloat, b: CGFloat) -> String {
-        return String(format:"%02X", Int(r)) + String(format:"%02X", Int(g)) + String(format:"%02X", Int(b))
+    public static func getHexValue(red: CGFloat, green: CGFloat, blue: CGFloat) -> String {
+        return String(format: "%02X", Int(red)) +
+            String(format: "%02X", Int(green)) +
+            String(format: "%02X", Int(blue))
     }
 
     // MARK: - Instance Properties

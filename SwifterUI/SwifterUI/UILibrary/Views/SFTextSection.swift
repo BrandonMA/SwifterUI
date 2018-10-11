@@ -12,8 +12,8 @@ public final class SFTextSection: SFSection {
     
     // MARK: - Instance Properties
     
-    public final var textField: SFTextField {
-        return bottomView as! SFTextField
+    public final var textField: SFTextField! {
+        return bottomView as? SFTextField
     }
     
     public final var usePickerMode: Bool = false {

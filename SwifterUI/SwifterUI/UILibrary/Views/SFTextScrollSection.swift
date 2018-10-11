@@ -12,8 +12,8 @@ public final class SFTextScrollSection: SFSection {
 
     // MARK: - Instance Properties
     
-    public final var textView: SFTextView {
-        return bottomView as! SFTextView
+    public final var textView: SFTextView! {
+        return bottomView as? SFTextView
     }
     
     public override var useAlternativeColors: Bool {

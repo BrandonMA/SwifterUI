@@ -67,38 +67,41 @@ open class SFChat: Hashable, Codable {
     // MARK: - Instance Methods
     
     open func addNew(userIdentifier: String) {
-        if users.contains(userIdentifier) == false {
+        if !users.contains(userIdentifier) {
             users.append(userIdentifier)
+        }
+    }
+    
+    private func getSender(for message: SFMessage) {
+        if message.senderIdentifier == currentUser?.identifier {
+            message.sender = currentUser
+        } else if let user = currentUser?.contactsManager.flatData.first(where: { $0.identifier == message.senderIdentifier}) {
+            message.sender = user
         }
     }
     
     open func addNew(message: SFMessage) {
         
-        users.forEach { (userIdentifier) in
-            if message.senderIdentifier == currentUser?.identifier {
-                message.sender = currentUser
-            } else if userIdentifier == message.senderIdentifier {
-                if let user = currentUser?.contactsManager.flatData.first(where: { $0.identifier == userIdentifier}) {
-                    message.sender = user
+        if !messagesManager.contains(message) {
+            
+            getSender(for: message)
+            
+            let messageDate = message.creationDate.string(with: "EEEE dd MMM yyyy")
+            if let lastSection = messagesManager.last {
+                if lastSection.identifier != messageDate {
+                    let section = SFDataSection<SFMessage>(content: [message], identifier: messageDate)
+                    messagesManager.insertSection(section)
+                } else {
+                    messagesManager.insertItem(message)
                 }
-            }
-        }
-        
-        let messageDate = message.creationDate.string(with: "EEEE dd MMM yyyy")
-        if let lastSection = messagesManager.last {
-            if lastSection.identifier != messageDate {
+            } else {
                 let section = SFDataSection<SFMessage>(content: [message], identifier: messageDate)
                 messagesManager.insertSection(section)
-            } else {
-                messagesManager.insertItem(message)
             }
-        } else {
-            let section = SFDataSection<SFMessage>(content: [message], identifier: messageDate)
-            messagesManager.insertSection(section)
+            
+            NotificationCenter.default.post(name: Notification.Name(SFChatNotification.newMessage.rawValue), object: nil, userInfo: ["SFChat": self])
+            checkUnreadMessages()
         }
-        
-        NotificationCenter.default.post(name: Notification.Name(SFChatNotification.newMessage.rawValue), object: nil, userInfo: ["SFChat": self])
-        checkUnreadMessages()
     }
         
     open func checkUnreadMessages() {

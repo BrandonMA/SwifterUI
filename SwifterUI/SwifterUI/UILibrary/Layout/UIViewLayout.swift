@@ -115,10 +115,10 @@ public extension UIView {
      */
     @discardableResult
     private func setSize(for childAnchor: NSLayoutDimension,
-                      comparedTo parentAnchor: NSLayoutDimension,
-                      dimension: SFDimension,
-                      relation: ConstraintRelation,
-                      margin: CGFloat) -> Constraint {
+                         comparedTo parentAnchor: NSLayoutDimension,
+                         dimension: SFDimension,
+                         relation: ConstraintRelation,
+                         margin: CGFloat) -> Constraint {
         
         switch dimension.type {
             
@@ -453,4 +453,5 @@ public extension UIView {
         
         return constraints
     }
+    
 }

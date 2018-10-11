@@ -94,24 +94,3 @@ extension SFPageSectionsViewController: SFPageBarDelegate {
         pageView.setContentOffset(CGPoint(x: offSet, y: 0), animated: true)
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

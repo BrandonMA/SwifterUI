@@ -13,7 +13,7 @@ open class SFViewController: UIViewController, SFControllerColorStyle {
     
     // MARK: - Instance Properties
     
-    open var currentColorStyle: SFColorStyle? = nil
+    open var currentColorStyle: SFColorStyle?
     
     open var automaticallyAdjustsColorStyle: Bool = false {
         didSet {
@@ -49,7 +49,7 @@ open class SFViewController: UIViewController, SFControllerColorStyle {
     
     open var autorotate: Bool = true
     
-    public final var sfview: SFView { return view as! SFView }
+    public final var sfview: SFView! { return view as? SFView }
     
     // MARK: - Initializers
     
@@ -97,9 +97,10 @@ open class SFViewController: UIViewController, SFControllerColorStyle {
     
     public final func checkColorStyleListener() {
         if self.automaticallyAdjustsColorStyle == true {
-            NotificationCenter.default.addObserver(self, selector: #selector(handleBrightnessChange), name: UIScreen.brightnessDidChangeNotification, object: nil)
-        } else {
-            NotificationCenter.default.removeObserver(self)
+            NotificationCenter.default.addObserver(self,
+                                                   selector: #selector(handleBrightnessChange),
+                                                   name: UIScreen.brightnessDidChangeNotification,
+                                                   object: nil)
         }
     }
     
@@ -146,7 +147,8 @@ open class SFViewController: UIViewController, SFControllerColorStyle {
 }
 
 public extension UIImagePickerControllerDelegate where Self: SFViewController & UINavigationControllerDelegate {
-    public func showMediaPicker(sourceType: UIImagePickerController.SourceType, mediaTypes: [String] = [kUTTypeImage as String, kUTTypeMovie as String]) {
+    public func showMediaPicker(sourceType: UIImagePickerController.SourceType,
+                                mediaTypes: [String] = [kUTTypeImage as String, kUTTypeMovie as String]) {
         let imagePicker = UIImagePickerController()
         imagePicker.sourceType = sourceType
         imagePicker.allowsEditing = false

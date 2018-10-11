@@ -28,8 +28,8 @@ public final class SFButtonSection: SFSection {
         }
     }
     
-    public final var button: SFButton {
-        return bottomView as! SFButton
+    public final var button: SFButton! {
+        return bottomView as? SFButton
     }
     
     public override var useAlternativeColors: Bool {

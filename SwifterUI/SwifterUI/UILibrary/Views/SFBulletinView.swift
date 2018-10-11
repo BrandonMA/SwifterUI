@@ -53,11 +53,18 @@ open class SFBulletinView: SFPopView {
     
     // MARK: - Initializers
     
-    public init(automaticallyAdjustsColorStyle: Bool = true, useAlternativeColors: Bool = false, frame: CGRect = .zero, middleView: UIView? = nil, buttons: [SFFluidButton] = []) {
+    public init(automaticallyAdjustsColorStyle: Bool = true,
+                useAlternativeColors: Bool = false,
+                frame: CGRect = .zero,
+                middleView: UIView? = nil,
+                buttons: [SFFluidButton] = []) {
         
         self.buttons = buttons
         
-        super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, useAlternativeColors: useAlternativeColors, frame: frame, middleView: middleView ?? SFView(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle))
+        super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle,
+                   useAlternativeColors: useAlternativeColors,
+                   frame: frame,
+                   middleView: middleView ?? SFView(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle))
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -135,24 +142,3 @@ open class SFBulletinView: SFPopView {
         
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

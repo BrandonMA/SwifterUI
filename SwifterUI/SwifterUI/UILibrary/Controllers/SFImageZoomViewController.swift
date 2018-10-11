@@ -55,8 +55,12 @@ public final class SFImageViewController: SFViewController {
     }
     
     public override func prepare(navigationController: UINavigationController) {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissViewController))
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareButtonDidTouch))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done,
+                                                            target: self,
+                                                            action: #selector(dismissViewController))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action,
+                                                           target: self,
+                                                           action: #selector(shareButtonDidTouch))
     }
 
     public override func viewDidLayoutSubviews() {

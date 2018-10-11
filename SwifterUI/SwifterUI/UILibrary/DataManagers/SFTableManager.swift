@@ -10,30 +10,49 @@ import UIKit
 import DeepDiff
 
 public protocol SFTableAdapterDelegate: class {
+    
     func didSelectRow<DataType: Hashable>(at indexPath: IndexPath, tableView: SFTableView, item: DataType)
+    
     func heightForRow(at indexPath: IndexPath, tableView: SFTableView) -> CGFloat?
+    
     func prepareCell<DataType: Hashable>(_ cell: SFTableViewCell, at indexPath: IndexPath, with data: DataType)
+    
     var useCustomHeader: Bool { get }
+    
     func prepareHeader<DataType: Hashable>(_ view: SFTableViewHeaderView, with data: SFDataSection<DataType>, index: Int)
     var useCustomFooter: Bool { get }
+    
     func prepareFooter<DataType: Hashable>(_ view: SFTableViewFooterView, with data: SFDataSection<DataType>, index: Int)
+    
     func prefetch<DataType: Hashable>(item: DataType, at indexPath: IndexPath)
+    
     func deleted<DataType: Hashable>(item: DataType, at indexPath: IndexPath)
 }
 
 public extension SFTableAdapterDelegate {
+    
     public func didSelectRow<DataType: Hashable>(at indexPath: IndexPath, tableView: SFTableView, item: DataType) {}
+    
     public func heightForRow(at indexPath: IndexPath, tableView: SFTableView) -> CGFloat? { return nil }
+    
     public func prepareCell<DataType: Hashable>(_ cell: SFTableViewCell, at indexPath: IndexPath, with data: DataType) {}
+    
     public var useCustomHeader: Bool { return false }
+    
     public func prepareHeader<DataType: Hashable>(_ view: SFTableViewHeaderView, with data: SFDataSection<DataType>, index: Int) {}
+    
     public var useCustomFooter: Bool { return false }
+    
     public func prepareFooter<DataType: Hashable>(_ view: SFTableViewFooterView, with data: SFDataSection<DataType>, index: Int) {}
+    
     public func prefetch<DataType: Hashable>(item: DataType, at indexPath: IndexPath) {}
+    
     public func deleted<DataType: Hashable>(item: DataType, at indexPath: IndexPath) {}
 }
 
-public final class SFTableAdapter<DataType: Hashable, CellType: SFTableViewCell, HeaderType: SFTableViewHeaderView, FooterType: SFTableViewFooterView>: NSObject, UITableViewDataSource, UITableViewDelegate {
+public final class SFTableAdapter
+<DataType: Hashable, CellType: SFTableViewCell, HeaderType: SFTableViewHeaderView, FooterType: SFTableViewFooterView>
+: NSObject, UITableViewDataSource, UITableViewDelegate {
     
     // MARK: - Instance Properties
     
@@ -78,8 +97,10 @@ public final class SFTableAdapter<DataType: Hashable, CellType: SFTableViewCell,
         }
         
         if tableView?.style == .grouped {
-            tableView?.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: CGFloat.leastNonzeroMagnitude, height: CGFloat.leastNonzeroMagnitude))
-            tableView?.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: CGFloat.leastNonzeroMagnitude, height: CGFloat.leastNonzeroMagnitude))
+            // Create a frame close to zero, but no 0 because there is a bug in UITableView(or feature?)
+            let frame = CGRect(x: 0, y: 0, width: CGFloat.leastNonzeroMagnitude, height: CGFloat.leastNonzeroMagnitude)
+            tableView?.tableHeaderView = UIView(frame: frame)
+            tableView?.tableFooterView = UIView(frame: frame)
             tableView?.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: -20, right: 0)
         }
     }
@@ -117,7 +138,9 @@ public final class SFTableAdapter<DataType: Hashable, CellType: SFTableViewCell,
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: CellType.identifier, for: indexPath) as? CellType else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: CellType.identifier, for: indexPath) as? CellType else {
+            return UITableViewCell()
+        }
         guard let dataManager = dataManager else { return UITableViewCell() }
         if let temporarySearchData = temporarySearchData {
             delegate?.prepareCell(cell, at: indexPath, with: temporarySearchData[indexPath.row])
@@ -171,7 +194,9 @@ public final class SFTableAdapter<DataType: Hashable, CellType: SFTableViewCell,
         guard let delegate = delegate else { return nil }
         if temporarySearchData != nil { return nil }
         if delegate.useCustomHeader {
-            guard let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: HeaderType.identifier) as? HeaderType else { return nil }
+            guard let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: HeaderType.identifier) as? HeaderType else {
+                return nil
+            }
             guard let dataManager = dataManager else { return nil }
             delegate.prepareHeader(view, with: dataManager[section], index: section)
             view.updateColors()
@@ -194,7 +219,9 @@ public final class SFTableAdapter<DataType: Hashable, CellType: SFTableViewCell,
         guard let delegate = delegate else { return nil }
         if temporarySearchData != nil { return nil }
         if delegate.useCustomFooter {
-            guard let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: FooterType.identifier) as? FooterType else { return nil }
+            guard let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: FooterType.identifier) as? FooterType else {
+                return nil
+            }
             guard let dataManager = dataManager else { return nil }
             delegate.prepareFooter(view, with: dataManager[section], index: section)
             view.updateColors()
@@ -223,17 +250,20 @@ public final class SFTableAdapter<DataType: Hashable, CellType: SFTableViewCell,
         }
     }
 
-    
 }
 
 extension SFTableAdapter: SFDataManagerDelegate {
     
-    public func updateSection<DataType>(with changes: [Change<DataType>], index: Int) where DataType : Hashable {
+    public func updateSection<DataType>(with changes: [Change<DataType>], index: Int) where DataType: Hashable {
         if temporarySearchData != nil {
             clearSearch()
         } else {
-            tableView?.reload(changes: changes, section: index, insertionAnimation: insertAnimation, deletionAnimation: deleteAnimation, replacementAnimation: .automatic, completion: { (_) in
-                
+            tableView?.reload(changes: changes,
+                              section: index,
+                              insertionAnimation: insertAnimation,
+                              deletionAnimation: deleteAnimation,
+                              replacementAnimation: updateAnimation,
+                              completion: { (_) in
             })
         }
         
@@ -331,32 +361,3 @@ extension SFTableAdapter: SFDataManagerDelegate {
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

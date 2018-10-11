@@ -76,9 +76,10 @@ open class SFNavigationController: UINavigationController, SFControllerColorStyl
     
     open func checkColorStyleListener() {
         if self.automaticallyAdjustsColorStyle == true {
-            NotificationCenter.default.addObserver(self, selector: #selector(handleBrightnessChange), name: UIScreen.brightnessDidChangeNotification, object: nil)
-        } else {
-            NotificationCenter.default.removeObserver(self)
+            NotificationCenter.default.addObserver(self,
+                                                   selector: #selector(handleBrightnessChange),
+                                                   name: UIScreen.brightnessDidChangeNotification,
+                                                   object: nil)
         }
     }
     

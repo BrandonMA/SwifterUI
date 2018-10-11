@@ -72,7 +72,7 @@ open class SFBulletinViewController: SFPopViewController {
         }
     }
     
-    public final lazy var bulletinView: SFBulletinView = { return popView as! SFBulletinView }()
+    public final lazy var bulletinView: SFBulletinView! = { return popView as? SFBulletinView }()
     
     // MARK: - Initializers
     
@@ -89,7 +89,11 @@ open class SFBulletinViewController: SFPopViewController {
         createBulletinView()
     }
     
-    public convenience init(title: String = "", date: Date = Date(), minDate: Date? = nil, maxDate: Date? = nil, automaticallyAdjustsColorStyle: Bool = true) {
+    public convenience init(title: String = "",
+                            date: Date = Date(),
+                            minDate: Date? = nil,
+                            maxDate: Date? = nil,
+                            automaticallyAdjustsColorStyle: Bool = true) {
         self.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle)
         useDatePicker = true
         useButtons = false
@@ -100,7 +104,10 @@ open class SFBulletinViewController: SFPopViewController {
         createBulletinView()
     }
     
-    public convenience init(title: String = "", message: String = "", buttons: [SFFluidButton], automaticallyAdjustsColorStyle: Bool = true) {
+    public convenience init(title: String = "",
+                            message: String = "",
+                            buttons: [SFFluidButton],
+                            automaticallyAdjustsColorStyle: Bool = true) {
         self.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle)
         self.buttons = buttons
         bulletinTitle = title
@@ -126,7 +133,9 @@ open class SFBulletinViewController: SFPopViewController {
     // MARK: - Instance Methods
     
     internal func createBulletinView() {
-        popView = SFBulletinView(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle, middleView: useButtons ? nil : useDatePicker ? datePicker : pickerView, buttons: buttons)
+        popView = SFBulletinView(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle,
+                                 middleView: useButtons ? nil : useDatePicker ? datePicker : pickerView,
+                                 buttons: buttons)
         popView.translatesAutoresizingMaskIntoConstraints = false
     }
     
@@ -161,7 +170,9 @@ open class SFBulletinViewController: SFPopViewController {
                 formatter.timeZone = TimeZone.current
                 delegate?.bulletinController(self, retreivedValue: formatter.string(from: datePicker.date), index: nil)
             } else {
-                delegate?.bulletinController(self, retreivedValue: pickerValues[pickerView.selectedRow(inComponent: 0)], index: pickerView.selectedRow(inComponent: 0))
+                delegate?.bulletinController(self,
+                                             retreivedValue: pickerValues[pickerView.selectedRow(inComponent: 0)],
+                                             index: pickerView.selectedRow(inComponent: 0))
             }
         }
     }
@@ -188,20 +199,9 @@ extension SFBulletinViewController: UIPickerViewDataSource, UIPickerViewDelegate
     }
     
     public func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
-        let string = NSAttributedString(string: pickerValues[row], attributes: [.foregroundColor : colorStyle.getTextColor()])
+        let string = NSAttributedString(string: pickerValues[row],
+                                        attributes: [.foregroundColor: colorStyle.getTextColor()])
         return string
     }
     
 }
-
-
-
-
-
-
-
-
-
-
-
-

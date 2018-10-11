@@ -69,52 +69,13 @@ extension ViewController: SFTableAdapterDelegate {
     
     var useCustomHeader: Bool { return true }
     
-    func prepareHeader<DataType>(_ view: SFTableViewHeaderView, with data: SFDataSection<DataType>, index: Int) where DataType : Hashable {
+    func prepareHeader<DataType>(_ view: SFTableViewHeaderView, with data: SFDataSection<DataType>, index: Int) where DataType: Hashable {
         view.textLabel?.text = "Prueba - \(index)"
     }
     
-    func prepareCell<DataType>(_ cell: SFTableViewCell, at indexPath: IndexPath, with data: DataType) where DataType : Hashable {
+    func prepareCell<DataType>(_ cell: SFTableViewCell, at indexPath: IndexPath, with data: DataType) where DataType: Hashable {
         guard let name = data as? String else { return }
         cell.textLabel?.text = name
     }
     
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

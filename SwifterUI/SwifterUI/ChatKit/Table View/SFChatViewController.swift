@@ -233,7 +233,7 @@ open class SFChatViewController: SFViewController, UITableViewDelegate, UIImageP
     
     open func send(message: SFMessage) -> Bool { return true }
     
-    open func upload(text: String, completion: @escaping (SFMessage, Error?) -> Void) {
+    open func upload(text: String, completion: @escaping (SFMessage?, Error?) -> Void) {
         guard let currentUser = chat.currentUser else { return }
         let message = SFMessage(senderIdentifier: currentUser.identifier, chatIdentifier: chat.identifier, text: text)
         completion(message, nil)
@@ -246,6 +246,7 @@ open class SFChatViewController: SFViewController, UITableViewDelegate, UIImageP
                 if error != nil {
                     self.showError(title: "Error al envíar el mensaje", message: "Por favor vuelva a intentarlo")
                 } else {
+                    guard let message = message else { return }
                     if self.send(message: message) {
                         self.chatBar.textView.text = ""
                         self.chat.addNew(message: message)
@@ -265,6 +266,7 @@ open class SFChatViewController: SFViewController, UITableViewDelegate, UIImageP
                 if error != nil {
                     self.showError(title: "Error al subir el archivo", message: "Por favor vuelva a intentarlo")
                 } else {
+                    guard let message = message else { return }
                     picker.dismiss(animated: true, completion: {
                         if self.send(message: message) {
                             self.chat.addNew(message: message)
@@ -280,6 +282,7 @@ open class SFChatViewController: SFViewController, UITableViewDelegate, UIImageP
                 if error != nil {
                     self.showError(title: "Error al subir el archivo", message: "Por favor vuelva a intentarlo")
                 } else {
+                    guard let message = message else { return }
                     picker.dismiss(animated: true, completion: {
                         if self.send(message: message) {
                             self.chat.addNew(message: message)
@@ -291,13 +294,13 @@ open class SFChatViewController: SFViewController, UITableViewDelegate, UIImageP
         }
     }
     
-    open func upload(image: UIImage, completion: @escaping (SFMessage, Error?) -> Void)  {
+    open func upload(image: UIImage, completion: @escaping (SFMessage?, Error?) -> Void)  {
         guard let currentUser = chat.currentUser else { return }
         let message = SFMessage(senderIdentifier: currentUser.identifier, chatIdentifier: chat.identifier, image: image, imageURL: "")
         completion(message, nil)
     }
     
-    open func upload(videoURL: URL, completion: @escaping (SFMessage, Error?) -> Void) {
+    open func upload(videoURL: URL, completion: @escaping (SFMessage?, Error?) -> Void) {
         guard let currentUser = chat.currentUser else { return }
         let message = SFMessage(senderIdentifier: currentUser.identifier, chatIdentifier: chat.identifier, videoURL: videoURL.absoluteString)
         completion(message, nil)

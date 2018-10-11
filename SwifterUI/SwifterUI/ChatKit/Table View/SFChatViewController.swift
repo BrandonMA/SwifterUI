@@ -188,7 +188,8 @@ open class SFChatViewController: SFViewController, UITableViewDelegate, UIImageP
         if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardRectangle = keyboardFrame.cgRectValue
             let keyboardHeight = keyboardRectangle.height
-            chatView.contentInset.bottom = keyboardHeight - view.safeAreaInsets.bottom
+            let bottomSafeHeight = keyboardHeight - (tabBarController?.tabBar.bounds.size.height ?? 0)
+            chatView.contentInset.bottom = bottomSafeHeight < 49 ? 64 : bottomSafeHeight
             chatView.scrollIndicatorInsets.bottom = chatView.contentInset.bottom
             
             if chatView.isDragging == false && chatView.contentOffset.y > -64 {
@@ -234,24 +235,26 @@ open class SFChatViewController: SFViewController, UITableViewDelegate, UIImageP
     
     open func send(message: SFMessage) -> Bool { return true }
     
-    open func upload(text: String, completion: @escaping (SFMessage?, Error?) -> Void) {
-        guard let currentUser = chat.currentUser else { return }
-        let message = SFMessage(senderIdentifier: currentUser.identifier, chatIdentifier: chat.identifier, text: text)
-        completion(message, nil)
+    open func getTextMessage(with text: String) -> SFMessage {
+        guard let currentUser = chat.currentUser else { fatalError() }
+        return SFMessage(senderIdentifier: currentUser.identifier, chatIdentifier: chat.identifier, text: text)
+    }
+    
+    open func upload(textMessage: SFMessage, completion: @escaping (SFMessage, Error?) -> Void) {
+        completion(textMessage, nil)
     }
     
     private final func sendButtonDidTouch() {
         if let text = chatBar.textView.text, text != "" {
-            upload(text: text) { (message, error) in
-                
-                if error != nil {
-                    self.showError(title: "Error al envíar el mensaje", message: "Por favor vuelva a intentarlo")
-                } else {
-                    guard let message = message else { return }
-                    if self.send(message: message) {
-                        self.chatBar.textView.text = ""
-                        self.chat.addNew(message: message)
-                        self.chatView.scrollToBottom()
+            let message = getTextMessage(with: text)
+            if self.send(message: message) {
+                self.chatBar.textView.text = ""
+                self.chat.addNew(message: message)
+                self.chatView.scrollToBottom()
+                upload(textMessage: message) { (message, error) in
+                    if error != nil {
+                        self.showError(title: "Error al envíar el mensaje", message: "Por favor vuelva a intentarlo")
+                        self.chat.messagesManager.deleteItem(message)
                     }
                 }
             }
@@ -267,7 +270,6 @@ open class SFChatViewController: SFViewController, UITableViewDelegate, UIImageP
                 if error != nil {
                     self.showError(title: "Error al subir el archivo", message: "Por favor vuelva a intentarlo")
                 } else {
-                    guard let message = message else { return }
                     picker.dismiss(animated: true, completion: {
                         if self.send(message: message) {
                             self.chat.addNew(message: message)
@@ -283,7 +285,6 @@ open class SFChatViewController: SFViewController, UITableViewDelegate, UIImageP
                 if error != nil {
                     self.showError(title: "Error al subir el archivo", message: "Por favor vuelva a intentarlo")
                 } else {
-                    guard let message = message else { return }
                     picker.dismiss(animated: true, completion: {
                         if self.send(message: message) {
                             self.chat.addNew(message: message)
@@ -295,15 +296,23 @@ open class SFChatViewController: SFViewController, UITableViewDelegate, UIImageP
         }
     }
     
-    open func upload(image: UIImage, completion: @escaping (SFMessage?, Error?) -> Void)  {
-        guard let currentUser = chat.currentUser else { return }
-        let message = SFMessage(senderIdentifier: currentUser.identifier, chatIdentifier: chat.identifier, image: image, imageURL: "")
+    open func getImageMessage(with image: UIImage, url: String) -> SFMessage {
+        guard let currentUser = chat.currentUser else { fatalError() }
+        return SFMessage(senderIdentifier: currentUser.identifier, chatIdentifier: chat.identifier, image: image, imageURL: url)
+    }
+    
+    open func upload(image: UIImage, completion: @escaping (SFMessage, Error?) -> Void)  {
+        let message = getImageMessage(with: image, url: "")
         completion(message, nil)
     }
     
-    open func upload(videoURL: URL, completion: @escaping (SFMessage?, Error?) -> Void) {
-        guard let currentUser = chat.currentUser else { return }
-        let message = SFMessage(senderIdentifier: currentUser.identifier, chatIdentifier: chat.identifier, videoURL: videoURL.absoluteString)
+    open func getVideoMessage(url: String) -> SFMessage {
+        guard let currentUser = chat.currentUser else { fatalError() }
+        return SFMessage(senderIdentifier: currentUser.identifier, chatIdentifier: chat.identifier, videoURL: url)
+    }
+    
+    open func upload(videoURL: URL, completion: @escaping (SFMessage, Error?) -> Void) {
+        let message = getVideoMessage(url: videoURL.absoluteString)
         completion(message, nil)
     }
 }
@@ -400,7 +409,7 @@ extension SFChatViewController: SFTableAdapterDelegate {
         if let imageURL = message.sender?.profilePictureURL {
             cell.userImageView.kf.setImage(with: URL(string: imageURL))
         }
-                
+        
         if let image = message.image {
             cell.messageImageView.image = image
             cell.messageVideoView.cleanView()

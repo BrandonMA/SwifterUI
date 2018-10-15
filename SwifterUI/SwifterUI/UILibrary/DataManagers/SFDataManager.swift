@@ -112,6 +112,11 @@ extension SFDataManager: Collection, IteratorProtocol {
         return contains { return $0.contains(element) }
     }
     
+    public func removeAll() {
+        data.removeAll()
+        delegate?.forceUpdate()
+    }
+    
 }
 
 // MARK: - Computed Properties
@@ -230,8 +235,13 @@ public extension SFDataManager {
     public func deleteItem(_ item: DataType) {
         for (sectionIndex, section) in enumerated() {
             for (itemIndex, sectionItem) in section.enumerated() where item == sectionItem {
-                self.deleteItem(at: IndexPath(item: itemIndex, section: sectionIndex))
-                return
+                if section.count == 1 {
+                    self.deleteSection(at: sectionIndex)
+                    return
+                } else {
+                    self.deleteItem(at: IndexPath(item: itemIndex, section: sectionIndex))
+                    return
+                }
             }
         }
     }

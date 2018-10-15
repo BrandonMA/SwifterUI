@@ -226,8 +226,6 @@ public extension SFDataManager {
             data[indexPath.section].content.remove(at: indexPath.item)
             delegate?.deleteItem(at: indexPath)
         }
-        
-        
     }
     
     public func updateItem(_ item: DataType? = nil, at indexPath: IndexPath) {
@@ -242,7 +240,6 @@ public extension SFDataManager {
             for (itemIndex, sectionItem) in section.enumerated() where item == sectionItem {
                 if section.count == 1 {
                     self.deleteSection(at: sectionIndex)
-                    self.delegate?.deleteSection(at: sectionIndex)
                     return
                 } else {
                     let indexPath = IndexPath(item: itemIndex, section: sectionIndex)

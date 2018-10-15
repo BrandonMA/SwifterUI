@@ -9,51 +9,6 @@
 import UIKit
 import MobileCoreServices
 
-open class SFChatNavigationView: SFView {
-    
-    // MARK: - Instance Properties
-    
-    open lazy var imageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.clipsToBounds = true
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.layer.cornerRadius = 16
-        imageView.contentMode = .scaleAspectFill
-        return imageView
-    }()
-    
-    open lazy var nameButton: SFFluidButton = {
-        let button = SFFluidButton(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle, useAlternativeColors: true)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.titleLabel.font = UIFont.boldSystemFont(ofSize: 19)
-        return button
-    }()
-    
-    // MARK: - Instance Methods
-    
-    open override func prepareSubviews() {
-        addSubview(imageView)
-        addSubview(nameButton)
-        super.prepareSubviews()
-    }
-    
-    open override func setConstraints() {
-        imageView.width(SFDimension(value: 32))
-        imageView.height(SFDimension(value: 32))
-        imageView.clipCenterY(to: .centerY)
-        imageView.clipLeft(to: .left)
-        nameButton.clipSides(exclude: [.left], margin: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 8))
-        nameButton.clipLeft(to: .right, of: imageView, margin: 16)
-        super.setConstraints()
-    }
-    
-    open override func updateColors() {
-        backgroundColor = .clear
-        updateSubviewsColors()
-    }
-    
-}
-
 open class SFChatViewController: SFViewController, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, SFVideoPlayerDelegate {
     
     // MARK: - Instance Properties
@@ -265,32 +220,37 @@ open class SFChatViewController: SFViewController, UITableViewDelegate, UIImageP
     
     public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            upload(image: originalImage) { (message, error) in
-                
-                if error != nil {
-                    self.showError(title: "Error al subir el archivo", message: "Por favor vuelva a intentarlo")
-                } else {
-                    picker.dismiss(animated: true, completion: {
-                        if self.send(message: message) {
-                            self.chat.addNew(message: message)
+            
+            let message = getImageMessage(with: originalImage, url: "")
+            
+            if send(message: message) {
+                self.chat.addNew(message: message)
+                upload(imageMessage: message) { (message, error) in
+                    
+                    if error != nil {
+                        self.showError(title: "Error al subir el archivo", message: "Por favor vuelva a intentarlo")
+                    } else {
+                        picker.dismiss(animated: true, completion: {
                             self.chatView.scrollToBottom()
-                        }
-                    })
+                        })
+                    }
                 }
             }
         } else if let videoURL = info[UIImagePickerController.InfoKey.mediaURL] as? URL {
             
-            upload(videoURL: videoURL) { (message, error) in
-                
-                if error != nil {
-                    self.showError(title: "Error al subir el archivo", message: "Por favor vuelva a intentarlo")
-                } else {
-                    picker.dismiss(animated: true, completion: {
-                        if self.send(message: message) {
-                            self.chat.addNew(message: message)
+            let message = getVideoMessage(url: videoURL.absoluteString)
+            
+            if send(message: message) {
+                self.chat.addNew(message: message)
+                upload(videoMessage: message) { (message, error) in
+                    
+                    if error != nil {
+                        self.showError(title: "Error al subir el archivo", message: "Por favor vuelva a intentarlo")
+                    } else {
+                        picker.dismiss(animated: true, completion: {
                             self.chatView.scrollToBottom()
-                        }
-                    })
+                        })
+                    }
                 }
             }
         }
@@ -301,9 +261,8 @@ open class SFChatViewController: SFViewController, UITableViewDelegate, UIImageP
         return SFMessage(senderIdentifier: currentUser.identifier, chatIdentifier: chat.identifier, image: image, imageURL: url)
     }
     
-    open func upload(image: UIImage, completion: @escaping (SFMessage, Error?) -> Void)  {
-        let message = getImageMessage(with: image, url: "")
-        completion(message, nil)
+    open func upload(imageMessage: SFMessage, completion: @escaping (SFMessage, Error?) -> Void)  {
+        completion(imageMessage, nil)
     }
     
     open func getVideoMessage(url: String) -> SFMessage {
@@ -311,9 +270,8 @@ open class SFChatViewController: SFViewController, UITableViewDelegate, UIImageP
         return SFMessage(senderIdentifier: currentUser.identifier, chatIdentifier: chat.identifier, videoURL: url)
     }
     
-    open func upload(videoURL: URL, completion: @escaping (SFMessage, Error?) -> Void) {
-        let message = getVideoMessage(url: videoURL.absoluteString)
-        completion(message, nil)
+    open func upload(videoMessage: SFMessage, completion: @escaping (SFMessage, Error?) -> Void) {
+        completion(videoMessage, nil)
     }
 }
 

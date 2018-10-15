@@ -20,6 +20,7 @@ public protocol SFTableAdapterDelegate: class {
     var useCustomHeader: Bool { get }
     
     func prepareHeader<DataType: Hashable>(_ view: SFTableViewHeaderView, with data: SFDataSection<DataType>, index: Int)
+    
     var useCustomFooter: Bool { get }
     
     func prepareFooter<DataType: Hashable>(_ view: SFTableViewFooterView, with data: SFDataSection<DataType>, index: Int)
@@ -52,7 +53,7 @@ public extension SFTableAdapterDelegate {
 
 public final class SFTableAdapter
 <DataType: Hashable, CellType: SFTableViewCell, HeaderType: SFTableViewHeaderView, FooterType: SFTableViewFooterView>
-: NSObject, UITableViewDataSource, UITableViewDelegate {
+: NSObject, UITableViewDataSource, UITableViewDelegate, UITableViewDataSourcePrefetching {
     
     // MARK: - Instance Properties
     
@@ -77,6 +78,7 @@ public final class SFTableAdapter
         dataManager.delegate = self
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.prefetchDataSource = self
         registerViews()
         registerHeightForViews()
     }

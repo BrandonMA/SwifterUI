@@ -53,6 +53,7 @@
 		4253D3C2203CDEE500507F88 /* SFTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4253D3C1203CDEE500507F88 /* SFTabBarController.swift */; };
 		425AFDAC20300C580049B68B /* SFCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425AFDAB20300C580049B68B /* SFCollectionView.swift */; };
 		425AFDAE20300C700049B68B /* SFCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425AFDAD20300C700049B68B /* SFCollectionViewCell.swift */; };
+		426A7C8E21747A0D0047A125 /* SFChatNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426A7C8D21747A0D0047A125 /* SFChatNavigationView.swift */; };
 		426FA08520AB8FE800809280 /* SFPDFViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426FA08420AB8FE800809280 /* SFPDFViewController.swift */; };
 		42710AC92135A66600413898 /* SFUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42710AC82135A66600413898 /* SFUser.swift */; };
 		42710ACD2135AF7200413898 /* SFChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42710ACC2135AF7200413898 /* SFChat.swift */; };
@@ -191,6 +192,7 @@
 		4253D3C1203CDEE500507F88 /* SFTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFTabBarController.swift; sourceTree = "<group>"; };
 		425AFDAB20300C580049B68B /* SFCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFCollectionView.swift; sourceTree = "<group>"; };
 		425AFDAD20300C700049B68B /* SFCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFCollectionViewCell.swift; sourceTree = "<group>"; };
+		426A7C8D21747A0D0047A125 /* SFChatNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFChatNavigationView.swift; sourceTree = "<group>"; };
 		426FA08420AB8FE800809280 /* SFPDFViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFPDFViewController.swift; sourceTree = "<group>"; };
 		42710AC82135A66600413898 /* SFUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFUser.swift; sourceTree = "<group>"; };
 		42710ACC2135AF7200413898 /* SFChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFChat.swift; sourceTree = "<group>"; };
@@ -427,6 +429,7 @@
 				4230E8EB204CC42C003E5BCC /* SFBubbleView.swift */,
 				42087C2221427E3100F71CA9 /* SFChatBarButton.swift */,
 				42CDA9BC20361BDE0046791D /* SFChatBar.swift */,
+				426A7C8D21747A0D0047A125 /* SFChatNavigationView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -841,6 +844,7 @@
 				42A42EB11FF1AC37002FE4A7 /* SFViewColorStyle.swift in Sources */,
 				4299FB29211E1C1100E9F233 /* SFFluidButton.swift in Sources */,
 				423AAC2A1FE770D5009D6C39 /* Constraint.swift in Sources */,
+				426A7C8E21747A0D0047A125 /* SFChatNavigationView.swift in Sources */,
 				42710AC92135A66600413898 /* SFUser.swift in Sources */,
 				426FA08520AB8FE800809280 /* SFPDFViewController.swift in Sources */,
 				423AAC241FE76763009D6C39 /* ConstraintEdge.swift in Sources */,

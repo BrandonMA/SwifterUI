@@ -25,7 +25,7 @@ open class SFMessage: Hashable, Codable {
     // MARK: - Static Methods
     
     public static func == (lhs: SFMessage, rhs: SFMessage) -> Bool {
-        return lhs.identifier == rhs.identifier && lhs.chatIdentifier == rhs.chatIdentifier && lhs.creationDate == rhs.creationDate
+        return lhs.identifier == rhs.identifier && lhs.chatIdentifier == rhs.chatIdentifier
     }
     
     // MARK: - Instance Properties

@@ -101,6 +101,7 @@ open class SFChatViewController: SFViewController, UITableViewDelegate, UIImageP
         super.viewDidLoad()
         view.addSubview(chatView)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(newMessage(notification:)), name: Notification.Name(SFChatNotification.newMessage.rawValue), object: nil)
         chatView.clipSides()
         tabBarController?.tabBar.isHidden = true
@@ -139,7 +140,7 @@ open class SFChatViewController: SFViewController, UITableViewDelegate, UIImageP
         if let view = inputAccessoryView as? SFViewColorStyle { view.updateColors() }
     }
     
-    @objc private func keyboardWillShow(notification: NSNotification) {
+    @objc private func keyboardWillShow(notification: Notification) {
         if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardRectangle = keyboardFrame.cgRectValue
             let keyboardHeight = keyboardRectangle.height
@@ -157,6 +158,11 @@ open class SFChatViewController: SFViewController, UITableViewDelegate, UIImageP
                 }
             }
         }
+    }
+    
+    @objc private func keyboardWillHide(notification: Notification) {
+        chatView.contentInset.bottom = 64
+        chatView.scrollIndicatorInsets.bottom = 64
     }
     
     @objc func newMessage(notification: Notification) {

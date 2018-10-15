@@ -226,15 +226,15 @@ open class SFChatViewController: SFViewController, UITableViewDelegate, UIImageP
             if send(message: message) {
                 self.chat.addNew(message: message)
                 upload(imageMessage: message) { (message, error) in
-                    
                     if error != nil {
                         self.showError(title: "Error al subir el archivo", message: "Por favor vuelva a intentarlo")
-                    } else {
-                        picker.dismiss(animated: true, completion: {
-                            self.chatView.scrollToBottom()
-                        })
+                        self.chat.messagesManager.deleteItem(message)
                     }
                 }
+                
+                picker.dismiss(animated: true, completion: {
+                    self.chatView.scrollToBottom()
+                })
             }
         } else if let videoURL = info[UIImagePickerController.InfoKey.mediaURL] as? URL {
             
@@ -243,15 +243,15 @@ open class SFChatViewController: SFViewController, UITableViewDelegate, UIImageP
             if send(message: message) {
                 self.chat.addNew(message: message)
                 upload(videoMessage: message) { (message, error) in
-                    
                     if error != nil {
                         self.showError(title: "Error al subir el archivo", message: "Por favor vuelva a intentarlo")
-                    } else {
-                        picker.dismiss(animated: true, completion: {
-                            self.chatView.scrollToBottom()
-                        })
+                        self.chat.messagesManager.deleteItem(message)
                     }
                 }
+                
+                picker.dismiss(animated: true, completion: {
+                    self.chatView.scrollToBottom()
+                })
             }
         }
     }

@@ -35,6 +35,10 @@ open class SFDataManager<DataType: Hashable> {
     public final var data: ContentType = []
     public final weak var delegate: SFDataManagerDelegate?
     
+    // MARK: - Initializers
+    
+    public init() {}
+    
     // MARK: - Instace Methods
     
     open func forceUpdate(dataSections: ContentType) {

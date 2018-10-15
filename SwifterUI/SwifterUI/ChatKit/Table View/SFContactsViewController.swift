@@ -13,7 +13,7 @@ public protocol SFContactsViewControllerDelegate: class {
     func didSelectChat(_ chat: SFChat)
 }
 
-open class SFContactsViewController: SFViewController {
+open class SFContactsViewController: SFViewController, SFTableAdapterDelegate, UISearchResultsUpdating {
     
     // MARK: - Instance Properties
     
@@ -94,27 +94,10 @@ open class SFContactsViewController: SFViewController {
             return chat
         }
     }
-}
-
-extension SFContactsViewController: UISearchResultsUpdating {
     
-    public func updateSearchResults(for searchController: UISearchController) {
-        guard let text = searchController.searchBar.text else { return }
-        
-        if text == "" {
-            adapter.clearSearch()
-        } else {
-            adapter.search { (user) -> Bool in
-                return "\(user.name) \(user.lastName)".lowercased().contains(text.lowercased())
-            }
-        }
-    }
+    // MARK: - SFTableAdapterDelegate
     
-}
-
-extension SFContactsViewController: SFTableAdapterDelegate {
-    
-    public func deleted<DataType>(item: DataType, at indexPath: IndexPath) where DataType : Hashable {
+    open func deleted<DataType>(item: DataType, at indexPath: IndexPath) where DataType : Hashable {
         guard let contact = item as? SFUser else { return }
         NotificationCenter.default.post(name: Notification.Name(SFUserNotification.deleted.rawValue), object: nil, userInfo: ["SFUser": contact])
         delete(contact: contact)
@@ -128,7 +111,7 @@ extension SFContactsViewController: SFTableAdapterDelegate {
         }
     }
     
-    public func prepareCell<DataType>(_ cell: SFTableViewCell, at indexPath: IndexPath, with data: DataType) where DataType : Hashable {
+    open func prepareCell<DataType>(_ cell: SFTableViewCell, at indexPath: IndexPath, with data: DataType) where DataType : Hashable {
         
         guard let cell = cell as? SFTableViewContactCell else { return }
         guard let user = data as? SFUser else { return }
@@ -142,15 +125,15 @@ extension SFContactsViewController: SFTableAdapterDelegate {
         }
     }
     
-    public var useCustomHeader: Bool { return true }
+    open var useCustomHeader: Bool { return true }
     
-    public func prepareHeader<DataType>(_ view: SFTableViewHeaderView, with data: SFDataSection<DataType>, index: Int) where DataType : Hashable {
+    open func prepareHeader<DataType>(_ view: SFTableViewHeaderView, with data: SFDataSection<DataType>, index: Int) where DataType : Hashable {
         view.useAlternativeColors = true
         view.titleLabel.useAlternativeColors = true
         view.titleLabel.text = data.identifier
     }
     
-    public func didSelectRow<DataType>(at indexPath: IndexPath, tableView: SFTableView, item: DataType) where DataType: Hashable {
+    open func didSelectRow<DataType>(at indexPath: IndexPath, tableView: SFTableView, item: DataType) where DataType: Hashable {
         guard let item = item as? SFUser else { return }
         let chat = getChat(for: item)
         dismiss(animated: true) {
@@ -158,5 +141,17 @@ extension SFContactsViewController: SFTableAdapterDelegate {
         }
     }
     
+    // MARK: - UISearchResultsUpdating
+    
+    open func updateSearchResults(for searchController: UISearchController) {
+        guard let text = searchController.searchBar.text else { return }
+        
+        if text == "" {
+            adapter.clearSearch()
+        } else {
+            adapter.search { (user) -> Bool in
+                return "\(user.name) \(user.lastName)".lowercased().contains(text.lowercased())
+            }
+        }
+    }
 }
-

@@ -173,7 +173,7 @@ public extension SFDataManager {
 public extension SFDataManager {
     
     public func insertSection(_ section: SFDataSection<DataType>, at index: Int? = nil) {
-        let index = index ?? lastSectionIndex
+        let index = index ?? nextLastSectionIndex
         data.insert(section, at: index)
         delegate?.insertSection(at: index)
     }
@@ -248,7 +248,6 @@ public extension SFDataManager {
                 } else {
                     let indexPath = IndexPath(item: itemIndex, section: sectionIndex)
                     self.deleteItem(at: indexPath)
-                    self.delegate?.deleteItem(at: indexPath)
                     return
                 }
             }

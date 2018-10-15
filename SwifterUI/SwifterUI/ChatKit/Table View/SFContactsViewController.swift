@@ -116,7 +116,6 @@ extension SFContactsViewController: SFTableAdapterDelegate {
     
     public func deleted<DataType>(item: DataType, at indexPath: IndexPath) where DataType : Hashable {
         guard let contact = item as? SFUser else { return }
-        user.contactsManager.deleteItem(contact)
         NotificationCenter.default.post(name: Notification.Name(SFUserNotification.deleted.rawValue), object: nil, userInfo: ["SFUser": contact])
         delete(contact: contact)
         user.chatsManager.flatData.forEach { (chat) in

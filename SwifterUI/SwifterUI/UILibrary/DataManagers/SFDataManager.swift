@@ -63,11 +63,11 @@ open class SFDataManager<DataType: Hashable> {
         }
         return changes
     }
-
+    
     @discardableResult
     private func update(dataSection: SFDataSection<DataType>, index: Int?) -> [Change<DataType>] {
         var changes: [Change<DataType>] = []
-
+        
         if let index = index, self.data.count > index {
             let oldDataSection = self.data[index]
             changes = diff(old: oldDataSection.content, new: dataSection.content)
@@ -84,10 +84,10 @@ open class SFDataManager<DataType: Hashable> {
 // MARK: - Collection && IteratorProtocol
 
 extension SFDataManager: Collection, IteratorProtocol {
-
+    
     public typealias Element = ContentType.Element
     public typealias Index = ContentType.Index
-
+    
     public var startIndex: Index { return data.startIndex }
     public var endIndex: Index { return data.endIndex }
     
@@ -217,8 +217,17 @@ public extension SFDataManager {
     }
     
     public func deleteItem(at indexPath: IndexPath) {
-        data[indexPath.section].content.remove(at: indexPath.item)
-        delegate?.deleteItem(at: indexPath)
+        
+        let section = data[indexPath.section]
+        
+        if section.count == 1 {
+            deleteSection(at: indexPath.section)
+        } else {
+            data[indexPath.section].content.remove(at: indexPath.item)
+            delegate?.deleteItem(at: indexPath)
+        }
+        
+        
     }
     
     public func updateItem(_ item: DataType? = nil, at indexPath: IndexPath) {
@@ -228,22 +237,25 @@ public extension SFDataManager {
         delegate?.updateItem(at: indexPath)
     }
     
-    public func getItem(at indexPath: IndexPath) -> DataType {
-        return data[indexPath.section].content[indexPath.row]
-    }
-    
     public func deleteItem(_ item: DataType) {
         for (sectionIndex, section) in enumerated() {
             for (itemIndex, sectionItem) in section.enumerated() where item == sectionItem {
                 if section.count == 1 {
                     self.deleteSection(at: sectionIndex)
+                    self.delegate?.deleteSection(at: sectionIndex)
                     return
                 } else {
-                    self.deleteItem(at: IndexPath(item: itemIndex, section: sectionIndex))
+                    let indexPath = IndexPath(item: itemIndex, section: sectionIndex)
+                    self.deleteItem(at: indexPath)
+                    self.delegate?.deleteItem(at: indexPath)
                     return
                 }
             }
         }
+    }
+    
+    public func getItem(at indexPath: IndexPath) -> DataType {
+        return data[indexPath.section].content[indexPath.row]
     }
     
 }

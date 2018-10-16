@@ -32,7 +32,7 @@ open class SFContactsViewController: SFViewController, SFTableAdapterDelegate, U
         return searchController
     }()
     
-    open let adapter = SFTableAdapter<SFUser, SFTableViewContactCell, SFTableViewHeaderView, SFTableViewFooterView>()
+    open var adapter = SFTableAdapter<SFUser, SFTableViewContactCell, SFTableViewHeaderView, SFTableViewFooterView>()
     
     open var user: SFUser
     

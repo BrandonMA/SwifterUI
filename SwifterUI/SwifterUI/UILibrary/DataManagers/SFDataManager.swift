@@ -239,19 +239,35 @@ public extension SFDataManager {
         delegate?.updateItem(at: indexPath)
     }
     
+    public func moveItem(_ item: DataType, to: IndexPath) {
+        guard let indexPath = getIndex(of: item) else { return }
+        moveItem(from: indexPath, to: to)
+    }
+    
     public func deleteItem(_ item: DataType) {
+        guard let indexPath = getIndex(of: item) else { return }
+        let section = [indexPath.section]
+        if section.count == 1 {
+            self.deleteSection(at: indexPath.section)
+            return
+        } else {
+            self.deleteItem(at: indexPath)
+            return
+        }
+    }
+    
+    public func updateItem(_ item: DataType) {
+        guard let indexPath = getIndex(of: item) else { return }
+        updateItem(item, at: indexPath)
+    }
+    
+    public func getIndex(of item: DataType) -> IndexPath? {
         for (sectionIndex, section) in enumerated() {
             for (itemIndex, sectionItem) in section.enumerated() where item == sectionItem {
-                if section.count == 1 {
-                    self.deleteSection(at: sectionIndex)
-                    return
-                } else {
-                    let indexPath = IndexPath(item: itemIndex, section: sectionIndex)
-                    self.deleteItem(at: indexPath)
-                    return
-                }
+                return IndexPath(item: itemIndex, section: sectionIndex)
             }
         }
+        return nil
     }
     
     public func getItem(at indexPath: IndexPath) -> DataType {

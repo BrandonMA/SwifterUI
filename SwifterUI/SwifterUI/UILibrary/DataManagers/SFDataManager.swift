@@ -249,10 +249,8 @@ public extension SFDataManager {
         let section = [indexPath.section]
         if section.count == 1 {
             self.deleteSection(at: indexPath.section)
-            return
         } else {
             self.deleteItem(at: indexPath)
-            return
         }
     }
     

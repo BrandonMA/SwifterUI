@@ -20,7 +20,7 @@ open class SFPageSectionsViewController: SFPageViewController {
     // MARK: - Initializers
     
     public override init(automaticallyAdjustsColorStyle: Bool = true, viewControllers: [SFViewController]) {
-        pageBar = SFPageBar(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, items: titles.count)
+        pageBar = SFPageBar(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, items: viewControllers.count)
         pageBar.translatesAutoresizingMaskIntoConstraints = false
         pageBar.scrollVertically = false
         super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, viewControllers: viewControllers)
@@ -36,7 +36,7 @@ open class SFPageSectionsViewController: SFPageViewController {
     
     open override func viewDidLoad() {
         super.viewDidLoad()
-                
+        
         view.addSubview(pageBar)
         
         pageBar.clipSides(exclude: [.bottom])

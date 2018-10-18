@@ -138,13 +138,14 @@ open class SFChatViewController: SFViewController, UITableViewDelegate, UIImageP
     open override func updateColors() {
         super.updateColors()
         if let view = inputAccessoryView as? SFViewColorStyle { view.updateColors() }
+        navigationView.updateColors()
     }
     
     @objc private func keyboardWillShow(notification: Notification) {
         if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardRectangle = keyboardFrame.cgRectValue
             let keyboardHeight = keyboardRectangle.height
-            let bottomSafeHeight = keyboardHeight - (tabBarController?.tabBar.bounds.size.height ?? 0)
+            let bottomSafeHeight = keyboardHeight - view.safeAreaInsets.bottom
             chatView.contentInset.bottom = bottomSafeHeight < 49 ? 64 : bottomSafeHeight
             chatView.scrollIndicatorInsets.bottom = chatView.contentInset.bottom
             

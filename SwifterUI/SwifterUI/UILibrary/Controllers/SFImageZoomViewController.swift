@@ -11,7 +11,9 @@ import UIKit
 public final class SFImageViewController: SFViewController {
     
     // MARK: - Instance Properties
-
+    
+    public var animateClosing: Bool = false
+    
     public final lazy var imageZoomView: SFImageZoomView = {
         let view = SFImageZoomView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -29,22 +31,22 @@ public final class SFImageViewController: SFViewController {
         let heightScale = view.bounds.height / image.size.height
         return CGFloat.minimum(widthScale, heightScale)
     }
-
+    
     public final var image: UIImage
     
     // MARK: - Initializers
-
+    
     public init(with image: UIImage) {
         self.image = image
         super.init(automaticallyAdjustsColorStyle: true)
     }
-
+    
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: - Instace Methods
-
+    
     public override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(imageZoomView)
@@ -55,14 +57,14 @@ public final class SFImageViewController: SFViewController {
     }
     
     public override func prepare(navigationController: UINavigationController) {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done,
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action,
                                                             target: self,
-                                                            action: #selector(dismissViewController))
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action,
+                                                            action: #selector(shareButtonDidTouch))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done,
                                                            target: self,
-                                                           action: #selector(shareButtonDidTouch))
+                                                           action: #selector(dismissViewController))
     }
-
+    
     public override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         imageZoomView.minimumZoomScale = minimumZoomScale
@@ -95,7 +97,7 @@ public final class SFImageViewController: SFViewController {
     }
     
     @objc final func dismissViewController() {
-        navigationController?.popViewController(animated: false)
+        navigationController?.popViewController(animated: animateClosing)
     }
     
     @objc public final func shareButtonDidTouch() {

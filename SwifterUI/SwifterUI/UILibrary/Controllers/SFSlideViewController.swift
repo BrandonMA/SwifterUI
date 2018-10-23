@@ -14,30 +14,29 @@ open class SFSlideViewController: SFViewController {
     
     private var initialPoint: CGFloat = 0
     
-    open var slideView: SFSlideView
-    
-    // MARK: - Initializers
-    
-    public override init(automaticallyAdjustsColorStyle: Bool) {
-        slideView = SFSlideView(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle)
+    open lazy var slideView: SFSlideView = {
+        let slideView = SFSlideView(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle)
         slideView.translatesAutoresizingMaskIntoConstraints = false
-        super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle)
-    }
-    
-    required public init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+        return slideView
+    }()
     
     // MARK: - Instance Methods
     
+    open override func viewWillPrepareSubViews() {
+        view.addSubview(slideView)
+        slideView.bar.dismissButton.addTarget(self, action: #selector(dismissPop), for: .touchUpInside)
+        super.viewWillPrepareSubViews()
+    }
+    
+    open override func viewWillSetConstraints() {
+        slideView.clipSides(useSafeArea: false)
+        super.viewWillSetConstraints()
+    }
+    
     override open func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(slideView)
-        slideView.clipSides(useSafeArea: false)
         view.clipsToBounds = true
-        slideView.bar.dismissButton.addTarget(self, action: #selector(dismissPop), for: .touchUpInside)
         self.sfview.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(dismiss(withPanGesture:))))
-        
     }
     
     @objc public final func dismissPop() {

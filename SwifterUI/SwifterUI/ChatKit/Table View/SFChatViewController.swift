@@ -473,11 +473,18 @@ extension SFChatViewController: UITextViewDelegate {
     
 }
 
-
-
-
-
-
-
-
-
+// Implementation to be used when migration to uicollectionview is completed
+//extension SFChatViewController: UIViewControllerPreviewingDelegate {
+//
+//    public func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+//        guard let indexPath = chatView.indexPathForRow(at: location) else { return nil }
+//        let message = chat.messagesManager.getItem(at: indexPath)
+//        guard let image = message.image else { return nil }
+//        let controller = SFImageViewController(with: image)
+//        return controller
+//    }
+//
+//    public func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+//        navigationController?.pushViewController(viewControllerToCommit, animated: true)
+//    }
+//}

@@ -76,14 +76,27 @@ open class SFViewController: UIViewController, SFControllerColorStyle {
     
     open override func viewDidLoad() {
         super.viewDidLoad()
+        viewWillPrepareSubViews()
+        viewWillSetConstraints()
         if automaticallyAdjustsColorStyle {
             updateColors()
         }
     }
     
+    open func viewWillPrepareSubViews() {
+    }
+    
+    open func viewWillSetConstraints() {
+    }
+    
     open override func viewWillAppear(_ animated: Bool) {
+        
         if let navigationController = self.navigationController {
             prepare(navigationController: navigationController)
+        }
+        
+        if let tabBarController = self.tabBarController {
+            prepare(tabBarController: tabBarController)
         }
     }
     
@@ -95,6 +108,13 @@ open class SFViewController: UIViewController, SFControllerColorStyle {
     open func prepare(navigationController: UINavigationController) {
     }
     
+    /**
+     Called after viewWillAppear() is completed
+     - Parameters:
+     - tabBarController: Current UITabBarController if it is not nil.
+     */
+    open func prepare(tabBarController: UITabBarController) {
+    }
     public final func checkColorStyleListener() {
         if self.automaticallyAdjustsColorStyle == true {
             NotificationCenter.default.addObserver(self,

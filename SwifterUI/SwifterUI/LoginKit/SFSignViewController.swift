@@ -15,6 +15,8 @@ public enum SFSignState {
 
 open class SFSignViewController: SFViewController {
     
+    // MARK: - Instance Methods
+    
     var state: SFSignState = .signUp
     
     public lazy var signView: SFSignView = {

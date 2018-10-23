@@ -1,3 +1,11 @@
+//
+//  UITableView+Extensions.swift
+//  DeepDiff
+//
+//  Created by Khoa Pham.
+//  Copyright © 2018 Khoa Pham. All rights reserved.
+//
+
 import UIKit
 
 public extension UITableView {
@@ -17,7 +25,7 @@ public extension UITableView {
     insertionAnimation: UITableView.RowAnimation = .automatic,
     deletionAnimation: UITableView.RowAnimation = .automatic,
     replacementAnimation: UITableView.RowAnimation = .automatic,
-    completion: @escaping (Bool) -> Void) {
+    completion: ((Bool) -> Void)? = nil) {
     
     let changesWithIndexPath = IndexPathConverter().convert(changes: changes, section: section)
     
@@ -28,7 +36,9 @@ public extension UITableView {
         internalBatchUpdates(changesWithIndexPath: changesWithIndexPath,
                              insertionAnimation: insertionAnimation,
                              deletionAnimation: deletionAnimation)
-      }, completion: completion)
+      }, completion: { finished in
+        completion?(finished)
+      })
       
       changesWithIndexPath.replaces.executeIfPresent {
         self.reloadRows(at: $0, with: replacementAnimation)
@@ -44,7 +54,7 @@ public extension UITableView {
         reloadRows(at: $0, with: replacementAnimation)
       }
       
-      completion(true)
+      completion?(true)
     }
   }
   

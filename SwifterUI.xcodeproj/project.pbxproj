@@ -104,7 +104,6 @@
 		42D1347A208D5F4300EFB118 /* SFSignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D13479208D5F4300EFB118 /* SFSignInView.swift */; };
 		42D1347C208D5F5500EFB118 /* SFSignView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D1347B208D5F5500EFB118 /* SFSignView.swift */; };
 		42D34C65202F5F84002B6FA6 /* SFLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D34C64202F5F84002B6FA6 /* SFLabel.swift */; };
-		42D34C67202F5FA3002B6FA6 /* SFTextSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D34C66202F5FA3002B6FA6 /* SFTextSection.swift */; };
 		42D34C6D202F6ECE002B6FA6 /* SFSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D34C6C202F6ECE002B6FA6 /* SFSection.swift */; };
 		42D34C73202FABB3002B6FA6 /* SFNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D34C72202FABB3002B6FA6 /* SFNavigationController.swift */; };
 		42D34C75202FAF10002B6FA6 /* SFSlideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D34C74202FAF10002B6FA6 /* SFSlideView.swift */; };
@@ -155,6 +154,7 @@
 		4223C5161FE7A0C300A2E2F2 /* ConstraintRelation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstraintRelation.swift; sourceTree = "<group>"; };
 		42289AE1203481A30095FF5C /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		42289AE3203481C70095FF5C /* UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableView.swift; sourceTree = "<group>"; };
+		422E626F217F7E2900264EE1 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		422FC79E2145498B0023F362 /* SFSingleChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFSingleChat.swift; sourceTree = "<group>"; };
 		4230E8E7204CBF79003E5BCC /* SFTableViewHeaderFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFTableViewHeaderFooterView.swift; sourceTree = "<group>"; };
 		4230E8E9204CC1DA003E5BCC /* SFNotificationIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFNotificationIndicator.swift; sourceTree = "<group>"; };
@@ -243,7 +243,6 @@
 		42D13479208D5F4300EFB118 /* SFSignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFSignInView.swift; sourceTree = "<group>"; };
 		42D1347B208D5F5500EFB118 /* SFSignView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFSignView.swift; sourceTree = "<group>"; };
 		42D34C64202F5F84002B6FA6 /* SFLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFLabel.swift; sourceTree = "<group>"; };
-		42D34C66202F5FA3002B6FA6 /* SFTextSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFTextSection.swift; sourceTree = "<group>"; };
 		42D34C6C202F6ECE002B6FA6 /* SFSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFSection.swift; sourceTree = "<group>"; };
 		42D34C72202FABB3002B6FA6 /* SFNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFNavigationController.swift; sourceTree = "<group>"; };
 		42D34C74202FAF10002B6FA6 /* SFSlideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFSlideView.swift; sourceTree = "<group>"; };
@@ -511,7 +510,6 @@
 				42446778202AC83000F59892 /* SFButton.swift */,
 				42D34C64202F5F84002B6FA6 /* SFLabel.swift */,
 				42D34C6C202F6ECE002B6FA6 /* SFSection.swift */,
-				42D34C66202F5FA3002B6FA6 /* SFTextSection.swift */,
 				420AFCE42080189400D9D778 /* SFTextScrollSection.swift */,
 				42834C0B20465964009CFE22 /* SFButtonSection.swift */,
 				42DBF1A3203754E900F4BB6F /* SFBulletinView.swift */,
@@ -699,7 +697,6 @@
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				en,
 				Base,
 			);
 			mainGroup = 423AABE31FE7548E009D6C39;
@@ -925,7 +922,6 @@
 				42838208206DA4D200039F66 /* SFImageZoomView.swift in Sources */,
 				4211D873209C9D9F00C89FAC /* SFPageSectionsViewController.swift in Sources */,
 				42CB6AFC203602870080EFB8 /* SFMessage.swift in Sources */,
-				42D34C67202F5FA3002B6FA6 /* SFTextSection.swift in Sources */,
 				42F12D03215591C3000B2F51 /* SFChatViewController.swift in Sources */,
 				42D34C65202F5F84002B6FA6 /* SFLabel.swift in Sources */,
 				42B7B27D203A611E004B5C6E /* SFScrollView.swift in Sources */,
@@ -982,6 +978,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				423AABF91FE7548F009D6C39 /* Base */,
+				422E626F217F7E2900264EE1 /* es */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -993,6 +990,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1053,6 +1051,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";

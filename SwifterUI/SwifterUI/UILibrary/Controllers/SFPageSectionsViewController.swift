@@ -15,38 +15,31 @@ open class SFPageSectionsViewController: SFPageViewController {
     open var titles: [String] = []
     private var isSelecting: Bool = false
     
-    open var pageBar: SFPageBar
-    
-    // MARK: - Initializers
-    
-    public override init(automaticallyAdjustsColorStyle: Bool = true, viewControllers: [SFViewController]) {
-        pageBar = SFPageBar(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, items: viewControllers.count)
+    open lazy var pageBar: SFPageBar = {
+        let pageBar = SFPageBar(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle, items: titles.count)
         pageBar.translatesAutoresizingMaskIntoConstraints = false
         pageBar.scrollVertically = false
-        super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, viewControllers: viewControllers)
         pageBar.barDelegate = self
         pageView.delegate = self
-    }
-    
-    required public init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+        return pageBar
+    }()
     
     // MARK: - Instance Methods
     
-    open override func viewDidLoad() {
-        super.viewDidLoad()
-        
+    open override func viewWillPrepareSubViews() {
         view.addSubview(pageBar)
-        
+        pageBar.buttons.enumerated().forEach { (index, button) in
+            button.title = titles[index]
+        }
+        super.viewWillPrepareSubViews()
+    }
+    
+    open override func viewWillSetConstraints() {
         pageBar.clipSides(exclude: [.bottom])
         pageBar.height(SFDimension(value: 44))
         pageView.clipTop(to: .bottom, of: pageBar)
         pageView.clipSides(exclude: [.top])
-        
-        pageBar.buttons.enumerated().forEach { (index, button) in
-            button.title = titles[index]
-        }
+        super.viewWillSetConstraints()
     }
     
     override func add(viewController: SFViewController) {

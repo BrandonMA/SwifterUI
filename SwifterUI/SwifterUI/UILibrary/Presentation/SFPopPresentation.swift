@@ -74,6 +74,7 @@ open class SFPopPresentation: UIPresentationController {
             }
             
             self.presentedView?.layer.cornerRadius = 20
+            self.presentedView?.layer.maskedCorners = [.layerMinXMinYCorner,.layerMaxXMinYCorner]
             
             if let tabBar = mainController as? SFTabBarController {
                 if var child = tabBar.selectedViewController as? SFControllerColorStyle {
@@ -117,8 +118,6 @@ open class SFPopPresentation: UIPresentationController {
             
             mainController.automaticallyTintNavigationBar = true
             mainController.updateColors()
-            
-            self.presentedView?.layer.cornerRadius = 0
             
             if (self.presentedView?.useCompactInterface)! {
                 self.presentingViewController.view.frame.size.height += UIApplication.shared.statusBarFrame.height * 2

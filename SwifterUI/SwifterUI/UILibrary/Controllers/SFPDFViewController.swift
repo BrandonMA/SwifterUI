@@ -43,16 +43,19 @@ open class SFPDFViewController: SFViewController {
     
     // MARK: - Instance Methods
     
-    open override func viewDidLoad() {
-        super.viewDidLoad()
+    open override func viewWillPrepareSubViews() {
         view.addSubview(pdfView)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareButtonDidTouch))
         pdfView.autoScales = true
+        super.viewWillPrepareSubViews()
     }
     
-    open override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
+    open override func viewWillSetConstraints() {
         pdfView.clipSides()
+        super.viewWillSetConstraints()
+    }
+    
+    open override func prepare(navigationController: UINavigationController) {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareButtonDidTouch))
     }
     
     @objc public final func shareButtonDidTouch() {
@@ -61,32 +64,3 @@ open class SFPDFViewController: SFViewController {
         self.present(activityViewController, animated: true, completion: nil)
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

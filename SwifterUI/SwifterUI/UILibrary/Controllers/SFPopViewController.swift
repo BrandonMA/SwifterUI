@@ -12,26 +12,22 @@ open class SFPopViewController: SFViewController {
     
     // MARK: - Instance Properties
     
-    open var popView: SFPopView
-    
-    // MARK: - Initializers
-    
-    public override init(automaticallyAdjustsColorStyle: Bool = true) {
-        popView = SFPopView(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, middleView: SFView(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle))
+    open lazy var popView: SFPopView = {
+        let popView = SFPopView(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, middleView: SFView(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle))
         popView.translatesAutoresizingMaskIntoConstraints = false
-        super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle)
-    }
-    
-    required public init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+        return popView
+    }()
     
     // MARK: - Instance Methods
     
-    open override func viewDidLoad() {
-        super.viewDidLoad()
+    open override func viewWillPrepareSubViews() {
         view.addSubview(popView)
+        super.viewWillPrepareSubViews()
+    }
+    
+    open override func viewWillSetConstraints() {
         popView.clipSides(useSafeArea: false)
+        super.viewWillSetConstraints()
     }
     
     open override func viewWillAppear(_ animated: Bool) {

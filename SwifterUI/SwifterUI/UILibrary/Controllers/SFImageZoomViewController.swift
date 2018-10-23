@@ -47,13 +47,22 @@ public final class SFImageViewController: SFViewController {
     
     // MARK: - Instace Methods
     
-    public override func viewDidLoad() {
-        super.viewDidLoad()
+    public override func viewWillPrepareSubViews() {
         view.addSubview(imageZoomView)
+        imageZoomView.contentSize = image.size
+        super.viewWillPrepareSubViews()
+    }
+    
+    public override func viewWillSetConstraints() {
         imageZoomView.clipTop(to: .top, useSafeArea: false)
         imageZoomView.clipSides(exclude: [.top])
+        super.viewWillSetConstraints()
+    }
+    
+    public override func viewDidLoad() {
+        super.viewDidLoad()
+        
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(imageDidTap)))
-        imageZoomView.contentSize = image.size
     }
     
     public override func prepare(navigationController: UINavigationController) {
@@ -63,6 +72,15 @@ public final class SFImageViewController: SFViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done,
                                                            target: self,
                                                            action: #selector(dismissViewController))
+    }
+    
+    public override func prepare(tabBarController: UITabBarController) {
+        tabBarController.tabBar.isHidden = true
+    }
+    
+    public override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        tabBarController?.tabBar.isHidden = false
     }
     
     public override func viewDidLayoutSubviews() {

@@ -48,7 +48,7 @@ open class SFSlideBar: SFView {
     }
     
     open override func setConstraints() {
-        dismissButton.clipCenterY(to: .centerY)
+        dismissButton.clipCenterY(to: .centerY, margin: 2)
         dismissButton.clipLeft(to: .left, margin: 12)
         dismissButton.width(SFDimension(value: 32))
         dismissButton.height(SFDimension(value: 32))

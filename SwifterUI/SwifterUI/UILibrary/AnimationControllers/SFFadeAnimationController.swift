@@ -32,13 +32,13 @@ open class SFFadeAnimationController: SFAnimationController {
             } else {
                 fromView.alpha = 0.0
             }
-        }) { _ in
+        }, completion: { _ in
             let success = !transitionContext.transitionWasCancelled
             if !success {
                 toView.removeFromSuperview()
             }
             transitionContext.completeTransition(success)
-        }
+        })
     }
     
 }

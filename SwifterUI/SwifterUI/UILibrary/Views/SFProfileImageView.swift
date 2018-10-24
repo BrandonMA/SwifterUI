@@ -83,21 +83,3 @@ open class SFProfileImageView: SFView {
         imageView.contentMode = .center
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -27,7 +27,6 @@ public extension SFVideoPlayerDelegate where Self: UIViewController {
     }
 }
 
-
 public final class SFVideoView: SFView {
 
     // MARK: - Instance Properties
@@ -82,5 +81,3 @@ public final class SFVideoView: SFView {
     }
 
 }
-
-

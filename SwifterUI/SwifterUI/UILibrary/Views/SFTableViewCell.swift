@@ -86,19 +86,3 @@ open class SFTableViewCell: UITableViewCell, SFViewColorStyle, SFLayoutView {
     }
     
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -74,7 +74,7 @@ open class SFPopPresentation: UIPresentationController {
             }
             
             self.presentedView?.layer.cornerRadius = 20
-            self.presentedView?.layer.maskedCorners = [.layerMinXMinYCorner,.layerMaxXMinYCorner]
+            self.presentedView?.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
             
             if let tabBar = mainController as? SFTabBarController {
                 if var child = tabBar.selectedViewController as? SFControllerColorStyle {
@@ -157,28 +157,3 @@ open class SFPopPresentation: UIPresentationController {
         return frame
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

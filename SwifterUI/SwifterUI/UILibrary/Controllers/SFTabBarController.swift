@@ -12,7 +12,7 @@ open class SFTabBarController: UITabBarController, SFControllerColorStyle {
     
     // MARK: - Instance Properties
     
-    open var currentColorStyle: SFColorStyle? = nil
+    open var currentColorStyle: SFColorStyle?
     
     open var automaticallyAdjustsColorStyle: Bool = true {
         didSet {
@@ -68,8 +68,6 @@ open class SFTabBarController: UITabBarController, SFControllerColorStyle {
     open func checkColorStyleListener() {
         if self.automaticallyAdjustsColorStyle == true {
             NotificationCenter.default.addObserver(self, selector: #selector(handleBrightnessChange), name: UIScreen.brightnessDidChangeNotification, object: nil)
-        } else {
-            NotificationCenter.default.removeObserver(self)
         }
     }
     

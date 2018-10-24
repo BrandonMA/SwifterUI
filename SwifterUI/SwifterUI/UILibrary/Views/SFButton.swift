@@ -138,18 +138,3 @@ open class SFButton: UIButton, SFViewColorStyle, SFLayoutView {
         touchDownActions.forEach { $0() }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

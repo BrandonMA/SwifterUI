@@ -93,11 +93,9 @@ open class SFUser: Hashable, Codable {
             if let sectionIndex = contactsManager.index(where: {
                 $0.identifier.contains(contact.name.uppercased().first!)
             }) {
-                for (index, user) in contactsManager[sectionIndex].enumerated() {
-                    if user.lastName > contact.lastName {
-                        contactsManager.insertItem(contact, at: IndexPath(item: index, section: sectionIndex))
-                        break
-                    }
+                for (index, user) in contactsManager[sectionIndex].enumerated() where user.lastName == contact.lastName {
+                    contactsManager.insertItem(contact, at: IndexPath(item: index, section: sectionIndex))
+                    break
                 }
             } else {
                 
@@ -106,11 +104,9 @@ open class SFUser: Hashable, Codable {
                 if contactsManager.isEmpty {
                     contactsManager.insertSection(newSection)
                 } else {
-                    for (index, section) in contactsManager.enumerated() {
-                        if section.identifier > newSection.identifier {
-                            contactsManager.insertSection(newSection, at: index)
-                            break
-                        }
+                    for (index, section) in contactsManager.enumerated() where section.identifier > newSection.identifier {
+                        contactsManager.insertSection(newSection, at: index)
+                        break
                     }
                 }
             }

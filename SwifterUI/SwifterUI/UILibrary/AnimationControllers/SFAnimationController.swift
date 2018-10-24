@@ -22,6 +22,4 @@ open class SFAnimationController: NSObject, UIViewControllerAnimatedTransitionin
     
     open func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
     }
-    
-    
 }

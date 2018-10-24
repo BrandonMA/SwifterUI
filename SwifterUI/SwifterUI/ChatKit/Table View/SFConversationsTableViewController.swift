@@ -102,10 +102,9 @@ extension SFConversationsTableViewController: SFContactsViewControllerDelegate {
 
 extension SFConversationsTableViewController: SFTableAdapterDelegate {
     
-    public func prepareCell<DataType>(_ cell: SFTableViewCell, at indexPath: IndexPath, with data: DataType) where DataType : Hashable {
+    public func prepareCell<DataType>(_ cell: SFTableViewCell, at indexPath: IndexPath, with item: DataType) where DataType: Hashable {
         
-        guard let cell = cell as? SFTableViewConversationCell else { return }
-        guard let chat = data as? SFChat else { return }
+        guard let cell = cell as? SFTableViewConversationCell, let chat = item as? SFChat else { return }
         
         cell.conversationView.nameLabel.text = "\(chat.name)"
         
@@ -144,10 +143,9 @@ extension SFConversationsTableViewController: SFTableAdapterDelegate {
         cell.conversationView.notificationIndicator.titleLabel.text = "\(chat.unreadMessages)"
         
         registerForPreviewing(with: self, sourceView: cell)
-
     }
     
-    public func deleted<DataType>(item: DataType, at indexPath: IndexPath) where DataType : Hashable {
+    public func deleted<DataType>(item: DataType, at indexPath: IndexPath) where DataType: Hashable {
         guard let chat = item as? SFChat else { return }
         user.contactsManager.flatData.forEach { (contact) in
             contact.chatsManager.deleteItem(chat)
@@ -156,7 +154,7 @@ extension SFConversationsTableViewController: SFTableAdapterDelegate {
         }
     }
     
-    public func didSelectRow<DataType>(at indexPath: IndexPath, tableView: SFTableView, item: DataType) where DataType : Hashable {
+    public func didSelectCell<DataType>(_ cell: SFTableViewCell, at indexPath: IndexPath, item: DataType, tableView: SFTableView) where DataType: Hashable {
         guard let chat = item as? SFChat else { return }
         open(chat: chat)
     }
@@ -180,9 +178,7 @@ extension SFConversationsTableViewController: UISearchResultsUpdating {
 extension SFConversationsTableViewController: UIViewControllerPreviewingDelegate {
     
     public func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
-        
         guard let indexPath = tableView.indexPathForRow(at: location) else { return nil }
-        
         let chat = user.chatsManager.getItem(at: indexPath)
         let controller = SFChatViewController(chat: chat)
         controller.isPreview = true
@@ -195,6 +191,4 @@ extension SFConversationsTableViewController: UIViewControllerPreviewingDelegate
         navigationController?.pushViewController(viewControllerToCommit, animated: true)
         
     }
-    
-    
 }

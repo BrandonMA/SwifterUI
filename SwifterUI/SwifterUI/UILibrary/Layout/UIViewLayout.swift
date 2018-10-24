@@ -70,7 +70,7 @@ public extension UIView {
     /**
      Return an specific constraint if it exists.
      */
-    public final func getConstraint(_ constraintType: ConstraintType) -> Constraint? {
+    public final func getConstraint(type constraintType: ConstraintType) -> Constraint? {
         
         for constraint in self.constraints {
             if let view = constraint.firstItem as? UIView {
@@ -100,9 +100,9 @@ public extension UIView {
     /**
      Remove an specific constraint if it exists.
      */
-    public final func removeConstraint(_ constraintType: ConstraintType) {
+    public final func removeConstraint(type constraintType: ConstraintType) {
         guard let superview = superview else { return }
-        if let oldConstraint = getConstraint(constraintType) {
+        if let oldConstraint = getConstraint(type: constraintType) {
             removeConstraint(oldConstraint)
             superview.removeConstraint(oldConstraint)
         }

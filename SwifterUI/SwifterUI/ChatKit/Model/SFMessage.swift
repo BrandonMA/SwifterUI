@@ -42,7 +42,7 @@ open class SFMessage: Hashable, Codable {
     open var hashValue: Int {
         return identifier.hashValue ^ chatIdentifier.hashValue
     }
-    open var image: UIImage? = nil
+    open var image: UIImage?
     open weak var sender: SFUser?
     
     // MARK: - Initializers
@@ -168,15 +168,3 @@ public extension Array where Element: SFMessage {
     }
     
 }
-
-
-
-
-
-
-
-
-
-
-
-

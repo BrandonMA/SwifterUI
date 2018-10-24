@@ -23,11 +23,3 @@ open class SFSingleChat: SFChat {
     open weak var contact: SFUser?
     
 }
-
-
-
-
-
-
-
-

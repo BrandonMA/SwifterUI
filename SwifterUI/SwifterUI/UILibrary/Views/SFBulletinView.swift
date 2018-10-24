@@ -112,9 +112,9 @@ open class SFBulletinView: SFPopView {
         messageLabel.clipLeft(to: .left, margin: 12)
         messageLabel.clipBottom(to: .top, of: middleView, margin: 12)
         
-        contentView.removeConstraint(.bottom)
-        contentView.removeConstraint(.top)
-        contentView.removeConstraint(.centerY)
+        contentView.removeConstraint(type: .bottom)
+        contentView.removeConstraint(type: .top)
+        contentView.removeConstraint(type: .centerY)
         contentView.clipBottom(to: .bottom, margin: 12)
         contentView.clipTop(to: .top, of: closeButton, margin: -12)
         

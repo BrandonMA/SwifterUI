@@ -80,7 +80,6 @@ open class SFTableViewHeaderFooterView: UITableViewHeaderFooterView, SFViewColor
 
 }
 
-
 open class SFTableViewHeaderView: SFTableViewHeaderFooterView {
     
     // MARK: - Class Properties

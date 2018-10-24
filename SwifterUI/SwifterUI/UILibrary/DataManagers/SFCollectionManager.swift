@@ -12,18 +12,19 @@ import DeepDiff
 
 public protocol SFCollectionAdapterDelegate: class {
 
-    func didSelectRow<DataType: Hashable>(at indexPath: IndexPath, collectionView: SFCollectionView, item: DataType)
+    func didSelectCell<DataType: Hashable>(_ cell: SFCollectionViewCell, at indexPath: IndexPath, item: DataType, collectionView: SFCollectionView)
 
     func heightForRow(at indexPath: IndexPath, collectionView: SFCollectionView) -> CGFloat?
 
-    func prepareCell<DataType: Hashable>(_ cell: SFCollectionViewCell, at indexPath: IndexPath, with data: DataType)
+    func prepareCell<DataType: Hashable>(_ cell: SFCollectionViewCell, at indexPath: IndexPath, with item: DataType)
 
     var useCustomHeader: Bool { get }
 
-    func prepareHeader<DataType: Hashable>(_ view: SFCollectionViewHeaderView, with data: SFDataSection<DataType>, index: Int)
+    func prepareHeader<DataType: Hashable>(_ view: SFCollectionViewHeaderView, with section: SFDataSection<DataType>, at index: Int)
+    
     var useCustomFooter: Bool { get }
 
-    func prepareFooter<DataType: Hashable>(_ view: SFCollectionViewFooterView, with data: SFDataSection<DataType>, index: Int)
+    func prepareFooter<DataType: Hashable>(_ view: SFCollectionViewFooterView, with section: SFDataSection<DataType>, at index: Int)
 
     func prefetch<DataType: Hashable>(item: DataType, at indexPath: IndexPath)
 
@@ -32,19 +33,19 @@ public protocol SFCollectionAdapterDelegate: class {
 
 public extension SFCollectionAdapterDelegate {
 
-    public func didSelectRow<DataType: Hashable>(at indexPath: IndexPath, collectionView: SFCollectionView, item: DataType) {}
+    public func didSelectCell<DataType: Hashable>(_ cell: SFCollectionViewCell, at indexPath: IndexPath, item: DataType, collectionView: SFCollectionView) {}
 
     public func heightForRow(at indexPath: IndexPath, collectionView: SFCollectionView) -> CGFloat? { return nil }
 
-    public func prepareCell<DataType: Hashable>(_ cell: SFCollectionViewCell, at indexPath: IndexPath, with data: DataType) {}
+    public func prepareCell<DataType: Hashable>(_ cell: SFCollectionViewCell, at indexPath: IndexPath, with item: DataType) {}
 
     public var useCustomHeader: Bool { return false }
 
-    public func prepareHeader<DataType: Hashable>(_ view: SFCollectionViewHeaderView, with data: SFDataSection<DataType>, index: Int) {}
+    public func prepareHeader<DataType: Hashable>(_ view: SFCollectionViewHeaderView, with section: SFDataSection<DataType>, at index: Int) {}
 
     public var useCustomFooter: Bool { return false }
 
-    public func prepareFooter<DataType: Hashable>(_ view: SFCollectionViewFooterView, with data: SFDataSection<DataType>, index: Int) {}
+    public func prepareFooter<DataType: Hashable>(_ view: SFCollectionViewFooterView, with section: SFDataSection<DataType>, at index: Int) {}
 
     public func prefetch<DataType: Hashable>(item: DataType, at indexPath: IndexPath) {}
 
@@ -122,11 +123,11 @@ public final class SFCollectionAdapter
         case UICollectionView.elementKindSectionHeader:
             guard let reusableView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: HeaderType.identifier, for: indexPath) as? HeaderType else { return UICollectionReusableView() }
             reusableView.updateColors()
-            delegate?.prepareHeader(reusableView, with: dataManager[indexPath.section], index: indexPath.section)
+            delegate?.prepareHeader(reusableView, with: dataManager[indexPath.section], at: indexPath.section)
             return reusableView
         case UICollectionView.elementKindSectionFooter:
             guard let reusableView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: FooterType.identifier, for: indexPath) as? FooterType else { return UICollectionReusableView() }
-            delegate?.prepareFooter(reusableView, with: dataManager[indexPath.section], index: indexPath.section)
+            delegate?.prepareFooter(reusableView, with: dataManager[indexPath.section], at: indexPath.section)
             return reusableView
         default: return UICollectionReusableView()
         }
@@ -140,14 +141,17 @@ public final class SFCollectionAdapter
     // MARK: - UICollectionViewDelegate
     
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let collectionView = collectionView as? SFCollectionView else { return }
-        guard let dataManager = dataManager else { return }
+        guard let collectionView = collectionView as? SFCollectionView,
+              let dataManager = dataManager,
+              let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CellType.identifier, for: indexPath) as? CellType
+        else { return }
+        
         if let temporarySearchData = temporarySearchData {
             let item = temporarySearchData[indexPath.row]
-            delegate?.didSelectRow(at: indexPath, collectionView: collectionView, item: item)
+            delegate?.didSelectCell(cell, at: indexPath, item: item, collectionView: collectionView)
         } else {
             let item = dataManager[indexPath.section].content[indexPath.row]
-            delegate?.didSelectRow(at: indexPath, collectionView: collectionView, item: item)
+            delegate?.didSelectCell(cell, at: indexPath, item: item, collectionView: collectionView)
         }
     }
     

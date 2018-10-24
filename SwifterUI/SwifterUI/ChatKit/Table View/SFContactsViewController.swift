@@ -97,7 +97,7 @@ open class SFContactsViewController: SFViewController, SFTableAdapterDelegate, U
     
     // MARK: - SFTableAdapterDelegate
     
-    open func deleted<DataType>(item: DataType, at indexPath: IndexPath) where DataType : Hashable {
+    open func deleted<DataType>(item: DataType, at indexPath: IndexPath) where DataType: Hashable {
         guard let contact = item as? SFUser else { return }
         NotificationCenter.default.post(name: Notification.Name(SFUserNotification.deleted.rawValue), object: nil, userInfo: ["SFUser": contact])
         delete(contact: contact)
@@ -110,11 +110,10 @@ open class SFContactsViewController: SFViewController, SFTableAdapterDelegate, U
             }
         }
     }
-    
-    open func prepareCell<DataType>(_ cell: SFTableViewCell, at indexPath: IndexPath, with data: DataType) where DataType : Hashable {
+
+    open func prepareCell<DataType>(_ cell: SFTableViewCell, at indexPath: IndexPath, with item: DataType) where DataType: Hashable {
         
-        guard let cell = cell as? SFTableViewContactCell else { return }
-        guard let user = data as? SFUser else { return }
+        guard let cell = cell as? SFTableViewContactCell, let user = item as? SFUser else { return }
         
         cell.nameLabel.text = "\(user.name) \(user.lastName)"
         
@@ -127,13 +126,13 @@ open class SFContactsViewController: SFViewController, SFTableAdapterDelegate, U
     
     open var useCustomHeader: Bool { return true }
     
-    open func prepareHeader<DataType>(_ view: SFTableViewHeaderView, with data: SFDataSection<DataType>, index: Int) where DataType : Hashable {
+    open func prepareHeader<DataType>(_ view: SFTableViewHeaderView, with section: SFDataSection<DataType>, at index: Int) where DataType: Hashable {
         view.useAlternativeColors = true
         view.titleLabel.useAlternativeColors = true
-        view.titleLabel.text = data.identifier
+        view.titleLabel.text = section.identifier
     }
     
-    open func didSelectRow<DataType>(at indexPath: IndexPath, tableView: SFTableView, item: DataType) where DataType: Hashable {
+    public func didSelectCell<DataType>(_ cell: SFTableViewCell, at indexPath: IndexPath, item: DataType, tableView: SFTableView) where DataType: Hashable {
         guard let item = item as? SFUser else { return }
         let chat = getChat(for: item)
         dismiss(animated: true) {

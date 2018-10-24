@@ -12,7 +12,7 @@ open class SFNavigationController: UINavigationController, SFControllerColorStyl
     
     // MARK: - Instance Properties
     
-    open var currentColorStyle: SFColorStyle? = nil
+    open var currentColorStyle: SFColorStyle?
     
     open var automaticallyAdjustsColorStyle: Bool = true {
         didSet {

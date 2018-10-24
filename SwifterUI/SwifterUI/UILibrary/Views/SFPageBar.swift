@@ -130,8 +130,8 @@ open class SFPageBar: SFScrollView {
                 self.updateColors()
             })
         }
-        self.scrollIndicator.removeConstraint(.width)
-        self.scrollIndicator.removeConstraint(.left)
+        self.scrollIndicator.removeConstraint(type: .width)
+        self.scrollIndicator.removeConstraint(type: .left)
         self.scrollIndicator.width(SFDimension(type: .fraction, value: 1), comparedTo: self.buttons[self.selectedIndex])
         self.scrollIndicator.clipLeft(to: .left, of: self.buttons[self.selectedIndex])
     }
@@ -158,16 +158,3 @@ open class SFPageBar: SFScrollView {
         })
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

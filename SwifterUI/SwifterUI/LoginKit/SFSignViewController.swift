@@ -173,19 +173,3 @@ open class SFSignViewController: SFViewController {
     }
     
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

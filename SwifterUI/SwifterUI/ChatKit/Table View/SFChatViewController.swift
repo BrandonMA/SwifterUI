@@ -225,7 +225,7 @@ open class SFChatViewController: SFViewController, UITableViewDelegate, UIImageP
     
     // MARK: - UIImagePickerControllerDelegate
     
-    public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+    public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         if let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             
             let message = getImageMessage(with: originalImage, url: "")
@@ -268,7 +268,7 @@ open class SFChatViewController: SFViewController, UITableViewDelegate, UIImageP
         return SFMessage(senderIdentifier: currentUser.identifier, chatIdentifier: chat.identifier, image: image, imageURL: url)
     }
     
-    open func upload(imageMessage: SFMessage, completion: @escaping (SFMessage, Error?) -> Void)  {
+    open func upload(imageMessage: SFMessage, completion: @escaping (SFMessage, Error?) -> Void) {
         completion(imageMessage, nil)
     }
     
@@ -295,14 +295,10 @@ extension SFChatViewController: SFTableViewChatCellDelegate {
         cell.bubbleView.alpha = 0.0
         currentZoomCell = cell
         
-        let animator = UIViewPropertyAnimator(damping: 0.6, response: 0.5)
-        
-        animator.addAnimations {
+        UIView.animate(withDuration: 0.3, animations: {
             self.zoomImageView.frame = self.view.bounds
             self.zoomImageView.layer.cornerRadius = 0
-        }
-        
-        animator.addCompletion { (_) in
+        }, completion: { (_) in
             let zoomViewController = SFImageViewController(with: image)
             let transition = CATransition()
             transition.duration = 0.3
@@ -310,18 +306,16 @@ extension SFChatViewController: SFTableViewChatCellDelegate {
             transition.type = CATransitionType.fade
             self.navigationController?.view.layer.add(transition, forKey: nil)
             self.navigationController?.pushViewController(zoomViewController, animated: false)
-        }
-        
-        animator.startAnimation()
+        })
     }
     
     private func zoomOut() {
         UIView.animate(withDuration: 0.3, animations: {
             self.zoomImageView.frame = self.initialFrameForZooming
-        }) { (_) in
+        }, completion: { (_) in
             self.currentZoomCell?.bubbleView.alpha = 1.0
             self.zoomImageView.removeFromSuperview()
-        }
+        })
     }
     
 }
@@ -362,10 +356,9 @@ extension SFChatViewController: SFTableAdapterDelegate {
         return height
     }
     
-    public func prepareCell<DataType>(_ cell: SFTableViewCell, at indexPath: IndexPath, with data: DataType) where DataType : Hashable {
+    public func prepareCell<DataType>(_ cell: SFTableViewCell, at indexPath: IndexPath, with item: DataType) where DataType: Hashable {
         
-        guard let cell = cell as? SFTableViewChatCell else { return }
-        guard let message = data as? SFMessage else { return }
+        guard let cell = cell as? SFTableViewChatCell, let message = item as? SFMessage else { return }
         
         cell.delegate = self
         
@@ -418,8 +411,8 @@ extension SFChatViewController: SFTableAdapterDelegate {
     
     public var useCustomHeader: Bool { return true }
     
-    public func prepareHeader<DataType>(_ view: SFTableViewHeaderView, with data: SFDataSection<DataType>, index: Int) where DataType : Hashable {
-        guard let section = data as? SFDataSection<SFMessage> else { return }
+    public func prepareHeader<DataType>(_ view: SFTableViewHeaderView, with section: SFDataSection<DataType>, index: Int) where DataType: Hashable {
+        guard let section = section as? SFDataSection<SFMessage> else { return }
         view.titleLabel.text = section.identifier
         view.titleLabel.textAlignment = .center
         view.titleLabel.font = UIFont.boldSystemFont(ofSize: 13)
@@ -427,7 +420,7 @@ extension SFChatViewController: SFTableAdapterDelegate {
         view.useAlternativeColors = true
     }
     
-    public func prefetch<DataType>(item: DataType, at indexPath: IndexPath) where DataType : Hashable {
+    public func prefetch<DataType>(item: DataType, at indexPath: IndexPath) where DataType: Hashable {
         guard let message = item as? SFMessage else { return }
         calculateWidth(for: message, indexPath: indexPath)
     }
@@ -437,7 +430,7 @@ extension SFChatViewController: UITextViewDelegate {
     
     public func textViewDidBeginEditing(_ textView: UITextView) {
         
-        chatBar.sendButton.getConstraint(.right)?.constant = -8
+        chatBar.sendButton.getConstraint(type: .right)?.constant = -8
         
         let animator = UIViewPropertyAnimator(damping: 0.7, response: 0.6)
         
@@ -455,7 +448,7 @@ extension SFChatViewController: UITextViewDelegate {
     
     public func textViewDidEndEditing(_ textView: UITextView) {
         
-        chatBar.sendButton.getConstraint(.right)?.constant = 28
+        chatBar.sendButton.getConstraint(type: .right)?.constant = 28
         
         let animator = UIViewPropertyAnimator(damping: 0.7, response: 0.6)
         

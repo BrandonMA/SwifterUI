@@ -11,19 +11,19 @@ import DeepDiff
 
 public protocol SFTableAdapterDelegate: class {
     
-    func didSelectRow<DataType: Hashable>(at indexPath: IndexPath, tableView: SFTableView, item: DataType)
+    func didSelectCell<DataType: Hashable>(_ cell: SFTableViewCell, at indexPath: IndexPath, item: DataType, tableView: SFTableView)
     
     func heightForRow(at indexPath: IndexPath, tableView: SFTableView) -> CGFloat?
     
-    func prepareCell<DataType: Hashable>(_ cell: SFTableViewCell, at indexPath: IndexPath, with data: DataType)
+    func prepareCell<DataType: Hashable>(_ cell: SFTableViewCell, at indexPath: IndexPath, with item: DataType)
     
     var useCustomHeader: Bool { get }
     
-    func prepareHeader<DataType: Hashable>(_ view: SFTableViewHeaderView, with data: SFDataSection<DataType>, index: Int)
+    func prepareHeader<DataType: Hashable>(_ view: SFTableViewHeaderView, with section: SFDataSection<DataType>, at index: Int)
     
     var useCustomFooter: Bool { get }
     
-    func prepareFooter<DataType: Hashable>(_ view: SFTableViewFooterView, with data: SFDataSection<DataType>, index: Int)
+    func prepareFooter<DataType: Hashable>(_ view: SFTableViewFooterView, with section: SFDataSection<DataType>, at index: Int)
     
     func prefetch<DataType: Hashable>(item: DataType, at indexPath: IndexPath)
     
@@ -32,19 +32,19 @@ public protocol SFTableAdapterDelegate: class {
 
 public extension SFTableAdapterDelegate {
     
-    public func didSelectRow<DataType: Hashable>(at indexPath: IndexPath, tableView: SFTableView, item: DataType) {}
+    public func didSelectCell<DataType: Hashable>(_ cell: SFTableViewCell, at indexPath: IndexPath, item: DataType, tableView: SFTableView) {}
     
     public func heightForRow(at indexPath: IndexPath, tableView: SFTableView) -> CGFloat? { return nil }
     
-    public func prepareCell<DataType: Hashable>(_ cell: SFTableViewCell, at indexPath: IndexPath, with data: DataType) {}
+    public func prepareCell<DataType: Hashable>(_ cell: SFTableViewCell, at indexPath: IndexPath, with item: DataType) {}
     
     public var useCustomHeader: Bool { return false }
     
-    public func prepareHeader<DataType: Hashable>(_ view: SFTableViewHeaderView, with data: SFDataSection<DataType>, index: Int) {}
+    public func prepareHeader<DataType: Hashable>(_ view: SFTableViewHeaderView, with section: SFDataSection<DataType>, at index: Int) {}
     
     public var useCustomFooter: Bool { return false }
     
-    public func prepareFooter<DataType: Hashable>(_ view: SFTableViewFooterView, with data: SFDataSection<DataType>, index: Int) {}
+    public func prepareFooter<DataType: Hashable>(_ view: SFTableViewFooterView, with section: SFDataSection<DataType>, at index: Int) {}
     
     public func prefetch<DataType: Hashable>(item: DataType, at indexPath: IndexPath) {}
     
@@ -167,14 +167,16 @@ public final class SFTableAdapter
     }
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let tableView = tableView as? SFTableView else { return }
-        guard let dataManager = dataManager else { return }
+        guard let tableView = tableView as? SFTableView,
+              let dataManager = dataManager,
+              let cell = tableView.dequeueReusableCell(withIdentifier: CellType.identifier, for: indexPath) as? CellType
+        else { return }
         if let temporarySearchData = temporarySearchData {
             let item = temporarySearchData[indexPath.row]
-            delegate?.didSelectRow(at: indexPath, tableView: tableView, item: item)
+            delegate?.didSelectCell(cell, at: indexPath, item: item, tableView: tableView)
         } else {
             let item = dataManager[indexPath.section].content[indexPath.row]
-            delegate?.didSelectRow(at: indexPath, tableView: tableView, item: item)
+            delegate?.didSelectCell(cell, at: indexPath, item: item, tableView: tableView)
         }
     }
     
@@ -200,7 +202,7 @@ public final class SFTableAdapter
                 return nil
             }
             guard let dataManager = dataManager else { return nil }
-            delegate.prepareHeader(view, with: dataManager[section], index: section)
+            delegate.prepareHeader(view, with: dataManager[section], at: section)
             view.updateColors()
             return view
         } else {
@@ -225,7 +227,7 @@ public final class SFTableAdapter
                 return nil
             }
             guard let dataManager = dataManager else { return nil }
-            delegate.prepareFooter(view, with: dataManager[section], index: section)
+            delegate.prepareFooter(view, with: dataManager[section], at: section)
             view.updateColors()
             return view
         } else {

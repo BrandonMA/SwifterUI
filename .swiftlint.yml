@@ -1,13 +1,12 @@
 excluded:
   - Pods
+  - SwifterUI/SwifterUI/UILibrary/Assets/SFAssets.swift
+
 disabled_rules:
   - trailing_whitespace
   - trailing_newline
   - identifier_name
-
-line_length:
-  warning: 140
-  error: 200
+  - line_length
 
 type_body_length:
   warning: 700

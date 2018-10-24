@@ -129,15 +129,15 @@ public final class SFTableViewChatCell: SFTableViewCell {
         
         super.layoutSubviews()
         
-        bubbleView.removeConstraint(.width)
-        bubbleView.removeConstraint(.left)
-        bubbleView.removeConstraint(.right)
+        bubbleView.removeConstraint(type: .width)
+        bubbleView.removeConstraint(type: .left)
+        bubbleView.removeConstraint(type: .right)
         
-        userImageView.removeConstraint(.left)
-        userImageView.removeConstraint(.right)
+        userImageView.removeConstraint(type: .left)
+        userImageView.removeConstraint(type: .right)
         
-        timeLabel.removeConstraint(.left)
-        timeLabel.removeConstraint(.right)
+        timeLabel.removeConstraint(type: .left)
+        timeLabel.removeConstraint(type: .right)
         
         if messageImageView.image != nil {
             bubbleView.width(SFDimension(value: width))

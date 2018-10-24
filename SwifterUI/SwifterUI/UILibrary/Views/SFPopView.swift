@@ -67,7 +67,7 @@ open class SFPopView: SFView {
     
     open override func updateConstraints() {
         
-        contentView.removeConstraint(.width)
+        contentView.removeConstraint(type: .width)
         
         if useCompactInterface {
             contentView.width(SFDimension(type: .fraction, value: 11/12))

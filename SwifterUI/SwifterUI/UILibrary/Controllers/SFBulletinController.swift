@@ -139,11 +139,19 @@ open class SFBulletinViewController: SFPopViewController {
         popView.translatesAutoresizingMaskIntoConstraints = false
     }
     
-    open override func viewDidLoad() {
-        super.viewDidLoad()
+    open override func viewWillPrepareSubViews() {
         view.addSubview(bulletinView)
+        super.viewWillPrepareSubViews()
+    }
+    
+    open override func viewWillSetConstraints() {
         bulletinView.clipTop(to: .top, useSafeArea: false)
         bulletinView.clipSides(exclude: [.top])
+        super.viewWillSetConstraints()
+    }
+    
+    open override func viewDidLoad() {
+        super.viewDidLoad()
         
         bulletinView.closeButton.addAction { [unowned self] in
             self.closeButtonDidTouch()

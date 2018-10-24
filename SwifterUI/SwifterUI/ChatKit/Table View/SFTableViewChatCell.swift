@@ -59,6 +59,7 @@ public final class SFTableViewChatCell: SFTableViewCell {
         imageView.isUserInteractionEnabled = true
         imageView.backgroundColor = .clear
         imageView.clipsToBounds = true
+        imageView.layer.cornerRadius = 10
         return imageView
     }()
     

@@ -48,10 +48,18 @@ open class SFConversationsTableViewController: SFViewController {
     
     // MARK: - Instance Methods
     
-    open override func viewDidLoad() {
-        super.viewDidLoad()
+    open override func viewWillPrepareSubViews() {
         view.addSubview(tableView)
+        super.viewWillPrepareSubViews()
+    }
+    
+    open override func viewWillSetConstraints() {
         tableView.clipSides()
+        super.viewWillSetConstraints()
+    }
+    
+    open override func viewDidLoad() {
+        super.viewDidLoad()        
         NotificationCenter.default.addObserver(self, selector: #selector(newMessage(notification:)), name: Notification.Name(SFChatNotification.unreadMessagesUpdate.rawValue), object: nil)
     }
     

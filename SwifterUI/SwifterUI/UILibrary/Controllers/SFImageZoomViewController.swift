@@ -61,7 +61,6 @@ public final class SFImageViewController: SFViewController {
     
     public override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(imageDidTap)))
     }
     

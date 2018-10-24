@@ -74,6 +74,8 @@ open class SFChatViewController: SFViewController, UITableViewDelegate, UIImageP
     private lazy var zoomImageView: UIImageView = {
         let zoomImageView = UIImageView()
         zoomImageView.contentMode = .scaleAspectFit
+        zoomImageView.clipsToBounds = true
+        zoomImageView.layer.cornerRadius = 10
         return zoomImageView
     }()
     
@@ -97,14 +99,21 @@ open class SFChatViewController: SFViewController, UITableViewDelegate, UIImageP
     
     // MARK: - Instance Methods
     
+    open override func viewWillPrepareSubViews() {
+        view.addSubview(chatView)
+        super.viewWillPrepareSubViews()
+    }
+    
+    open override func viewWillSetConstraints() {
+        chatView.clipSides()
+        super.viewWillSetConstraints()
+    }
+    
     override open func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(chatView)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(newMessage(notification:)), name: Notification.Name(SFChatNotification.newMessage.rawValue), object: nil)
-        chatView.clipSides()
-        tabBarController?.tabBar.isHidden = true
     }
     
     open override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -133,6 +142,10 @@ open class SFChatViewController: SFViewController, UITableViewDelegate, UIImageP
     open override func prepare(navigationController: UINavigationController) {
         navigationItem.largeTitleDisplayMode = .never
         navigationItem.titleView = navigationView
+    }
+    
+    open override func prepare(tabBarController: UITabBarController) {
+        tabBarController.tabBar.isHidden = true
     }
     
     open override func updateColors() {
@@ -312,6 +325,7 @@ extension SFChatViewController: SFTableViewChatCellDelegate {
     private func zoomOut() {
         UIView.animate(withDuration: 0.3, animations: {
             self.zoomImageView.frame = self.initialFrameForZooming
+            self.zoomImageView.layer.cornerRadius = 10
         }, completion: { (_) in
             self.currentZoomCell?.bubbleView.alpha = 1.0
             self.zoomImageView.removeFromSuperview()
@@ -323,7 +337,6 @@ extension SFChatViewController: SFTableViewChatCellDelegate {
 extension SFChatViewController: SFTableAdapterDelegate {
     
     func calculateWidth(for message: SFMessage, indexPath: IndexPath) {
-        
         if message.videoURL != nil || message.image != nil {
             cachedWidths[indexPath] = (chatView.bounds.width * 2/3)
         } else {
@@ -338,7 +351,7 @@ extension SFChatViewController: SFTableAdapterDelegate {
             let message = chat.messagesManager.getItem(at: indexPath)
             
             if let image = message.image {
-                let height = ((chatView.bounds.width * 2/3) * (image.size.height / image.size.width)) + 48
+                let height = ((chatView.bounds.width * 2/3) * (image.size.height / image.size.width)) + 56
                 cachedHeights[indexPath] = height
                 return height
             } else if message.videoURL != nil {
@@ -411,7 +424,7 @@ extension SFChatViewController: SFTableAdapterDelegate {
     
     public var useCustomHeader: Bool { return true }
     
-    public func prepareHeader<DataType>(_ view: SFTableViewHeaderView, with section: SFDataSection<DataType>, index: Int) where DataType: Hashable {
+    public func prepareHeader<DataType>(_ view: SFTableViewHeaderView, with section: SFDataSection<DataType>, at index: Int) where DataType: Hashable {
         guard let section = section as? SFDataSection<SFMessage> else { return }
         view.titleLabel.text = section.identifier
         view.titleLabel.textAlignment = .center

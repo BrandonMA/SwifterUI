@@ -55,10 +55,14 @@ open class SFContactsViewController: SFViewController, SFTableAdapterDelegate, U
     
     // MARK: - Instance Methods
     
-    open override func viewDidLoad() {
-        super.viewDidLoad()
+    open override func viewWillPrepareSubViews() {
         view.addSubview(tableView)
+        super.viewWillPrepareSubViews()
+    }
+    
+    open override func viewWillSetConstraints() {
         tableView.clipSides()
+        super.viewWillSetConstraints()
     }
     
     open override func prepare(navigationController: UINavigationController) {
@@ -131,8 +135,8 @@ open class SFContactsViewController: SFViewController, SFTableAdapterDelegate, U
         view.titleLabel.useAlternativeColors = true
         view.titleLabel.text = section.identifier
     }
-    
-    public func didSelectCell<DataType>(_ cell: SFTableViewCell, at indexPath: IndexPath, item: DataType, tableView: SFTableView) where DataType: Hashable {
+
+    open func didSelectCell<DataType>(_ cell: SFTableViewCell, at indexPath: IndexPath, item: DataType, tableView: SFTableView) where DataType: Hashable {
         guard let item = item as? SFUser else { return }
         let chat = getChat(for: item)
         dismiss(animated: true) {

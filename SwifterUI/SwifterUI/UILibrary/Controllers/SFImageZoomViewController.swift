@@ -13,7 +13,6 @@ public final class SFImageViewController: SFViewController {
     // MARK: - Instance Properties
     
     public var animateClosing = false
-    public var isPreview = false
     
     public final lazy var imageZoomView: SFImageZoomView = {
         let view = SFImageZoomView()
@@ -95,9 +94,7 @@ public final class SFImageViewController: SFViewController {
     
     public override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if isPreview {
-            centerImage(with: imageZoomView.zoomScale)
-        }
+        centerImage(with: imageZoomView.zoomScale)
     }
     
     private func centerImage(with scale: CGFloat) {

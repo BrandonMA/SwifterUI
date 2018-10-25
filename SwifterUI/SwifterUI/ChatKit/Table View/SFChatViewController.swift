@@ -163,11 +163,9 @@ open class SFChatViewController: SFViewController, UITableViewDelegate, UIImageP
             chatView.scrollIndicatorInsets.bottom = chatView.contentInset.bottom
             
             if chatView.isDragging == false && chatView.contentOffset.y > -64 {
-                if isWaitingForPopViewController {
-                    if zoomImageView.superview != nil {
-                        zoomOut()
-                        isWaitingForPopViewController.toggle()
-                    }
+                if isWaitingForPopViewController && zoomImageView.superview != nil {
+                    zoomOut()
+                    isWaitingForPopViewController.toggle()
                 } else {
                     self.chatView.scrollToBottom(animated: false)
                 }
@@ -497,7 +495,6 @@ extension SFChatViewController: UIViewControllerPreviewingDelegate {
         guard let image = message.image else { return nil }
         let controller = SFImageViewController(with: image)
         controller.animateClosing = true
-        controller.isPreview = true
         return controller
     }
     

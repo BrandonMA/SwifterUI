@@ -125,7 +125,9 @@ open class SFChatViewController: SFViewController, UITableViewDelegate, UIImageP
     
     override open func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        if !isWaitingForPopViewController {
+        if isWaitingForPopViewController {
+            isWaitingForPopViewController.toggle()
+        } else {
             DispatchQueue.main.async {
                 self.chatView.scrollToBottom(animated: false)
             }
@@ -501,6 +503,7 @@ extension SFChatViewController: UIViewControllerPreviewingDelegate {
     }
     
     public func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        isWaitingForPopViewController = true
         navigationController?.pushViewController(viewControllerToCommit, animated: true)
     }
 }

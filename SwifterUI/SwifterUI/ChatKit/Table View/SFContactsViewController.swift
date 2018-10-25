@@ -136,7 +136,7 @@ open class SFContactsViewController: SFViewController, SFTableAdapterDelegate, U
         view.titleLabel.text = section.identifier
     }
 
-    open func didSelectCell<DataType>(_ cell: SFTableViewCell, at indexPath: IndexPath, item: DataType, tableView: SFTableView) where DataType: Hashable {
+    open func didSelectCell<DataType>(with item: DataType, at indexPath: IndexPath, tableView: SFTableView) where DataType : Hashable {
         guard let item = item as? SFUser else { return }
         let chat = getChat(for: item)
         dismiss(animated: true) {

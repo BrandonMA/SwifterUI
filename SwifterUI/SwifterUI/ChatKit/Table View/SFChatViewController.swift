@@ -307,12 +307,12 @@ extension SFChatViewController: SFTableViewChatCellDelegate {
         cell.bubbleView.alpha = 0.0
         currentZoomCell = cell
         
-        UIView.animate(withDuration: 5, animations: {
+        UIView.animate(withDuration: 0.3, animations: {
             self.zoomImageView.frame = self.view.bounds
         }, completion: { (_) in
             let zoomViewController = SFImageViewController(with: image)
             let transition = CATransition()
-            transition.duration = 5
+            transition.duration = 0.3
             transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
             transition.type = CATransitionType.fade
             self.navigationController?.view.layer.add(transition, forKey: nil)

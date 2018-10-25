@@ -39,6 +39,7 @@ public final class SFTableViewChatCell: SFTableViewCell {
         let view = SFBubbleView(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 10
+        view.clipsToBounds = true
         return view
     }()
     
@@ -59,7 +60,6 @@ public final class SFTableViewChatCell: SFTableViewCell {
         imageView.isUserInteractionEnabled = true
         imageView.backgroundColor = .clear
         imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = 10
         return imageView
     }()
     
@@ -93,7 +93,7 @@ public final class SFTableViewChatCell: SFTableViewCell {
         indicator.translatesAutoresizingMaskIntoConstraints = false
         return indicator
     }()
-        
+    
     // MARK: - Instance Methods
     
     public override func prepareSubviews() {

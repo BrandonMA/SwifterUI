@@ -12,7 +12,7 @@ import DeepDiff
 
 public protocol SFCollectionAdapterDelegate: class {
 
-    func didSelectCell<DataType: Hashable>(_ cell: SFCollectionViewCell, at indexPath: IndexPath, item: DataType, collectionView: SFCollectionView)
+    func didSelectCell<DataType: Hashable>(with item: DataType, at indexPath: IndexPath, collectionView: SFCollectionView)
 
     func heightForRow(at indexPath: IndexPath, collectionView: SFCollectionView) -> CGFloat?
 
@@ -33,7 +33,7 @@ public protocol SFCollectionAdapterDelegate: class {
 
 public extension SFCollectionAdapterDelegate {
 
-    public func didSelectCell<DataType: Hashable>(_ cell: SFCollectionViewCell, at indexPath: IndexPath, item: DataType, collectionView: SFCollectionView) {}
+    public func didSelectCell<DataType: Hashable>(with item: DataType, at indexPath: IndexPath, collectionView: SFCollectionView) {}
 
     public func heightForRow(at indexPath: IndexPath, collectionView: SFCollectionView) -> CGFloat? { return nil }
 
@@ -142,16 +142,15 @@ public final class SFCollectionAdapter
     
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let collectionView = collectionView as? SFCollectionView,
-              let dataManager = dataManager,
-              let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CellType.identifier, for: indexPath) as? CellType
+              let dataManager = dataManager
         else { return }
         
         if let temporarySearchData = temporarySearchData {
             let item = temporarySearchData[indexPath.row]
-            delegate?.didSelectCell(cell, at: indexPath, item: item, collectionView: collectionView)
+            delegate?.didSelectCell(with: item, at: indexPath, collectionView: collectionView)
         } else {
             let item = dataManager[indexPath.section].content[indexPath.row]
-            delegate?.didSelectCell(cell, at: indexPath, item: item, collectionView: collectionView)
+            delegate?.didSelectCell(with: item, at: indexPath, collectionView: collectionView)
         }
     }
     

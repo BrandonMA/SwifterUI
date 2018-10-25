@@ -11,7 +11,7 @@ import DeepDiff
 
 public protocol SFTableAdapterDelegate: class {
     
-    func didSelectCell<DataType: Hashable>(_ cell: SFTableViewCell, at indexPath: IndexPath, item: DataType, tableView: SFTableView)
+    func didSelectCell<DataType: Hashable>(with item: DataType, at indexPath: IndexPath, tableView: SFTableView)
     
     func heightForRow(at indexPath: IndexPath, tableView: SFTableView) -> CGFloat?
     
@@ -32,7 +32,7 @@ public protocol SFTableAdapterDelegate: class {
 
 public extension SFTableAdapterDelegate {
     
-    public func didSelectCell<DataType: Hashable>(_ cell: SFTableViewCell, at indexPath: IndexPath, item: DataType, tableView: SFTableView) {}
+    public func didSelectCell<DataType: Hashable>(with item: DataType, at indexPath: IndexPath, tableView: SFTableView) {}
     
     public func heightForRow(at indexPath: IndexPath, tableView: SFTableView) -> CGFloat? { return nil }
     
@@ -168,15 +168,14 @@ public final class SFTableAdapter
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let tableView = tableView as? SFTableView,
-              let dataManager = dataManager,
-              let cell = tableView.dequeueReusableCell(withIdentifier: CellType.identifier, for: indexPath) as? CellType
+              let dataManager = dataManager
         else { return }
         if let temporarySearchData = temporarySearchData {
             let item = temporarySearchData[indexPath.row]
-            delegate?.didSelectCell(cell, at: indexPath, item: item, tableView: tableView)
+            delegate?.didSelectCell(with: item, at: indexPath, tableView: tableView)
         } else {
             let item = dataManager[indexPath.section].content[indexPath.row]
-            delegate?.didSelectCell(cell, at: indexPath, item: item, tableView: tableView)
+            delegate?.didSelectCell(with: item, at: indexPath, tableView: tableView)
         }
     }
     

@@ -490,16 +490,18 @@ extension SFChatViewController: UITextViewDelegate {
 }
 
 extension SFChatViewController: UIViewControllerPreviewingDelegate {
-
+    
     public func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
         guard let indexPath = chatView.indexPathForRow(at: location) else { return nil }
         let message = chat.messagesManager.getItem(at: indexPath)
         guard let image = message.image else { return nil }
         let controller = SFImageViewController(with: image)
+        controller.animateClosing = true
         return controller
     }
-
+    
     public func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
         navigationController?.pushViewController(viewControllerToCommit, animated: true)
     }
 }
+

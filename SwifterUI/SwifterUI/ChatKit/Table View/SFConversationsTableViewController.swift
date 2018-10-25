@@ -162,7 +162,7 @@ extension SFConversationsTableViewController: SFTableAdapterDelegate {
         }
     }
     
-    public func didSelectCell<DataType>(with item: DataType, at indexPath: IndexPath, tableView: SFTableView) where DataType : Hashable {
+    public func didSelectCell<DataType>(with item: DataType, at indexPath: IndexPath, tableView: SFTableView) where DataType: Hashable {
         guard let chat = item as? SFChat else { return }
         open(chat: chat)
     }

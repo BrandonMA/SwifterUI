@@ -68,9 +68,11 @@ public final class SFImageViewController: SFViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action,
                                                             target: self,
                                                             action: #selector(shareButtonDidTouch))
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done,
-                                                           target: self,
-                                                           action: #selector(dismissViewController))
+        if !animateClosing {
+            navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done,
+                                                               target: self,
+                                                               action: #selector(dismissViewController))
+        }
     }
     
     public override func prepare(tabBarController: UITabBarController) {
@@ -88,6 +90,11 @@ public final class SFImageViewController: SFViewController {
         if imageZoomView.zoomScale == 1 {
             imageZoomView.zoomScale = minimumZoomScale
         }
+    }
+    
+    public override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        centerImage(with: imageZoomView.zoomScale)
     }
     
     private func centerImage(with scale: CGFloat) {

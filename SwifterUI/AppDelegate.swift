@@ -46,6 +46,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         newContact3.profilePictureURL = "https://randomuser.me/api/portraits/men/70.jpg"
         brandon.addNew(contact: newContact3)
         
+        let chat = SFSingleChat(users: [brandon.identifier, newContact.identifier], messages: [], name: "\(brandon.name) \(newContact.lastName)")
+        chat.currentUser = brandon
+        chat.contact = newContact
+        brandon.addNew(chat: chat)
+        newContact.addNew(chat: chat)
+        let message = SFMessage(senderIdentifier: brandon.identifier, chatIdentifier: chat.identifier)
+        chat.addNew(message: message)
+        
         window?.rootViewController = SFNavigationController(rootViewController: SFConversationsTableViewController(user: brandon))
         
         window?.makeKeyAndVisible()

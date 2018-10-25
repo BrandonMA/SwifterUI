@@ -87,6 +87,12 @@ public final class SFTableViewChatCell: SFTableViewCell {
         label.numberOfLines = 1
         return label
     }()
+    
+    public final lazy var activityIndicator: SFActivityIndicatorView = {
+        let indicator = SFActivityIndicatorView(automaticallyAdjustsColorStyle: false, style: .white)
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        return indicator
+    }()
         
     // MARK: - Instance Methods
     
@@ -99,6 +105,7 @@ public final class SFTableViewChatCell: SFTableViewCell {
         bubbleView.addSubview(messageLabel)
         bubbleView.addSubview(messageImageView)
         bubbleView.addSubview(messageVideoView)
+        bubbleView.addSubview(activityIndicator)
         
         useAlternativeColors = true
         
@@ -123,6 +130,7 @@ public final class SFTableViewChatCell: SFTableViewCell {
         messageLabel.clipSides(margin: UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8))
         messageImageView.clipSides()
         messageVideoView.clipSides()
+        activityIndicator.center()
         super.setConstraints()
     }
     

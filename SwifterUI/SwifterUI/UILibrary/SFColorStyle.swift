@@ -33,7 +33,7 @@ public enum SFColorStyle {
     /**
      - returns: Corresponding color of an UIActivityIndicatorView depending on the current color style.
      */
-    public func getUIActivityIndicatorStyle() -> UIActivityIndicatorView.Style {
+    public func getActivityIndicatorStyle() -> UIActivityIndicatorView.Style {
         switch self {
         case .light: return .gray
         case .dark: return .white

@@ -339,7 +339,7 @@ extension SFChatViewController: SFTableAdapterDelegate {
     func calculateWidth(for message: SFMessage, indexPath: IndexPath) {
         if message.videoURL != nil || message.image != nil {
             cachedWidths[indexPath] = (chatView.bounds.width * 2/3)
-        } else {
+        } else if message.text != nil {
             cachedWidths[indexPath] = message.text?.estimatedFrame(with: UIFont.systemFont(ofSize: 17), maxWidth: (chatView.bounds.width * 2/3) - 16).size.width ?? 0
         }
     }
@@ -358,13 +358,14 @@ extension SFChatViewController: SFTableAdapterDelegate {
                 let height = chatView.bounds.width * 2/3
                 cachedHeights[indexPath] = height
                 return height
-            } else {
+            } else if message.text != nil {
                 guard let size = message.text?.estimatedFrame(with: UIFont.systemFont(ofSize: 17), maxWidth: (self.view.bounds.width * 2/3) - 16) else { return 0 }
                 let height = size.height + 33 + 48
                 cachedHeights[indexPath] = height
                 return height
+            } else {
+                return 106
             }
-            
         }
         return height
     }
@@ -385,29 +386,38 @@ extension SFChatViewController: SFTableAdapterDelegate {
             cell.messageImageView.image = image
             cell.messageVideoView.cleanView()
             cell.messageVideoView.delegate = nil
+            cell.activityIndicator.isHidden = true
+            cell.activityIndicator.stopAnimating()
             cell.bubbleView.bringSubviewToFront(cell.messageImageView)
-        } else if let string = message.imageURL, let url = URL(string: string) {
-            cell.messageImageView.kf.setImage(with: url)
-            cell.messageVideoView.cleanView()
-            cell.messageVideoView.delegate = nil
-            cell.bubbleView.bringSubviewToFront(cell.messageImageView)
+            registerForPreviewing(with: self, sourceView: cell.messageImageView)
         } else if let string = message.videoURL, let url = URL(string: string) {
             cell.messageVideoView.delegate = self
             cell.messageVideoView.setVideo(with: url)
+            cell.activityIndicator.isHidden = true
+            cell.activityIndicator.stopAnimating()
             cell.bubbleView.bringSubviewToFront(cell.messageVideoView)
-        } else {
+        } else if message.text != nil {
             cell.messageImageView.image = nil
             cell.messageLabel.text = message.text
             cell.messageVideoView.cleanView()
             cell.messageVideoView.delegate = nil
+            cell.activityIndicator.isHidden = true
+            cell.activityIndicator.stopAnimating()
             cell.bubbleView.bringSubviewToFront(cell.messageLabel)
+        } else {
+            cell.messageImageView.image = nil
+            cell.messageLabel.text = nil
+            cell.messageVideoView.cleanView()
+            cell.messageVideoView.delegate = nil
+            cell.activityIndicator.isHidden = false
+            cell.activityIndicator.startAnimating()
         }
         
         if cachedWidths[indexPath] == nil {
             calculateWidth(for: message, indexPath: indexPath)
         }
         
-        cell.width = self.cachedWidths[indexPath] ?? 0
+        cell.width = self.cachedWidths[indexPath] ?? 50.0
         
         cell.isUserInteractionEnabled = true
         
@@ -479,18 +489,17 @@ extension SFChatViewController: UITextViewDelegate {
     
 }
 
-// Implementation to be used when migration to uicollectionview is completed
-//extension SFChatViewController: UIViewControllerPreviewingDelegate {
-//
-//    public func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
-//        guard let indexPath = chatView.indexPathForRow(at: location) else { return nil }
-//        let message = chat.messagesManager.getItem(at: indexPath)
-//        guard let image = message.image else { return nil }
-//        let controller = SFImageViewController(with: image)
-//        return controller
-//    }
-//
-//    public func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
-//        navigationController?.pushViewController(viewControllerToCommit, animated: true)
-//    }
-//}
+extension SFChatViewController: UIViewControllerPreviewingDelegate {
+
+    public func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        guard let indexPath = chatView.indexPathForRow(at: location) else { return nil }
+        let message = chat.messagesManager.getItem(at: indexPath)
+        guard let image = message.image else { return nil }
+        let controller = SFImageViewController(with: image)
+        return controller
+    }
+
+    public func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        navigationController?.pushViewController(viewControllerToCommit, animated: true)
+    }
+}

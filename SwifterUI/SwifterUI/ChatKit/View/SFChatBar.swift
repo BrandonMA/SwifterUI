@@ -88,4 +88,9 @@ open class SFChatBar: SFView {
         super.setConstraints()
     }
     
+    open override func updateColors() {
+        backgroundColor = .clear
+        updateSubviewsColors()
+    }
+    
 }

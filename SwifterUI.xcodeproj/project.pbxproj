@@ -64,6 +64,8 @@
 		42838206206DA49000039F66 /* SFImageZoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42838205206DA49000039F66 /* SFImageZoomViewController.swift */; };
 		42838208206DA4D200039F66 /* SFImageZoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42838207206DA4D200039F66 /* SFImageZoomView.swift */; };
 		4286042C20A0D27C00D785FC /* SFCollectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4286042B20A0D27C00D785FC /* SFCollectionManager.swift */; };
+		428E2C4F2181C1F600984887 /* SFActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428E2C4E2181C1F600984887 /* SFActivityIndicatorView.swift */; };
+		428E2C512181C84200984887 /* SFTextSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428E2C502181C84200984887 /* SFTextSection.swift */; };
 		42933BF42097D2AB00ED7175 /* SFTableManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42933BF32097D2AB00ED7175 /* SFTableManager.swift */; };
 		4299FB27211CC47900E9F233 /* SFLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4299FB26211CC47900E9F233 /* SFLayoutView.swift */; };
 		4299FB29211E1C1100E9F233 /* SFFluidButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4299FB28211E1C1100E9F233 /* SFFluidButton.swift */; };
@@ -203,6 +205,8 @@
 		42838205206DA49000039F66 /* SFImageZoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFImageZoomViewController.swift; sourceTree = "<group>"; };
 		42838207206DA4D200039F66 /* SFImageZoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFImageZoomView.swift; sourceTree = "<group>"; };
 		4286042B20A0D27C00D785FC /* SFCollectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFCollectionManager.swift; sourceTree = "<group>"; };
+		428E2C4E2181C1F600984887 /* SFActivityIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFActivityIndicatorView.swift; sourceTree = "<group>"; };
+		428E2C502181C84200984887 /* SFTextSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFTextSection.swift; sourceTree = "<group>"; };
 		42933BF32097D2AB00ED7175 /* SFTableManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFTableManager.swift; sourceTree = "<group>"; };
 		4299FB26211CC47900E9F233 /* SFLayoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFLayoutView.swift; sourceTree = "<group>"; };
 		4299FB28211E1C1100E9F233 /* SFFluidButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFFluidButton.swift; sourceTree = "<group>"; };
@@ -521,6 +525,8 @@
 				4211D87C209CD96200C89FAC /* SFPageView.swift */,
 				4299FB28211E1C1100E9F233 /* SFFluidButton.swift */,
 				42A42EC21FF1C13E002FE4A7 /* SFVideoView.swift */,
+				428E2C4E2181C1F600984887 /* SFActivityIndicatorView.swift */,
+				428E2C502181C84200984887 /* SFTextSection.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -869,6 +875,7 @@
 				42FAD75920B7376C00E5AE19 /* SFDataSection.swift in Sources */,
 				42DBF1A4203754E900F4BB6F /* SFBulletinView.swift in Sources */,
 				42087C292142B77B00F71CA9 /* SFPopView.swift in Sources */,
+				428E2C4F2181C1F600984887 /* SFActivityIndicatorView.swift in Sources */,
 				42A42EAF1FF1AC2A002FE4A7 /* SFControllerColorStyle.swift in Sources */,
 				423AABF21FE7548F009D6C39 /* ViewController.swift in Sources */,
 				424426CB208CC72000AAFCCC /* SFAssets.swift in Sources */,
@@ -889,6 +896,7 @@
 				42710ACF2135F16100413898 /* SFContactsViewController.swift in Sources */,
 				42446773202AC27F00F59892 /* UIView.swift in Sources */,
 				42087C2B2142BA9200F71CA9 /* SFPopViewController.swift in Sources */,
+				428E2C512181C84200984887 /* SFTextSection.swift in Sources */,
 				42C701B12016834E00EBFBE2 /* SFSlideViewController.swift in Sources */,
 				42B61B7B213846FD007CDE77 /* SFTableViewConversationCell.swift in Sources */,
 				424BE0C61FF45C20005DE2AD /* SFPopPresentation.swift in Sources */,

@@ -28,6 +28,7 @@ open class SFPageSectionsViewController: SFPageViewController {
     
     open override func viewWillPrepareSubViews() {
         view.addSubview(pageBar)
+        view.clipsToBounds = true
         pageBar.buttons.enumerated().forEach { (index, button) in
             button.title = titles[index]
         }

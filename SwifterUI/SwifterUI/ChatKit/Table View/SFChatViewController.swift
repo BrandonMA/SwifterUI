@@ -125,9 +125,7 @@ open class SFChatViewController: SFViewController, UITableViewDelegate, UIImageP
     
     override open func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        if isWaitingForPopViewController {
-            isWaitingForPopViewController.toggle()
-        } else {
+        if !isWaitingForPopViewController {
             DispatchQueue.main.async {
                 self.chatView.scrollToBottom(animated: false)
             }
@@ -165,12 +163,13 @@ open class SFChatViewController: SFViewController, UITableViewDelegate, UIImageP
             chatView.scrollIndicatorInsets.bottom = chatView.contentInset.bottom
             
             if chatView.isDragging == false && chatView.contentOffset.y > -64 {
-                if !isWaitingForPopViewController {
-                    self.chatView.scrollToBottom(animated: false)
-                } else {
+                if isWaitingForPopViewController {
                     if zoomImageView.superview != nil {
                         zoomOut()
+                        isWaitingForPopViewController.toggle()
                     }
+                } else {
+                    self.chatView.scrollToBottom(animated: false)
                 }
             }
         }
@@ -310,13 +309,12 @@ extension SFChatViewController: SFTableViewChatCellDelegate {
         cell.bubbleView.alpha = 0.0
         currentZoomCell = cell
         
-        UIView.animate(withDuration: 0.3, animations: {
+        UIView.animate(withDuration: 5, animations: {
             self.zoomImageView.frame = self.view.bounds
-            self.zoomImageView.layer.cornerRadius = 0
         }, completion: { (_) in
             let zoomViewController = SFImageViewController(with: image)
             let transition = CATransition()
-            transition.duration = 0.3
+            transition.duration = 5
             transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
             transition.type = CATransitionType.fade
             self.navigationController?.view.layer.add(transition, forKey: nil)
@@ -499,6 +497,7 @@ extension SFChatViewController: UIViewControllerPreviewingDelegate {
         guard let image = message.image else { return nil }
         let controller = SFImageViewController(with: image)
         controller.animateClosing = true
+        controller.isPreview = true
         return controller
     }
     

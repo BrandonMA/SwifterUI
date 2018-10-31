@@ -296,7 +296,7 @@ open class SFChatViewController: SFViewController, UITableViewDelegate, UIImageP
 
 extension SFChatViewController: SFTableViewChatCellDelegate {
     
-    open func didSelectImageView(cell: SFTableViewChatCell) {
+    public func didSelectImageView(cell: SFTableViewChatCell) {
         
         guard let image = cell.messageImageView.image else { return }
         isWaitingForPopViewController = true
@@ -320,7 +320,7 @@ extension SFChatViewController: SFTableViewChatCellDelegate {
         })
     }
     
-    private func zoomOut() {
+    public func zoomOut() {
         UIView.animate(withDuration: 0.3, animations: {
             self.zoomImageView.frame = self.initialFrameForZooming
             self.zoomImageView.layer.cornerRadius = 10
@@ -334,7 +334,7 @@ extension SFChatViewController: SFTableViewChatCellDelegate {
 
 extension SFChatViewController: SFTableAdapterDelegate {
     
-    func calculateWidth(for message: SFMessage, indexPath: IndexPath) {
+    public func calculateWidth(for message: SFMessage, indexPath: IndexPath) {
         if message.videoURL != nil || message.image != nil {
             cachedWidths[indexPath] = (chatView.bounds.width * 2/3)
         } else if message.text != nil {

@@ -368,6 +368,43 @@ extension SFChatViewController: SFTableAdapterDelegate {
         return height
     }
     
+    private func prepareImageCell(_ cell: SFTableViewChatCell, image: UIImage) {
+        cell.messageImageView.image = image
+        cell.messageVideoView.cleanView()
+        cell.messageVideoView.delegate = nil
+        cell.activityIndicator.isHidden = true
+        cell.activityIndicator.stopAnimating()
+        cell.bubbleView.bringSubviewToFront(cell.messageImageView)
+        registerForPreviewing(with: self, sourceView: cell.messageImageView)
+    }
+    
+    private func prepareVideoCell(_ cell: SFTableViewChatCell, videoURL: URL) {
+        cell.messageVideoView.delegate = self
+        cell.messageVideoView.setVideo(with: videoURL)
+        cell.activityIndicator.isHidden = true
+        cell.activityIndicator.stopAnimating()
+        cell.bubbleView.bringSubviewToFront(cell.messageVideoView)
+    }
+    
+    private func prepareTextCell(_ cell: SFTableViewChatCell, text: String) {
+        cell.messageImageView.image = nil
+        cell.messageLabel.text = text
+        cell.messageVideoView.cleanView()
+        cell.messageVideoView.delegate = nil
+        cell.activityIndicator.isHidden = true
+        cell.activityIndicator.stopAnimating()
+        cell.bubbleView.bringSubviewToFront(cell.messageLabel)
+    }
+    
+    private func prepareLoadingCell(_ cell: SFTableViewChatCell) {
+        cell.messageImageView.image = nil
+        cell.messageLabel.text = nil
+        cell.messageVideoView.cleanView()
+        cell.messageVideoView.delegate = nil
+        cell.activityIndicator.isHidden = false
+        cell.activityIndicator.startAnimating()
+    }
+    
     public func prepareCell<DataType>(_ cell: SFTableViewCell, at indexPath: IndexPath, with item: DataType) where DataType: Hashable {
         
         guard let cell = cell as? SFTableViewChatCell, let message = item as? SFMessage else { return }
@@ -381,34 +418,13 @@ extension SFChatViewController: SFTableAdapterDelegate {
         }
         
         if let image = message.image {
-            cell.messageImageView.image = image
-            cell.messageVideoView.cleanView()
-            cell.messageVideoView.delegate = nil
-            cell.activityIndicator.isHidden = true
-            cell.activityIndicator.stopAnimating()
-            cell.bubbleView.bringSubviewToFront(cell.messageImageView)
-            registerForPreviewing(with: self, sourceView: cell.messageImageView)
+            prepareImageCell(cell, image: image)
         } else if let string = message.videoURL, let url = URL(string: string) {
-            cell.messageVideoView.delegate = self
-            cell.messageVideoView.setVideo(with: url)
-            cell.activityIndicator.isHidden = true
-            cell.activityIndicator.stopAnimating()
-            cell.bubbleView.bringSubviewToFront(cell.messageVideoView)
-        } else if message.text != nil {
-            cell.messageImageView.image = nil
-            cell.messageLabel.text = message.text
-            cell.messageVideoView.cleanView()
-            cell.messageVideoView.delegate = nil
-            cell.activityIndicator.isHidden = true
-            cell.activityIndicator.stopAnimating()
-            cell.bubbleView.bringSubviewToFront(cell.messageLabel)
+            prepareVideoCell(cell, videoURL: url)
+        } else if let text = message.text {
+            prepareTextCell(cell, text: text)
         } else {
-            cell.messageImageView.image = nil
-            cell.messageLabel.text = nil
-            cell.messageVideoView.cleanView()
-            cell.messageVideoView.delegate = nil
-            cell.activityIndicator.isHidden = false
-            cell.activityIndicator.startAnimating()
+            prepareLoadingCell(cell)
         }
         
         if cachedWidths[indexPath] == nil {

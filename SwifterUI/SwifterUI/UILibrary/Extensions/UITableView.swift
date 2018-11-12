@@ -16,11 +16,32 @@ public extension UITableView {
         let lastSection = numberOfSections - 1
         if lastSection >= 0 {
             let lastRow = numberOfRows(inSection: lastSection) - 1
-            let indexPath = IndexPath(row: lastRow, section: lastSection)
             if lastRow >= 0 {
-                scrollToRow(at: indexPath, at: .bottom, animated: animated)
+                let indexPath = IndexPath(row: lastRow, section: lastSection)
+                scrollToRow(at: indexPath, at: .middle, animated: animated)
             }
         }
+    }
+    
+    public func cellForSubview(_ subview: UIView) -> UITableViewCell? {
+        var superview = subview.superview
+        
+        while superview != nil {
+            if superview is UITableViewCell {
+                return superview as? UITableViewCell
+            }
+            
+            superview = superview?.superview
+        }
+        
+        return nil
+    }
+    
+    public func indexPathForSubview(_ subview: UIView) -> IndexPath? {
+        if let cell = cellForSubview(subview) {
+            return indexPath(for: cell)
+        }
+        return nil
     }
 }
 

@@ -86,8 +86,7 @@ open class SFContactsViewController: SFViewController, SFTableAdapterDelegate, U
     }
     
     open func getChat(for user: SFUser) -> SFChat {
-        
-        if let existingChat = user.chatsManager.first?.first(where: { $0.users.contains(user.identifier) && $0.users.count == 2 }) {
+        if let existingChat = self.user.chatsManager.flatData.first(where: { $0.users.contains(user.identifier) && $0.users.count == 2 }) {
             return existingChat
         } else {
             let chat = SFSingleChat(users: [self.user.identifier, user.identifier], messages: [], name: "\(user.name) \(user.lastName)")

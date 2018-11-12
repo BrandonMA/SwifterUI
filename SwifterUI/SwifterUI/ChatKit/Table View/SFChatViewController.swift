@@ -31,6 +31,7 @@ open class SFChatViewController: SFViewController, UITableViewDelegate, UIImageP
     private var cachedWidths: [IndexPath: CGFloat] = [:]
     
     private var isWaitingForPopViewController: Bool = false
+    private var initialScroll = true
     
     private weak var currentZoomCell: SFTableViewChatCell?
     private lazy var initialFrameForZooming: CGRect = .zero
@@ -116,20 +117,24 @@ open class SFChatViewController: SFViewController, UITableViewDelegate, UIImageP
         NotificationCenter.default.addObserver(self, selector: #selector(newMessage(notification:)), name: Notification.Name(SFChatNotification.newMessage.rawValue), object: nil)
     }
     
+    override open func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        if initialScroll {
+            self.chatView.setContentOffset(CGPoint(x: 0, y: CGFloat.greatestFiniteMagnitude), animated: false)
+            DispatchQueue.main.async {
+                self.chatView.scrollToBottom(animated: false)
+                self.chatView.contentOffset.y += 15
+                self.initialScroll.toggle()
+            }
+        }
+    }
+    
     open override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         cachedWidths.removeAll()
         cachedHeights.removeAll()
         super.viewWillTransition(to: size, with: coordinator)
         chatView.reloadData()
-    }
-    
-    override open func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        if !isWaitingForPopViewController {
-            DispatchQueue.main.async {
-                self.chatView.scrollToBottom(animated: false)
-            }
-        }
     }
     
     open override func viewWillAppear(_ animated: Bool) {
@@ -155,6 +160,7 @@ open class SFChatViewController: SFViewController, UITableViewDelegate, UIImageP
     }
     
     @objc private func keyboardWillShow(notification: Notification) {
+        
         if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardRectangle = keyboardFrame.cgRectValue
             let keyboardHeight = keyboardRectangle.height
@@ -165,9 +171,10 @@ open class SFChatViewController: SFViewController, UITableViewDelegate, UIImageP
             if chatView.isDragging == false && chatView.contentOffset.y > -64 {
                 if isWaitingForPopViewController && zoomImageView.superview != nil {
                     zoomOut()
-                    isWaitingForPopViewController.toggle()
-                } else {
+                } else if !isWaitingForPopViewController {
                     self.chatView.scrollToBottom(animated: false)
+                } else {
+                    isWaitingForPopViewController.toggle()
                 }
             }
         }
@@ -327,6 +334,7 @@ extension SFChatViewController: SFTableViewChatCellDelegate {
         }, completion: { (_) in
             self.currentZoomCell?.bubbleView.alpha = 1.0
             self.zoomImageView.removeFromSuperview()
+            self.isWaitingForPopViewController.toggle()
         })
     }
     
@@ -506,7 +514,9 @@ extension SFChatViewController: UITextViewDelegate {
 extension SFChatViewController: UIViewControllerPreviewingDelegate {
     
     public func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
-        guard let indexPath = chatView.indexPathForRow(at: location) else { return nil }
+        let sourceView = previewingContext.sourceView
+        guard let indexPath = chatView.indexPathForSubview(sourceView) else { return nil }
+        previewingContext.sourceRect = sourceView.bounds
         let message = chat.messagesManager.getItem(at: indexPath)
         guard let image = message.image else { return nil }
         let controller = SFImageViewController(with: image)

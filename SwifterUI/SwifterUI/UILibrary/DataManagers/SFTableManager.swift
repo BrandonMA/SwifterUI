@@ -36,8 +36,6 @@ public extension SFTableAdapterDelegate {
     
     public func heightForRow(at indexPath: IndexPath, tableView: SFTableView) -> CGFloat? { return nil }
     
-    public func prepareCell<DataType: Hashable>(_ cell: SFTableViewCell, at indexPath: IndexPath, with item: DataType) {}
-    
     public var useCustomHeader: Bool { return false }
     
     public func prepareHeader<DataType: Hashable>(_ view: SFTableViewHeaderView, with section: SFDataSection<DataType>, at index: Int) {}

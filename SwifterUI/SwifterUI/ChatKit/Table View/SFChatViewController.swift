@@ -124,7 +124,9 @@ open class SFChatViewController: SFViewController, UITableViewDelegate, UIImageP
             self.chatView.setContentOffset(CGPoint(x: 0, y: CGFloat.greatestFiniteMagnitude), animated: false)
             DispatchQueue.main.async {
                 self.chatView.scrollToBottom(animated: false)
-                self.chatView.contentOffset.y += 15
+                if self.chatView.contentSize.height > self.chatView.bounds.height {
+                    self.chatView.contentOffset.y += 15
+                }
                 self.initialScroll.toggle()
             }
         }

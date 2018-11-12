@@ -139,7 +139,7 @@ extension SFConversationsTableViewController: SFTableAdapterDelegate {
         } else if Calendar.current.isDateInYesterday(chat.modificationDate) {
             cell.conversationView.hourLabel.text = "Ayer"
         } else {
-            cell.conversationView.hourLabel.text = chat.modificationDate.string(with: "MMMMd")
+            cell.conversationView.hourLabel.text = chat.modificationDate.string(with: "MMMM d")
         }
         
         if chat.unreadMessages > 0 {

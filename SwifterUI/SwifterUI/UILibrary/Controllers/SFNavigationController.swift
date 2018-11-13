@@ -93,12 +93,12 @@ open class SFNavigationController: UINavigationController, SFControllerColorStyl
         
         DispatchQueue.main.async {
             
-            self.navigationBar.barStyle = self.colorStyle.getBarStyle()
-            self.navigationBar.tintColor = self.colorStyle.getInteractiveColor()
+            self.navigationBar.barStyle = self.colorStyle.barStyle
+            self.navigationBar.tintColor = self.colorStyle.interactiveColor
             self.updateNavItem()
             
             if self.automaticallyTintNavigationBar == true {
-                self.statusBarStyle = self.colorStyle.getStatusBarStyle()
+                self.statusBarStyle = self.colorStyle.statusBarStyle
             }
             
             self.setNeedsStatusBarAppearanceUpdate()

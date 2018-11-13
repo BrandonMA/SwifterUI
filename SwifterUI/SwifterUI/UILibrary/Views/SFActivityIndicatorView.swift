@@ -43,7 +43,7 @@ open class SFActivityIndicatorView: UIActivityIndicatorView, SFViewColorStyle, S
     
     open func updateColors() {
         backgroundColor = .clear
-        style = colorStyle.getActivityIndicatorStyle()
+        style = colorStyle.activityIndicatorStyle
         updateSubviewsColors()
     }
     

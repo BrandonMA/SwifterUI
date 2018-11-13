@@ -14,7 +14,6 @@ open class SFPopViewController: SFViewController {
     
     open lazy var popView: SFPopView = {
         let popView = SFPopView(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, middleView: SFView(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle))
-        popView.translatesAutoresizingMaskIntoConstraints = false
         return popView
     }()
     
@@ -32,30 +31,26 @@ open class SFPopViewController: SFViewController {
     
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        animateAppear()
+    }
+
+    private func animateAppear() {
         popView.contentView.transform = CGAffineTransform(scaleX: 0.001, y: 0.001)
-        
         let animator = UIViewPropertyAnimator(damping: 0.7, response: 0.6)
-        
         animator.addAnimations {
             self.popView.contentView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
         }
-        
         animator.startAnimation()
     }
     
-    public func returnToMainViewController(completion: (() -> Void)? = nil) {
-        
+    public func animateDisappear(completion: (() -> Void)? = nil) {
         let animator = UIViewPropertyAnimator(damping: 1.0, response: 0.4)
-        
         animator.addAnimations {
             self.popView.contentView.transform = CGAffineTransform(scaleX: 0.001, y: 0.001)
         }
-        
         animator.addCompletion { (_) in
             self.dismiss(animated: true, completion: completion)
         }
-        
         animator.startAnimation()
     }
 }

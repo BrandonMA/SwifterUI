@@ -34,12 +34,12 @@ open class SFDatePicker: UIDatePicker, SFViewColorStyle {
     // MARK: - Instance Methods
     
     open func updateColors() {
-        backgroundColor = colorStyle.getMainColor()
-        setValue(colorStyle.getTextColor(), forKeyPath: "textColor")
+        backgroundColor = colorStyle.mainColor
+        setValue(colorStyle.textColor, forKeyPath: "textColor")
         setValue(false, forKeyPath: "highlightsToday")
         if subviews.count >= 2 {
-            subviews[1].backgroundColor = colorStyle.getSeparatorColor()
-            subviews[2].backgroundColor = colorStyle.getSeparatorColor()
+            subviews[1].backgroundColor = colorStyle.separatorColor
+            subviews[2].backgroundColor = colorStyle.separatorColor
         }
     }
     

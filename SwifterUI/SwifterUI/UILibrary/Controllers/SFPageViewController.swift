@@ -14,7 +14,6 @@ open class SFPageViewController: SFViewController {
     
     open lazy var pageView: SFPageView = {
         let pageView = SFPageView(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle)
-        pageView.translatesAutoresizingMaskIntoConstraints = false
         pageView.scrollVertically = false
         return pageView
     }()

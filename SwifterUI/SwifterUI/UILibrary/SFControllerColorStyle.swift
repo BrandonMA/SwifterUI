@@ -56,9 +56,9 @@ public extension SFControllerColorStyle where Self: UIViewController {
     }
 
     public func updateNavItem() {
-        navigationItem.searchController?.searchBar.barStyle = self.colorStyle.getBarStyle()
-        navigationItem.searchController?.searchBar.tintColor = self.colorStyle.getInteractiveColor()
-        navigationItem.searchController?.searchBar.keyboardAppearance = self.colorStyle.getKeyboardStyle()
+        navigationItem.searchController?.searchBar.barStyle = self.colorStyle.barStyle
+        navigationItem.searchController?.searchBar.tintColor = self.colorStyle.interactiveColor
+        navigationItem.searchController?.searchBar.keyboardAppearance = self.colorStyle.keyboardStyle
     }
 
 }

@@ -47,7 +47,7 @@ public final class SFImageZoomView: UIScrollView, SFViewColorStyle {
     }
     
     public func updateColors() {
-        backgroundColor = useAlternativeColors ? colorStyle.getAlternativeColor() : colorStyle.getMainColor()
+        backgroundColor = useAlternativeColors ? colorStyle.alternativeColor : colorStyle.mainColor
         updateSubviewsColors()
     }
 }

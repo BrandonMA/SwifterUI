@@ -95,17 +95,17 @@ open class SFButton: UIButton, SFViewColorStyle, SFLayoutView {
     
     open func updateColors() {
         
-        backgroundColor = isTextPicker ? colorStyle.getContrastColor() : useClearBackground ? .clear : useAlternativeColors ? colorStyle.getMainColor() : colorStyle.getAlternativeColor()
+        backgroundColor = isTextPicker ? colorStyle.contrastColor : useClearBackground ? .clear : useAlternativeColors ? colorStyle.mainColor : colorStyle.alternativeColor
         
         titleLabel?.backgroundColor = backgroundColor
         
         if setTextColor {
             if useAlternativeTextColor {
-                tintColor = colorStyle.getTextColor()
-                setTitleColor(colorStyle.getTextColor(), for: .normal)
+                tintColor = colorStyle.textColor
+                setTitleColor(colorStyle.textColor, for: .normal)
             } else {
-                tintColor = colorStyle.getInteractiveColor()
-                setTitleColor(colorStyle.getInteractiveColor(), for: .normal)
+                tintColor = colorStyle.interactiveColor
+                setTitleColor(colorStyle.interactiveColor, for: .normal)
             }
         }
         updateSubviewsColors()

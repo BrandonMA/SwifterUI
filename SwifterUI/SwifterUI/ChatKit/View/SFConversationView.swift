@@ -122,7 +122,7 @@ open class SFConversationView: SFView {
     
     open override func updateColors() {
         super.updateColors()
-        rightImageView.tintColor = colorStyle.getPlaceholderColor()
+        rightImageView.tintColor = colorStyle.placeholderColor
     }
     
 }

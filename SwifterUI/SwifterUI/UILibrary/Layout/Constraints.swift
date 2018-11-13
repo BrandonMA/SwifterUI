@@ -19,4 +19,12 @@ public extension Array where Element: Constraint {
     public func deactivate() {
         Constraint.deactivate(self)
     }
+    
+    public func forEachConstraintFor(view: UIView, completion: @escaping (Constraint) -> Void) {
+        forEach { (constraint) in
+            if let firstItem = constraint.firstItem as? UIView, firstItem == view {
+                completion(constraint)
+            }
+        }
+    }
 }

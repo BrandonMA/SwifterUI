@@ -38,7 +38,6 @@ open class SFBulletinViewController: SFPopViewController {
     
     public final lazy var pickerView: SFPickerView = {
         let pickerView = SFPickerView(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
-        pickerView.translatesAutoresizingMaskIntoConstraints = false
         pickerView.dataSource = self
         pickerView.delegate = self
         return pickerView
@@ -48,7 +47,6 @@ open class SFBulletinViewController: SFPopViewController {
         let datePicker = SFDatePicker(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         datePicker.timeZone = TimeZone.current
         datePicker.datePickerMode = .date
-        datePicker.translatesAutoresizingMaskIntoConstraints = false
         return datePicker
     }()
     
@@ -56,9 +54,7 @@ open class SFBulletinViewController: SFPopViewController {
         get {
             return bulletinView.titleLabel.text ?? ""
         } set {
-            DispatchQueue.main.async {
-                self.bulletinView.titleLabel.text = newValue
-            }
+            self.bulletinView.titleLabel.text = newValue
         }
     }
     
@@ -66,9 +62,7 @@ open class SFBulletinViewController: SFPopViewController {
         get {
             return bulletinView.messageLabel.text ?? ""
         } set {
-            DispatchQueue.main.async {
-                self.bulletinView.messageLabel.text = newValue
-            }
+            self.bulletinView.messageLabel.text = newValue
         }
     }
     
@@ -83,7 +77,7 @@ open class SFBulletinViewController: SFPopViewController {
     public convenience init(title: String = "", with values: [String], automaticallyAdjustsColorStyle: Bool = true) {
         self.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle)
         pickerValues = values
-        bulletinTitle = title
+        self.bulletinView.titleLabel.text = title
         useDatePicker = false
         useButtons = false
         createBulletinView()
@@ -97,7 +91,7 @@ open class SFBulletinViewController: SFPopViewController {
         self.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle)
         useDatePicker = true
         useButtons = false
-        bulletinTitle = title
+        self.bulletinView.titleLabel.text = title
         datePicker.date = date
         datePicker.minimumDate = minDate
         datePicker.maximumDate = maxDate
@@ -110,15 +104,15 @@ open class SFBulletinViewController: SFPopViewController {
                             automaticallyAdjustsColorStyle: Bool = true) {
         self.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle)
         self.buttons = buttons
-        bulletinTitle = title
-        bulletinMessage = message
+        self.bulletinView.titleLabel.text = title
+        self.bulletinView.messageLabel.text = message
         useDatePicker = false
         useButtons = true
         buttons.forEach { (button) in
             let oldActions = button.touchActions
             button.touchActions.removeAll()
             button.insertAction({ [unowned self] in
-                self.returnToMainViewController(completion: {
+                self.animateDisappear(completion: {
                     oldActions.forEach({ $0() })
                 })
             }, at: 0)
@@ -165,22 +159,30 @@ open class SFBulletinViewController: SFPopViewController {
     }
     
     @objc private func closeButtonDidTouch() {
-        returnToMainViewController()
+        animateDisappear()
         delegate?.bulletinController(self, retreivedValue: nil, index: nil)
     }
     
+    private func returnDate() {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd/MM/yyyy"
+        formatter.timeZone = TimeZone.current
+        delegate?.bulletinController(self, retreivedValue: formatter.string(from: datePicker.date), index: nil)
+    }
+
+    private func returnValue() {
+        delegate?.bulletinController(self,
+                                    retreivedValue: pickerValues[pickerView.selectedRow(inComponent: 0)],
+                                    index: pickerView.selectedRow(inComponent: 0))
+    }
+
     private func doneButtonDidTouch() {
-        returnToMainViewController()
+        animateDisappear()
         if buttons.count == 0 {
             if useDatePicker {
-                let formatter = DateFormatter()
-                formatter.dateFormat = "dd/MM/yyyy"
-                formatter.timeZone = TimeZone.current
-                delegate?.bulletinController(self, retreivedValue: formatter.string(from: datePicker.date), index: nil)
+                returnDate()
             } else {
-                delegate?.bulletinController(self,
-                                             retreivedValue: pickerValues[pickerView.selectedRow(inComponent: 0)],
-                                             index: pickerView.selectedRow(inComponent: 0))
+                returnValue()
             }
         }
     }
@@ -208,7 +210,7 @@ extension SFBulletinViewController: UIPickerViewDataSource, UIPickerViewDelegate
     
     public func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         let string = NSAttributedString(string: pickerValues[row],
-                                        attributes: [.foregroundColor: colorStyle.getTextColor()])
+                                        attributes: [.foregroundColor: colorStyle.textColor])
         return string
     }
     

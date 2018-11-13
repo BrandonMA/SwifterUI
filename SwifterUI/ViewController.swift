@@ -15,7 +15,7 @@ class Model {
     init() {
         names.update(data: [["Brandon", "Maldonado", "Alonso"], ["Jula"], ["Celina"]])
         
-        DispatchQueue.delay(by: 4, dispatchLevel: .main) {
+        DispatchQueue.delay(by: 3, dispatchLevel: .main) {
             self.names.update(data: [["Celina"], ["Jula"], ["Brandon", "Maldonado", "Alonso"]])
         }
     }

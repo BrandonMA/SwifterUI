@@ -64,7 +64,7 @@ open class SFLabel: UILabel, SFViewColorStyle {
     }
     
     open func updateColors() {
-        textColor = useAlternativeColors ? colorStyle.getPlaceholderColor() : colorStyle.getTextColor()
+        textColor = useAlternativeColors ? colorStyle.placeholderColor : colorStyle.textColor
         updateSubviewsColors()
     }
     

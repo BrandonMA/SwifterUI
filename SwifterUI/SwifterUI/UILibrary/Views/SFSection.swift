@@ -15,7 +15,6 @@ open class SFSection: SFView {
     public final lazy var titleLabel: SFLabel = {
         let label = SFLabel(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
         label.font = UIFont.boldSystemFont
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
         label.numberOfLines = 1
         return label
@@ -23,7 +22,6 @@ open class SFSection: SFView {
     
     private lazy var stackView: SFStackView = {
         let stack = SFStackView(arrangedSubviews: [titleLabel, bottomView])
-        stack.translatesAutoresizingMaskIntoConstraints = false
         stack.spacing = 8
         stack.axis = .vertical
         return stack

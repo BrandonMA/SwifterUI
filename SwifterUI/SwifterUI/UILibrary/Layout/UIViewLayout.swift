@@ -7,6 +7,11 @@
 //
 
 import UIKit
+import PromiseKit
+
+public enum SFLayoutError: String, Error {
+    case noConstraint = "No constraint found"
+}
 
 public extension UIView {
     
@@ -27,6 +32,14 @@ public extension UIView {
     
     // MARK: - Getting and Removing Constraints
     
+    private func resolve(constraint: Constraint, type: ConstraintType, resolver: Resolver<Constraint>) {
+        if constraint.identifier == type.rawValue {
+            resolver.fulfill(constraint)
+        } else {
+            resolver.reject(SFLayoutError.noConstraint)
+        }
+    }
+    
     /**
      Return all constraints for the current view.
      */
@@ -34,23 +47,13 @@ public extension UIView {
         
         var constraints: Constraints = []
         
-        for constraint in self.constraints {
-            if let view = constraint.firstItem as? UIView {
-                if view === self {
-                    constraints.append(constraint)
-                }
-            }
+        constraints.forEachConstraintFor(view: self) { (constraint) in
+            constraints.append(constraint)
         }
         
-        if let superview = superview {
-            for constraint in superview.constraints {
-                if let view = constraint.firstItem as? UIView {
-                    if view === self {
-                        constraints.append(constraint)
-                    }
-                }
-            }
-        }
+        superview?.constraints.forEachConstraintFor(view: self, completion: { (constraint) in
+            constraints.append(constraint)
+        })
         
         return constraints
     }
@@ -70,42 +73,34 @@ public extension UIView {
     /**
      Return an specific constraint if it exists.
      */
+    @discardableResult
     public final func getConstraint(type constraintType: ConstraintType) -> Constraint? {
         
-        for constraint in self.constraints {
-            if let view = constraint.firstItem as? UIView {
-                if view === self {
-                    if constraint.identifier == constraintType.rawValue {
-                        return constraint
-                    }
-                }
+        var finalConstraint: Constraint?
+        
+        func check(constraint: Constraint) {
+            if constraint.identifier == constraintType.rawValue {
+                finalConstraint = constraint
+                return
             }
         }
         
-        if let superview = superview {
-            for constraint in superview.constraints {
-                if let view = constraint.firstItem as? UIView {
-                    if view === self {
-                        if constraint.identifier == constraintType.rawValue {
-                            return constraint
-                        }
-                    }
-                }
-            }
+        constraints.forEachConstraintFor(view: self) { check(constraint: $0) }
+        
+        if finalConstraint == nil {
+            superview?.constraints.forEachConstraintFor(view: self, completion: { check(constraint: $0) })
         }
         
-        return nil
+        return finalConstraint
     }
     
     /**
      Remove an specific constraint if it exists.
      */
     public final func removeConstraint(type constraintType: ConstraintType) {
-        guard let superview = superview else { return }
-        if let oldConstraint = getConstraint(type: constraintType) {
-            removeConstraint(oldConstraint)
-            superview.removeConstraint(oldConstraint)
-        }
+        guard let oldConstraint = getConstraint(type: constraintType) else { return }
+        self.removeConstraint(oldConstraint)
+        self.superview?.removeConstraint(oldConstraint)
     }
     
     // MARK: - Sizing

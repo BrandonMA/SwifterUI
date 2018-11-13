@@ -46,7 +46,7 @@ open class SFNotificationIndicator: SFView {
     }
     
     open override func updateColors() {
-        backgroundColor = colorStyle.getInteractiveColor()
+        backgroundColor = colorStyle.interactiveColor
         updateSubviewsColors()
     }
     

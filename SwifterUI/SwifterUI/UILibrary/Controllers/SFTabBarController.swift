@@ -79,12 +79,12 @@ open class SFTabBarController: UITabBarController, SFControllerColorStyle {
     
     open func updateColors() {
         DispatchQueue.main.async {
-            self.tabBar.tintColor = self.colorStyle.getInteractiveColor()
-            self.tabBar.barStyle = self.colorStyle.getBarStyle()
+            self.tabBar.tintColor = self.colorStyle.interactiveColor
+            self.tabBar.barStyle = self.colorStyle.barStyle
             
             if self.automaticallyTintNavigationBar == true {
                 self.updateNavItem()
-                self.statusBarStyle = self.colorStyle.getStatusBarStyle()
+                self.statusBarStyle = self.colorStyle.statusBarStyle
             }
         }
     }

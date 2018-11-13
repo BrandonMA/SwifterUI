@@ -16,7 +16,6 @@ public final class SFImageViewController: SFViewController {
     
     public final lazy var imageZoomView: SFImageZoomView = {
         let view = SFImageZoomView()
-        view.translatesAutoresizingMaskIntoConstraints = false
         view.minimumZoomScale = 0
         view.maximumZoomScale = 10
         view.zoomScale = 0

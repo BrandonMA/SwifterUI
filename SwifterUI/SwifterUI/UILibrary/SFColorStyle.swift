@@ -23,7 +23,7 @@ public enum SFColorStyle {
     /**
      - returns: Corresponding color of an UINavigationBar depending on the current color style.
      */
-    public func getBarStyle() -> UIBarStyle {
+    public var barStyle: UIBarStyle {
         switch self {
         case .light: return .default
         case .dark: return .black
@@ -33,7 +33,7 @@ public enum SFColorStyle {
     /**
      - returns: Corresponding color of an UIActivityIndicatorView depending on the current color style.
      */
-    public func getActivityIndicatorStyle() -> UIActivityIndicatorView.Style {
+    public var activityIndicatorStyle: UIActivityIndicatorView.Style {
         switch self {
         case .light: return .gray
         case .dark: return .white
@@ -43,7 +43,7 @@ public enum SFColorStyle {
     /**
      - returns: Corresponding color of an UIActivityIndicatorView depending on the current color style.
      */
-    public func getStatusBarStyle() -> UIStatusBarStyle {
+    public var statusBarStyle: UIStatusBarStyle {
         switch self {
         case .light: return .default
         case .dark: return .lightContent
@@ -53,7 +53,7 @@ public enum SFColorStyle {
     /**
      - returns: Corresponding color of a keyboard depending on the current color style.
      */
-    public func getKeyboardStyle() -> UIKeyboardAppearance {
+    public var keyboardStyle: UIKeyboardAppearance {
         switch self {
         case .light: return .default
         case .dark: return .dark
@@ -63,7 +63,7 @@ public enum SFColorStyle {
     /**
      - returns: Corresponding color of an UIScrollView's indicator depending on the current color style.
      */
-    public func getScrollIndicatorStyle() -> UIScrollView.IndicatorStyle {
+    public var scrollIndicatorStyle: UIScrollView.IndicatorStyle {
         switch self {
         case .light: return .black
         case .dark: return .white
@@ -73,7 +73,7 @@ public enum SFColorStyle {
     /**
      - returns: Corresponding blur effect of an UIVisualEffectView depending on the current color style.
      */
-    public func getBlurEffectStyle() -> UIBlurEffect {
+    public var blurEffectStyle: UIBlurEffect {
         switch self {
         case .light: return UIBlurEffect(style: .dark)
         case .dark: return UIBlurEffect(style: .light)
@@ -85,7 +85,7 @@ public enum SFColorStyle {
     /**
      - returns: Main color used on background.
      */
-    public func getMainColor() -> UIColor {
+    public var mainColor: UIColor {
         switch self {
         case .light: return SFColors.white
         case .dark: return SFColors.black
@@ -95,7 +95,7 @@ public enum SFColorStyle {
     /**
      - returns: Best color to be used on text for good contrast
      */
-    public func getTextColor() -> UIColor {
+    public var textColor: UIColor {
         switch self {
         case .light: return SFColors.black
         case .dark: return SFColors.white
@@ -105,7 +105,7 @@ public enum SFColorStyle {
     /**
      - returns: Alternative background color.
      */
-    public func getAlternativeColor() -> UIColor {
+    public var alternativeColor: UIColor {
         switch self {
         case .light: return SFColors.alternativeWhite
         case .dark: return SFColors.alternativeBlack
@@ -115,7 +115,7 @@ public enum SFColorStyle {
     /**
      - returns: Color that contrast with the main background color for text entries like SFTextField
      */
-    public func getContrastColor() -> UIColor {
+    public var contrastColor: UIColor {
         switch self {
         case .light: return SFColors.contrastWhite
         case .dark: return SFColors.contrastBlack
@@ -125,7 +125,7 @@ public enum SFColorStyle {
     /**
      - returns: Color for a placeholder that contrast with getTextEntryColor()
      */
-    public func getPlaceholderColor() -> UIColor {
+    public var placeholderColor: UIColor {
         switch self {
         case .light: return SFColors.darkGray
         case .dark: return SFColors.lightGray
@@ -135,7 +135,7 @@ public enum SFColorStyle {
     /**
      - returns: Color for separators in SFTableView
      */
-    public func getSeparatorColor() -> UIColor {
+    public var separatorColor: UIColor {
         switch self {
         case .light: return SFColors.separatorWhite
         case .dark: return SFColors.separatorBlack
@@ -145,7 +145,7 @@ public enum SFColorStyle {
     /**
      - returns: Color for interactive items like buttons.
      */
-    public func getInteractiveColor() -> UIColor {
+    public var interactiveColor: UIColor {
         switch self {
         case .light: return SFColors.blue
         case .dark: return SFColors.orange

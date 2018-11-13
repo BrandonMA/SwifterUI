@@ -14,7 +14,6 @@ open class SFSlideBar: SFView {
     
     open lazy var dismissButton: SFFluidButton = {
         let button = SFFluidButton(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.imageView.image = SFAssets.imageOfArrowDown.withRenderingMode(.alwaysTemplate)
         button.useAlternativeColors = true
         return button
@@ -22,22 +21,18 @@ open class SFSlideBar: SFView {
     
     open lazy var titleLabel: SFLabel = {
         let label = SFLabel(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         return label
     }()
     
     open lazy var rightButton: SFFluidButton = {
         let button = SFFluidButton(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel.textAlignment = .right
         button.titleLabel.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         button.useAlternativeColors = true
         return button
     }()
-    
-    // MARK: - Initializers
-    
+        
     // MARK: - Instance Methods
     
     open override func prepareSubviews() {
@@ -64,7 +59,7 @@ open class SFSlideBar: SFView {
     
     open override func updateColors() {
         super.updateColors()
-        addShadow(color: colorStyle.getSeparatorColor(), offSet: CGSize(width: 0, height: 1), radius: 0, opacity: 1)
+        addShadow(color: colorStyle.separatorColor, offSet: CGSize(width: 0, height: 1), radius: 0, opacity: 1)
     }
     
     open override func updateConstraints() {

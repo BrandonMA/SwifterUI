@@ -49,7 +49,7 @@ open class SFCollectionViewCell: UICollectionViewCell, SFViewColorStyle, SFLayou
     }
     
     open func updateColors() {
-        backgroundColor = useAlternativeColors ? colorStyle.getAlternativeColor() : colorStyle.getMainColor()
+        backgroundColor = useAlternativeColors ? colorStyle.alternativeColor : colorStyle.mainColor
         updateSubviewsColors()
     }
     

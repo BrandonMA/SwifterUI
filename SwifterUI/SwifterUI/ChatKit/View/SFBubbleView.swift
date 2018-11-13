@@ -13,7 +13,7 @@ public final class SFBubbleView: SFView {
     // MARK: - Instance Methods
 
     public final override func updateColors() {
-        backgroundColor = useAlternativeColors ? colorStyle.getInteractiveColor() : colorStyle.getMainColor()
+        backgroundColor = useAlternativeColors ? colorStyle.interactiveColor : colorStyle.mainColor
         updateSubviewsColors()
     }
 

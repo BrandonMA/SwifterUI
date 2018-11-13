@@ -15,7 +15,6 @@ open class SFPDFViewController: SFViewController {
     
     public lazy var pdfView: PDFView = {
         let view = PDFView()
-        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
@@ -60,7 +59,7 @@ open class SFPDFViewController: SFViewController {
     
     @objc public final func shareButtonDidTouch() {
         let activityViewController = UIActivityViewController(activityItems: [pdfURL], applicationActivities: nil)
-        activityViewController.popoverPresentationController?.sourceView = self.view // iPads won't crash
-        self.present(activityViewController, animated: true, completion: nil)
+        activityViewController.popoverPresentationController?.sourceView = view // iPads won't crash
+        present(activityViewController, animated: true, completion: nil)
     }
 }

@@ -11,22 +11,23 @@ import UIKit
 open class SFPageSectionsViewController: SFPageViewController {
     
     // MARK: - Instance Properties
+
+    var viewAnimator = UIViewPropertyAnimator()
     
     open var titles: [String] = []
     private var isSelecting: Bool = false
     
     open lazy var pageBar: SFPageBar = {
         let pageBar = SFPageBar(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle, items: titles.count)
-        pageBar.translatesAutoresizingMaskIntoConstraints = false
         pageBar.scrollVertically = false
         pageBar.barDelegate = self
-        pageView.delegate = self
         return pageBar
     }()
     
     // MARK: - Instance Methods
     
     open override func viewWillPrepareSubViews() {
+        pageView.delegate = self
         view.addSubview(pageBar)
         view.clipsToBounds = true
         pageBar.buttons.enumerated().forEach { (index, button) in
@@ -48,9 +49,6 @@ open class SFPageSectionsViewController: SFPageViewController {
         titles.append(title)
         super.add(viewController: viewController)
     }
-    
-    var viewAnimator = UIViewPropertyAnimator()
-    var x: CGFloat = 0.0
 }
 
 extension SFPageSectionsViewController: UIScrollViewDelegate {

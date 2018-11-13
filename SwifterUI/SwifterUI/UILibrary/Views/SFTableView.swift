@@ -43,10 +43,10 @@ open class SFTableView: UITableView, SFViewColorStyle {
     // MARK: - Instance Methods
     
     open func updateColors() {
-        tintColor = colorStyle.getInteractiveColor()
-        backgroundColor = useAlternativeColors ? colorStyle.getAlternativeColor() : colorStyle.getMainColor()
+        tintColor = colorStyle.interactiveColor
+        backgroundColor = useAlternativeColors ? colorStyle.alternativeColor : colorStyle.mainColor
         reloadData()
-        separatorColor = colorStyle.getSeparatorColor()
+        separatorColor = colorStyle.separatorColor
         updateSubviewsColors()
         
         // This is going to loop through every section inside the table node and reload it with the correct color style on the main thread

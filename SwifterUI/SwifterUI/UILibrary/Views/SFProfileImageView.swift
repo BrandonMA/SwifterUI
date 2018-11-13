@@ -21,7 +21,6 @@ open class SFProfileImageView: SFView {
     
     open lazy var imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = SFAssets.imageOfBigPlus.withRenderingMode(.alwaysTemplate)
         imageView.contentMode = .center
         imageView.isUserInteractionEnabled = true
@@ -31,16 +30,13 @@ open class SFProfileImageView: SFView {
     
     open lazy var closeButton: SFButton = {
         let button = SFButton(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle, useAlternativeColors: true)
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 22
         button.setImage(SFAssets.imageOfCancelIcon, for: .normal)
         button.addShadow(color: .black, offSet: CGSize(width: 0, height: 2), radius: 6, opacity: 0.10)
         button.addTouchAnimations = true
         return button
     }()
-    
-    // MARK: - Initializers
-    
+        
     // MARK: - Instance Methods
     
     open override func prepareSubviews() {
@@ -73,8 +69,8 @@ open class SFProfileImageView: SFView {
     
     open override func updateColors() {
         backgroundColor = .clear
-        imageView.backgroundColor = useAlternativeColors ? colorStyle.getContrastColor() : colorStyle.getAlternativeColor()
-        imageView.tintColor = colorStyle.getPlaceholderColor()
+        imageView.backgroundColor = useAlternativeColors ? colorStyle.contrastColor : colorStyle.alternativeColor
+        imageView.tintColor = colorStyle.placeholderColor
         updateSubviewsColors()
     }
     

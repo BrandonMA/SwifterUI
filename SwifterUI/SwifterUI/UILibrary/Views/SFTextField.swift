@@ -91,12 +91,12 @@ open class SFTextField: UITextField, SFViewColorStyle {
     // MARK: - Instance Methods
     
     open func updateColors() {
-        backgroundColor = useAlternativeColors ? colorStyle.getContrastColor() : colorStyle.getAlternativeColor()
+        backgroundColor = useAlternativeColors ? colorStyle.contrastColor : colorStyle.alternativeColor
         if let placeholder = placeholder {
-            attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [NSAttributedString.Key.foregroundColor: colorStyle.getPlaceholderColor()])
+            attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [NSAttributedString.Key.foregroundColor: colorStyle.placeholderColor])
         }
-        textColor = colorStyle.getTextColor()
-        keyboardAppearance = colorStyle.getKeyboardStyle()
+        textColor = colorStyle.textColor
+        keyboardAppearance = colorStyle.keyboardStyle
         updateSubviewsColors()
     }
     

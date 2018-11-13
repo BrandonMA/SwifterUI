@@ -99,15 +99,15 @@ open class SFFluidButton: UIControl, SFViewColorStyle, SFLayoutView {
     
     open func updateColors() {
         if useHighlightTextColor {
-            titleLabel.textColor = highlightedTextColor ?? colorStyle.getInteractiveColor()
+            titleLabel.textColor = highlightedTextColor ?? colorStyle.interactiveColor
         } else if let textColor = textColor {
             titleLabel.textColor = textColor
         } else {
-            titleLabel.textColor = useAlternativeColors ? colorStyle.getInteractiveColor() : colorStyle.getTextColor()
+            titleLabel.textColor = useAlternativeColors ? colorStyle.interactiveColor : colorStyle.textColor
         }
         imageView.tintColor = titleLabel.textColor
         
-        backgroundColor = useAlternativeColors ? .clear : colorStyle.getAlternativeColor()
+        backgroundColor = useAlternativeColors ? .clear : colorStyle.alternativeColor
         normalColor = backgroundColor
     }
     
@@ -130,7 +130,7 @@ open class SFFluidButton: UIControl, SFViewColorStyle, SFLayoutView {
                 self.alpha = 0.5
             }
             
-            backgroundColor = highlightedColor ?? (useAlternativeColors ? .clear : colorStyle.getContrastColor())
+            backgroundColor = highlightedColor ?? (useAlternativeColors ? .clear : colorStyle.contrastColor)
         }
     }
     

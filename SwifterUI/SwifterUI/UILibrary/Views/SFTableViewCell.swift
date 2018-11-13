@@ -65,12 +65,12 @@ open class SFTableViewCell: UITableViewCell, SFViewColorStyle, SFLayoutView {
     }
     
     open func updateColors() {
-        backgroundColor = useAlternativeColors ? colorStyle.getAlternativeColor() : colorStyle.getMainColor()
-        rightImageView.tintColor = colorStyle.getTextColor()
-        textLabel?.textColor = colorStyle.getTextColor()
-        detailTextLabel?.textColor = useAlternativeColors ? colorStyle.getInteractiveColor() : colorStyle.getPlaceholderColor()
+        backgroundColor = useAlternativeColors ? colorStyle.alternativeColor : colorStyle.mainColor
+        rightImageView.tintColor = colorStyle.textColor
+        textLabel?.textColor = colorStyle.textColor
+        detailTextLabel?.textColor = useAlternativeColors ? colorStyle.interactiveColor : colorStyle.placeholderColor
         let selectedBackgroundView = UIView()
-        selectedBackgroundView.backgroundColor = useAlternativeColors ? colorStyle.getMainColor() : colorStyle.getContrastColor()
+        selectedBackgroundView.backgroundColor = useAlternativeColors ? colorStyle.mainColor : colorStyle.contrastColor
         self.selectedBackgroundView = selectedBackgroundView
         updateSubviewsColors()
     }

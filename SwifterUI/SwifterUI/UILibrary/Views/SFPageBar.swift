@@ -14,6 +14,23 @@ public protocol SFPageBarDelegate: class {
 
 open class SFPageBar: SFScrollView {
     
+    public class SFPageBarButton: SFButton {
+        
+        // MARK: - Initializers
+        
+        public init(automaticallyAdjustsColorStyle: Bool = true, tag: Int, font: UIFont) {
+            super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, useAlternativeColors: false, frame: .zero)
+            addTouchAnimations = true
+            useClearBackground = true
+            titleLabel?.font = font
+            self.tag = tag
+        }
+        
+        required public init?(coder aDecoder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+    }
+    
     // MARK: - Instance Properties
     
     open var font: UIFont = UIFont.boldSystemFont {
@@ -39,7 +56,6 @@ open class SFPageBar: SFScrollView {
     
     public final lazy var buttonStackView: SFStackView = {
         let stackView = SFStackView(arrangedSubviews: buttons)
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.alignment = .fill
         stackView.distribution = useAdaptingWidth ? .fill : .fillEqually
         stackView.axis = .horizontal
@@ -49,7 +65,6 @@ open class SFPageBar: SFScrollView {
     
     public final lazy var scrollIndicator: UIView = {
         let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
         view.isHidden = !showIndicator
         return view
     }()
@@ -88,15 +103,10 @@ open class SFPageBar: SFScrollView {
     }
     
     public final func addButton() {
-        let button = SFButton(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
+        let button = SFPageBarButton(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle, tag: buttons.count, font: font)
         button.addTouchAction { [unowned self] in
             self.didTouch(sfbutton: button)
         }
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.titleLabel?.font = font
-        button.addTouchAnimations = true
-        button.useClearBackground = true
-        button.tag = buttons.count
         buttonStackView.addArrangedSubview(button)
         buttons.append(button)
     }
@@ -130,6 +140,7 @@ open class SFPageBar: SFScrollView {
                 self.updateColors()
             })
         }
+        
         self.scrollIndicator.removeConstraint(type: .width)
         self.scrollIndicator.removeConstraint(type: .left)
         self.scrollIndicator.width(SFDimension(type: .fraction, value: 1), comparedTo: self.buttons[self.selectedIndex])
@@ -143,14 +154,14 @@ open class SFPageBar: SFScrollView {
         if let buttonsTintColor = buttonsTintColor {
             scrollIndicator.backgroundColor = buttonsTintColor
         } else if useAlternativeButtonsColor {
-            scrollIndicator.backgroundColor = colorStyle.getTextColor()
+            scrollIndicator.backgroundColor = colorStyle.textColor
         } else {
-            scrollIndicator.backgroundColor = colorStyle.getInteractiveColor()
+            scrollIndicator.backgroundColor = colorStyle.interactiveColor
         }
         
         buttons.forEach({
             if useAlternativeButtonsColor {
-                $0.setTitleColor(colorStyle.getTextColor(), for: .normal)
+                $0.setTitleColor(colorStyle.textColor, for: .normal)
             } else if let buttonsTintColor = buttonsTintColor {
                 $0.setTextColor = false
                 $0.setTitleColor(buttonsTintColor, for: .normal)

@@ -13,12 +13,12 @@ public final class SFChatBarButton: SFFluidButton {
     // MARK: - Instance Methods
     
     public override func updateColors() {
-        backgroundColor = colorStyle.getInteractiveColor()
+        backgroundColor = colorStyle.interactiveColor
         normalColor = backgroundColor
-        tintColor = colorStyle.getMainColor()
-        textColor = colorStyle.getMainColor()
-        highlightedColor = colorStyle.getMainColor()
-        highlightedTextColor = colorStyle.getInteractiveColor()
+        tintColor = colorStyle.mainColor
+        textColor = colorStyle.mainColor
+        highlightedColor = colorStyle.mainColor
+        highlightedTextColor = colorStyle.interactiveColor
     }
     
 }

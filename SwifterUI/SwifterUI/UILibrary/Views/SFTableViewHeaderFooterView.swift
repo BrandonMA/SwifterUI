@@ -62,9 +62,9 @@ open class SFTableViewHeaderFooterView: UITableViewHeaderFooterView, SFViewColor
     
     open func updateColors() {
         if backgroundView != nil && backgroundView?.backgroundColor != nil {
-            backgroundView?.backgroundColor = useAlternativeColors ? colorStyle.getAlternativeColor() : colorStyle.getMainColor()
+            backgroundView?.backgroundColor = useAlternativeColors ? colorStyle.alternativeColor : colorStyle.mainColor
         }
-        titleLabel.textColor = colorStyle.getPlaceholderColor()
+        titleLabel.textColor = colorStyle.placeholderColor
         updateSubviewsColors()
     }
     

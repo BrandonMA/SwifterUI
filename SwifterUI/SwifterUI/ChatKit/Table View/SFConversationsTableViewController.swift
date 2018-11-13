@@ -8,7 +8,7 @@
 
 import UIKit
 
-open class SFConversationsTableViewController: SFViewController {
+open class SFConversationsViewController: SFViewController {
     
     // MARK: - Instance Properties
     
@@ -102,13 +102,13 @@ open class SFConversationsTableViewController: SFViewController {
     
 }
 
-extension SFConversationsTableViewController: SFContactsViewControllerDelegate {
+extension SFConversationsViewController: SFContactsViewControllerDelegate {
     public func didSelectChat(_ chat: SFChat) {
         open(chat: chat)
     }
 }
 
-extension SFConversationsTableViewController: SFTableAdapterDelegate {
+extension SFConversationsViewController: SFTableAdapterDelegate {
     
     public func prepareCell<DataType>(_ cell: SFTableViewCell, at indexPath: IndexPath, with item: DataType) where DataType: Hashable {
         
@@ -168,7 +168,7 @@ extension SFConversationsTableViewController: SFTableAdapterDelegate {
     }
 }
 
-extension SFConversationsTableViewController: UISearchResultsUpdating {
+extension SFConversationsViewController: UISearchResultsUpdating {
     
     public func updateSearchResults(for searchController: UISearchController) {
         guard let text = searchController.searchBar.text else { return }
@@ -183,7 +183,7 @@ extension SFConversationsTableViewController: UISearchResultsUpdating {
     }
 }
 
-extension SFConversationsTableViewController: UIViewControllerPreviewingDelegate {
+extension SFConversationsViewController: UIViewControllerPreviewingDelegate {
     
     public func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
         guard let indexPath = tableView.indexPathForRow(at: location) else { return nil }

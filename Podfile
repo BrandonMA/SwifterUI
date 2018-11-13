@@ -11,7 +11,6 @@ target 'SwifterUI' do
 
   pod 'DeepDiff'
   pod 'Kingfisher'
-  pod 'PromiseKit'
   
   target 'SwifterUITests' do
     inherit! :search_paths

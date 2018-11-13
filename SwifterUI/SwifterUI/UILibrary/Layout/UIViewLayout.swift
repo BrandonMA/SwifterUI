@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import PromiseKit
 
 public enum SFLayoutError: String, Error {
     case noConstraint = "No constraint found"
@@ -31,14 +30,6 @@ public extension UIView {
     }
     
     // MARK: - Getting and Removing Constraints
-    
-    private func resolve(constraint: Constraint, type: ConstraintType, resolver: Resolver<Constraint>) {
-        if constraint.identifier == type.rawValue {
-            resolver.fulfill(constraint)
-        } else {
-            resolver.reject(SFLayoutError.noConstraint)
-        }
-    }
     
     /**
      Return all constraints for the current view.

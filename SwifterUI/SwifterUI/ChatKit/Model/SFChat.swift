@@ -82,7 +82,7 @@ open class SFChat: Hashable, Codable {
     
     open func addNew(message: SFMessage) {
         
-        if !messagesManager.contains(message) {
+        if !messagesManager.contains(item: message) {
             
             getSender(for: message)
             

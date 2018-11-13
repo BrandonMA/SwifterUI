@@ -112,10 +112,6 @@ extension SFDataManager: Collection, IteratorProtocol {
         }
     }
     
-    public func contains(_ element: DataType) -> Bool {
-        return contains { return $0.contains(element) }
-    }
-    
     public func removeAll() {
         data.removeAll()
         delegate?.forceUpdate()
@@ -196,6 +192,21 @@ public extension SFDataManager {
         
         delegate?.updateSection(at: index)
     }
+    
+    public func getSection(where predicate: (SFDataSection<DataType>) -> Bool) -> SFDataSection<DataType>? {
+        for section in self {
+            if predicate(section) {
+                return section
+            }
+        }
+        return nil
+    }
+    
+    public func contains(section: SFDataSection<DataType>) -> Bool {
+        return contains(where: { (currentSection) -> Bool in
+            return currentSection.identifier == section.identifier && currentSection.content == section.content
+        })
+    }
 }
 
 // MARK: - Items
@@ -268,8 +279,21 @@ public extension SFDataManager {
         return nil
     }
     
+    public func getItem(where predicate: (DataType) -> Bool) -> DataType? {
+        for item in flatData {
+            if predicate(item) {
+                return item
+            }
+        }
+        return nil
+    }
+    
     public func getItem(at indexPath: IndexPath) -> DataType {
         return data[indexPath.section].content[indexPath.row]
+    }
+    
+    public func contains(item: DataType) -> Bool {
+        return contains { return $0.contains(item) }
     }
     
 }

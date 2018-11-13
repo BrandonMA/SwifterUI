@@ -77,10 +77,10 @@ open class SFBulletinViewController: SFPopViewController {
     public convenience init(title: String = "", with values: [String], automaticallyAdjustsColorStyle: Bool = true) {
         self.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle)
         pickerValues = values
-        self.bulletinView.titleLabel.text = title
         useDatePicker = false
         useButtons = false
         createBulletinView()
+        bulletinTitle = title
     }
     
     public convenience init(title: String = "",
@@ -91,11 +91,11 @@ open class SFBulletinViewController: SFPopViewController {
         self.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle)
         useDatePicker = true
         useButtons = false
-        self.bulletinView.titleLabel.text = title
         datePicker.date = date
         datePicker.minimumDate = minDate
         datePicker.maximumDate = maxDate
         createBulletinView()
+        bulletinTitle = title
     }
     
     public convenience init(title: String = "",
@@ -104,8 +104,6 @@ open class SFBulletinViewController: SFPopViewController {
                             automaticallyAdjustsColorStyle: Bool = true) {
         self.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle)
         self.buttons = buttons
-        self.bulletinView.titleLabel.text = title
-        self.bulletinView.messageLabel.text = message
         useDatePicker = false
         useButtons = true
         buttons.forEach { (button) in
@@ -118,6 +116,8 @@ open class SFBulletinViewController: SFPopViewController {
             }, at: 0)
         }
         createBulletinView()
+        bulletinTitle = title
+        bulletinMessage = message
     }
     
     required public init?(coder aDecoder: NSCoder) {

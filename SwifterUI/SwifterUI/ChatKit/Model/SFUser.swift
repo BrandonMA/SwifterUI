@@ -79,15 +79,15 @@ open class SFUser: Hashable, Codable {
     }
         
     open func addNew(chat: SFChat) {
-        if !chatsManager.contains(chat) {
+        if !chatsManager.contains(item: chat) {
             chatsManager.insertItem(chat, at: IndexPath(item: 0, section: 0))
         }
     }
     
     open func addNew(contact: SFUser) {
         
-        if contactsManager.contains(contact) == false &&
-            contact.contactsManager.contains(self) == false &&
+        if contactsManager.contains(item: contact) == false &&
+            contact.contactsManager.contains(item: self) == false &&
             contact.identifier != identifier {
             
             if let sectionIndex = contactsManager.index(where: {

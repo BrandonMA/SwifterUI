@@ -54,7 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let message = SFMessage(senderIdentifier: brandon.identifier, chatIdentifier: chat.identifier)
         chat.addNew(message: message)
         
-        window?.rootViewController = SFNavigationController(rootViewController: ViewController())
+        window?.rootViewController = SFNavigationController(rootViewController: SFConversationsViewController(user: brandon))
         
         window?.makeKeyAndVisible()
         

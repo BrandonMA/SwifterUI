@@ -310,9 +310,10 @@ extension SFChatViewController: SFTableViewChatCellDelegate {
         guard let image = cell.messageImageView.image else { return }
         isWaitingForPopViewController = true
         zoomImageView.image = image
-        initialFrameForZooming = view.convert(cell.bubbleView.bounds, from: cell.messageImageView)
+        initialFrameForZooming = view.convert(cell.messageImageView.bounds, from: cell.messageImageView)
         zoomImageView.frame = initialFrameForZooming
         view.addSubview(zoomImageView)
+        zoomImageView.translatesAutoresizingMaskIntoConstraints = true
         cell.bubbleView.alpha = 0.0
         currentZoomCell = cell
         

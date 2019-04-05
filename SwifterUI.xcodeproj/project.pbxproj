@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		16208BB3E59F12DA0F39EDC2 /* Pods_SwifterUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B0230C9F419D0411D02E8AB /* Pods_SwifterUI.framework */; };
-		1FAA548F9B3DB61CF5B675FE /* Pods_SwifterUIUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C79BEACC89055D0892977B0E /* Pods_SwifterUIUITests.framework */; };
 		42087C2321427E3100F71CA9 /* SFChatBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42087C2221427E3100F71CA9 /* SFChatBarButton.swift */; };
 		42087C272142B21900F71CA9 /* SFSignViewTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42087C262142B21900F71CA9 /* SFSignViewTextField.swift */; };
 		42087C292142B77B00F71CA9 /* SFPopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42087C282142B77B00F71CA9 /* SFPopView.swift */; };
@@ -30,8 +29,6 @@
 		423AABF21FE7548F009D6C39 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423AABF11FE7548F009D6C39 /* ViewController.swift */; };
 		423AABF71FE7548F009D6C39 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 423AABF61FE7548F009D6C39 /* Assets.xcassets */; };
 		423AABFA1FE7548F009D6C39 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 423AABF81FE7548F009D6C39 /* LaunchScreen.storyboard */; };
-		423AAC051FE7548F009D6C39 /* SwifterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423AAC041FE7548F009D6C39 /* SwifterUITests.swift */; };
-		423AAC101FE7548F009D6C39 /* SwifterUIUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423AAC0F1FE7548F009D6C39 /* SwifterUIUITests.swift */; };
 		423AAC201FE76727009D6C39 /* UIViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423AAC1F1FE76727009D6C39 /* UIViewLayout.swift */; };
 		423AAC241FE76763009D6C39 /* ConstraintEdge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423AAC231FE76763009D6C39 /* ConstraintEdge.swift */; };
 		423AAC261FE7678C009D6C39 /* ConstraintAxis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423AAC251FE7678C009D6C39 /* ConstraintAxis.swift */; };
@@ -116,25 +113,7 @@
 		42F6CB24219AEFA6002A299B /* SFViewColorStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F6CB22219AEFA6002A299B /* SFViewColorStyle.swift */; };
 		42FAD75920B7376C00E5AE19 /* SFDataSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FAD75820B7376C00E5AE19 /* SFDataSection.swift */; };
 		42FB9F9C202FC8AB006895F4 /* SFTableViewProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FB9F9B202FC8AB006895F4 /* SFTableViewProfileCell.swift */; };
-		49E574EE4AA5A1722212F0FA /* Pods_SwifterUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08B6A698CD50ED99BBE8D49B /* Pods_SwifterUITests.framework */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		423AAC011FE7548F009D6C39 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 423AABE41FE7548E009D6C39 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 423AABEB1FE7548E009D6C39;
-			remoteInfo = SwifterUI;
-		};
-		423AAC0C1FE7548F009D6C39 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 423AABE41FE7548E009D6C39 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 423AABEB1FE7548E009D6C39;
-			remoteInfo = SwifterUI;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		08B6A698CD50ED99BBE8D49B /* Pods_SwifterUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwifterUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -165,10 +144,8 @@
 		423AABF61FE7548F009D6C39 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		423AABF91FE7548F009D6C39 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		423AABFB1FE7548F009D6C39 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		423AAC001FE7548F009D6C39 /* SwifterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwifterUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		423AAC041FE7548F009D6C39 /* SwifterUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwifterUITests.swift; sourceTree = "<group>"; };
 		423AAC061FE7548F009D6C39 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		423AAC0B1FE7548F009D6C39 /* SwifterUIUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwifterUIUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		423AAC0F1FE7548F009D6C39 /* SwifterUIUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwifterUIUITests.swift; sourceTree = "<group>"; };
 		423AAC111FE7548F009D6C39 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		423AAC1F1FE76727009D6C39 /* UIViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewLayout.swift; sourceTree = "<group>"; };
@@ -271,22 +248,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		423AABFD1FE7548F009D6C39 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				49E574EE4AA5A1722212F0FA /* Pods_SwifterUITests.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		423AAC081FE7548F009D6C39 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				1FAA548F9B3DB61CF5B675FE /* Pods_SwifterUIUITests.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -321,8 +282,6 @@
 			isa = PBXGroup;
 			children = (
 				423AABEC1FE7548E009D6C39 /* SwifterUI.app */,
-				423AAC001FE7548F009D6C39 /* SwifterUITests.xctest */,
-				423AAC0B1FE7548F009D6C39 /* SwifterUIUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -598,7 +557,6 @@
 				423AABE91FE7548E009D6C39 /* Frameworks */,
 				423AABEA1FE7548E009D6C39 /* Resources */,
 				0A33558E8965FD7E47B63AA8 /* [CP] Embed Pods Frameworks */,
-				42E176CA216F9EB700A9F33F /* SwiftLint */,
 			);
 			buildRules = (
 			);
@@ -608,44 +566,6 @@
 			productName = SwifterUI;
 			productReference = 423AABEC1FE7548E009D6C39 /* SwifterUI.app */;
 			productType = "com.apple.product-type.application";
-		};
-		423AABFF1FE7548F009D6C39 /* SwifterUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 423AAC171FE7548F009D6C39 /* Build configuration list for PBXNativeTarget "SwifterUITests" */;
-			buildPhases = (
-				769D76B67EEEF89CCC8E28C8 /* [CP] Check Pods Manifest.lock */,
-				423AABFC1FE7548F009D6C39 /* Sources */,
-				423AABFD1FE7548F009D6C39 /* Frameworks */,
-				423AABFE1FE7548F009D6C39 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				423AAC021FE7548F009D6C39 /* PBXTargetDependency */,
-			);
-			name = SwifterUITests;
-			productName = SwifterUITests;
-			productReference = 423AAC001FE7548F009D6C39 /* SwifterUITests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		423AAC0A1FE7548F009D6C39 /* SwifterUIUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 423AAC1A1FE7548F009D6C39 /* Build configuration list for PBXNativeTarget "SwifterUIUITests" */;
-			buildPhases = (
-				0F178B2E644C00A03187FB2F /* [CP] Check Pods Manifest.lock */,
-				423AAC071FE7548F009D6C39 /* Sources */,
-				423AAC081FE7548F009D6C39 /* Frameworks */,
-				423AAC091FE7548F009D6C39 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				423AAC0D1FE7548F009D6C39 /* PBXTargetDependency */,
-			);
-			name = SwifterUIUITests;
-			productName = SwifterUIUITests;
-			productReference = 423AAC0B1FE7548F009D6C39 /* SwifterUIUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
@@ -659,20 +579,8 @@
 				TargetAttributes = {
 					423AABEB1FE7548E009D6C39 = {
 						CreatedOnToolsVersion = 9.2;
-						LastSwiftMigration = 1000;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
-					};
-					423AABFF1FE7548F009D6C39 = {
-						CreatedOnToolsVersion = 9.2;
-						LastSwiftMigration = 1000;
-						ProvisioningStyle = Automatic;
-						TestTargetID = 423AABEB1FE7548E009D6C39;
-					};
-					423AAC0A1FE7548F009D6C39 = {
-						CreatedOnToolsVersion = 9.2;
-						LastSwiftMigration = 1000;
-						ProvisioningStyle = Automatic;
-						TestTargetID = 423AABEB1FE7548E009D6C39;
 					};
 				};
 			};
@@ -681,7 +589,9 @@
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				en,
 				Base,
+				es,
 			);
 			mainGroup = 423AABE31FE7548E009D6C39;
 			productRefGroup = 423AABED1FE7548E009D6C39 /* Products */;
@@ -689,8 +599,6 @@
 			projectRoot = "";
 			targets = (
 				423AABEB1FE7548E009D6C39 /* SwifterUI */,
-				423AABFF1FE7548F009D6C39 /* SwifterUITests */,
-				423AAC0A1FE7548F009D6C39 /* SwifterUIUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -707,20 +615,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		423AABFE1FE7548F009D6C39 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		423AAC091FE7548F009D6C39 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -730,38 +624,18 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-SwifterUI/Pods-SwifterUI-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-SwifterUI/Pods-SwifterUI-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/DeepDiff/DeepDiff.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
-				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DeepDiff.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SwifterUI/Pods-SwifterUI-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		0F178B2E644C00A03187FB2F /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-SwifterUIUITests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SwifterUI/Pods-SwifterUI-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		3EC29902490D49E8D8A1C5CC /* [CP] Check Pods Manifest.lock */ = {
@@ -776,42 +650,6 @@
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-SwifterUI-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		42E176CA216F9EB700A9F33F /* SwiftLint */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = SwiftLint;
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
-		};
-		769D76B67EEEF89CCC8E28C8 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-SwifterUITests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -929,36 +767,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		423AABFC1FE7548F009D6C39 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				423AAC051FE7548F009D6C39 /* SwifterUITests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		423AAC071FE7548F009D6C39 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				423AAC101FE7548F009D6C39 /* SwifterUIUITests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		423AAC021FE7548F009D6C39 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 423AABEB1FE7548E009D6C39 /* SwifterUI */;
-			targetProxy = 423AAC011FE7548F009D6C39 /* PBXContainerItemProxy */;
-		};
-		423AAC0D1FE7548F009D6C39 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 423AABEB1FE7548E009D6C39 /* SwifterUI */;
-			targetProxy = 423AAC0C1FE7548F009D6C39 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		423AABF81FE7548F009D6C39 /* LaunchScreen.storyboard */ = {
@@ -1100,7 +909,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = brandon.SwifterUI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1117,78 +926,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = brandon.SwifterUI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		423AAC181FE7548F009D6C39 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8114B41A59324EABB723590E /* Pods-SwifterUITests.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5DF77NHZB8;
-				INFOPLIST_FILE = SwifterUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = brandon.SwifterUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwifterUI.app/SwifterUI";
-			};
-			name = Debug;
-		};
-		423AAC191FE7548F009D6C39 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 88DF071D2D0B06A0A779E378 /* Pods-SwifterUITests.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5DF77NHZB8;
-				INFOPLIST_FILE = SwifterUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = brandon.SwifterUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwifterUI.app/SwifterUI";
-			};
-			name = Release;
-		};
-		423AAC1B1FE7548F009D6C39 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = D5C72905FB2DE9EB9D857BED /* Pods-SwifterUIUITests.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5DF77NHZB8;
-				INFOPLIST_FILE = SwifterUIUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = brandon.SwifterUIUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = SwifterUI;
-			};
-			name = Debug;
-		};
-		423AAC1C1FE7548F009D6C39 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 170AABA9ED1D1AF4C192523D /* Pods-SwifterUIUITests.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5DF77NHZB8;
-				INFOPLIST_FILE = SwifterUIUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = brandon.SwifterUIUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = SwifterUI;
 			};
 			name = Release;
 		};
@@ -1209,24 +948,6 @@
 			buildConfigurations = (
 				423AAC151FE7548F009D6C39 /* Debug */,
 				423AAC161FE7548F009D6C39 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		423AAC171FE7548F009D6C39 /* Build configuration list for PBXNativeTarget "SwifterUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				423AAC181FE7548F009D6C39 /* Debug */,
-				423AAC191FE7548F009D6C39 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		423AAC1A1FE7548F009D6C39 /* Build configuration list for PBXNativeTarget "SwifterUIUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				423AAC1B1FE7548F009D6C39 /* Debug */,
-				423AAC1C1FE7548F009D6C39 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

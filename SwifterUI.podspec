@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'SwifterUI'
-  s.version          = '0.9.0'
+  s.version          = '0.9.1'
   s.summary          = 'UI Library'
  
   s.description      = 'This is a UI Library to improve development process'
@@ -18,23 +18,17 @@ Pod::Spec.new do |s|
   s.pod_target_xcconfig = { 'SWIFT_VERSION' => '5.0' }
 
   s.subspec 'Core' do |core|
-    core.pod_target_xcconfig = { 'SWIFT_VERSION' => '5.0' }
-    core.ios.deployment_target = '11.0'
     core.source_files = 'SwifterUI/SwifterUI/UILibrary/*', 'SwifterUI/SwifterUI/UILibrary/**/*'
     core.dependency 'DeepDiff'
   end
 
   s.subspec 'ChatKit' do |chatkit|
-    chatkit.pod_target_xcconfig = { 'SWIFT_VERSION' => '5.0' }
-    chatkit.ios.deployment_target = '11.0'
     chatkit.source_files  = 'SwifterUI/SwifterUI/ChatKit/**/*'
     chatkit.dependency 'SwifterUI/Core'
     chatkit.dependency 'Kingfisher'
   end
 
   s.subspec 'LoginKit' do |loginkit|
-    loginkit.pod_target_xcconfig = { 'SWIFT_VERSION' => '5.0' }
-    loginkit.ios.deployment_target = '11.0'
     loginkit.source_files  = 'SwifterUI/SwifterUI/LoginKit/**/*'
     loginkit.dependency 'SwifterUI/Core'
   end

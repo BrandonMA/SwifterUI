@@ -8,8 +8,17 @@
 
 import UIKit
 import Kingfisher
+import DeepDiff
 
-open class SFMessage: Hashable, Codable {
+open class SFMessage: SFDataType, Codable {
+    
+    public var diffId: Int {
+        return identifier.hashValue
+    }
+    
+    public static func compareContent(_ a: SFMessage, _ b: SFMessage) -> Bool {
+        return a.identifier == b.identifier
+    }
     
     public enum CodingKeys: String, CodingKey {
         case identifier
@@ -25,7 +34,7 @@ open class SFMessage: Hashable, Codable {
     // MARK: - Static Methods
     
     public static func == (lhs: SFMessage, rhs: SFMessage) -> Bool {
-        return lhs.identifier == rhs.identifier && lhs.chatIdentifier == rhs.chatIdentifier && lhs.creationDate == rhs.creationDate
+        return lhs.identifier == rhs.identifier && lhs.chatIdentifier == rhs.chatIdentifier
     }
     
     // MARK: - Instance Properties
@@ -39,8 +48,12 @@ open class SFMessage: Hashable, Codable {
     open var imageURL: String?
     open var videoURL: String?
     
-    open var hashValue: Int { return identifier.hashValue ^ chatIdentifier.hashValue }
-    open var image: UIImage? = nil
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(identifier.hashValue)
+    }
+    
+    open var image: UIImage?
+    open weak var sender: SFUser?
     
     // MARK: - Initializers
     
@@ -52,19 +65,50 @@ open class SFMessage: Hashable, Codable {
         self.read = read
     }
     
-    public convenience init(identifier: String = UUID().uuidString, senderIdentifier: String, chatIdentifier: String, creationDate: Date = Date(), read: Bool = false, text: String) {
-        self.init(identifier: identifier, senderIdentifier: senderIdentifier, chatIdentifier: chatIdentifier, creationDate: creationDate, read: read)
+    public convenience init(identifier: String = UUID().uuidString,
+                            senderIdentifier: String,
+                            chatIdentifier: String,
+                            creationDate: Date = Date(),
+                            read: Bool = false,
+                            text: String) {
+        
+        self.init(identifier: identifier,
+                  senderIdentifier: senderIdentifier,
+                  chatIdentifier: chatIdentifier,
+                  creationDate: creationDate,
+                  read: read)
         self.text = text
     }
     
-    public convenience init(identifier: String = UUID().uuidString, senderIdentifier: String, chatIdentifier: String, creationDate: Date = Date(), read: Bool = false, image: UIImage, imageURL: String) {
-        self.init(identifier: identifier, senderIdentifier: senderIdentifier, chatIdentifier: chatIdentifier, creationDate: creationDate, read: read)
+    public convenience init(identifier: String = UUID().uuidString,
+                            senderIdentifier: String,
+                            chatIdentifier: String,
+                            creationDate: Date = Date(),
+                            read: Bool = false,
+                            image: UIImage,
+                            imageURL: String) {
+        
+        self.init(identifier: identifier,
+                  senderIdentifier: senderIdentifier,
+                  chatIdentifier: chatIdentifier,
+                  creationDate: creationDate,
+                  read: read)
         self.image = image
         self.imageURL = imageURL
     }
     
-    public convenience init(identifier: String = UUID().uuidString, senderIdentifier: String, chatIdentifier: String, creationDate: Date = Date(), read: Bool = false, videoURL: String) {
-        self.init(identifier: identifier, senderIdentifier: senderIdentifier, chatIdentifier: chatIdentifier, creationDate: creationDate, read: read)
+    public convenience init(identifier: String = UUID().uuidString,
+                            senderIdentifier: String,
+                            chatIdentifier: String,
+                            creationDate: Date = Date(),
+                            read: Bool = false,
+                            videoURL: String) {
+        
+        self.init(identifier: identifier,
+                  senderIdentifier: senderIdentifier,
+                  chatIdentifier: chatIdentifier,
+                  creationDate: creationDate,
+                  read: read)
         self.videoURL = videoURL
     }
     
@@ -96,7 +140,7 @@ open class SFMessage: Hashable, Codable {
 }
 
 public extension Array where Element: SFDataSection<SFMessage> {
-    public mutating func sortByDate() {
+    mutating func sortByDate() {
         sort(by: { (current, next) -> Bool in
             guard let currentDate = Date.date(from: current.identifier, with: "EEEE dd MMM yyyy") else { return false }
             guard let nextDate = Date.date(from: next.identifier, with: "EEEE dd MMM yyyy") else { return false }
@@ -107,13 +151,15 @@ public extension Array where Element: SFDataSection<SFMessage> {
 
 public extension Array where Element: SFMessage {
     
-    public func createDataSections() -> [SFDataSection<SFMessage>] {
+    func createDataSections() -> [SFDataSection<SFMessage>] {
         
         var sections: [SFDataSection<SFMessage>] = []
         
         for message in self {
             
-            if let index = sections.index(where: { $0.identifier == message.creationDate.string(with: "EEEE dd MMM yyyy") }) {
+            if let index = sections.firstIndex(where: {
+                $0.identifier == message.creationDate.string(with: "EEEE dd MMM yyyy")
+            }) {
                 sections[index].content.append(message)
             } else {
                 let section = SFDataSection<SFMessage>(content: [message], identifier: message.creationDate.string(with: "EEEE dd MMM yyyy"))
@@ -125,22 +171,10 @@ public extension Array where Element: SFMessage {
         
     }
     
-    public func ordered() -> [SFDataSection<SFMessage>] {
+    func ordered() -> [SFDataSection<SFMessage>] {
         var sections: [SFDataSection<SFMessage>] = createDataSections()
         sections.sortByDate()
         return sections
     }
     
 }
-
-
-
-
-
-
-
-
-
-
-
-

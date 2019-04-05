@@ -81,14 +81,3 @@ public struct SFColors {
     static public let blue: UIColor = UIColor(hex: "0088FF")
     
 }
-
-
-
-
-
-
-
-
-
-
-

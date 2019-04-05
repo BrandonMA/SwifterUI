@@ -12,8 +12,8 @@ public final class SFTextScrollSection: SFSection {
 
     // MARK: - Instance Properties
     
-    public final var textView: SFTextView {
-        return bottomView as! SFTextView
+    public final var textView: SFTextView! {
+        return bottomView as? SFTextView
     }
     
     public override var useAlternativeColors: Bool {
@@ -56,13 +56,4 @@ public final class SFTextScrollSection: SFSection {
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    // MARK: - Instance Methods
-    
 }
-
-
-
-
-
-

@@ -13,13 +13,13 @@ public typealias Constraint = NSLayoutConstraint
 public extension Constraint {
     
     @discardableResult
-    public final func set(identifier: String) -> Self {
+    final func set(identifier: String) -> Self {
         self.identifier = identifier
         return self
     }
     
     @discardableResult
-    public final func set(active: Bool) -> Self {
+    final func set(active: Bool) -> Self {
         self.isActive = active
         return self
     }

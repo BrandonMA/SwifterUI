@@ -21,12 +21,11 @@ public extension SFVideoPlayerDelegate where Self: UIViewController {
     
     // MARK: - Instance Methods
     
-    public func prepare(mediaController: UIViewController) {
+    func prepare(mediaController: UIViewController) {
         addChild(mediaController)
         mediaController.didMove(toParent: self)
     }
 }
-
 
 public final class SFVideoView: SFView {
 
@@ -50,25 +49,30 @@ public final class SFVideoView: SFView {
 
     // MARK: - Instance Methods
 
+    private func createPlayer(with url: URL) {
+        let player = AVPlayer(url: url)
+        player.automaticallyWaitsToMinimizeStalling = false
+        controller.player = player
+    }
+
+    private func startVideoController() {
+        addSubview(controller.view)
+        controller.view.clipSides()
+        delegate?.prepare(mediaController: controller)
+    }
+
     public final func setVideo(with url: URL?) {
-        
         DispatchQueue.global(qos: .background).async {
             guard let url = url else { return }
-            let player = AVPlayer(url: url)
-            player.automaticallyWaitsToMinimizeStalling = false
-            self.controller.player = player
-            
+            self.createPlayer(with: url)
             DispatchQueue.main.async {
-                self.addSubview(self.controller.view)
-                self.controller.view.translatesAutoresizingMaskIntoConstraints = false
-                self.controller.view.clipSides()
-                self.delegate?.prepare(mediaController: self.controller)
+                self.startVideoController()
             }
         }
     }
     
     public final func cleanView() {
-        self.controller.view.removeFromSuperview()
+        controller.view.removeFromSuperview()
         controller.player = nil
         controller.removeFromParent()
     }
@@ -77,7 +81,9 @@ public final class SFVideoView: SFView {
         cleanView()
         super.removeFromSuperview()
     }
+    
+    public override func updateColors() {
+        backgroundColor = .clear
+    }
 
 }
-
-

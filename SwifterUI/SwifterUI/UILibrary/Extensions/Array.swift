@@ -9,7 +9,7 @@
 import Foundation
 
 public extension Array {
-    public mutating func move(from: Int, to: Int) {
+    mutating func move(from: Int, to: Int) {
         precondition(from != to && indices.contains(from) && indices.contains(to), "Invalid Indexes")
         insert(remove(at: from), at: to)
     }

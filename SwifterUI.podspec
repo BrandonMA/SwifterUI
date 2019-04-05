@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'SwifterUI'
-  s.version          = '0.8.44'
+  s.version          = '0.8.91'
   s.summary          = 'UI Library'
  
   s.description      = 'This is a UI Library to improve development process'
@@ -27,7 +27,7 @@ Pod::Spec.new do |s|
   s.subspec 'ChatKit' do |chatkit|
     chatkit.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.2' }
     chatkit.ios.deployment_target = '11.0'
-    chatkit.source_files  = 'SwifterUI/SwifterUI/ChatKit/*'
+    chatkit.source_files  = 'SwifterUI/SwifterUI/ChatKit/**/*'
     chatkit.dependency 'SwifterUI/Core'
     chatkit.dependency 'Kingfisher'
   end

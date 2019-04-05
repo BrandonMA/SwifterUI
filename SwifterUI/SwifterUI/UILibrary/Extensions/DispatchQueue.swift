@@ -11,7 +11,7 @@ import UIKit
 public extension DispatchQueue {
 
     // DispatchLevel: Enum for easier access to DispatchQueues types
-    public enum DispatchLevel {
+    enum DispatchLevel {
         case main
         case userInteractive
         case userInitiated
@@ -37,9 +37,10 @@ public extension DispatchQueue {
     //   seconds: Time in seconds to wait
     //   dispatchLevel: Dispatch queue where your code is going to be executed
     //   handler: Action to be executed after the delay
-    public static func delay(by seconds: Double, dispatchLevel: DispatchLevel = .background, handler: @escaping () -> Void) {
+    static func delay(by seconds: Double, dispatchLevel: DispatchLevel = .background, handler: @escaping () -> Void) {
         // Create a DispatchTime in seconds since now + the number of seconds added
-        dispatchLevel.dispatchQueue.asyncAfter(deadline: .now() + seconds, execute: handler) // Add the action to be executed after the delay to the corresponding DispatchQueue
+        // Add the action to be executed after the delay to the corresponding DispatchQueue
+        dispatchLevel.dispatchQueue.asyncAfter(deadline: .now() + seconds, execute: handler)
     }
 
 }

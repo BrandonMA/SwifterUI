@@ -12,13 +12,13 @@ public extension UIView {
 
     // MARK: - Instance Properties
 
-    public final var useCompactInterface: Bool {
+    final var useCompactInterface: Bool {
         return self.traitCollection.horizontalSizeClass == .compact || self.traitCollection.verticalSizeClass == .compact
     }
 
     // MARK: - Instance Methods
 
-    public final func addShadow(color: UIColor, offSet: CGSize, radius: CGFloat, opacity: Float) {
+    final func addShadow(color: UIColor, offSet: CGSize, radius: CGFloat, opacity: Float) {
         layer.shadowColor = color.cgColor
         layer.shadowOffset = offSet
         layer.shadowRadius = radius

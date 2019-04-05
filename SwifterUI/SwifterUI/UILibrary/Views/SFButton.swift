@@ -89,23 +89,23 @@ open class SFButton: UIButton, SFViewColorStyle, SFLayoutView {
     }
     
     public func setConstraints() {
-        customConstraints.append(contentsOf: rightImageView.clipSides(exclude: [.left], margin: UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8), useSafeArea: false))
-        customConstraints.append(rightImageView.width(SFDimension(value: 14)))
+        customConstraints.append(contentsOf: rightImageView.clipSides(exclude: [.left], margin: UIEdgeInsets(top: 12, left: 8, bottom: 12, right: 8), useSafeArea: false))
+        customConstraints.append(rightImageView.set(width: SFDimension(value: 14)))
     }
     
     open func updateColors() {
         
-        backgroundColor = isTextPicker ? colorStyle.getContrastColor() : useClearBackground ? .clear : useAlternativeColors ? colorStyle.getMainColor() : colorStyle.getAlternativeColor()
+        backgroundColor = isTextPicker ? colorStyle.contrastColor : useClearBackground ? .clear : useAlternativeColors ? colorStyle.mainColor : colorStyle.alternativeColor
         
         titleLabel?.backgroundColor = backgroundColor
         
         if setTextColor {
             if useAlternativeTextColor {
-                tintColor = colorStyle.getTextColor()
-                setTitleColor(colorStyle.getTextColor(), for: .normal)
+                tintColor = colorStyle.textColor
+                setTitleColor(colorStyle.textColor, for: .normal)
             } else {
-                tintColor = colorStyle.getInteractiveColor()
-                setTitleColor(colorStyle.getInteractiveColor(), for: .normal)
+                tintColor = colorStyle.interactiveColor
+                setTitleColor(colorStyle.interactiveColor, for: .normal)
             }
         }
         updateSubviewsColors()
@@ -138,18 +138,3 @@ open class SFButton: UIButton, SFViewColorStyle, SFLayoutView {
         touchDownActions.forEach { $0() }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

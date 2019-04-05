@@ -21,7 +21,6 @@ open class SFProfileImageView: SFView {
     
     open lazy var imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = SFAssets.imageOfBigPlus.withRenderingMode(.alwaysTemplate)
         imageView.contentMode = .center
         imageView.isUserInteractionEnabled = true
@@ -31,16 +30,13 @@ open class SFProfileImageView: SFView {
     
     open lazy var closeButton: SFButton = {
         let button = SFButton(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle, useAlternativeColors: true)
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 22
         button.setImage(SFAssets.imageOfCancelIcon, for: .normal)
         button.addShadow(color: .black, offSet: CGSize(width: 0, height: 2), radius: 6, opacity: 0.10)
         button.addTouchAnimations = true
         return button
     }()
-    
-    // MARK: - Initializers
-    
+        
     // MARK: - Instance Methods
     
     open override func prepareSubviews() {
@@ -52,13 +48,13 @@ open class SFProfileImageView: SFView {
     open override func setConstraints() {
         imageView.clipTop(to: .top)
         imageView.clipCenterX(to: .centerX)
-        imageView.width(SFDimension(value: 128))
-        imageView.height(SFDimension(value: 128))
+        imageView.set(width: SFDimension(value: 128))
+        imageView.set(height: SFDimension(value: 128))
         
         closeButton.clipCenterX(to: .centerX)
         closeButton.clipCenterY(to: .bottom, of: imageView)
-        closeButton.width(SFDimension(value: 44))
-        closeButton.height(SFDimension(value: 44))
+        closeButton.set(width: SFDimension(value: 44))
+        closeButton.set(height: SFDimension(value: 44))
         
         clipRight(to: .right, of: imageView)
         clipBottom(to: .bottom, of: closeButton)
@@ -73,8 +69,8 @@ open class SFProfileImageView: SFView {
     
     open override func updateColors() {
         backgroundColor = .clear
-        imageView.backgroundColor = useAlternativeColors ? colorStyle.getContrastColor() : colorStyle.getAlternativeColor()
-        imageView.tintColor = colorStyle.getPlaceholderColor()
+        imageView.backgroundColor = useAlternativeColors ? colorStyle.contrastColor : colorStyle.alternativeColor
+        imageView.tintColor = colorStyle.placeholderColor
         updateSubviewsColors()
     }
     
@@ -83,21 +79,3 @@ open class SFProfileImageView: SFView {
         imageView.contentMode = .center
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

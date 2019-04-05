@@ -61,10 +61,10 @@ open class SFSignInView: SFView {
     
     open override func setConstraints() {
         contentStack.clipSides()
-        mailTextField.height(SFDimension(value: 42))
-        passwordTextField.height(SFDimension(value: 42))
-        passwordResetButton.height(SFDimension(value: 52))
-        signInButton.height(SFDimension(value: 52))
+        mailTextField.set(height: SFDimension(value: 40))
+        passwordTextField.set(height: SFDimension(value: 40))
+        passwordResetButton.set(height: SFDimension(value: 52))
+        signInButton.set(height: SFDimension(value: 52))
         super.setConstraints()
     }
 }

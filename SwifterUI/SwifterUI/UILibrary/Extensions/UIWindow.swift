@@ -12,7 +12,7 @@ public extension UIWindow {
 
     // MARK: - Static Methods
     
-    public static func getVisibleViewControllerFrom(_ viewController: UIViewController?) -> UIViewController? {
+    static func getVisibleViewControllerFrom(_ viewController: UIViewController?) -> UIViewController? {
         if let navigationController = viewController as? UINavigationController {
             return UIWindow.getVisibleViewControllerFrom(navigationController.visibleViewController)
         } else if let tabBarController = viewController as? UITabBarController {
@@ -28,7 +28,7 @@ public extension UIWindow {
 
     // MARK: - Instance Methods
 
-    public final func updateRootViewController(with viewController: UIViewController, completion: (() -> Void)? = nil) {
+    final func updateRootViewController(with viewController: UIViewController, completion: (() -> Void)? = nil) {
         UIView.transition(with: self, duration: 0.6, options: .transitionCrossDissolve, animations: {
             self.rootViewController = viewController
         }, completion: { _ in
@@ -38,7 +38,7 @@ public extension UIWindow {
 
     // MARK: - Instance Properties
 
-    public final var visibleViewController: UIViewController? {
+    final var visibleViewController: UIViewController? {
         return UIWindow.getVisibleViewControllerFrom(self.rootViewController)
     }
 

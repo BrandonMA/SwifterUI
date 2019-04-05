@@ -12,15 +12,17 @@ import DeepDiff
 public protocol SFDataManagerDelegate: class {
     func insertSection(at index: Int)
     func moveSection(from: Int, to: Int)
-    func removeSection(at index: Int)
+    func deleteSection(at index: Int)
+    func updateSection(at index: Int)
     func insertItem(at indexPath: IndexPath)
     func moveItem(from: IndexPath, to: IndexPath)
-    func removeItem(at indexPath: IndexPath)
-    func updateSection<DataType: Hashable>(with changes: [Change<DataType>], index: Int)
+    func deleteItem(at indexPath: IndexPath)
+    func updateItem(at index: IndexPath)
+    func updateSection<DataType: SFDataType>(with changes: [Change<DataType>], index: Int)
     func forceUpdate()
 }
 
-open class SFDataManager<DataType: Hashable> {
+open class SFDataManager<DataType: SFDataType> {
     
     // MARK: - Instance Properties
     
@@ -33,14 +35,20 @@ open class SFDataManager<DataType: Hashable> {
     public final var data: ContentType = []
     public final weak var delegate: SFDataManagerDelegate?
     
+    // MARK: - Initializers
+    
+    public init() {}
+    
     // MARK: - Instace Methods
     
     open func forceUpdate(dataSections: ContentType) {
         data = dataSections
+        delegate?.forceUpdate()
     }
     
     open func forceUpdate(data: [[DataType]]) {
         self.data = data.compactMap({ return SFDataSection<DataType>(content: $0) })
+        delegate?.forceUpdate()
     }
     
     @discardableResult
@@ -88,7 +96,7 @@ extension SFDataManager: Collection, IteratorProtocol {
     public var endIndex: Index { return data.endIndex }
     
     public subscript(index: Index) -> ContentType.Element {
-        get { return data[index] }
+        return data[index]
     }
     
     public func index(after i: Index) -> Index {
@@ -104,8 +112,9 @@ extension SFDataManager: Collection, IteratorProtocol {
         }
     }
     
-    public func contains(_ element: DataType) -> Bool {
-        return contains { return $0.contains(element) }
+    public func removeAll() {
+        data.removeAll()
+        delegate?.forceUpdate()
     }
     
 }
@@ -114,12 +123,12 @@ extension SFDataManager: Collection, IteratorProtocol {
 
 public extension SFDataManager {
     
-    public final var flatData: [DataType] { return data.flatMap { return $0.content } }
+    final var flatData: [DataType] { return data.flatMap { return $0.content } }
     
-    public var lastSectionIndex: Int { return count == 0 ? 0 : count - 1 }
-    public var nextLastSectionIndex: Int { return count == 0 ? 0 : count }
+    var lastSectionIndex: Int { return count == 0 ? 0 : count - 1 }
+    var nextLastSectionIndex: Int { return count == 0 ? 0 : count }
     
-    public var lastItemIndex: IndexPath {
+    var lastItemIndex: IndexPath {
         if count == 0 {
             return IndexPath(item: 0, section: 0)
         } else {
@@ -129,7 +138,8 @@ public extension SFDataManager {
         }
     }
     
-    public var nextLastItemIndex: IndexPath {
+    var nextLastItemIndex: IndexPath {
+        
         if count == 0 {
             return IndexPath(item: 0, section: 0)
         } else {
@@ -139,26 +149,63 @@ public extension SFDataManager {
         }
     }
     
+    var last: SFDataSection<DataType>? {
+        return data.last
+    }
+    
+    var lastItem: DataType? {
+        if isEmpty {
+            return nil
+        } else {
+            let item = data[lastItemIndex.section].content[lastItemIndex.row]
+            return item
+        }
+    }
+    
 }
 
 // MARK: - Sections
 
 public extension SFDataManager {
     
-    public func insertSection(_ section: SFDataSection<DataType>, at index: Int? = nil) {
-        let index = index ?? lastSectionIndex
+    func insertSection(_ section: SFDataSection<DataType>, at index: Int? = nil) {
+        let index = index ?? nextLastSectionIndex
         data.insert(section, at: index)
         delegate?.insertSection(at: index)
     }
     
-    public func moveSection(from: Int, to: Int) {
+    func moveSection(from: Int, to: Int) {
         data.move(from: from, to: to)
         delegate?.moveSection(from: from, to: to)
     }
     
-    public func deleteSection(at index: Int) {
+    func deleteSection(at index: Int) {
         data.remove(at: index)
-        delegate?.removeSection(at: index)
+        delegate?.deleteSection(at: index)
+    }
+    
+    func updateSection(_ section: SFDataSection<DataType>? = nil, at index: Int) {
+        
+        if let section = section {
+            data[index] = section
+        }
+        
+        delegate?.updateSection(at: index)
+    }
+    
+    func getSection(where predicate: (SFDataSection<DataType>) -> Bool) -> SFDataSection<DataType>? {
+        for section in self {
+            if predicate(section) {
+                return section
+            }
+        }
+        return nil
+    }
+    
+    func contains(section: SFDataSection<DataType>) -> Bool {
+        return contains(where: { (currentSection) -> Bool in
+            return currentSection.identifier == section.identifier && currentSection.content == section.content
+        })
     }
 }
 
@@ -166,7 +213,7 @@ public extension SFDataManager {
 
 public extension SFDataManager {
     
-    public func insertItem(_ item: DataType, at indexPath: IndexPath? = nil) {
+    func insertItem(_ item: DataType, at indexPath: IndexPath? = nil) {
         let indexPath = indexPath ?? nextLastItemIndex
         
         if indexPath.section > self.lastSectionIndex || count == 0 {
@@ -177,28 +224,76 @@ public extension SFDataManager {
         delegate?.insertItem(at: indexPath)
     }
     
-    public func moveItem(from: IndexPath, to: IndexPath) {
+    func moveItem(from: IndexPath, to: IndexPath) {
         let item = data[from.section].content[from.item] // Get item to move
         data[from.section].content.remove(at: from.item) // Remove it from old indexPath
         data[to.section].content.insert(item, at: to.item) // Insert it to new indexPath
         delegate?.moveItem(from: from, to: to)
     }
     
-    public func removeItem(at indexPath: IndexPath) {
-        data[indexPath.section].content.remove(at: indexPath.item)
-        delegate?.removeItem(at: indexPath)
+    func deleteItem(at indexPath: IndexPath) {
+        
+        let section = data[indexPath.section]
+        
+        if section.count == 1 {
+            deleteSection(at: indexPath.section)
+        } else {
+            data[indexPath.section].content.remove(at: indexPath.item)
+            delegate?.deleteItem(at: indexPath)
+        }
     }
     
-    public func getItem(at indexPath: IndexPath) -> DataType {
+    func updateItem(_ item: DataType? = nil, at indexPath: IndexPath) {
+        if let item = item {
+            data[indexPath.section].content[indexPath.row] = item
+        }
+        delegate?.updateItem(at: indexPath)
+    }
+    
+    func moveItem(_ item: DataType, to: IndexPath) {
+        guard let indexPath = getIndex(of: item) else { return }
+        moveItem(from: indexPath, to: to)
+    }
+    
+    func deleteItem(_ item: DataType) {
+        guard let indexPath = getIndex(of: item) else { return }
+        let section = [indexPath.section]
+        if section.count == 1 {
+            self.deleteSection(at: indexPath.section)
+        } else {
+            self.deleteItem(at: indexPath)
+        }
+    }
+    
+    func updateItem(_ item: DataType) {
+        guard let indexPath = getIndex(of: item) else { return }
+        updateItem(item, at: indexPath)
+    }
+    
+    func getIndex(of item: DataType) -> IndexPath? {
+        for (sectionIndex, section) in enumerated() {
+            for (itemIndex, sectionItem) in section.enumerated() where item == sectionItem {
+                return IndexPath(item: itemIndex, section: sectionIndex)
+            }
+        }
+        return nil
+    }
+    
+    func getItem(where predicate: (DataType) -> Bool) -> DataType? {
+        for item in flatData {
+            if predicate(item) {
+                return item
+            }
+        }
+        return nil
+    }
+    
+    func getItem(at indexPath: IndexPath) -> DataType {
         return data[indexPath.section].content[indexPath.row]
     }
     
+    func contains(item: DataType) -> Bool {
+        return contains { return $0.contains(item) }
+    }
+    
 }
-
-
-
-
-
-
-
-

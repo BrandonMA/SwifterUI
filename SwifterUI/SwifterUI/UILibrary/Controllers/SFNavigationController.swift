@@ -12,7 +12,7 @@ open class SFNavigationController: UINavigationController, SFControllerColorStyl
     
     // MARK: - Instance Properties
     
-    open var currentColorStyle: SFColorStyle? = nil
+    open var currentColorStyle: SFColorStyle?
     
     open var automaticallyAdjustsColorStyle: Bool = true {
         didSet {
@@ -76,9 +76,10 @@ open class SFNavigationController: UINavigationController, SFControllerColorStyl
     
     open func checkColorStyleListener() {
         if self.automaticallyAdjustsColorStyle == true {
-            NotificationCenter.default.addObserver(self, selector: #selector(handleBrightnessChange), name: UIScreen.brightnessDidChangeNotification, object: nil)
-        } else {
-            NotificationCenter.default.removeObserver(self)
+            NotificationCenter.default.addObserver(self,
+                                                   selector: #selector(handleBrightnessChange),
+                                                   name: UIScreen.brightnessDidChangeNotification,
+                                                   object: nil)
         }
     }
     
@@ -92,12 +93,12 @@ open class SFNavigationController: UINavigationController, SFControllerColorStyl
         
         DispatchQueue.main.async {
             
-            self.navigationBar.barStyle = self.colorStyle.getBarStyle()
-            self.navigationBar.tintColor = self.colorStyle.getInteractiveColor()
+            self.navigationBar.barStyle = self.colorStyle.barStyle
+            self.navigationBar.tintColor = self.colorStyle.interactiveColor
             self.updateNavItem()
             
             if self.automaticallyTintNavigationBar == true {
-                self.statusBarStyle = self.colorStyle.getStatusBarStyle()
+                self.statusBarStyle = self.colorStyle.statusBarStyle
             }
             
             self.setNeedsStatusBarAppearanceUpdate()

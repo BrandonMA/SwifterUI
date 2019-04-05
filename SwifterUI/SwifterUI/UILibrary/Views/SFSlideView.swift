@@ -14,19 +14,17 @@ open class SFSlideView: SFView {
     
     open lazy var bar: SFSlideBar = {
         let bar = SFSlideBar(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
-        bar.translatesAutoresizingMaskIntoConstraints = false
         return bar
     }()
     
     open lazy var contentView: SFView = {
         let view = SFView(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle, useAlternativeColors: self.useAlternativeColors)
-        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
     // MARK: - Initializers
     
-    public override init(automaticallyAdjustsColorStyle: Bool, useAlternativeColors: Bool = true, frame: CGRect = .zero) {
+    public override init(automaticallyAdjustsColorStyle: Bool = true, useAlternativeColors: Bool = true, frame: CGRect = .zero) {
         super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, useAlternativeColors: useAlternativeColors, frame: frame)
         clipsToBounds = true
     }

@@ -15,6 +15,8 @@ public enum SFSignState {
 
 open class SFSignViewController: SFViewController {
     
+    // MARK: - Instance Methods
+    
     var state: SFSignState = .signUp
     
     public lazy var signView: SFSignView = {
@@ -25,12 +27,20 @@ open class SFSignViewController: SFViewController {
     
     // MARK: - Instance Methods
     
+    open override func viewWillPrepareSubViews() {
+        view.addSubview(signView)
+        super.viewWillPrepareSubViews()
+    }
+    
+    open override func viewWillSetConstraints() {
+        signView.clipSides()
+        super.viewWillSetConstraints()
+    }
+    
     open override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(signView)
         setTargets()
         setColorsForState()
-        signView.clipSides()
     }
     
     open override func viewDidAppear(_ animated: Bool) {
@@ -171,19 +181,3 @@ open class SFSignViewController: SFViewController {
     }
     
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

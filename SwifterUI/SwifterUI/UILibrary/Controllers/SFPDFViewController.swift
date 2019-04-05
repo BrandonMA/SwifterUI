@@ -15,7 +15,6 @@ open class SFPDFViewController: SFViewController {
     
     public lazy var pdfView: PDFView = {
         let view = PDFView()
-        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
@@ -43,50 +42,24 @@ open class SFPDFViewController: SFViewController {
     
     // MARK: - Instance Methods
     
-    open override func viewDidLoad() {
-        super.viewDidLoad()
+    open override func viewWillPrepareSubViews() {
         view.addSubview(pdfView)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareButtonDidTouch))
         pdfView.autoScales = true
+        super.viewWillPrepareSubViews()
     }
     
-    open override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
+    open override func viewWillSetConstraints() {
         pdfView.clipSides()
+        super.viewWillSetConstraints()
+    }
+    
+    open override func prepare(navigationController: UINavigationController) {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareButtonDidTouch))
     }
     
     @objc public final func shareButtonDidTouch() {
-        let activityViewController = UIActivityViewController(activityItems: [pdfURL], applicationActivities: nil)
-        activityViewController.popoverPresentationController?.sourceView = self.view // iPads won't crash
-        self.present(activityViewController, animated: true, completion: nil)
+        let activityViewController = UIActivityViewController(activityItems: [pdfURL as Any], applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = view // iPads won't crash
+        present(activityViewController, animated: true, completion: nil)
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

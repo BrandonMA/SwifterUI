@@ -35,10 +35,10 @@ open class SFPickerView: UIPickerView, SFViewColorStyle {
     
     open func updateColors() {
         reloadAllComponents()
-        backgroundColor = colorStyle.getMainColor()
+        backgroundColor = colorStyle.mainColor
         if subviews.count >= 2 {
-            subviews[1].backgroundColor = colorStyle.getSeparatorColor()
-            subviews[2].backgroundColor = colorStyle.getSeparatorColor()
+            subviews[1].backgroundColor = colorStyle.separatorColor
+            subviews[2].backgroundColor = colorStyle.separatorColor
         }
     }
     

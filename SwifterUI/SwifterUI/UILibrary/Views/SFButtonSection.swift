@@ -28,8 +28,8 @@ public final class SFButtonSection: SFSection {
         }
     }
     
-    public final var button: SFButton {
-        return bottomView as! SFButton
+    public final var button: SFButton! {
+        return bottomView as? SFButton
     }
     
     public override var useAlternativeColors: Bool {
@@ -71,18 +71,4 @@ public final class SFButtonSection: SFSection {
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    // MARK: - Instance Methods
 }
-
-
-
-
-
-
-
-
-
-
-
-

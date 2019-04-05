@@ -13,10 +13,11 @@ open class SFPageView: SFScrollView {
     // MARK: - Instance Properties
     
     open var selectedIndex = 0
+    
     open lazy var views: [UIView] = []
+
     open lazy var viewsStackView: SFStackView = {
         let stackView = SFStackView(arrangedSubviews: views)
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.alignment = .fill
         stackView.axis = .horizontal
         return stackView
@@ -45,7 +46,7 @@ open class SFPageView: SFScrollView {
         views.append(view)
         view.translatesAutoresizingMaskIntoConstraints = false
         viewsStackView.addArrangedSubview(view)
-        view.width(SFDimension(type: .fraction, value: 1), comparedTo: self)
+        view.set(width: SFDimension(type: .fraction, value: 1), comparedTo: self)
     }
     
     public final func add(views: [UIView]) {
@@ -58,24 +59,3 @@ open class SFPageView: SFScrollView {
         contentView.clipBottom(to: .bottom, of: viewsStackView)
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

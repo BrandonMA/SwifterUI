@@ -9,13 +9,16 @@
 import UIKit
 import DeepDiff
 
+extension String: SFDataType {
+}
+
 class Model {
     let names = SFDataManager<String>()
     
     init() {
         names.update(data: [["Brandon", "Maldonado", "Alonso"], ["Jula"], ["Celina"]])
         
-        DispatchQueue.delay(by: 4, dispatchLevel: .main) {
+        DispatchQueue.delay(by: 3, dispatchLevel: .main) {
             self.names.update(data: [["Celina"], ["Jula"], ["Brandon", "Maldonado", "Alonso"]])
         }
     }
@@ -67,54 +70,15 @@ class ViewController: SFViewController, SFVideoPlayerDelegate {
 
 extension ViewController: SFTableAdapterDelegate {
     
-    func headerStyler<HeaderType, DataType>() -> ((HeaderType, SFDataSection<DataType>, Int) -> ())? where HeaderType : SFTableViewHeaderView, DataType : Hashable {
-        return { (view, data, index) in
-            view.textLabel?.text = "Prueba - \(index)"
-        }
+    var useCustomHeader: Bool { return true }
+    
+    func prepareHeader<DataType>(_ view: SFTableViewHeaderView, with data: SFDataSection<DataType>, index: Int) where DataType: Hashable {
+        view.textLabel?.text = "Prueba - \(index)"
     }
     
-    func prepareCell<DataType>(_ cell: SFTableViewCell, at indexPath: IndexPath, with data: DataType) where DataType : Hashable {
+    func prepareCell<DataType>(_ cell: SFTableViewCell, at indexPath: IndexPath, with data: DataType) where DataType: Hashable {
         guard let name = data as? String else { return }
         cell.textLabel?.text = name
     }
     
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

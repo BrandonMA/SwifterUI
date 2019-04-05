@@ -9,11 +9,9 @@
 //  http://www.paintcodeapp.com
 //
 
-
-
 import UIKit
 
-public class SFAssets : NSObject {
+public class SFAssets: NSObject {
 
     //// Cache
 
@@ -54,7 +52,6 @@ public class SFAssets : NSObject {
         context.translateBy(x: resizedFrame.minX, y: resizedFrame.minY)
         context.scaleBy(x: resizedFrame.width / 11, y: resizedFrame.height / 20)
 
-
         //// Color Declarations
         let fillColor = UIColor(red: 0.000, green: 0.000, blue: 0.000, alpha: 1.000)
 
@@ -88,7 +85,6 @@ public class SFAssets : NSObject {
         context.translateBy(x: resizedFrame.minX, y: resizedFrame.minY)
         context.scaleBy(x: resizedFrame.width / 20, y: resizedFrame.height / 11)
 
-
         //// Color Declarations
         let fillColor = UIColor(red: 0.000, green: 0.000, blue: 0.000, alpha: 1.000)
 
@@ -121,7 +117,6 @@ public class SFAssets : NSObject {
         let resizedFrame: CGRect = resizing.apply(rect: CGRect(x: 0, y: 0, width: 20, height: 20), target: targetFrame)
         context.translateBy(x: resizedFrame.minX, y: resizedFrame.minY)
         context.scaleBy(x: resizedFrame.width / 20, y: resizedFrame.height / 20)
-
 
         //// Color Declarations
         let fillColor = UIColor(red: 0.000, green: 0.000, blue: 0.000, alpha: 1.000)
@@ -164,7 +159,6 @@ public class SFAssets : NSObject {
         context.translateBy(x: resizedFrame.minX, y: resizedFrame.minY)
         context.scaleBy(x: resizedFrame.width / 12, y: resizedFrame.height / 12)
 
-
         //// Color Declarations
         let fillColor = UIColor(red: 0.000, green: 0.000, blue: 0.000, alpha: 1.000)
 
@@ -206,7 +200,6 @@ public class SFAssets : NSObject {
         context.translateBy(x: resizedFrame.minX, y: resizedFrame.minY)
         context.scaleBy(x: resizedFrame.width / 16, y: resizedFrame.height / 16)
 
-
         //// Color Declarations
         let fillColor2 = UIColor(red: 1.000, green: 0.251, blue: 0.251, alpha: 1.000)
 
@@ -246,7 +239,6 @@ public class SFAssets : NSObject {
         let resizedFrame: CGRect = resizing.apply(rect: CGRect(x: 0, y: 0, width: 32, height: 32), target: targetFrame)
         context.translateBy(x: resizedFrame.minX, y: resizedFrame.minY)
         context.scaleBy(x: resizedFrame.width / 32, y: resizedFrame.height / 32)
-
 
         //// Color Declarations
         let fillColor = UIColor(red: 0.000, green: 0.000, blue: 0.000, alpha: 1.000)
@@ -288,7 +280,6 @@ public class SFAssets : NSObject {
         let resizedFrame: CGRect = resizing.apply(rect: CGRect(x: 0, y: 0, width: 21, height: 21), target: targetFrame)
         context.translateBy(x: resizedFrame.minX, y: resizedFrame.minY)
         context.scaleBy(x: resizedFrame.width / 21, y: resizedFrame.height / 21)
-
 
         //// Color Declarations
         let fillColor = UIColor(red: 0.000, green: 0.000, blue: 0.000, alpha: 1.000)
@@ -365,7 +356,6 @@ public class SFAssets : NSObject {
         context.translateBy(x: resizedFrame.minX, y: resizedFrame.minY)
         context.scaleBy(x: resizedFrame.width / 21, y: resizedFrame.height / 21)
 
-
         //// Color Declarations
         let fillColor = UIColor(red: 0.000, green: 0.000, blue: 0.000, alpha: 1.000)
 
@@ -399,7 +389,6 @@ public class SFAssets : NSObject {
         let resizedFrame: CGRect = resizing.apply(rect: CGRect(x: 0, y: 0, width: 17, height: 22), target: targetFrame)
         context.translateBy(x: resizedFrame.minX, y: resizedFrame.minY)
         context.scaleBy(x: resizedFrame.width / 17, y: resizedFrame.height / 22)
-
 
         //// Color Declarations
         let fillColor = UIColor(red: 0.000, green: 0.000, blue: 0.000, alpha: 1.000)
@@ -481,7 +470,6 @@ public class SFAssets : NSObject {
         context.translateBy(x: resizedFrame.minX, y: resizedFrame.minY)
         context.scaleBy(x: resizedFrame.width / 12, y: resizedFrame.height / 12)
 
-
         //// Color Declarations
         let fillColor = UIColor(red: 0.000, green: 0.000, blue: 0.000, alpha: 1.000)
 
@@ -513,7 +501,6 @@ public class SFAssets : NSObject {
         context.translateBy(x: resizedFrame.minX, y: resizedFrame.minY)
         context.scaleBy(x: resizedFrame.width / 12, y: resizedFrame.height / 12)
 
-
         //// Color Declarations
         let fillColor = UIColor(red: 0.000, green: 0.000, blue: 0.000, alpha: 1.000)
 
@@ -530,7 +517,6 @@ public class SFAssets : NSObject {
         bezierPath.usesEvenOddFillRule = true
         fillColor.setFill()
         bezierPath.fill()
-
 
         //// Bezier 2 Drawing
         let bezier2Path = UIBezierPath()
@@ -817,10 +803,7 @@ public class SFAssets : NSObject {
             }
         }
     }
-
-
-
-
+    
     @objc(SFAssetsResizingBehavior)
     public enum ResizingBehavior: Int {
         case aspectFit /// The content is proportionally resized to fit into the target rectangle.
@@ -838,17 +821,17 @@ public class SFAssets : NSObject {
             scales.height = abs(target.height / rect.height)
 
             switch self {
-                case .aspectFit:
-                    scales.width = min(scales.width, scales.height)
-                    scales.height = scales.width
-                case .aspectFill:
-                    scales.width = max(scales.width, scales.height)
-                    scales.height = scales.width
-                case .stretch:
-                    break
-                case .center:
-                    scales.width = 1
-                    scales.height = 1
+            case .aspectFit:
+                scales.width = min(scales.width, scales.height)
+                scales.height = scales.width
+            case .aspectFill:
+                scales.width = max(scales.width, scales.height)
+                scales.height = scales.width
+            case .stretch:
+                break
+            case .center:
+                scales.width = 1
+                scales.height = 1
             }
 
             var result = rect.standardized

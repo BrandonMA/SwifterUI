@@ -12,11 +12,19 @@ public typealias Constraints = [Constraint]
 
 public extension Array where Element: Constraint {
 
-    public func activate() {
+    func activate() {
         Constraint.activate(self)
     }
 
-    public func deactivate() {
+    func deactivate() {
         Constraint.deactivate(self)
+    }
+    
+    func forEachConstraint(where view: UIView, completion: @escaping (Constraint) -> Void) {
+        forEach { (constraint) in
+            if let firstItem = constraint.firstItem as? UIView, firstItem == view {
+                completion(constraint)
+            }
+        }
     }
 }

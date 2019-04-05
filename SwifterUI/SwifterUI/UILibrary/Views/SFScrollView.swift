@@ -83,11 +83,11 @@ open class SFScrollView: UIScrollView, SFViewColorStyle, SFLayoutView {
     open func layoutIfBoundsChanged() {
         
         if scrollsHorizontally == false {
-            contentView.width(SFDimension(type: .fraction, value: 1))
+            contentView.set(width: SFDimension(type: .fraction, value: 1))
         }
         
         if scrollVertically == false {
-            contentView.height(SFDimension(type: .fraction, value: 1))
+            contentView.set(height: SFDimension(type: .fraction, value: 1))
         }
     }
     
@@ -101,26 +101,8 @@ open class SFScrollView: UIScrollView, SFViewColorStyle, SFLayoutView {
     }
     
     open func updateColors() {
-        backgroundColor = useAlternativeColors ? colorStyle.getAlternativeColor() : colorStyle.getMainColor()
+        backgroundColor = useAlternativeColors ? colorStyle.alternativeColor : colorStyle.mainColor
         updateSubviewsColors()
     }
     
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

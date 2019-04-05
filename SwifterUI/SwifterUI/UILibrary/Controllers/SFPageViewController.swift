@@ -12,16 +12,19 @@ open class SFPageViewController: SFViewController {
     
     // MARK: - Instance Properties
     
-    open var pageView: SFPageView
+    open lazy var pageView: SFPageView = {
+        let pageView = SFPageView(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle)
+        pageView.scrollVertically = false
+        return pageView
+    }()
+    
+    open var viewControllers: [SFViewController] = []
     
     // MARK: - Initializers
     
     public init(automaticallyAdjustsColorStyle: Bool = true, viewControllers: [SFViewController]) {
-        pageView = SFPageView(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle)
-        pageView.translatesAutoresizingMaskIntoConstraints = false
-        pageView.scrollVertically = false
+        self.viewControllers = viewControllers
         super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle)
-        add(viewControllers: viewControllers)
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -30,10 +33,15 @@ open class SFPageViewController: SFViewController {
     
     // MARK: - Instance Methods
     
-    open override func viewDidLoad() {
-        super.viewDidLoad()
+    open override func viewWillPrepareSubViews() {
+        super.viewWillPrepareSubViews()
         view.addSubview(pageView)
+        add(viewControllers: viewControllers)
+    }
+    
+    open override func viewWillSetConstraints() {
         pageView.clipSides()
+        super.viewWillSetConstraints()
     }
     
     func add(viewController: SFViewController) {

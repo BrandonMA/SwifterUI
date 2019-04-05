@@ -12,9 +12,9 @@ open class SFView: UIView, SFViewColorStyle, SFLayoutView {
     
     // MARK: - Instance Properties
     
-    open var automaticallyAdjustsColorStyle: Bool = false
+    open var automaticallyAdjustsColorStyle = false
     
-    open var useAlternativeColors: Bool = false
+    open var useAlternativeColors = false
     
     open var customConstraints: Constraints = []
     
@@ -43,8 +43,12 @@ open class SFView: UIView, SFViewColorStyle, SFLayoutView {
     open func setConstraints() {}
     
     open func updateColors() {
-        backgroundColor = useAlternativeColors ? colorStyle.getAlternativeColor() : colorStyle.getMainColor()
+        backgroundColor = useAlternativeColors ? colorStyle.alternativeColor : colorStyle.mainColor
         updateSubviewsColors()
     }
-    
+
+    open override func addSubview(_ view: UIView) {
+        view.translatesAutoresizingMaskIntoConstraints = false
+        super.addSubview(view)
+    }
 }

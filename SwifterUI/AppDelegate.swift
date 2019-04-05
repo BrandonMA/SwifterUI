@@ -32,20 +32,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        ]
         
         let brandon = SFUser(name: "Brandon", lastName: "Maldonado Alonso")
-        let newContact = SFUser(name: "Terra", lastName: "Clark")
-        newContact.profilePictureURL = "https://randomuser.me/api/portraits/men/86.jpg"
-        brandon.addNewContact(newContact)
-        DispatchQueue.delay(by: 3, dispatchLevel: .main) {
-            SFSingleChat(currentUser: brandon, contact: newContact)
-        }
-
-        let newContact2 = SFUser(name: "name", lastName: "lastname")
-        newContact2.profilePictureURL = "https://randomuser.me/api/portraits/men/87.jpg"
-        brandon.addNewContact(newContact2)
-        SFGroupChat(currentUser: brandon, users: [newContact, newContact2], name: "Amigos", imageURL: "https://randomuser.me/api/portraits/men/50.jpg")
-//        let chat = SFSingleChat(currentUser: brandon, contact: newContact2)
+        brandon.profilePictureURL = "https://randomuser.me/api/portraits/men/75.jpg"
         
-        window?.rootViewController = ViewController()
+        let newContact = SFUser(name: "Genesis", lastName: "Hernandez")
+        newContact.profilePictureURL = "https://randomuser.me/api/portraits/men/86.jpg"
+        brandon.addNew(contact: newContact)
+
+        let newContact2 = SFUser(name: "Prueba", lastName: "2")
+        newContact2.profilePictureURL = "https://randomuser.me/api/portraits/men/87.jpg"
+        brandon.addNew(contact: newContact2)
+        
+        let newContact3 = SFUser(name: "Prueba", lastName: "3")
+        newContact3.profilePictureURL = "https://randomuser.me/api/portraits/men/88.jpg"
+        brandon.addNew(contact: newContact3)
+        
+//        let chat = SFSingleChat(users: [brandon.identifier, newContact.identifier], messages: [], name: "\(newContact.name) \(newContact.lastName)")
+//        chat.currentUser = brandon
+//        chat.contact = newContact
+//        brandon.addNew(chat: chat)
+//        newContact.addNew(chat: chat)
+//        let message = SFMessage(senderIdentifier: brandon.identifier, chatIdentifier: chat.identifier)
+//        chat.addNew(message: message)
+        
+        window?.rootViewController = SFNavigationController(rootViewController: SFConversationsViewController(user: brandon))
         
         window?.makeKeyAndVisible()
         
@@ -66,7 +75,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
     }
-
-
 }
-

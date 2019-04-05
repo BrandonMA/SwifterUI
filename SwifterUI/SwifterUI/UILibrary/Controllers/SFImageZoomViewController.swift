@@ -11,10 +11,11 @@ import UIKit
 public final class SFImageViewController: SFViewController {
     
     // MARK: - Instance Properties
-
+    
+    public var animateClosing = false
+    
     public final lazy var imageZoomView: SFImageZoomView = {
         let view = SFImageZoomView()
-        view.translatesAutoresizingMaskIntoConstraints = false
         view.minimumZoomScale = 0
         view.maximumZoomScale = 10
         view.zoomScale = 0
@@ -29,46 +30,70 @@ public final class SFImageViewController: SFViewController {
         let heightScale = view.bounds.height / image.size.height
         return CGFloat.minimum(widthScale, heightScale)
     }
-
+    
     public final var image: UIImage
     
     // MARK: - Initializers
-
+    
     public init(with image: UIImage) {
         self.image = image
         super.init(automaticallyAdjustsColorStyle: true)
     }
-
+    
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: - Instace Methods
-
-    public override func viewDidLoad() {
-        super.viewDidLoad()
+    
+    public override func viewWillPrepareSubViews() {
         view.addSubview(imageZoomView)
+        imageZoomView.contentSize = image.size
+        super.viewWillPrepareSubViews()
+    }
+    
+    public override func viewWillSetConstraints() {
         imageZoomView.clipTop(to: .top, useSafeArea: false)
         imageZoomView.clipSides(exclude: [.top])
+        super.viewWillSetConstraints()
+    }
+    
+    public override func viewDidLoad() {
+        super.viewDidLoad()
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(imageDidTap)))
-        imageZoomView.contentSize = image.size
     }
     
     public override func prepare(navigationController: UINavigationController) {
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareButtonDidTouch))
-        
-        if navigationController.viewControllers.first == self {
-            navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismissViewController))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action,
+                                                            target: self,
+                                                            action: #selector(shareButtonDidTouch))
+        if !animateClosing {
+            navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done,
+                                                               target: self,
+                                                               action: #selector(dismissViewController))
         }
     }
-
+    
+    public override func prepare(tabBarController: UITabBarController) {
+        tabBarController.tabBar.isHidden = true
+    }
+    
+    public override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        tabBarController?.tabBar.isHidden = false
+    }
+    
     public override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         imageZoomView.minimumZoomScale = minimumZoomScale
         if imageZoomView.zoomScale == 1 {
             imageZoomView.zoomScale = minimumZoomScale
         }
+    }
+    
+    public override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        centerImage(with: imageZoomView.zoomScale)
     }
     
     private func centerImage(with scale: CGFloat) {
@@ -95,7 +120,7 @@ public final class SFImageViewController: SFViewController {
     }
     
     @objc final func dismissViewController() {
-        dismiss(animated: true, completion: nil)
+        navigationController?.popViewController(animated: animateClosing)
     }
     
     @objc public final func shareButtonDidTouch() {

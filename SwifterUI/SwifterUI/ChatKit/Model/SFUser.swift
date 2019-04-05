@@ -8,20 +8,25 @@
 
 import UIKit
 import Kingfisher
+import DeepDiff
 
-enum SFUserError: Error {
-    case ProfilePictureDownload
+public enum SFUserNotification: String {
+    case deleted
 }
 
-public protocol SFContactsDelegate: class {
-    func performFullContactsUpdate()
-}
-
-public protocol SFChatsDelegate: class {
-    func performFullChatsUpdate()
-}
-
-open class SFUser: Hashable, Codable {
+open class SFUser: SFDataType, Codable {
+    
+    public var diffId: Int {
+        return identifier.hashValue
+    }
+    
+    public static func compareContent(_ a: SFUser, _ b: SFUser) -> Bool {
+        return a.identifier == b.identifier
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(identifier.hashValue)
+    }
     
     public enum CodingKeys: String, CodingKey {
         case identifier
@@ -33,7 +38,10 @@ open class SFUser: Hashable, Codable {
     // MARK: - Static Methods
     
     public static func == (lhs: SFUser, rhs: SFUser) -> Bool {
-        return lhs.identifier == rhs.identifier && lhs.name == rhs.name && lhs.lastName == rhs.lastName && lhs.profilePictureURL == rhs.profilePictureURL
+        return lhs.identifier == rhs.identifier &&
+            lhs.name == rhs.name &&
+            lhs.lastName == rhs.lastName &&
+            lhs.profilePictureURL == rhs.profilePictureURL
     }
     
     // MARK: - Instance Properties
@@ -43,22 +51,22 @@ open class SFUser: Hashable, Codable {
     open var lastName: String
     open var profilePictureURL: String?
     
-    open var hashValue: Int { return identifier.hashValue ^ name.hashValue ^ lastName.hashValue }
-    public final weak var contactsDelegate: SFContactsDelegate?
-    
-    open var contacts: [SFUser] = [] {
-        didSet { contactsDelegate?.performFullContactsUpdate() }
-    }
+    open var contactsManager = SFDataManager<SFUser>()
     
     open var chatsManager = SFDataManager<SFChat>()
     
     // MARK: - Initializers
     
-    public init(identifier: String = UUID().uuidString, name: String, lastName: String, profilePictureURL: String? = nil) {
+    public init(identifier: String = UUID().uuidString,
+                name: String,
+                lastName: String,
+                profilePictureURL: String? = nil) {
+        
         self.identifier = identifier
         self.name = name
         self.lastName = lastName
         self.profilePictureURL = profilePictureURL
+        
     }
     
     public required init(from decoder: Decoder) throws {
@@ -69,19 +77,7 @@ open class SFUser: Hashable, Codable {
         profilePictureURL = try data.decode(String?.self, forKey: CodingKeys.profilePictureURL)
     }
     
-    // MARK: - Contacts
-    
-    // TODO: addNew(chat: SFChat) - Insert it in the correct place, do not use ordered(). Remove chat ability to add itself.
-    // TODO: addNew(chats: [SFChat]) - Use ordered.
-    // TODO: addNew(contact: SFUser) - Insert it in the correct place, do not use ordered().
-    // TODO: addNew(contacts: [SFUser) - Use ordered.
-    
-    open func addNewContact(_ contact: SFUser) {
-        if !contacts.contains(where: { $0.identifier == contact.identifier}) && !contact.contacts.contains(where: { $0.identifier == identifier}) && contact.identifier != identifier {
-            contacts.append(contact)
-            contact.contacts.append(self)
-        }
-    }
+    // MARK: - Instance Methods
     
     open func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
@@ -91,15 +87,60 @@ open class SFUser: Hashable, Codable {
         try container.encode(profilePictureURL, forKey: CodingKeys.profilePictureURL)
     }
     
+    open func addNew(chat: SFChat) {
+        if !chatsManager.contains(item: chat) {
+            var inserted = false
+            for (index, currentChat) in chatsManager.flatData.enumerated() where chat.modificationDate > currentChat.modificationDate {
+                chatsManager.insertItem(chat, at: IndexPath(item: index, section: 0))
+                inserted = true
+                break
+            }
+            if !inserted {
+                chatsManager.insertItem(chat)
+            }
+        }
+    }
+    
+    open func addNew(contact: SFUser) {
+        if contactsManager.contains(item: contact) == false &&
+            contact.identifier != identifier {
+            if let sectionIndex = contactsManager.firstIndex(where: {
+                $0.identifier.contains(contact.name.uppercased().first!)
+            }) {
+                for (index, _) in contactsManager[sectionIndex].enumerated() {
+                    contactsManager.insertItem(contact, at: IndexPath(item: index, section: sectionIndex))
+                    break
+                }
+                contactsManager[sectionIndex].content.sortByLastname()
+            } else {
+                
+                let newSection = SFDataSection<SFUser>(content: [contact], identifier: "\(contact.name.uppercased().first!)")
+                if contactsManager.isEmpty {
+                    contactsManager.insertSection(newSection)
+                } else {
+                    var inserted = false
+                    for (index, section) in contactsManager.enumerated() where section.identifier > newSection.identifier {
+                        contactsManager.insertSection(newSection, at: index)
+                        inserted = true
+                        break
+                    }
+                    if (!inserted) {
+                        contactsManager.insertSection(newSection)
+                    }
+                }
+            }
+        }
+    }
+    
 }
 
 public extension Array where Element: SFDataSection<SFUser> {
     
-    public mutating func sortByInitial() {
+    mutating func sortByInitial() {
         sort(by: { return $0.identifier < $1.identifier }) // Each identifier is a letter in the alphabet
     }
     
-    public mutating func sortByLastname() {
+    mutating func sortByLastname() {
         forEach { (section) in
             section.content.sort(by: { return $0.lastName < $1.lastName })
         }
@@ -108,17 +149,23 @@ public extension Array where Element: SFDataSection<SFUser> {
 
 public extension Array where Element: SFUser {
     
-    public func filter(by name: String) -> [SFUser] {
-        return self.filter({ "\($0.name) \($0.lastName)".lowercased().contains(name.lowercased()) })
+    mutating func sortByInitial() {
+        sort(by: { return $0.identifier < $1.identifier }) // Each identifier is a letter in the alphabet
     }
     
-    public func createDataSections() -> [SFDataSection<SFUser>] {
-                
+    mutating func sortByLastname() {
+        sort(by: { return $0.lastName < $1.lastName })
+    }
+    
+    func createDataSections() -> [SFDataSection<SFUser>] {
+        
         var sections: [SFDataSection<SFUser>] = []
         
         for contact in self {
             
-            if let index = sections.index(where: { $0.identifier.contains(contact.name.uppercased().first!) /* Use the initial as identifier */ }) {
+            if let index = sections.firstIndex(where: {
+                $0.identifier.contains(contact.name.uppercased().first!)
+            }) {
                 sections[index].content.append(contact)
             } else {
                 let section = SFDataSection<SFUser>(content: [contact], identifier: "\(contact.name.uppercased().first!)")
@@ -129,7 +176,7 @@ public extension Array where Element: SFUser {
         return sections
     }
     
-    public func ordered() -> [SFDataSection<SFUser>] {
+    func ordered() -> [SFDataSection<SFUser>] {
         var sections = createDataSections()
         sections.sortByInitial()
         sections.sortByLastname()

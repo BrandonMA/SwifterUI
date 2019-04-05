@@ -15,7 +15,6 @@ open class SFPopView: SFView {
     public final lazy var shadowView: UIView = {
         let view = UIView()
         view.isUserInteractionEnabled = true
-        view.translatesAutoresizingMaskIntoConstraints = false
         view.alpha = 0.5
         view.backgroundColor = .black
         return view
@@ -23,7 +22,6 @@ open class SFPopView: SFView {
     
     open lazy var contentView: SFView = {
         let view = SFView(automaticallyAdjustsColorStyle: self.automaticallyAdjustsColorStyle)
-        view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 16
         view.addShadow(color: .black, offSet: CGSize(width: 0, height: 12), radius: 16, opacity: 0.15)
         return view
@@ -67,12 +65,12 @@ open class SFPopView: SFView {
     
     open override func updateConstraints() {
         
-        contentView.removeConstraint(.width)
+        contentView.removeConstraint(type: .width)
         
         if useCompactInterface {
-            contentView.width(SFDimension(type: .fraction, value: 11/12))
+            contentView.set(width: SFDimension(type: .fraction, value: 11/12))
         } else {
-            contentView.width(SFDimension(type: .fraction, value: 1/2))
+            contentView.set(width: SFDimension(type: .fraction, value: 1/2))
         }
         
         super.updateConstraints()

@@ -12,44 +12,44 @@ import MobileCoreServices
 open class SFViewController: UIViewController, SFControllerColorStyle {
     
     // MARK: - Instance Properties
+
+    public final var sfview: SFView! { return view as? SFView }
     
-    open var currentColorStyle: SFColorStyle? = nil
+    open var currentColorStyle: SFColorStyle?
+
+    open var automaticallyTintNavigationBar = false
     
-    open var automaticallyAdjustsColorStyle: Bool = false {
+    open var automaticallyAdjustsColorStyle = false {
         didSet {
             checkColorStyleListener()
         }
     }
     
-    open var automaticallyTintNavigationBar: Bool = false
-    
-    open override var preferredStatusBarStyle: UIStatusBarStyle {
-        return self.statusBarStyle
-    }
-    
     open override var prefersStatusBarHidden: Bool {
         return self.statusBarIsHidden
     }
-    
-    open override var shouldAutorotate: Bool {
-        return self.autorotate
-    }
-    
-    open var statusBarStyle: UIStatusBarStyle = .default {
-        didSet {
-            self.setNeedsStatusBarAppearanceUpdate()
-        }
-    }
-    
+
     open var statusBarIsHidden: Bool = false {
         didSet {
             self.setNeedsStatusBarAppearanceUpdate()
         }
     }
     
-    open var autorotate: Bool = true
-    
-    public final var sfview: SFView { return view as! SFView }
+    open override var preferredStatusBarStyle: UIStatusBarStyle {
+        return self.statusBarStyle
+    }
+
+    open var statusBarStyle: UIStatusBarStyle = .default {
+        didSet {
+            self.setNeedsStatusBarAppearanceUpdate()
+        }
+    }
+
+    open override var shouldAutorotate: Bool {
+        return self.autorotate
+    }
+
+    open var autorotate = true
     
     // MARK: - Initializers
     
@@ -76,14 +76,27 @@ open class SFViewController: UIViewController, SFControllerColorStyle {
     
     open override func viewDidLoad() {
         super.viewDidLoad()
+        viewWillPrepareSubViews()
+        viewWillSetConstraints()
         if automaticallyAdjustsColorStyle {
             updateColors()
         }
     }
     
+    open func viewWillPrepareSubViews() {
+    }
+    
+    open func viewWillSetConstraints() {
+    }
+    
     open override func viewWillAppear(_ animated: Bool) {
+        
         if let navigationController = self.navigationController {
             prepare(navigationController: navigationController)
+        }
+        
+        if let tabBarController = self.tabBarController {
+            prepare(tabBarController: tabBarController)
         }
     }
     
@@ -95,47 +108,51 @@ open class SFViewController: UIViewController, SFControllerColorStyle {
     open func prepare(navigationController: UINavigationController) {
     }
     
+    /**
+     Called after viewWillAppear() is completed
+     - Parameters:
+     - tabBarController: Current UITabBarController if it is not nil.
+     */
+    open func prepare(tabBarController: UITabBarController) {
+    }
     public final func checkColorStyleListener() {
-        if self.automaticallyAdjustsColorStyle == true {
-            NotificationCenter.default.addObserver(self, selector: #selector(handleBrightnessChange), name: UIScreen.brightnessDidChangeNotification, object: nil)
-        } else {
-            NotificationCenter.default.removeObserver(self)
+        if automaticallyAdjustsColorStyle == true {
+            NotificationCenter.default.addObserver(self,
+                                                   selector: #selector(handleBrightnessChange),
+                                                   name: UIScreen.brightnessDidChangeNotification,
+                                                   object: nil)
         }
     }
     
     @objc private final func handleBrightnessChange() {
-        if currentColorStyle != self.colorStyle || self.currentColorStyle == nil {
+        if currentColorStyle != colorStyle || currentColorStyle == nil {
             updateColors()
         }
     }
-    
+
     open override func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil) {
-        
         if viewControllerToPresent.isKind(of: SFBulletinViewController.self) {
             viewControllerToPresent.modalPresentationStyle = .overFullScreen
             viewControllerToPresent.modalTransitionStyle = .crossDissolve
             super.present(viewControllerToPresent, animated: flag, completion: completion)
-            return
-        }
-        
-        if viewControllerToPresent.isKind(of: SFSlideViewController.self) {
+        } else if viewControllerToPresent.isKind(of: SFSlideViewController.self) {
             let manager = SFPresentationManager(animation: .pop)
             viewControllerToPresent.transitioningDelegate = manager
             viewControllerToPresent.modalPresentationStyle = .custom
             super.present(viewControllerToPresent, animated: flag, completion: completion)
-            return
+        } else {
+            super.present(viewControllerToPresent, animated: flag, completion: completion)
         }
-        
-        super.present(viewControllerToPresent, animated: flag, completion: completion)
     }
     
     open func updateColors() {
         DispatchQueue.main.async {
+
             self.updateSubviewsColors()
             
             if self.automaticallyTintNavigationBar == true {
                 self.updateNavItem()
-                self.statusBarStyle = self.colorStyle.getStatusBarStyle()
+                self.statusBarStyle = self.colorStyle.statusBarStyle
             }
             
             self.setNeedsStatusBarAppearanceUpdate()
@@ -146,7 +163,8 @@ open class SFViewController: UIViewController, SFControllerColorStyle {
 }
 
 public extension UIImagePickerControllerDelegate where Self: SFViewController & UINavigationControllerDelegate {
-    public func showMediaPicker(sourceType: UIImagePickerController.SourceType, mediaTypes: [String] = [kUTTypeImage as String, kUTTypeMovie as String]) {
+
+    func showMediaPicker(sourceType: UIImagePickerController.SourceType, mediaTypes: [String] = [kUTTypeImage as String, kUTTypeMovie as String]) {
         let imagePicker = UIImagePickerController()
         imagePicker.sourceType = sourceType
         imagePicker.allowsEditing = false
@@ -154,4 +172,5 @@ public extension UIImagePickerControllerDelegate where Self: SFViewController & 
         imagePicker.mediaTypes = mediaTypes
         self.present(imagePicker, animated: true, completion: nil)
     }
+
 }

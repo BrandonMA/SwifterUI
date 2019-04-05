@@ -25,7 +25,8 @@ public protocol SFLayoutView {
     func prepareSubviews()
     
     /**
-     Called after prepareSubviews(), use to set custom constraints, this method is called only once, in case you need to update your constraints do it in updateConstraints()
+     Called after prepareSubviews(), use to set custom constraints, this method is called only once,
+     in case you need to update your constraints do it in updateConstraints()
      */
     func setConstraints()
     

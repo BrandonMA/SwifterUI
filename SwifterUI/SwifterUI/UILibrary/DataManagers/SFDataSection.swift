@@ -7,8 +7,17 @@
 //
 
 import UIKit
+import DeepDiff
 
-public final class SFDataSection<DataType: Hashable> {
+public protocol SFDataType: DiffAware, Hashable {}
+public extension SFDataType {
+    var diffId: Int { return hashValue }
+    func compareContent(_ a: String, _ b: String) -> Bool {
+        return a == b
+    }
+}
+
+public final class SFDataSection<DataType: SFDataType> {
     
     // MARK: - Instance Properties
     
@@ -38,7 +47,7 @@ extension SFDataSection: Collection, IteratorProtocol {
     public var endIndex: Index { return content.endIndex }
     
     public subscript(index: Index) -> ContentType.Element {
-        get { return content[index] }
+        return content[index]
     }
     
     public func index(after i: Index) -> Index {
@@ -55,13 +64,3 @@ extension SFDataSection: Collection, IteratorProtocol {
     }
     
 }
-
-
-
-
-
-
-
-
-
-

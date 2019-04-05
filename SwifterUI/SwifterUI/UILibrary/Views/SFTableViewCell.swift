@@ -59,18 +59,18 @@ open class SFTableViewCell: UITableViewCell, SFViewColorStyle, SFLayoutView {
     
     open func setConstraints() {
         rightImageView.clipCenterY(to: .centerY)
-        rightImageView.width(SFDimension(value: 16))
-        rightImageView.height(SFDimension(value: 16))
+        rightImageView.set(width: SFDimension(value: 16))
+        rightImageView.set(height: SFDimension(value: 16))
         rightImageView.clipRight(to: .right, margin: 8)
     }
     
     open func updateColors() {
-        backgroundColor = useAlternativeColors ? colorStyle.getAlternativeColor() : colorStyle.getMainColor()
-        rightImageView.tintColor = colorStyle.getTextColor()
-        textLabel?.textColor = colorStyle.getTextColor()
-        detailTextLabel?.textColor = useAlternativeColors ? colorStyle.getInteractiveColor() : colorStyle.getPlaceholderColor()
+        backgroundColor = useAlternativeColors ? colorStyle.alternativeColor : colorStyle.mainColor
+        rightImageView.tintColor = colorStyle.textColor
+        textLabel?.textColor = colorStyle.textColor
+        detailTextLabel?.textColor = useAlternativeColors ? colorStyle.interactiveColor : colorStyle.placeholderColor
         let selectedBackgroundView = UIView()
-        selectedBackgroundView.backgroundColor = useAlternativeColors ? colorStyle.getMainColor() : colorStyle.getContrastColor()
+        selectedBackgroundView.backgroundColor = useAlternativeColors ? colorStyle.mainColor : colorStyle.contrastColor
         self.selectedBackgroundView = selectedBackgroundView
         updateSubviewsColors()
     }
@@ -86,19 +86,3 @@ open class SFTableViewCell: UITableViewCell, SFViewColorStyle, SFLayoutView {
     }
     
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

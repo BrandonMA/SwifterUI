@@ -12,11 +12,11 @@ public extension UIFont {
 
     // MARK: - Static Properties
 
-    public static var systemFont: UIFont {
+    static var systemFont: UIFont {
         return UIFont.systemFont(ofSize: UIFont.systemFontSize)
     }
     
-    public static var boldSystemFont: UIFont {
+    static var boldSystemFont: UIFont {
         return UIFont.boldSystemFont(ofSize: UIFont.systemFontSize)
     }
 

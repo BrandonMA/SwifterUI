@@ -12,7 +12,7 @@ public extension Date {
 
     // MARK: - Static Methods
 
-    static public func date(from string: String, with format: String) -> Date? {
+    static func date(from string: String, with format: String) -> Date? {
         let formatter = DateFormatter()
         formatter.dateFormat = format
         return formatter.date(from: string)
@@ -20,7 +20,7 @@ public extension Date {
 
     // MARK: - Instance Methods
 
-    public func string(with format: String) -> String {
+    func string(with format: String) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = format
         return formatter.string(from: self)

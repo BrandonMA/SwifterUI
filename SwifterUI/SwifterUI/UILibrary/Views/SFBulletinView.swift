@@ -53,11 +53,18 @@ open class SFBulletinView: SFPopView {
     
     // MARK: - Initializers
     
-    public init(automaticallyAdjustsColorStyle: Bool = true, useAlternativeColors: Bool = false, frame: CGRect = .zero, middleView: UIView? = nil, buttons: [SFFluidButton] = []) {
+    public init(automaticallyAdjustsColorStyle: Bool = true,
+                useAlternativeColors: Bool = false,
+                frame: CGRect = .zero,
+                middleView: UIView? = nil,
+                buttons: [SFFluidButton] = []) {
         
         self.buttons = buttons
         
-        super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle, useAlternativeColors: useAlternativeColors, frame: frame, middleView: middleView ?? SFView(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle))
+        super.init(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle,
+                   useAlternativeColors: useAlternativeColors,
+                   frame: frame,
+                   middleView: middleView ?? SFView(automaticallyAdjustsColorStyle: automaticallyAdjustsColorStyle))
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -92,8 +99,8 @@ open class SFBulletinView: SFPopView {
         
         super.setConstraints()
         
-        closeButton.width(SFDimension(value: 32))
-        closeButton.height(SFDimension(value: 32))
+        closeButton.set(width: SFDimension(value: 32))
+        closeButton.set(height: SFDimension(value: 32))
         closeButton.clipBottom(to: .top, of: messageLabel, margin: 12)
         closeButton.clipRight(to: .right, margin: 12)
         
@@ -105,9 +112,9 @@ open class SFBulletinView: SFPopView {
         messageLabel.clipLeft(to: .left, margin: 12)
         messageLabel.clipBottom(to: .top, of: middleView, margin: 12)
         
-        contentView.removeConstraint(.bottom)
-        contentView.removeConstraint(.top)
-        contentView.removeConstraint(.centerY)
+        contentView.removeConstraint(type: .bottom)
+        contentView.removeConstraint(type: .top)
+        contentView.removeConstraint(type: .centerY)
         contentView.clipBottom(to: .bottom, margin: 12)
         contentView.clipTop(to: .top, of: closeButton, margin: -12)
         
@@ -116,7 +123,7 @@ open class SFBulletinView: SFPopView {
             for (index, button) in buttons.enumerated() {
                 button.clipRight(to: .right)
                 button.clipLeft(to: .left)
-                button.height(SFDimension(value: 48))
+                button.set(height: SFDimension(value: 48))
                 if index == 0 {
                     button.clipBottom(to: .bottom)
                 } else {
@@ -128,31 +135,10 @@ open class SFBulletinView: SFPopView {
             }
         } else {
             doneButton.clipSides(exclude: [.top], margin: UIEdgeInsets(top: 0, left: 12, bottom: 12, right: 12))
-            doneButton.height(SFDimension(value: 48))
+            doneButton.set(height: SFDimension(value: 48))
             middleView.clipBottom(to: .top, of: doneButton)
-            middleView.height(SFDimension(value: 200))
+            middleView.set(height: SFDimension(value: 200))
         }
         
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

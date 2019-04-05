@@ -8,9 +8,33 @@
 
 import UIKit
 
+public enum SFLayoutError: String, Error {
+    case noConstraint = "No constraint found"
+}
+
+extension NSLayoutDimension {
+    func constraint(to anchor: NSLayoutDimension, dimension: SFDimension, relation: ConstraintRelation = .equal, margin: CGFloat = 0.0, priority: UILayoutPriority = UILayoutPriority.required) -> Constraint {
+        let newConstraint: Constraint
+        switch dimension.type {
+            case .fraction:
+                switch relation {
+                case .equal: newConstraint = constraint(equalTo: anchor, multiplier: dimension.value, constant: margin)
+                case .greater: newConstraint = constraint(greaterThanOrEqualTo: anchor, multiplier: dimension.value, constant: margin)
+                case .less: newConstraint = constraint(lessThanOrEqualTo: anchor, multiplier: dimension.value, constant: margin)
+                }
+            case .point:
+                switch relation {
+                case .equal: newConstraint = constraint(equalToConstant: dimension.value)
+                case .greater: newConstraint = constraint(greaterThanOrEqualToConstant: dimension.value)
+                case .less: newConstraint = constraint(lessThanOrEqualToConstant: dimension.value)
+                }
+        }
+        newConstraint.priority = priority
+        return newConstraint
+    }
+}
+
 public extension UIView {
-    
-    // MARK: - Instance Methods
     
     /**
      Return view passed or superview if they are not nil, throw if there is no anchor view.
@@ -30,27 +54,17 @@ public extension UIView {
     /**
      Return all constraints for the current view.
      */
-    public final func getAllConstraints() -> Constraints {
+    final func getAllConstraints() -> Constraints {
         
         var constraints: Constraints = []
         
-        for constraint in self.constraints {
-            if let view = constraint.firstItem as? UIView {
-                if view === self {
-                    constraints.append(constraint)
-                }
-            }
+        self.constraints.forEachConstraint(where: self) { (constraint) in
+            constraints.append(constraint)
         }
         
-        if let superview = superview {
-            for constraint in superview.constraints {
-                if let view = constraint.firstItem as? UIView {
-                    if view === self {
-                        constraints.append(constraint)
-                    }
-                }
-            }
-        }
+        superview?.constraints.forEachConstraint(where: self, completion: { (constraint) in
+            constraints.append(constraint)
+        })
         
         return constraints
     }
@@ -58,7 +72,7 @@ public extension UIView {
     /**
      Remove all constraints for the current view.
      */
-    public final func removeAllConstraints() {
+    final func removeAllConstraints() {
         guard let superview = superview else { return }
         let constraints = getAllConstraints()
         constraints.forEach { [unowned self] (constraint)  in
@@ -70,78 +84,40 @@ public extension UIView {
     /**
      Return an specific constraint if it exists.
      */
-    public final func getConstraint(_ constraintType: ConstraintType) -> Constraint? {
+    @discardableResult
+    final func getConstraint(type constraintType: ConstraintType) -> Constraint? {
         
-        for constraint in self.constraints {
-            if let view = constraint.firstItem as? UIView {
-                if view === self {
-                    if constraint.identifier == constraintType.rawValue {
-                        return constraint
-                    }
-                }
+        var finalConstraint: Constraint?
+        
+        func check(constraint: Constraint) {
+            if constraint.identifier == constraintType.rawValue {
+                finalConstraint = constraint
+                return
             }
         }
         
-        if let superview = superview {
-            for constraint in superview.constraints {
-                if let view = constraint.firstItem as? UIView {
-                    if view === self {
-                        if constraint.identifier == constraintType.rawValue {
-                            return constraint
-                        }
-                    }
-                }
-            }
+        constraints.forEachConstraint(where: self) { check(constraint: $0) }
+        
+        if finalConstraint == nil {
+            superview?.constraints.forEachConstraint(where: self, completion: { check(constraint: $0) })
         }
         
-        return nil
+        return finalConstraint
     }
     
     /**
      Remove an specific constraint if it exists.
      */
-    public final func removeConstraint(_ constraintType: ConstraintType) {
-        guard let superview = superview else { return }
-        if let oldConstraint = getConstraint(constraintType) {
-            removeConstraint(oldConstraint)
-            superview.removeConstraint(oldConstraint)
-        }
+    final func removeConstraint(type constraintType: ConstraintType) {
+        guard let oldConstraint = getConstraint(type: constraintType) else { return }
+        self.removeConstraint(oldConstraint)
+        self.superview?.removeConstraint(oldConstraint)
     }
     
     // MARK: - Sizing
     
-    /**
-     Set the size of a view depending child anchor, parent anchor, dimension and relation.
-     */
     @discardableResult
-    private func setSize(for childAnchor: NSLayoutDimension,
-                      comparedTo parentAnchor: NSLayoutDimension,
-                      dimension: SFDimension,
-                      relation: ConstraintRelation,
-                      margin: CGFloat) -> Constraint {
-        
-        switch dimension.type {
-            
-        case .fraction:
-            switch relation {
-            case .equal: return childAnchor.constraint(equalTo: parentAnchor, multiplier: dimension.value, constant: margin)
-            case .greater: return childAnchor.constraint(greaterThanOrEqualTo: parentAnchor,
-                                                         multiplier: dimension.value,
-                                                         constant: margin)
-            case .less: return childAnchor.constraint(lessThanOrEqualTo: parentAnchor, multiplier: dimension.value, constant: margin)
-            }
-        case .point:
-            switch relation {
-            case .equal: return childAnchor.constraint(equalToConstant: dimension.value)
-            case .greater: return childAnchor.constraint(greaterThanOrEqualToConstant: dimension.value)
-            case .less: return childAnchor.constraint(lessThanOrEqualToConstant: dimension.value)
-            }
-        }
-        
-    }
-    
-    @discardableResult
-    public final func height(_ height: SFDimension? = nil,
+    final func set(height: SFDimension? = nil,
                              comparedTo view: UIView? = nil,
                              relation: ConstraintRelation = .equal,
                              margin: CGFloat = 0.0) -> Constraint {
@@ -154,11 +130,7 @@ public extension UIView {
         let heightConstraint: Constraint
         
         if let height = height {
-            heightConstraint = setSize(for: heightAnchor,
-                                    comparedTo: anchorView.heightAnchor,
-                                    dimension: height,
-                                    relation: relation,
-                                    margin: margin)
+            heightConstraint = heightAnchor.constraint(to: anchorView.heightAnchor, dimension: height, relation: relation, margin: margin)
         } else {
             heightConstraint = heightAnchor.constraint(equalTo: anchorView.heightAnchor, multiplier: 1)
             heightConstraint.priority = UILayoutPriority(rawValue: 999)
@@ -169,7 +141,7 @@ public extension UIView {
     }
     
     @discardableResult
-    public final func width(_ width: SFDimension? = nil,
+    final func set(width: SFDimension? = nil,
                             comparedTo view: UIView? = nil,
                             relation: ConstraintRelation = .equal,
                             margin: CGFloat = 0.0) -> Constraint {
@@ -182,11 +154,7 @@ public extension UIView {
         let widthConstraint: Constraint
         
         if let width = width {
-            widthConstraint = setSize(for: widthAnchor,
-                                   comparedTo: anchorView.widthAnchor,
-                                   dimension: width,
-                                   relation: relation,
-                                   margin: margin)
+            widthConstraint = widthAnchor.constraint(to: anchorView.widthAnchor, dimension: width, relation: relation, margin: margin)
         } else {
             widthConstraint = widthAnchor.constraint(equalTo: anchorView.widthAnchor, multiplier: 1)
             widthConstraint.priority = UILayoutPriority(rawValue: 999)
@@ -290,7 +258,7 @@ public extension UIView {
     }
     
     @discardableResult
-    public final func clipCenterX(to edge: ConstraintEdge,
+    final func clipCenterX(to edge: ConstraintEdge,
                                   of view: UIView? = nil,
                                   margin: CGFloat = 0,
                                   relation: ConstraintRelation = .equal,
@@ -305,7 +273,7 @@ public extension UIView {
     }
     
     @discardableResult
-    public final func clipCenterY(to edge: ConstraintEdge,
+    final func clipCenterY(to edge: ConstraintEdge,
                                   of view: UIView? = nil,
                                   margin: CGFloat = 0,
                                   relation: ConstraintRelation = .equal,
@@ -320,7 +288,7 @@ public extension UIView {
     }
     
     @discardableResult
-    public final func clipTop(to edge: ConstraintEdge,
+    final func clipTop(to edge: ConstraintEdge,
                               of view: UIView? = nil,
                               margin: CGFloat = 0,
                               relation: ConstraintRelation = .equal,
@@ -335,7 +303,7 @@ public extension UIView {
     }
     
     @discardableResult
-    public final func clipRight(to edge: ConstraintEdge,
+    final func clipRight(to edge: ConstraintEdge,
                                 of view: UIView? = nil,
                                 margin: CGFloat = 0,
                                 relation: ConstraintRelation = .equal,
@@ -351,7 +319,7 @@ public extension UIView {
     }
     
     @discardableResult
-    public final func clipBottom(to edge: ConstraintEdge,
+    final func clipBottom(to edge: ConstraintEdge,
                                  of view: UIView? = nil,
                                  margin: CGFloat = 0,
                                  relation: ConstraintRelation = .equal,
@@ -367,7 +335,7 @@ public extension UIView {
     }
     
     @discardableResult
-    public final func clipLeft(to edge: ConstraintEdge,
+    final func clipLeft(to edge: ConstraintEdge,
                                of view: UIView? = nil,
                                margin: CGFloat = 0,
                                relation: ConstraintRelation = .equal,
@@ -384,7 +352,7 @@ public extension UIView {
     // MARK: - Center
     
     @discardableResult
-    public final func center(in view: UIView? = nil,
+    final func center(in view: UIView? = nil,
                              margin: CGPoint = .zero) -> [Constraint] {
         
         guard let anchorView = getAnchorView(view) else {
@@ -411,7 +379,7 @@ public extension UIView {
     // MARK: - Clip multiple edges
     
     @discardableResult
-    public final func clipSides(to view: UIView? = nil,
+    final func clipSides(to view: UIView? = nil,
                                 exclude: [ConstraintEdge] = [],
                                 margin: UIEdgeInsets = .zero,
                                 relation: ConstraintRelation = .equal,
@@ -453,4 +421,5 @@ public extension UIView {
         
         return constraints
     }
+    
 }

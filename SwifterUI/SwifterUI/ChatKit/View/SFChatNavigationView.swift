@@ -37,8 +37,8 @@ open class SFChatNavigationView: SFView {
     }
     
     open override func setConstraints() {
-        imageView.set(width: SFDimension(value: 32))
-        imageView.set(height: SFDimension(value: 32))
+        imageView.setWidth(SFDimension(value: 32))
+        imageView.setHeight(SFDimension(value: 32))
         imageView.clipCenterY(to: .centerY)
         imageView.clipLeft(to: .left)
         nameButton.clipSides(exclude: [.left], margin: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 8))

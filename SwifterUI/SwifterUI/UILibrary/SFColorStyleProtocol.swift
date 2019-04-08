@@ -9,7 +9,15 @@
 import UIKit
 
 /**
- Indicate minimum level of brightness for dark mode
+ Indicate minimum level of brightness for dark 
+ public func updateColors() {
+ <#code#>
+ }
+ 
+ public func updateColors() {
+ <#code#>
+ }
+ mode
  */
 public var minimumBrighness: CGFloat = 0.3
 

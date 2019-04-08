@@ -99,8 +99,8 @@ open class SFBulletinView: SFPopView {
         
         super.setConstraints()
         
-        closeButton.set(width: SFDimension(value: 32))
-        closeButton.set(height: SFDimension(value: 32))
+        closeButton.setWidth(SFDimension(value: 32))
+        closeButton.setHeight(SFDimension(value: 32))
         closeButton.clipBottom(to: .top, of: messageLabel, margin: 12)
         closeButton.clipRight(to: .right, margin: 12)
         
@@ -123,7 +123,7 @@ open class SFBulletinView: SFPopView {
             for (index, button) in buttons.enumerated() {
                 button.clipRight(to: .right)
                 button.clipLeft(to: .left)
-                button.set(height: SFDimension(value: 48))
+                button.setHeight(SFDimension(value: 48))
                 if index == 0 {
                     button.clipBottom(to: .bottom)
                 } else {
@@ -135,9 +135,9 @@ open class SFBulletinView: SFPopView {
             }
         } else {
             doneButton.clipSides(exclude: [.top], margin: UIEdgeInsets(top: 0, left: 12, bottom: 12, right: 12))
-            doneButton.set(height: SFDimension(value: 48))
+            doneButton.setHeight(SFDimension(value: 48))
             middleView.clipBottom(to: .top, of: doneButton)
-            middleView.set(height: SFDimension(value: 200))
+            middleView.setHeight(SFDimension(value: 200))
         }
         
     }

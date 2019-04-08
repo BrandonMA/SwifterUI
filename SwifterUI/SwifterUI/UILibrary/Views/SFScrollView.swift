@@ -83,11 +83,11 @@ open class SFScrollView: UIScrollView, SFViewColorStyle, SFLayoutView {
     open func layoutIfBoundsChanged() {
         
         if scrollsHorizontally == false {
-            contentView.set(width: SFDimension(type: .fraction, value: 1))
+            contentView.setWidth(SFDimension(type: .fraction, value: 1))
         }
         
         if scrollVertically == false {
-            contentView.set(height: SFDimension(type: .fraction, value: 1))
+            contentView.setHeight(SFDimension(type: .fraction, value: 1))
         }
     }
     

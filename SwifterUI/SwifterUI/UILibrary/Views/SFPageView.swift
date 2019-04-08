@@ -46,7 +46,7 @@ open class SFPageView: SFScrollView {
         views.append(view)
         view.translatesAutoresizingMaskIntoConstraints = false
         viewsStackView.addArrangedSubview(view)
-        view.set(width: SFDimension(type: .fraction, value: 1), comparedTo: self)
+        view.setWidth(SFDimension(type: .fraction, value: 1), comparedTo: self)
     }
     
     public final func add(views: [UIView]) {

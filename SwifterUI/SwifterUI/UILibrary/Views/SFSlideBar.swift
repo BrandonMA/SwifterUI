@@ -45,13 +45,13 @@ open class SFSlideBar: SFView {
     open override func setConstraints() {
         dismissButton.clipCenterY(to: .centerY, margin: 2)
         dismissButton.clipLeft(to: .left, margin: 12)
-        dismissButton.set(width: SFDimension(value: 32))
-        dismissButton.set(height: SFDimension(value: 32))
+        dismissButton.setWidth(SFDimension(value: 32))
+        dismissButton.setHeight(SFDimension(value: 32))
         titleLabel.center()
         
         rightButton.clipCenterY(to: .centerY)
         rightButton.clipRight(to: .right, margin: 16)
-        rightButton.set(height: SFDimension(value: 32))
+        rightButton.setHeight(SFDimension(value: 32))
         rightButton.clipLeft(to: .right, of: titleLabel)
         
         super.setConstraints()
@@ -65,7 +65,7 @@ open class SFSlideBar: SFView {
     open override func updateConstraints() {
         
         if customConstraints.isEmpty {
-            customConstraints.append(set(height: SFDimension(value: 44)))
+            customConstraints.append(setHeight(SFDimension(value: 44)))
         }
         
         super.updateConstraints()

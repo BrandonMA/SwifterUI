@@ -48,13 +48,13 @@ open class SFProfileImageView: SFView {
     open override func setConstraints() {
         imageView.clipTop(to: .top)
         imageView.clipCenterX(to: .centerX)
-        imageView.set(width: SFDimension(value: 128))
-        imageView.set(height: SFDimension(value: 128))
+        imageView.setWidth(SFDimension(value: 128))
+        imageView.setHeight(SFDimension(value: 128))
         
         closeButton.clipCenterX(to: .centerX)
         closeButton.clipCenterY(to: .bottom, of: imageView)
-        closeButton.set(width: SFDimension(value: 44))
-        closeButton.set(height: SFDimension(value: 44))
+        closeButton.setWidth(SFDimension(value: 44))
+        closeButton.setHeight(SFDimension(value: 44))
         
         clipRight(to: .right, of: imageView)
         clipBottom(to: .bottom, of: closeButton)

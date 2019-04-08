@@ -118,8 +118,8 @@ public final class SFTableViewChatCell: SFTableViewCell {
     
     public override func setConstraints() {
         
-        userImageView.set(height: SFDimension(value: 32))
-        userImageView.set(width: SFDimension(value: 32))
+        userImageView.setHeight(SFDimension(value: 32))
+        userImageView.setWidth(SFDimension(value: 32))
         userImageView.clipTop(to: .top, margin: 8)
         
         timeLabel.clipCenterY(to: .centerY, of: userImageView)
@@ -149,9 +149,9 @@ public final class SFTableViewChatCell: SFTableViewCell {
         timeLabel.removeConstraint(type: .right)
         
         if messageImageView.image != nil {
-            bubbleView.set(width: SFDimension(value: width))
+            bubbleView.setWidth(SFDimension(value: width))
         } else {
-            bubbleView.set(width: SFDimension(value: width + 17))
+            bubbleView.setWidth(SFDimension(value: width + 17))
         }
         
         if isMine {

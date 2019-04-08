@@ -59,8 +59,8 @@ open class SFTableViewCell: UITableViewCell, SFViewColorStyle, SFLayoutView {
     
     open func setConstraints() {
         rightImageView.clipCenterY(to: .centerY)
-        rightImageView.set(width: SFDimension(value: 16))
-        rightImageView.set(height: SFDimension(value: 16))
+        rightImageView.setWidth(SFDimension(value: 16))
+        rightImageView.setHeight(SFDimension(value: 16))
         rightImageView.clipRight(to: .right, margin: 8)
     }
     

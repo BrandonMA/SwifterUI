@@ -66,17 +66,17 @@ open class SFChatBar: SFView {
     open override func setConstraints() {
         
         contentView.clipSides(exclude: [.top], margin: UIEdgeInsets(top: 0, left: 12, bottom: 12, right: 12))
-        contentView.set(height: SFDimension(value: 49))
+        contentView.setHeight(SFDimension(value: 49))
         
-        sendButton.set(width: SFDimension(value: 28))
-        sendButton.set(height: SFDimension(value: 28))
+        sendButton.setWidth(SFDimension(value: 28))
+        sendButton.setHeight(SFDimension(value: 28))
         sendButton.clipCenterY(to: .centerY)
         sendButton.clipRight(to: .right, margin: -28, useSafeArea: false)
         
         fileButton.clipCenterY(to: .centerY)
         fileButton.clipLeft(to: .left, margin: 8, useSafeArea: false)
-        fileButton.set(width: SFDimension(value: 28))
-        fileButton.set(height: SFDimension(value: 28))
+        fileButton.setWidth(SFDimension(value: 28))
+        fileButton.setHeight(SFDimension(value: 28))
         
         textView.clipSides(exclude: [.right, .left],
                            margin: UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 0),

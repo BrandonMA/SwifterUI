@@ -112,11 +112,11 @@ open class SFConversationView: SFView {
     
     open override func setConstraints() {
         stackView.clipSides(margin: UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8))
-        profileImageView.set(width: SFDimension(value: 56))
-        notificationIndicator.set(width: SFDimension(value: 24))
-        notificationIndicator.set(height: SFDimension(value: 24))
-        rightImageView.set(width: SFDimension(value: 8.80))
-        rightImageView.set(height: SFDimension(value: 16))
+        profileImageView.setWidth(SFDimension(value: 56))
+        notificationIndicator.setWidth(SFDimension(value: 24))
+        notificationIndicator.setHeight(SFDimension(value: 24))
+        rightImageView.setWidth(SFDimension(value: 8.80))
+        rightImageView.setHeight(SFDimension(value: 16))
         super.setConstraints()
     }
     

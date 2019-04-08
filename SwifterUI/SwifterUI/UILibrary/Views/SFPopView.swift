@@ -68,9 +68,9 @@ open class SFPopView: SFView {
         contentView.removeConstraint(type: .width)
         
         if useCompactInterface {
-            contentView.set(width: SFDimension(type: .fraction, value: 11/12))
+            contentView.setWidth(SFDimension(type: .fraction, value: 11/12))
         } else {
-            contentView.set(width: SFDimension(type: .fraction, value: 1/2))
+            contentView.setWidth(SFDimension(type: .fraction, value: 1/2))
         }
         
         super.updateConstraints()

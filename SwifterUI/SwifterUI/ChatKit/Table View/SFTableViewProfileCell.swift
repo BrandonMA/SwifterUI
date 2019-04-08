@@ -67,7 +67,7 @@ open class SFTableViewContactCell: SFTableViewCell {
     
     open override func setConstraints() {
         stackView.clipSides(margin: UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16))
-        profileImageView.set(width: SFDimension(value: 36))
+        profileImageView.setWidth(SFDimension(value: 36))
         super.setConstraints()
     }
     

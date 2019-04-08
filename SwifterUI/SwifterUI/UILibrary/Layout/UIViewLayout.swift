@@ -117,7 +117,7 @@ public extension UIView {
     // MARK: - Sizing
     
     @discardableResult
-    final func set(height: SFDimension? = nil,
+    final func setHeight(_ height: SFDimension? = nil,
                              comparedTo view: UIView? = nil,
                              relation: ConstraintRelation = .equal,
                              margin: CGFloat = 0.0) -> Constraint {
@@ -141,7 +141,7 @@ public extension UIView {
     }
     
     @discardableResult
-    final func set(width: SFDimension? = nil,
+    final func setWidth(_ width: SFDimension? = nil,
                             comparedTo view: UIView? = nil,
                             relation: ConstraintRelation = .equal,
                             margin: CGFloat = 0.0) -> Constraint {

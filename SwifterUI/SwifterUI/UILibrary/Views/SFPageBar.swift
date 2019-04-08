@@ -93,11 +93,11 @@ open class SFPageBar: SFScrollView {
     
     open override func setConstraints() {
         buttonStackView.clipSides(margin: UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16))
-        scrollIndicator.set(height: SFDimension(value: 2))
+        scrollIndicator.setHeight(SFDimension(value: 2))
         scrollIndicator.clipBottom(to: .bottom, of: contentView)
         contentView.clipBottom(to: .bottom, of: buttonStackView)
         if !useAdaptingWidth {
-            contentView.set(width: SFDimension(type: .fraction, value: 1))
+            contentView.setWidth(SFDimension(type: .fraction, value: 1))
         }
         super.setConstraints()
     }
@@ -143,7 +143,7 @@ open class SFPageBar: SFScrollView {
         
         self.scrollIndicator.removeConstraint(type: .width)
         self.scrollIndicator.removeConstraint(type: .left)
-        self.scrollIndicator.set(width: SFDimension(type: .fraction, value: 1), comparedTo: self.buttons[self.selectedIndex])
+        self.scrollIndicator.setWidth(SFDimension(type: .fraction, value: 1), comparedTo: self.buttons[self.selectedIndex])
         self.scrollIndicator.clipLeft(to: .left, of: self.buttons[self.selectedIndex])
     }
     

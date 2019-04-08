@@ -66,11 +66,11 @@ open class SFSignUpView: SFView {
     
     open override func setConstraints() {
         contentStack.clipSides()
-        nameTextField.set(height: SFDimension(value: 40))
-        lastNameTextField.set(height: SFDimension(value: 40))
-        mailTextField.set(height: SFDimension(value: 40))
-        passwordTextField.set(height: SFDimension(value: 40))
-        signUpButton.set(height: SFDimension(value: 52))
+        nameTextField.setHeight(SFDimension(value: 40))
+        lastNameTextField.setHeight(SFDimension(value: 40))
+        mailTextField.setHeight(SFDimension(value: 40))
+        passwordTextField.setHeight(SFDimension(value: 40))
+        signUpButton.setHeight(SFDimension(value: 52))
         super.setConstraints()
     }
 }

@@ -38,7 +38,7 @@ open class SFPageSectionsViewController: SFPageViewController {
     
     open override func viewWillSetConstraints() {
         pageBar.clipSides(exclude: [.bottom])
-        pageBar.set(height: SFDimension(value: 44))
+        pageBar.setHeight(SFDimension(value: 44))
         pageView.clipTop(to: .bottom, of: pageBar)
         pageView.clipSides(exclude: [.top])
         super.viewWillSetConstraints()
